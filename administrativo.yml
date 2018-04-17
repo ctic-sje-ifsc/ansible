@@ -2,7 +2,7 @@
 - name: Programas administrativos
   hosts: administrativos
   ignore_errors: true
-  meta: clear_host_errors
+  max_fail_percentage: 0
   
   roles:
     - programas_padroes
