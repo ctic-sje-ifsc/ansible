@@ -2,9 +2,9 @@
 - name: Programas administrativos
   hosts: administrativos
   ignore_errors: true
-  any_errors_fatal: true
   gather_facts: false
-  
+
+
   roles:
     - programas_padroes
 
