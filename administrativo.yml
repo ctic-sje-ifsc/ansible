@@ -3,7 +3,6 @@
   hosts: administrativos
   ignore_errors: true
   any_errors_fatal: true
-  failed_when: false
   gather_facts: false
   
   roles:
