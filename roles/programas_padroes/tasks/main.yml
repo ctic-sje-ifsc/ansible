@@ -20,3 +20,5 @@
     - chromium  
     - chromium-l10n 
     - browser-plugin-freshplayer-pepperflash
+
+- meta: clear_host_errors
