@@ -6,5 +6,5 @@
   roles:
     - programas_padroes
     
-- meta: clear_host_errors
+  - meta: clear_host_errors
 
