@@ -1,4 +1,0 @@
----
-- hosts: administrativos
-  roles:
-    - programas_padroes
