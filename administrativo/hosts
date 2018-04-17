@@ -1,0 +1,10 @@
+[comaf]
+sj-lin-comaf-250fhp6.maquinas.sj.ifsc.edu.br
+
+[depe]
+sj-lin-geden-38299.maquinas.sj.ifsc.edu.br
+sj-lin-depe-38092.maquinas.sj.ifsc.edu.br
+
+[administrativos:children]
+depe
+comaf
