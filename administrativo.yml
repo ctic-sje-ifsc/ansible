@@ -3,7 +3,8 @@
   hosts: administrativos
   ignore_errors: true
   gather_facts: false
-
+  tasks:
+    - meta: clear_host_errors
 
   roles:
     - programas_padroes
