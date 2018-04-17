@@ -1,7 +1,8 @@
 ---
 - name: Programas administrativos
   hosts: administrativos
-  ignore_errors: True 
+  ignore_errors: true
+  meta: clear_host_errors
   
   roles:
     - programas_padroes
