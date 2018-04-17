@@ -1,5 +1,6 @@
 ---
 - name: Programas administrativos
   hosts: administrativos
+  
   roles:
     - programas_padroes
