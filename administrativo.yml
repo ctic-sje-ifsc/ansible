@@ -16,5 +16,5 @@
 
   roles:
     - programas_padroes
-    - ntp
+    - grycap.ntp
       ntp_config_server: [2.ubuntu.pool.ntp.org, 1.ubuntu.pool.ntp.org]
