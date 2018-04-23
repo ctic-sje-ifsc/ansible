@@ -13,4 +13,4 @@
       systemd_service_Service_Restart: on-abort  
 
 - name: Garantir o serviço rodando
-  systemd: state=started name=x11vnc enabled: yes
+  systemd: state=started name=x11vnc enabled=yes
