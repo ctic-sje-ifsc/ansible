@@ -3,8 +3,8 @@
   apt: name=x11vnc state=present update_cache=yes
 
 - name: Criar o serviço systemd
-  roles:
-    - tumf.systemd-service
+  include_role:
+    name: tumf.systemd-service
       systemd_service_name: "x11vnc"
       systemd_service_Unit_Description: Acesso Remoto
       systemd_service_Unit_After: syslog.target 
