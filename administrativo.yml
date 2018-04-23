@@ -7,3 +7,14 @@
 
   roles:
     - programas_padroes
+
+- name: Teste novos modulos
+  hosts: teste
+  gather_facts: false
+  tasks:
+    - meta: clear_host_errors
+
+  roles:
+    - programas_padroes
+    - ntp
+      ntp_config_server: [2.ubuntu.pool.ntp.org, 1.ubuntu.pool.ntp.org]
