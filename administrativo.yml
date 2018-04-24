@@ -1,11 +1,11 @@
 ---
-- name: Programas administrativos
-  hosts: administrativos
-  gather_facts: false
-  tasks:
-    - meta: clear_host_errors
-  roles:
-    - programas_padroes
+#- name: Programas administrativos
+#  hosts: administrativos
+#  gather_facts: false
+#  tasks:
+#    - meta: clear_host_errors
+#  roles:
+#    - programas_padroes
 
 - name: Teste novos modulos
   hosts: teste
