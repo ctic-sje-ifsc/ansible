@@ -4,7 +4,7 @@
 
 - name: Criar o serviço systemd
   roles:
-    - role: tumf.systemd-service
+    - tumf.systemd-service
 
 - name: Garantir o serviço rodando
   systemd: state=started name=x11vnc enabled=yes
