@@ -6,7 +6,6 @@
   roles:
     - role: tumf.systemd-service
       systemd_service_name: "x11vnc"
-      systemd_service_name: x11vnc
       systemd_service_Unit_Description: Acesso Remoto
       systemd_service_Unit_After: syslog.target 
       systemd_service_Service_PIDFile: /var/run/x11vnc.pid 
