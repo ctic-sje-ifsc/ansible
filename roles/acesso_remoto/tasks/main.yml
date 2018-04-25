@@ -1,17 +1,11 @@
 ---
-- name: Instalar o pacote necessario
-  apt: name=x11vnc state=present update_cache=yes
+- name: Instalando o pacote necessario
+  apt: name=x11vnc state=latest
   
-- name: Copiando o script do servico
+- name: Copiando o script para o profile
   copy:
-    src: x11vnc
-    dest: /etc/init.d/x11vnc
+    src: x11vnc.sh
+    dest: /etc/profile.d/x11vnc.sh
     owner: root
     group: root
-    mode: 0755
-
-- name: Garantir o serviço rodando
-  service:
-    name: x11vnc
-    state: started
-    enable: yes
+    mode: 0644
