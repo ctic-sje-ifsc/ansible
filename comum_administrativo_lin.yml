@@ -1,0 +1,7 @@
+---
+- hosts: administrativos
+  gather_facts: false
+  tasks:
+    - meta: clear_host_errors
+  roles:
+    - programas_padroes
