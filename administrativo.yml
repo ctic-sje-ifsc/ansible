@@ -1,4 +1,10 @@
 ---
+- hosts: all
+  gather_facts: false
+  tasks:
+    - name: update apt cache
+      apt: update_cache=yes cache_valid_time=86400
+
 #- name: Programas administrativos
 #  hosts: administrativos
 #  gather_facts: false
@@ -9,6 +15,7 @@
 
 - name: Teste novos modulos
   hosts: teste
+  gather_facts: false
   tasks:
     - meta: clear_host_errors
   roles:
