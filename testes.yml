@@ -4,6 +4,7 @@
     - meta: clear_host_errors
   roles:
     - acesso_remoto
+    - banco_brasil
 
     - role: grycap.ntp
       ntp_config_server: [pool.ntp.br, ntp.cais.rnp.br, ntp.ufsc.br]
