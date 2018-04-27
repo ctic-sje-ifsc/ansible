@@ -29,3 +29,5 @@
       grub_default: '1'
       grub_timeout_hardware: 20
       grub_timeout_virtual: 20
+  tasks:
+    - meta: clear_host_errors
