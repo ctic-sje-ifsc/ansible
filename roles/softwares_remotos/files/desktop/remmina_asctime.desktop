@@ -1,0 +1,11 @@
+#Este arquivo eh gerado automaticamente pelo Puppet, nao adianta editar.
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=AscTimeTables Remoto
+Comment=AscTimeTables slade
+Exec=/usr/bin/remmina -c /var/asc.remmina
+Icon=/var/asctime_icon.jpeg
+Terminal=false
+Type=Application
+Categories=Development
