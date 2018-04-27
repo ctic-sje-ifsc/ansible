@@ -4,6 +4,7 @@
     - meta: clear_host_errors
   roles:
     - acesso_remoto
+    - programas_padroes
     #- banco_brasil
 
     - role: geerlingguy.ntp
