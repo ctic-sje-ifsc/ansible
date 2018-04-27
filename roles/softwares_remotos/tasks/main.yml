@@ -27,7 +27,7 @@
     owner: root
     group: root
     mode: 0777
-  with_items: "{{ apps }}"
+  with_items: "{{apps}}"
 
 - name: Copiando os arquivos desktop
   copy:
@@ -36,7 +36,7 @@
     owner: root
     group: root
     mode: 0777
-  with_items: "{{ apps }}"
+  with_items: "{{apps}}"
 
 # Copiado os icones
 
@@ -47,7 +47,7 @@
     owner: root
     group: root
     mode: 644
-  with_items: "{{ apps }}"
+  with_items: "{{apps}}"
 
 - name: Copiando os icones ico
   copy:
@@ -56,7 +56,7 @@
     owner: root
     group: root
     mode: 644
-  with_items: "{{ apps }}"
+  with_items: "{{apps}}"
 
 - name: Copiando os icones png
   copy:
@@ -65,4 +65,4 @@
     owner: root
     group: root
     mode: 644
-  with_items: "{{ apps }}"
+  with_items: "{{apps}}"
