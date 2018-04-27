@@ -4,6 +4,7 @@
   tasks:
     - name: update apt cache
       apt: update_cache=yes cache_valid_time=86400
+    - meta: clear_host_errors
 
 - include: comum_administrativo_lin.yml 
 - include: testes.yml 
