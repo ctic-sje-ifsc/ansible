@@ -23,7 +23,7 @@
 - name: Copiando os arquivos remmina
   copy:
     src: remmina/{{ item }}.remmina
-    dest: /var/softwares_remotos/{{  }}.remmina
+    dest: /var/softwares_remotos/{{ item }}.remmina
     owner: root
     group: root
     mode: 0777
@@ -32,7 +32,7 @@
 - name: Copiando os arquivos desktop
   copy:
     src: desktop/{{ item }}.desktop
-    dest: /var/softwares_remotos/{{  }}.desktop
+    dest: /var/softwares_remotos/{{ item }}.desktop
     owner: root
     group: root
     mode: 0777
