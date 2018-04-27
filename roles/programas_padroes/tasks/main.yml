@@ -21,7 +21,7 @@
     - chromium-l10n 
     - browser-plugin-freshplayer-pepperflash
 
-- name: Adicionar a chave apr do repositório do owncloud-client
+- name: Adicionar a chave do repositório do owncloud-client
   apt_key:
     url: https://download.opensuse.org/repositories/isv:ownCloud:desktop/Debian_9.0/Release.key
     state: present
