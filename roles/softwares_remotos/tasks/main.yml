@@ -1,6 +1,18 @@
 ---
-- name: Instalando o remmina, necessario para o modulo
-  apt: name=remmina state=latest
+- name: Adicionar repositório remmina
+  apt_repository:
+    repo: deb http://ftp.debian.org/debian stretch-backports main
+    state: present
+    update_cache: yes
+    
+- name: Instalar pacotes necessarios para o remmina
+  apt: name={{item}} state=latest default_release=stretch-backports
+  with_items:
+    - remmina 
+    - remmina-plugin-rdp
+    - remmina-plugin-secret
+    - libfreerdp-plugins-standard
+
 
 # Cria o diretório softwares_remotos se não existe
 - file:
