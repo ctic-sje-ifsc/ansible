@@ -1,0 +1,56 @@
+---
+- name: Instalando o remmina, necessario para o modulo
+  apt: name=remmina state=latest
+
+# Cria o diretório softwares_remotos se não existe
+- file:
+    path: /var/softwares_remotos
+    state: directory
+    mode: 0777
+
+- name: Copiando os arquivos remmina
+  copy:
+    src: remmina/{{ item }}.remmina
+    dest: /var/softwares_remotos/{{  }}.remmina
+    owner: root
+    group: root
+    mode: 0777
+  with_items: {{ apps }}
+
+- name: Copiando os arquivos desktop
+  copy:
+    src: desktop/{{ item }}.desktop
+    dest: /var/softwares_remotos/{{  }}.desktop
+    owner: root
+    group: root
+    mode: 0777
+  with_items: {{ apps }}
+
+# Copiado os icones
+
+- name: Copiando os icones jpeg
+  copy:
+    src: icon/{{ item }}_icon.jpeg
+    dest: /var/softwares_remotos/{{ item }}_icon.jpeg
+    owner: root
+    group: root
+    mode: 644
+  with_items: {{ apps }}
+
+- name: Copiando os icones ico
+  copy:
+    src:  icon/{{ item }}_icon.ico
+    dest: /var/softwares_remotos/{{ item }}_icon.ico
+    owner: root
+    group: root
+    mode: 644
+  with_items: {{ apps }}
+
+- name: Copiando os icones png
+  copy:
+    src:  icon/{{ item }}_icon.png
+    dest: /var/softwares_remotos/{{ item }}_icon.png
+    owner: root
+    group: root
+    mode: 644
+  with_items: {{ apps }}

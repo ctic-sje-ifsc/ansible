@@ -3,8 +3,8 @@
   roles:
     - acesso_remoto
     - programas_padroes
-    #- banco_brasil
-
+    - softwares_remotos
+    
     - role: geerlingguy.ntp
       ntp_timezone: America/Sao_Paulo
       ntp_manage_config: true
