@@ -1,6 +1,6 @@
 ---
-- name: instalar pacotes padroes
-  apt: name={{item}} state=present
+- name: Instalar pacotes padroes
+  apt: name={{item}} state=latest
   with_items:
     - aptitude 
     - vim 
@@ -20,3 +20,14 @@
     - chromium  
     - chromium-l10n 
     - browser-plugin-freshplayer-pepperflash
+
+- name: Adicionar repositório owncloud
+  apt_repository:
+    repo: deb http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/Debian_9.0/ /
+    state: present
+    update_cache: yes
+    
+- name: Instalar o Owncloud Client
+  apt:
+    name: owncloud-client
+    state: latest
