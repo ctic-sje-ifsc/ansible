@@ -4,6 +4,7 @@
     - acesso_remoto
     - programas_padroes
     - softwares_remotos
+      apps: [asctime, sapafadulto, ibsispes, sapafjovem, isaacdesktop, sisaca, pontosecullum, sophiaslade, sam]
     
     - role: geerlingguy.ntp
       ntp_timezone: America/Sao_Paulo
