@@ -32,7 +32,7 @@
 - name: Copiando os arquivos desktop
   copy:
     src: desktop/{{ item }}.desktop
-    dest: /var/softwares_remotos/{{ item }}.desktop
+    dest: /usr/share/applications/{{ item }}.desktop
     owner: root
     group: root
     mode: 0777
