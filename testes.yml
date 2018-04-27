@@ -1,7 +1,5 @@
 ---
 - hosts: teste
-  tasks:
-    - meta: clear_host_errors
   roles:
     - acesso_remoto
     - programas_padroes
