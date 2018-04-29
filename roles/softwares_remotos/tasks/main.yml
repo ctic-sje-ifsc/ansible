@@ -42,27 +42,5 @@
 
 - name: Copiando os icones jpeg
   copy:
-    src: icon/{{ item }}_icon.jpeg
-    dest: /var/softwares_remotos/{{ item }}_icon.jpeg
-    owner: root
-    group: root
-    mode: 644
-  with_items: "{{apps}}"
-
-- name: Copiando os icones ico
-  copy:
-    src:  icon/{{ item }}_icon.ico
-    dest: /var/softwares_remotos/{{ item }}_icon.ico
-    owner: root
-    group: root
-    mode: 644
-  with_items: "{{apps}}"
-
-- name: Copiando os icones png
-  copy:
-    src:  icon/{{ item }}_icon.png
-    dest: /var/softwares_remotos/{{ item }}_icon.png
-    owner: root
-    group: root
-    mode: 644
-  with_items: "{{apps}}"
+    src: icon/
+    dest: /var/softwares_remotos/
