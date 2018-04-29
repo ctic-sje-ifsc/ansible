@@ -31,8 +31,8 @@
 
 - name: Copiando os arquivos desktop
   copy:
-    src: desktop/{{ item }}.desktop
-    dest: /usr/share/applications/{{ item }}.desktop
+    src: desktop/remmina_{{ item }}.desktop
+    dest: /usr/share/applications/remmina_{{ item }}.desktop
     owner: root
     group: root
     mode: 0777
