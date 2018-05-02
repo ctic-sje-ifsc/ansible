@@ -10,4 +10,5 @@ Categories=Application;Utility;
 Exec=/usr/bin/remmina -c /var/softwares_remotos/sophiaslade.remmina
 Terminal=false
 StartupNotify=true
-Icon=/opt/sphbib/sophia.ico
+Icon=/var/softwares_remotos/sophiaslade_icon.png
+  
