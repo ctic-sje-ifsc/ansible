@@ -14,10 +14,10 @@
     mode: 0644
   when: ansible_os_family == 'Debian'
 
-- name: Criando o arquivo foxit.desktop
+- name: Copiando os arquivos da instalação do Foxit
   copy:
     src: foxitsoftware
-    dest: /opt/foxitsoftware/
+    dest: /opt/foxitsoftware
     owner: root
     group: root
     mode: 1775
