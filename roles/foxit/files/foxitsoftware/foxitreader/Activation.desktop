@@ -1,0 +1,17 @@
+[Desktop Entry]
+Name=Activation
+Comment=View pdf documents
+Keywords=pdf;
+StartupNotify=true
+Terminal=false
+Type=Application
+#Icon=FoxitReader
+X-GNOME-DocPath=
+X-GNOME-Bugzilla-Bugzilla=GNOME
+X-GNOME-Bugzilla-Product=FoxitReader
+X-GNOME-Bugzilla-Component=BugBuddyBugs
+X-GNOME-Bugzilla-Version=3.14.1
+Categories=GNOME;Viewer;Graphics;2DGraphics;VectorGraphics;
+MimeType=application/pdf
+Exec=/opt/foxitsoftware/foxitreader/Activation.sh %F
+Icon=/opt/foxitsoftware/foxitreader/images/FoxitActivate.png
