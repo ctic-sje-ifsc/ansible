@@ -1,0 +1,24 @@
+---
+- name: Instalar o Foxit (Windows)
+  win_chocolatey:
+    name: foxit
+    state: latest
+  when: ansible_os_family == 'Windows'
+    
+- name: Criando o arquivo foxit.desktop
+  copy:
+    src: foxit.desktop
+    dest: /usr/share/applications/foxit.desktop
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
+- name: Criando o arquivo foxit.desktop
+  copy:
+    src: foxitsoftware
+    dest: /opt/foxitsoftware/
+    owner: root
+    group: root
+    mode: 1775
+  when: ansible_os_family == 'Debian'
