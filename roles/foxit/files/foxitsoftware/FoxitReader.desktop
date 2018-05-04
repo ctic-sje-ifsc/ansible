@@ -8,4 +8,4 @@ Type=Application
 Categories=Application;Office;Viewer;X-Red-Hat-Base;
 MimeType=application/pdf;application/octet-stream;
 Icon=FoxitReader
-Exec=/foxitsoftware/foxitreader2/FoxitReader.sh %F
+Exec=/opt/foxitsoftware/FoxitReader.sh %F

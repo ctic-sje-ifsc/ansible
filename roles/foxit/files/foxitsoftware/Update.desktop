@@ -13,5 +13,5 @@ X-GNOME-Bugzilla-Component=BugBuddyBugs
 X-GNOME-Bugzilla-Version=3.14.1
 Categories=GNOME;Viewer;Graphics;2DGraphics;VectorGraphics;
 MimeType=application/pdf
-Exec=/foxitsoftware/foxitreader2/updater.sh
-Icon=/foxitsoftware/foxitreader2/images/FoxitUpdate.png
+Exec=/opt/foxitsoftware/updater.sh
+Icon=/opt/foxitsoftware/images/FoxitUpdate.png

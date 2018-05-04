@@ -8,7 +8,7 @@
         <Description>Can be used as reference on how to build installer independent of predefined installer pages.</Description>
         <Version>1.1.0</Version>
         <LastUpdateDate></LastUpdateDate>
-        <InstallDate>2018-05-03</InstallDate>
+        <InstallDate>2018-05-04</InstallDate>
         <Size>267524120</Size>
         <Dependencies></Dependencies>
         <ForcedInstallation>true</ForcedInstallation>

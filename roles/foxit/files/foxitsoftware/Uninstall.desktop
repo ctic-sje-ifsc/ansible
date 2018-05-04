@@ -13,5 +13,5 @@ X-GNOME-Bugzilla-Component=BugBuddyBugs
 X-GNOME-Bugzilla-Version=3.14.1
 Categories=GNOME;Viewer;Graphics;2DGraphics;VectorGraphics;
 MimeType=application/pdf
-Exec=/foxitsoftware/foxitreader2/maintenancetool.sh %F
-Icon=/foxitsoftware/foxitreader2/images/FoxitUninstall.png
+Exec=/opt/foxitsoftware/maintenancetool.sh %F
+Icon=/opt/foxitsoftware/images/FoxitUninstall.png
