@@ -1,0 +1,160 @@
+************************************* Invoked: qui mai 3 19:37:44 2018
+[0] Arguments:  ./FoxitReader.enu.setup.2.4.1.0609(r08f07f8).x64.run
+[0] Operations sanity check succeeded.
+[134] Loaded control script ":/metadata/installer-config/control_qs.qs"
+[134] Using control script: ":/metadata/installer-config/control_qs.qs"
+[138] SHOW FINISHED PAGE
+[187] Control script callback "DynamicTargetWidgetCallback" does not exist.
+[13461] Control script callback "DynamicLicenseWidgetCallback" does not exist.
+[15357] Control script callback "PerformInstallationPageCallback" does not exist.
+[15388] perform  operation: Mkdir
+[15388] \t- arguments: /foxitsoftware
+[15400] Done
+[15401] backup  operation: Mkdir
+[15401] \t- arguments: /foxitsoftware/foxitreader2
+[15401] Done
+[15401] perform  operation: Mkdir
+[15401] \t- arguments: /foxitsoftware/foxitreader2
+[15401] Done
+[15401] Install size: 1 components
+[15437] backup Install Foxit Reader operation: Execute
+[15437] \t- arguments: rm, -rf, /foxitsoftware/foxitreader2/lib, UNDOEXECUTE
+[15437] Done
+[15439] perform Install Foxit Reader operation: Execute
+[15439] \t- arguments: rm, -rf, /foxitsoftware/foxitreader2/lib, UNDOEXECUTE
+[15440] rm" started, arguments: "-rf /foxitsoftware/foxitreader2/lib
+[15441] Done
+[15441] backup Install Foxit Reader operation: Execute
+[15441] \t- arguments: rm, -rf, /foxitsoftware/foxitreader2/fxplugins, UNDOEXECUTE
+[15441] Done
+[15442] perform Install Foxit Reader operation: Execute
+[15442] \t- arguments: rm, -rf, /foxitsoftware/foxitreader2/fxplugins, UNDOEXECUTE
+[15442] rm" started, arguments: "-rf /foxitsoftware/foxitreader2/fxplugins
+[15444] Done
+[15444] backup Install Foxit Reader operation: Execute
+[15444] \t- arguments: rm, -rf, /foxitsoftware/foxitreader2/javascripts, UNDOEXECUTE
+[15444] Done
+[15444] perform Install Foxit Reader operation: Execute
+[15444] \t- arguments: rm, -rf, /foxitsoftware/foxitreader2/javascripts, UNDOEXECUTE
+[15445] rm" started, arguments: "-rf /foxitsoftware/foxitreader2/javascripts
+[15446] Done
+[15447] backup Install Foxit Reader operation: Extract
+[15447] \t- arguments: installer://Install Foxit Reader/1.1.0content.7z, /foxitsoftware/foxitreader2
+[15447] Done
+[15447] perform Install Foxit Reader operation: Extract
+[15447] \t- arguments: installer://Install Foxit Reader/1.1.0content.7z, /foxitsoftware/foxitreader2
+[17453] Done
+[17453] backup Install Foxit Reader operation: Extract
+[17453] \t- arguments: installer://Install Foxit Reader/1.1.0fxplugins.7z, /foxitsoftware/foxitreader2
+[17453] Done
+[17453] perform Install Foxit Reader operation: Extract
+[17453] \t- arguments: installer://Install Foxit Reader/1.1.0fxplugins.7z, /foxitsoftware/foxitreader2
+[17763] Done
+[17763] backup Install Foxit Reader operation: Extract
+[17763] \t- arguments: installer://Install Foxit Reader/1.1.0imageformats.7z, /foxitsoftware/foxitreader2
+[17763] Done
+[17763] perform Install Foxit Reader operation: Extract
+[17763] \t- arguments: installer://Install Foxit Reader/1.1.0imageformats.7z, /foxitsoftware/foxitreader2
+[17773] Done
+[17773] backup Install Foxit Reader operation: Extract
+[17773] \t- arguments: installer://Install Foxit Reader/1.1.0images.7z, /foxitsoftware/foxitreader2
+[17773] Done
+[17773] perform Install Foxit Reader operation: Extract
+[17773] \t- arguments: installer://Install Foxit Reader/1.1.0images.7z, /foxitsoftware/foxitreader2
+[17780] Done
+[17781] backup Install Foxit Reader operation: Extract
+[17781] \t- arguments: installer://Install Foxit Reader/1.1.0lang.7z, /foxitsoftware/foxitreader2
+[17781] Done
+[17781] perform Install Foxit Reader operation: Extract
+[17781] \t- arguments: installer://Install Foxit Reader/1.1.0lang.7z, /foxitsoftware/foxitreader2
+[17795] Done
+[17795] backup Install Foxit Reader operation: Extract
+[17795] \t- arguments: installer://Install Foxit Reader/1.1.0lib.7z, /foxitsoftware/foxitreader2
+[17795] Done
+[17796] perform Install Foxit Reader operation: Extract
+[17796] \t- arguments: installer://Install Foxit Reader/1.1.0lib.7z, /foxitsoftware/foxitreader2
+[20572] Done
+[20572] backup Install Foxit Reader operation: Extract
+[20572] \t- arguments: installer://Install Foxit Reader/1.1.0platforminputcontexts.7z, /foxitsoftware/foxitreader2
+[20572] Done
+[20573] perform Install Foxit Reader operation: Extract
+[20573] \t- arguments: installer://Install Foxit Reader/1.1.0platforminputcontexts.7z, /foxitsoftware/foxitreader2
+[20582] Done
+[20582] backup Install Foxit Reader operation: Extract
+[20582] \t- arguments: installer://Install Foxit Reader/1.1.0platforms.7z, /foxitsoftware/foxitreader2
+[20582] Done
+[20582] perform Install Foxit Reader operation: Extract
+[20582] \t- arguments: installer://Install Foxit Reader/1.1.0platforms.7z, /foxitsoftware/foxitreader2
+[20626] Done
+[20626] backup Install Foxit Reader operation: Extract
+[20626] \t- arguments: installer://Install Foxit Reader/1.1.0platformthemes.7z, /foxitsoftware/foxitreader2
+[20626] Done
+[20626] perform Install Foxit Reader operation: Extract
+[20626] \t- arguments: installer://Install Foxit Reader/1.1.0platformthemes.7z, /foxitsoftware/foxitreader2
+[20634] Done
+[20634] backup Install Foxit Reader operation: Extract
+[20634] \t- arguments: installer://Install Foxit Reader/1.1.0printsupport.7z, /foxitsoftware/foxitreader2
+[20634] Done
+[20634] perform Install Foxit Reader operation: Extract
+[20634] \t- arguments: installer://Install Foxit Reader/1.1.0printsupport.7z, /foxitsoftware/foxitreader2
+[20664] Done
+[20664] backup Install Foxit Reader operation: Extract
+[20664] \t- arguments: installer://Install Foxit Reader/1.1.0rmssdk.7z, /foxitsoftware/foxitreader2
+[20664] Done
+[20664] perform Install Foxit Reader operation: Extract
+[20664] \t- arguments: installer://Install Foxit Reader/1.1.0rmssdk.7z, /foxitsoftware/foxitreader2
+[20722] Done
+[20722] backup Install Foxit Reader operation: Extract
+[20722] \t- arguments: installer://Install Foxit Reader/1.1.0run.7z, /foxitsoftware/foxitreader2
+[20722] Done
+[20722] perform Install Foxit Reader operation: Extract
+[20722] \t- arguments: installer://Install Foxit Reader/1.1.0run.7z, /foxitsoftware/foxitreader2
+[20723] Done
+[20724] backup Install Foxit Reader operation: Extract
+[20724] \t- arguments: installer://Install Foxit Reader/1.1.0sensors.7z, /foxitsoftware/foxitreader2
+[20724] Done
+[20724] perform Install Foxit Reader operation: Extract
+[20724] \t- arguments: installer://Install Foxit Reader/1.1.0sensors.7z, /foxitsoftware/foxitreader2
+[20732] Done
+[20732] backup Install Foxit Reader operation: Extract
+[20732] \t- arguments: installer://Install Foxit Reader/1.1.0sqldrivers.7z, /foxitsoftware/foxitreader2
+[20732] Done
+[20732] perform Install Foxit Reader operation: Extract
+[20732] \t- arguments: installer://Install Foxit Reader/1.1.0sqldrivers.7z, /foxitsoftware/foxitreader2
+[20765] Done
+[20765] backup Install Foxit Reader operation: Extract
+[20765] \t- arguments: installer://Install Foxit Reader/1.1.0stamps.7z, /foxitsoftware/foxitreader2
+[20765] Done
+[20765] perform Install Foxit Reader operation: Extract
+[20765] \t- arguments: installer://Install Foxit Reader/1.1.0stamps.7z, /foxitsoftware/foxitreader2
+[20875] Done
+[20875] backup Install Foxit Reader operation: Extract
+[20875] \t- arguments: installer://Install Foxit Reader/1.1.0welcome.7z, /foxitsoftware/foxitreader2
+[20875] Done
+[20875] perform Install Foxit Reader operation: Extract
+[20875] \t- arguments: installer://Install Foxit Reader/1.1.0welcome.7z, /foxitsoftware/foxitreader2
+[20886] Done
+[20886] backup Install Foxit Reader operation: Extract
+[20886] \t- arguments: installer://Install Foxit Reader/1.1.0Wrappers.7z, /foxitsoftware/foxitreader2
+[20886] Done
+[20886] perform Install Foxit Reader operation: Extract
+[20886] \t- arguments: installer://Install Foxit Reader/1.1.0Wrappers.7z, /foxitsoftware/foxitreader2
+[20898] Done
+[20898] backup Install Foxit Reader operation: Execute
+[20898] \t- arguments: /foxitsoftware/foxitreader2/ldlibrarypath.sh, UNDOEXECUTE
+[20898] Done
+[20898] perform Install Foxit Reader operation: Execute
+[20898] \t- arguments: /foxitsoftware/foxitreader2/ldlibrarypath.sh, UNDOEXECUTE
+[20899] /foxitsoftware/foxitreader2/ldlibrarypath.sh" started, arguments: "
+[21004] Done
+[21004] backup Install Foxit Reader operation: Execute
+[21004] \t- arguments: rm, -rf, /foxitsoftware/foxitreader2/ldlibrarypath.sh, UNDOEXECUTE
+[21004] Done
+[21004] perform Install Foxit Reader operation: Execute
+[21004] \t- arguments: rm, -rf, /foxitsoftware/foxitreader2/ldlibrarypath.sh, UNDOEXECUTE
+[21005] rm" started, arguments: "-rf /foxitsoftware/foxitreader2/ldlibrarypath.sh
+[21006] Done
+[21008] Writing maintenance tool: "/foxitsoftware/foxitreader2/maintenancetool.new"
+[21124] Wrote permissions for maintenance tool.
+[21202] Maintenance tool restart: false.
+[21204] SHOW FINISHED PAGE

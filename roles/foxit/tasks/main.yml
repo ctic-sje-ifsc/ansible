@@ -21,4 +21,5 @@
     owner: root
     group: root
     mode: 1775
+    directory_mode: yes 
   when: ansible_os_family == 'Debian'
