@@ -14,7 +14,7 @@
     path: /usr/local/IRPF2018
     owner: root
     group: root
-    mode: 1777
+    mode: 777
   when: ansible_os_family == 'Debian'
 
 - name: Criando o arquivo IRPF2018-desktop.desktop
