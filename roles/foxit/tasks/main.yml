@@ -16,8 +16,8 @@
 
 - name: Copiando os arquivos da instalação do Foxit
   copy:
-    src: foxitsoftware/
-    dest: /opt/foxitsoftware/
+    src: foxitsoftware
+    dest: /opt/foxitsoftware
     owner: root
     group: root
     mode: 0755

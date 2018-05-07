@@ -1,0 +1,13 @@
+---
+- name: Copiando as fontes Garamound
+  copy:
+    src: "{{ item }}"
+    dest: /usr/share/fonts/{{ item }}
+    owner: root
+    group: root
+    mode: 0644
+  loop: 
+    - GARA.TTF
+    - GARABD.TTF
+    - GARAIT.TTF
+  when: ansible_os_family == 'Debian'
