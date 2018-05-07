@@ -5,15 +5,9 @@
     state: latest
   when: ansible_os_family == 'Windows'
 
-- name: list contents of directory
+- name: Verificando se o foxit já foi copiadolist contents of directory
   command: ls /opt/foxitsoftware
   register: contents
-
-      - name: check contents for emptiness
-        debug:
-          msg: "Directory is empty"
-
-   
 
 - name: Criando o arquivo foxit.desktop
   copy:
@@ -31,4 +25,5 @@
     owner: root
     group: root
     mode: 0755
-  when: ansible_os_family == 'Debian' and contents.stdout == ""
+    directory_mode: yes 
+  when: ansible_os_family == 'Debian' #and contents.stdout == ""
