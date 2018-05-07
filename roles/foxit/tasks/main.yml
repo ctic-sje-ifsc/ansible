@@ -20,6 +20,5 @@
     dest: /opt/foxitsoftware/
     owner: root
     group: root
-    mode: 1775
-    directory_mode: yes 
+    mode: 0755
   when: ansible_os_family == 'Debian'
