@@ -7,7 +7,7 @@
 
 - name: Verificando se o foxit já foi copiado
   command: ls /opt/foxitsoftware
-  register: contents
+  register: contents_foxit
 
 - name: Criando o arquivo foxit.desktop
   copy:
@@ -26,4 +26,4 @@
     group: root
     mode: 0755
     directory_mode: yes 
-  when: ansible_os_family == 'Debian' and contents.stdout == ""
+  when: ansible_os_family == 'Debian' and contents_foxit.stdout == ""
