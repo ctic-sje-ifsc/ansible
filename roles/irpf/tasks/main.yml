@@ -1,0 +1,20 @@
+---
+- name: Extract foo.tgz into /var/lib/foo
+  unarchive:
+    src: irpf18.tgz
+    dest: /usr/local/
+
+- file:
+    path: /usr/local/IRPF2018
+    owner: root
+    group: root
+    mode: 1777
+
+- name: Criando o arquivo IRPF2018-desktop.desktop
+  copy:
+    src: IRPF2018-desktop.desktop
+    dest: /usr/share/applications/IRPF2018-desktop.desktop
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
