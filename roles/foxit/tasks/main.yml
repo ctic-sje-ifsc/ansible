@@ -5,7 +5,7 @@
     state: latest
   when: ansible_os_family == 'Windows'
 
-- name: Verificando se o foxit já foi copiadolist contents of directory
+- name: Verificando se o foxit já foi copiado
   command: ls /opt/foxitsoftware
   register: contents
 
@@ -26,4 +26,4 @@
     group: root
     mode: 0755
     directory_mode: yes 
-  when: ansible_os_family == 'Debian' #and contents.stdout == ""
+  when: ansible_os_family == 'Debian' and contents.stdout == ""
