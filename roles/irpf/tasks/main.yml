@@ -5,6 +5,10 @@
     dest: /usr/local/
   when: ansible_os_family == 'Debian'
 
+- name: Verificando se o IRPF já foi copiado
+  command: ls /usr/local/IRPF2018
+  register: contents
+
 - name: Definindo as permissões corretas do IRPF
   file:
     path: /usr/local/IRPF2018
@@ -20,4 +24,4 @@
     owner: root
     group: root
     mode: 0644
-  when: ansible_os_family == 'Debian'
+  when: ansible_os_family == 'Debian' and contents.stdout == ""
