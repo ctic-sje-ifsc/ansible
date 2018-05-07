@@ -7,7 +7,7 @@
 
 - name: Verificando se o IRPF já foi copiado
   command: ls /usr/local/IRPF2018
-  register: contents
+  register: contents_irpf
 
 - name: Definindo as permissões corretas do IRPF
   file:
@@ -24,4 +24,4 @@
     owner: root
     group: root
     mode: 0644
-  when: ansible_os_family == 'Debian' and contents.stdout == ""
+  when: ansible_os_family == 'Debian' and contents_irpf.stdout == ""
