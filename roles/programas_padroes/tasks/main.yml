@@ -20,6 +20,9 @@
     - chromium  
     - chromium-l10n 
     - browser-plugin-freshplayer-pepperflash
+    - openjdk-8-jre
+    - icedtea-8-plugin
+
 
 - include_role:
     name: owncloud_client
