@@ -10,6 +10,7 @@
     src: https://discovirtual.ifsc.edu.br/index.php/s/5exGvwLhycd6AKF/download
     dest: /opt/
     creates: /opt/foxitsoftware
+    remote_src: yes
   when: ansible_os_family == 'Debian'
 
 - name: Definindo as permissões corretas do Foxit
