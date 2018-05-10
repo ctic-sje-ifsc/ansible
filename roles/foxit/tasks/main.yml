@@ -5,6 +5,22 @@
     state: latest
   when: ansible_os_family == 'Windows'
 
+- name: Extraindo o foxitsoftware.tgz
+  unarchive:
+    src: https://discovirtual.ifsc.edu.br/index.php/s/5exGvwLhycd6AKF/download
+    dest: /opt/
+    creates: /opt/foxitsoftware
+  when: ansible_os_family == 'Debian'
+
+- name: Definindo as permissões corretas do Foxit
+  file:
+    path: /opt/foxitsoftware
+    owner: root
+    group: root
+    mode: 0755
+    recurse: yes
+  when: ansible_os_family == 'Debian'
+
 - name: Criando o arquivo foxit.desktop
   copy:
     src: foxit.desktop
@@ -12,14 +28,4 @@
     owner: root
     group: root
     mode: 0644
-  when: ansible_os_family == 'Debian'
-
-- name: Copiando os arquivos da instalação do Foxit
-  copy:
-    src: foxitsoftware
-    dest: /opt
-    owner: root
-    group: root
-    mode: 0755
-    directory_mode: yes 
   when: ansible_os_family == 'Debian'
