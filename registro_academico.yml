@@ -1,0 +1,7 @@
+---
+- hosts: reg
+  roles:
+    - role: softwares_remotos
+      apps:
+        - isaacdesktop
+
