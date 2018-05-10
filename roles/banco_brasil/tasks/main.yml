@@ -1,5 +1,0 @@
----
-
-- name: Instalando o diagbb 
-  apt:
-    deb: https://cloud.gastecnologia.com.br/bb/downloads/ws/linux/diagbb-1.0.debian9.amd64.deb

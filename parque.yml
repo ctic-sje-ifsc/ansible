@@ -7,6 +7,7 @@
 
 - include: comum_administrativo_lin.yml 
 - include: testes.yml 
+- include: registro_academico.yml
 
 - hosts: all
   gather_facts: false
