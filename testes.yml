@@ -1,6 +1,5 @@
 ---
 - hosts: teste
-  pipelining: True
   roles:
     - acesso_remoto
     - programas_padroes
