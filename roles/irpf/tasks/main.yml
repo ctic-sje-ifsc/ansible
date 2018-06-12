@@ -26,3 +26,10 @@
   when: ansible_os_family == 'Debian'
 
 #Windows
+
+- name: Instala o IRPF 2018 v1.5 - Windows
+  win_package:
+    path: http://downloadirpf.receita.fazenda.gov.br/irpf/2018/irpf/arquivos/IRPF2018Win32v1.5.exe
+    arguments: /mode silent
+  when: ansible_os_family == 'Windows'
+
