@@ -1,10 +1,15 @@
 ---
+#Linux
+
+# Debian
 - name: Adicionar repositório remmina
   apt_repository:
     repo: deb http://ftp.debian.org/debian stretch-backports main
     state: present
     update_cache: yes
-    
+  when: ansible_distribution == 'Debian'
+
+# Debian e Ubuntu    
 - name: Instalar pacotes necessarios para o remmina
   apt: name={{item}} state=latest default_release=stretch-backports
   with_items:
@@ -12,13 +17,14 @@
     - remmina-plugin-rdp
     - remmina-plugin-secret
     - libfreerdp-plugins-standard
-
+  when: ansible_os_family == 'Debian'
 
 # Cria o diretório softwares_remotos se não existe
 - file:
     path: /var/softwares_remotos
     state: directory
     mode: 0777
+  when: ansible_os_family == 'Debian'
 
 - name: Copiando os arquivos remmina
   copy:
@@ -28,6 +34,7 @@
     group: root
     mode: 0777
   with_items: "{{apps}}"
+  when: ansible_os_family == 'Debian'
 
 - name: Copiando os arquivos desktop
   copy:
@@ -37,6 +44,7 @@
     group: root
     mode: 0777
   with_items: "{{apps}}"
+  when: ansible_os_family == 'Debian'
 
 # Copiado os icones
 
@@ -44,3 +52,5 @@
   copy:
     src: icon/
     dest: /var/softwares_remotos/
+  when: ansible_os_family == 'Debian'
+

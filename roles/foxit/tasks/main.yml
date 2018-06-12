@@ -1,11 +1,6 @@
 ---
-- name: Instalar o Foxit (Windows)
-  win_chocolatey:
-    name: foxit
-    state: latest
-  when: ansible_os_family == 'Windows'
-
-- name: Extraindo o foxitsoftware.tgz
+#Linux
+- name: Extraindo o foxitsoftware.tgz - Linux Debian
   unarchive:
     src: https://discovirtual.ifsc.edu.br/index.php/s/5exGvwLhycd6AKF/download
     dest: /opt/
@@ -13,7 +8,7 @@
     remote_src: yes
   when: ansible_os_family == 'Debian'
 
-- name: Definindo as permissões corretas do Foxit
+- name: Definindo as permissões corretas do Foxit - Linux Debian
   file:
     path: /opt/foxitsoftware
     owner: root
@@ -22,7 +17,7 @@
     recurse: yes
   when: ansible_os_family == 'Debian'
 
-- name: Criando o arquivo foxit.desktop
+- name: Criando o arquivo foxit.desktop - Linux Debian
   copy:
     src: foxit.desktop
     dest: /usr/share/applications/foxit.desktop
@@ -30,3 +25,10 @@
     group: root
     mode: 0644
   when: ansible_os_family == 'Debian'
+
+#Windows
+- name: Instalar o Foxit - Windows
+  win_chocolatey:
+    name: foxit
+    state: latest
+  when: ansible_os_family == 'Windows'

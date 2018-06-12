@@ -1,6 +1,8 @@
 ---
+#Linux
 - name: Instalando o pacote necessario
   apt: name=x11vnc state=latest
+  when: ansible_os_family == 'Debian'
   
 - name: Copiando o script para o profile
   copy:
@@ -9,3 +11,6 @@
     owner: root
     group: root
     mode: 0644
+  when: ansible_os_family == 'Debian'
+
+#Windows  

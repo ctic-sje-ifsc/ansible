@@ -1,4 +1,5 @@
 ---
+#Linux
 - name: Extraindo o irpf.tgz
   unarchive:
     src: irpf18.tgz
@@ -23,3 +24,5 @@
     group: root
     mode: 0644
   when: ansible_os_family == 'Debian'
+
+#Windows

@@ -1,5 +1,6 @@
 ---
-- name: Instalar pacotes padroes
+#Linux
+- name: Instalar pacotes padroes - Linux
   apt: name={{item}} state=latest
   with_items:
     - aptitude 
@@ -22,7 +23,27 @@
     - browser-plugin-freshplayer-pepperflash
     - openjdk-8-jre
     - icedtea-8-plugin
+  when: ansible_os_family == 'Debian'
 
+#Windown
+- name: Instalar pacotes padroes - Windows
+  win_chocolatey: name={{ item }} state=latest
+  with_items:
+    - dropbox
+    - googlechrome
+    - jre8
+    - firefoxesr
+    - flashplayerplugin
+    - 7zip
+    - vlc
+    - libreoffice-oldstable
+    - pdfsam
+    - cutepdf
+    - adobereader
+    - owncloud-client
+    - microsoftsecurityessentials 
+  when: ansible_os_family == 'Windows'
 
+#Windows e Linux
 - include_role:
     name: owncloud_client
