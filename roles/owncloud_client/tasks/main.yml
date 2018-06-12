@@ -1,16 +1,44 @@
 ---
-- name: Adicionar a chave do repositório do owncloud-client
+#Linux
+
+# Debian
+- name: Adicionar a chave do repositório do owncloud-client - Linux Debian
   apt_key:
     url: https://download.opensuse.org/repositories/isv:ownCloud:desktop/Debian_9.0/Release.key
     state: present
+  when: ansible_distribution == 'Debian'
 
-- name: Adicionar repositório owncloud
+- name: Adicionar repositório owncloud - Linux Debian
   apt_repository:
     repo: deb http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/Debian_9.0/ /
     state: present
     update_cache: yes
-    
-- name: Instalar o Owncloud Client
+  when: ansible_distribution == 'Debian'
+
+# Ubuntu
+- name: Adicionar a chave do repositório do owncloud-client - Linux Ubuntu
+  apt_key:
+    url: https://download.opensuse.org/repositories/isv:ownCloud:desktop/Ubuntu_18.04/Release.key
+    state: present
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Adicionar repositório owncloud - Linux Ubuntu
+  apt_repository:
+    repo: deb http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/Ubuntu_18.04/ /
+    state: present
+    update_cache: yes
+  when: ansible_distribution == 'Ubuntu'
+
+#Debian e Ubuntu
+- name: Instalar o Owncloud Client - Linux Debian
   apt:
     name: owncloud-client
     state: latest
+  when: ansible_os_family == 'Debian'
+
+#Windows
+- name: Install owncloud-client - Windows
+  win_chocolatey:
+    name: owncloud-client
+    state: latest
+  when: ansible_os_family == 'Windows'

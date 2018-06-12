@@ -4,3 +4,8 @@
     - foxit
     - irpf
 
+- hosts: administrativos_win
+  roles:
+    - programas_padroes
+
+
