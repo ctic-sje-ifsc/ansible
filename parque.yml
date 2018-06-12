@@ -6,9 +6,9 @@
       apt: update_cache=yes cache_valid_time=86400
       when: ansible_os_family == 'Debian'
 
-- include: comum_administrativo.yml 
-- include: registro_academico.yml
-- include: testes.yml 
+- import_playbook: comum_administrativo.yml 
+- import_playbook: registro_academico.yml
+- import_playbook: testes.yml 
 
 - hosts: all
   gather_facts: false
