@@ -1,5 +1,5 @@
 ---
-- hosts: teste
+- hosts: testelin
   roles:
     - foxit
     - irpf
