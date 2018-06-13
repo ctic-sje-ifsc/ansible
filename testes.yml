@@ -8,7 +8,7 @@
   roles:
     - programas_padroes
     - foxit
-#    - irpf
+    - irpf
     - acesso_remoto
   tasks:
     - name: Configura servidores NTP para o Windows
