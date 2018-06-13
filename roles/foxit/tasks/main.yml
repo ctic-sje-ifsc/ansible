@@ -29,6 +29,6 @@
 #Windows
 - name: Instalar o Foxit - Windows
   win_chocolatey:
-    name: foxit
+    name: foxitreader
     state: latest
   when: ansible_os_family == 'Windows'
