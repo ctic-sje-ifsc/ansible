@@ -7,5 +7,8 @@
 - hosts: administrativos_win
   roles:
     - programas_padroes
+    - foxit
+    - irpf
+    - acesso remoto
 
 
