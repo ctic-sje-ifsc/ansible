@@ -31,5 +31,6 @@
   win_package:
     path: http://downloadirpf.receita.fazenda.gov.br/irpf/2018/irpf/arquivos/IRPF2018Win32v1.5.exe
     arguments: /mode silent
+    product_id: IRPF2018
   when: ansible_os_family == 'Windows'
 
