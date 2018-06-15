@@ -29,6 +29,18 @@
       grub_timeout_hardware: 0
       grub_timeout_virtual: 0
 
+- hosts: labfisica
+  roles:
+    - role: debops.grub
+      grub_users:
+        - name: 'su'
+          password: 'NBLWAThUq5'
+          superuser: True
+      grub_default: '0'
+      grub_timeout_hardware: 15
+      grub_timeout_virtual: 15
+
+      
 #- hosts: administrativos_win
 #  roles:
 #    - programas_padroes
