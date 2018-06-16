@@ -4,7 +4,6 @@
     - programas_padroes
     - acesso_remoto
     - fonte_garamound
-
     - role: geerlingguy.ntp
       ntp_timezone: America/Sao_Paulo
       ntp_manage_config: true
@@ -12,7 +11,6 @@
         - "pool.ntp.br iburst"
         - "ntp.cais.rnp.br iburst"
         - "ntp.ufsc.br iburst"
-
     - role: tersmitten.apt
       apt_manage_sources_list: true
       apt_debian_mirror: http://debian.pop-sc.rnp.br/debian
@@ -31,19 +29,8 @@
       grub_timeout_hardware: 0
       grub_timeout_virtual: 0
 
-- hosts: labfisica
+- hosts: administrativos_win
   roles:
-    - role: debops.grub
-      grub_users:
-        - name: 'su'
-          password: 'NBLWAThUq5'
-          superuser: True
-      grub_default: '0'
-      grub_timeout_hardware: 15
-      grub_timeout_virtual: 15
-
-      
-#- hosts: administrativos_win
-#  roles:
-#    - programas_padroes
+    - programas_padroes
+    - acesso_remoto
 
