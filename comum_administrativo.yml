@@ -1,5 +1,5 @@
 ---
-- hosts: administrativos_lin:!labfisica
+- hosts: administrativos_lin
   roles:
     - programas_padroes
     - acesso_remoto
@@ -20,6 +20,8 @@
       apt_dpkg_configure: true
       apt_remove: transmission-gtk
 
+- hosts: administrativos_lin:!labfisica
+  roles:
     - role: debops.grub
       grub_users:
         - name: 'su'
