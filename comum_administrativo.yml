@@ -1,5 +1,5 @@
 ---
-- hosts: administrativos_lin
+- hosts: administrativos_lin:!labfisica
   roles:
     - programas_padroes
     - acesso_remoto
