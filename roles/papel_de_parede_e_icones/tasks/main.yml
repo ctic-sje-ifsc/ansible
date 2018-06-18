@@ -1,0 +1,35 @@
+---
+#Windows
+- name: Copiando papel de parede
+  win_copy:
+    src: fundo_ifsc_sj_novo.jpg
+    dest: C:\Users\
+  when: ansible_os_family == 'Windows'
+
+- name: Copiando icone ctic
+  win_copy:
+    src: Icone_ctic.png
+    dest: C:\Users\
+  when: ansible_os_family == 'Windows'
+
+- name: Copiando icone ifsc
+  win_copy:
+    src: Icone_ctic.png
+    dest: C:\Users\
+  when: ansible_os_family == 'Windows'
+
+- name: Criando registro chamado System
+  win_regedit:
+    path: HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\System
+
+- name: Criando registro chamado Wallpaper dentro do System
+  win_regedit:
+    path: HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\System
+    name: Wallpaper
+    data: C:\Users\fundo_ifsc_sj_novo.jpg
+
+- name: Criando registro chamado WallpaperStyle dentro do System
+  win_regedit:
+    path: HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\System
+    name: WallpaperStyle
+    data: 4
