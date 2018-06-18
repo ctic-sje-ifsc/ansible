@@ -9,7 +9,7 @@
 - name: Copiando icone ifsc
   win_copy:
     src: Icone_ifsc.bmp
-    dest: C:\ProgramData\Microsoft\User Account Pictures\
+    dest: C:\ProgramData\Microsoft\User Account Pictures\user.bmp
   when: ansible_os_family == 'Windows'
 
 #- name: Criando registro chamado System
