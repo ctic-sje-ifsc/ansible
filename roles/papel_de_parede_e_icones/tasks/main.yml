@@ -14,7 +14,7 @@
 
 - name: Copiando icone ifsc
   win_copy:
-    src: Icone_ctic.png
+    src: Icone_ifsc.png
     dest: C:\Users\
   when: ansible_os_family == 'Windows'
 
