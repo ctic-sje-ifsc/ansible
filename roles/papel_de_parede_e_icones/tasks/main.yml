@@ -6,21 +6,19 @@
     dest: C:\Users\
   when: ansible_os_family == 'Windows'
 
-- name: Copiando icone ctic
-  win_copy:
-    src: Icone_ctic.png
-    dest: C:\Users\
-  when: ansible_os_family == 'Windows'
-
 - name: Copiando icone ifsc
   win_copy:
-    src: Icone_ifsc.png
-    dest: C:\Users\
+    src: Icone_ifsc.bmp
+    dest: C:\ProgramData\Microsoft\User Account Pictures\
   when: ansible_os_family == 'Windows'
 
-- name: Criando registro chamado System
-  win_regedit:
-    path: HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\System
+#- name: Criando registro chamado System
+#  win_regedit:
+#    path: HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\System
+
+#- name: Criando registro chamado Explorer
+#  win_regedit:
+#    path: HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer
 
 - name: Criando registro chamado Wallpaper dentro do System
   win_regedit:
@@ -33,3 +31,9 @@
     path: HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\System
     name: WallpaperStyle
     data: 4
+
+- name: Criando registro chamado UseDefaultTile dentro do Explorer
+  win_regedit:
+    path: HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer
+    name: UseDefaultTile
+    data: 1
