@@ -1,0 +1,10 @@
+- name: Get product id and product key
+  win_product_facts:
+  when: ansible_os_family == 'Windows'
+
+- name: Ativar o Windows
+  win_shell: cscript slmgr.vbs /ipk {{ XXXXX-XXXXX-XXXXX-XXXXX-XXXXX }} ; cscript slmgr.vbs /ato ; New-Item c:\gatilho_ativacao.txt -type file
+  args:
+    chdir: C:\Windows\System32\
+    creates: c:\gatilho_ativacao.txt
+  when: ansible_os_family == 'Windows'
