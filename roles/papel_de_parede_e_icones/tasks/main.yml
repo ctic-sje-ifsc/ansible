@@ -12,14 +12,6 @@
     dest: C:\ProgramData\Microsoft\User Account Pictures\user.bmp
   when: ansible_os_family == 'Windows'
 
-#- name: Criando registro chamado System
-#  win_regedit:
-#    path: HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\System
-
-#- name: Criando registro chamado Explorer
-#  win_regedit:
-#    path: HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer
-
 - name: Criando registro chamado Wallpaper dentro do System
   win_regedit:
     path: HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\System
