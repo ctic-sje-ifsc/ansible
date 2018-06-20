@@ -32,7 +32,3 @@
     name: UseDefaultTile
     data: 1
   when: ansible_os_family == 'Windows'
-
-- name: Get product id and product key
-  win_product_facts:
-  when: ansible_os_family == 'Windows'

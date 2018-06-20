@@ -1,0 +1,7 @@
+---
+- name: Desabilitar as atualizações automáticas do Windows
+  win_regedit:
+    path: HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer
+    name: NoWindowsUpdate
+    data: 1
+  when: ansible_os_family == 'Windows'
