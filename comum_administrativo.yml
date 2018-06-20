@@ -29,8 +29,14 @@
       grub_timeout_hardware: 0
       grub_timeout_virtual: 0
 
-- hosts: administrativos_win
+- hosts: imagemwin
   roles:
     - programas_padroes
     - acesso_remoto
+    - papel_de_parede_e_icones
+  tasks:
+    - name: Configura servidores NTP para o Windows
+      win_shell: net start w32time ;	w32tm /config /manualpeerlist:"a.st1.ntp.br b.st1.ntp.br c.st1.ntp.br gps.ntp.br" /syncfromflags:manual /reliable:YES /update ; net stop w32time ; net start w32time ; w32tm /config /update ; w32tm /resync ; w32tm /resync ; New-Item c:\gatilho_ntp.txt -type file
+      args:
+        creates: C:\gatilho_ntp.txt
 
