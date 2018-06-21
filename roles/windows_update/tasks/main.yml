@@ -4,4 +4,5 @@
     path: HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer
     name: NoWindowsUpdate
     data: 1
+    type: dword
   when: ansible_os_family == 'Windows'
