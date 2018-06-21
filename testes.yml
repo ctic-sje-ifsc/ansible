@@ -3,3 +3,4 @@
   roles:
   - ativar_win
   - windows_update
+  - instala_impressora
