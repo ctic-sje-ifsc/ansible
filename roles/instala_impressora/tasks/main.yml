@@ -9,18 +9,21 @@
 - name: Instala o driver da impressora X
   win_shell: cscript C:\Windows\System32\Printing_Admin_Scripts\pt-BR\prndrvr.vbs -a -m "reprografia_principal" -h "C:\" -i "OEMSETUP.INF" ; New-Item c:\gatilho_driver_impressoraX.txt -type file
   args:
+    chdir: C:\Windows\System32\
     creates: c:\gatilho_driver_impressoraX.txt
   when: ansible_os_family == 'Windows'
 
 - name: Instala o driver da impressora X
   win_shell: cscript C:\Windows\System32\Printing_Admin_Scripts\pt-BR\prnport.vbs -a -r \\dk\reprografia_principal -h \\dk\reprografia_principal -o raw ; New-Item c:\gatilho_porta_impressoraX.txt -type file
   args:
+    chdir: C:\Windows\System32\
     creates: c:\gatilho_porta_impressoraX.txt
   when: ansible_os_family == 'Windows'
 
 - name: Instala o driver da impressora X
   win_shell: cscript C:\Windows\System32\Printing_Admin_Scripts\pt-BR\prnmngr.vbs -a -p "reprografia_principal" -m "reprografia_principal" -r "\\dk\reprografia_principal" ; New-Item c:\gatilho_impressoraX.txt -type file
   args:
+    chdir: C:\Windows\System32\
     creates: c:\gatilho_impressoraX.txt
   when: ansible_os_family == 'Windows'
 
