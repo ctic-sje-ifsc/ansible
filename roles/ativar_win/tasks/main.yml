@@ -1,6 +1,6 @@
-- name: Get product id and product key
-  win_product_facts:
-  when: ansible_os_family == 'Windows'
+#- name: Get product id and product key
+#  win_product_facts:
+#  when: ansible_os_family == 'Windows'
 
 - name: Ativar o Windows
   win_shell: cscript slmgr.vbs /ipk 7TD3M-8W242-BBVPC-WGBF2-PVWMK ; cscript slmgr.vbs /ato ; New-Item c:\gatilho_ativacao.txt -type file
