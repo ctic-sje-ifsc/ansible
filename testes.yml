@@ -7,4 +7,5 @@
 
 - hosts: testelin
   roles:
-  - flashplayer  
+  - flashplayer 
+  - programas_padroes 
