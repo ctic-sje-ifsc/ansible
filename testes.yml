@@ -5,6 +5,6 @@
   - windows_update
   - instala_impressora
 
-- hosts: testeslin
+- hosts: testelin
   roles:
   - flashplayer  
