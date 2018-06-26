@@ -1,6 +1,10 @@
 ---
 #Linux
 
+- name: Desinstala o Pepperflash - Linux
+  apt: name=browser-plugin-freshplayer-pepperflash state=absent purge=yes
+  when: ansible_os_family == 'Debian'
+
 - name: Criando a pasta /usr/lib/flash-player - Linux Debian
   file:
     path: /usr/lib/flash-player/
