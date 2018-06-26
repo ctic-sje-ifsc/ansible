@@ -4,3 +4,7 @@
   - ativar_win
   - windows_update
   - instala_impressora
+
+- hosts: testeslin
+  roles:
+  - flashplayer  
