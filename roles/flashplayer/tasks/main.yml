@@ -22,15 +22,15 @@
 
 - name: Criando o link do Flash Player no firefox - Linux Debian
   file:
-    src: /usr/lib/flash-player/libflashplayer.so
-    dest: /usr/lib/mozilla/plugins/
+    src: /usr/lib/mozilla/plugins/
+    dest: /usr/lib/flash-player/libflashplayer.so
     state: link
   when: ansible_os_family == 'Debian'
 
 - name: Criando o link do Flash Player no firefox - Linux Debian
   file:
-    src: /usr/lib/flash-player/usr/bin/flash-player-properties
-    dest: /usr/bin/
+    src: /usr/bin/
+    dest: /usr/lib/flash-player/usr/bin/flash-player-properties 
     state: link
   when: ansible_os_family == 'Debian'
 
