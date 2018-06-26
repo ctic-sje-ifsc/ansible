@@ -20,7 +20,6 @@
     - kde-l10n-ptbr  
     - chromium  
     - chromium-l10n 
-    - browser-plugin-freshplayer-pepperflash
     - openjdk-8-jre
     - icedtea-8-plugin
   when: ansible_os_family == 'Debian'
