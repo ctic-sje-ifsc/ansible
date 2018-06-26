@@ -7,7 +7,7 @@
   when: ansible_os_family == 'Windows'
 
 - name: Instala o driver da impressora reprografia principal
-  win_shell: cscript prndrvr.vbs -a -m "Kyocera TASKalfa 5501i KX" -h "C:\" -i "OEMSETUP.INF" ; New-Item c:\gatilho_driver_reprografia_principal.txt -type file
+  win_shell: cscript prndrvr.vbs -a -m 'Kyocera TASKalfa 5501i KX' -h 'C:\' -i 'OEMSETUP.INF' ; New-Item c:\gatilho_driver_reprografia_principal.txt -type file
   args:
     chdir: C:\Windows\System32\Printing_Admin_Scripts\pt-BR\
     creates: c:\gatilho_driver_reprografia_principal.txt
