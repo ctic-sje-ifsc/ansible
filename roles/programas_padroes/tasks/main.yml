@@ -25,6 +25,11 @@
     - icedtea-8-plugin
   when: ansible_os_family == 'Debian'
 
+- name: Install a .deb Google Chrome - Linux Debian
+  apt:
+    deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  when: ansible_os_family == 'Debian'
+
 #Windown
 - name: Instalar pacotes padroes - Windows
   win_chocolatey: name={{ item }} state=latest
