@@ -6,6 +6,8 @@
     path: /usr/lib/flash-player/
     state: directory
     mode: 0755
+    owner: root
+    group: root
   when: ansible_os_family == 'Debian'
 
 - name: Extraindo o Flash Player NPAPI - Linux Debian
@@ -13,24 +15,29 @@
     src: flash_player_npapi_linux.x86_64.tar.gz
     dest: /usr/lib/flash-player/
     creates: /usr/lib/flash-player/libflashplayer.so
+    owner: root
+    group: root
+    mode: 0755
   when: ansible_os_family == 'Debian'
 
 - name: Criando o link do Flash Player no firefox - Linux Debian
   file:
     src: /usr/lib/flash-player/libflashplayer.so
     dest: /usr/lib/mozilla/plugins/
+    state: link
     owner: root
     group: root
-    state: link
+    mode: 0755
   when: ansible_os_family == 'Debian'
 
 - name: Criando o link do Flash Player no firefox - Linux Debian
   file:
     src: /usr/lib/flash-player/usr/bin/flash-player-properties
     dest: /usr/bin/
+    state: link
     owner: root
     group: root
-    state: link
+    mode: 0755
     when: ansible_os_family == 'Debian'
 
 - name: Criando o arquivo flash-player-properties.desktop - Linux Debian
