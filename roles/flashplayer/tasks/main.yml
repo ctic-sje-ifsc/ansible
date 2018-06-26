@@ -19,6 +19,8 @@
   file:
     src: /usr/lib/flash-player/libflashplayer.so
     dest: /usr/lib/mozilla/plugins/
+    owner: root
+    group: root
     state: link
   when: ansible_os_family == 'Debian'
 
@@ -26,6 +28,8 @@
   file:
     src: /usr/lib/flash-player/usr/bin/flash-player-properties
     dest: /usr/bin/
+    owner: root
+    group: root
     state: link
     when: ansible_os_family == 'Debian'
 
