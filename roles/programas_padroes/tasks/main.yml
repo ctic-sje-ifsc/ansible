@@ -1,5 +1,11 @@
 ---
 #Linux
+
+- name: Install a .deb Google Chrome - Linux Debian
+  apt:
+    deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  when: ansible_os_family == 'Debian'
+
 - name: Instalar pacotes padroes - Linux
   apt: name={{item}} state=latest
   with_items:
@@ -22,12 +28,10 @@
     - chromium-l10n 
     - openjdk-8-jre
     - icedtea-8-plugin
+    - google-chrome-stable
   when: ansible_os_family == 'Debian'
 
-- name: Install a .deb Google Chrome - Linux Debian
-  apt:
-    deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-  when: ansible_os_family == 'Debian'
+
 
 #Windown
 - name: Instalar pacotes padroes - Windows
