@@ -9,9 +9,7 @@
 
 # Debian e Ubuntu
 - name: Instalar pacotes necessarios para o packettracer
-  apt: name={{item}} state=latest default_release=stretch-backports
-  with_items:
-    - libssl1.0.0
+  apt: name=libssl1.0.0 state=latest default_release=jessie-backports
   when: ansible_os_family == 'Debian'
 
 - name: Instalar pacotes necessarios para o packettracer - Linux
