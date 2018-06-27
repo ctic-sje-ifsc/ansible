@@ -5,15 +5,13 @@
       apt: update_cache=yes cache_valid_time=86400
       when: ansible_os_family == 'Debian'
 
-- import_playbook: comum_administrativo.yml 
+- import_playbook: comum_administrativo.yml
 - import_playbook: registro_academico.yml
 - import_playbook: labfisica.yml
-- import_playbook: testes.yml 
+- import_playbook: cotel.yml
+- import_playbook: testes.yml
 
 - hosts: all
   gather_facts: false
   tasks:
     - meta: clear_host_errors
-
-
-    
