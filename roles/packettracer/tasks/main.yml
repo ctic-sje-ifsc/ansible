@@ -6,15 +6,9 @@
     dest: /opt/
     creates: /opt/pt
     remote_src: yes
-  when: ansible_os_family == 'Debian'
-
-- name: Definindo as permissões corretas do Packet Tracer - Linux Debian
-  file:
-    path: /opt/pt
     owner: root
     group: root
     mode: 0755
-    recurse: yes
   when: ansible_os_family == 'Debian'
 
 - name: Criando o arquivo packettracer7.desktop - Linux Debian
