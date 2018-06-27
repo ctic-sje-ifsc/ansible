@@ -1,0 +1,29 @@
+---
+#Linux
+- name: Baixando e extraindo o packettracer7.tar.gz - Linux Debian
+  unarchive:
+    src: https://discovirtual.ifsc.edu.br/index.php/s/7LaUM9ofkcWP47c/download
+    dest: /opt/
+    creates: /opt/pt
+    remote_src: yes
+  when: ansible_os_family == 'Debian'
+
+- name: Definindo as permissões corretas do Packet Tracer - Linux Debian
+  file:
+    path: /opt/pt
+    owner: root
+    group: root
+    mode: 0755
+    recurse: yes
+  when: ansible_os_family == 'Debian'
+
+- name: Criando o arquivo packettracer7.desktop - Linux Debian
+  copy:
+    src: packettracer7.desktop
+    dest: /usr/share/applications/packettracer7.desktop
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
+#Unavaliable for Windows
