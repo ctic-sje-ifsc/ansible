@@ -1,5 +1,31 @@
 ---
 #Linux
+- name: Adicionar repositório para instalar libssl1.0.0
+  apt_repository:
+    repo: deb http://ftp.debian.org/debian jessie-backports main
+    state: present
+    update_cache: yes
+  when: ansible_distribution == 'Debian'
+
+# Debian e Ubuntu
+- name: Instalar pacotes necessarios para o packettracer
+  apt: name={{item}} state=latest default_release=stretch-backports
+  with_items:
+    - libssl1.0.0
+  when: ansible_os_family == 'Debian'
+
+- name: Instalar pacotes necessarios para o packettracer - Linux
+  apt: name={{item}} state=latest
+  with_items:
+    - libqt5webkit5
+    - libqt5webkit5-dev
+    - libqt5multimedia5
+    - libqt5multimedia5-plugins
+    - libqt5webkit5-dbg
+    - libqt5script5
+    - libqt5scripttools5
+  when: ansible_os_family == 'Debian'
+
 - name: Baixando e extraindo o packettracer7.tar.gz - Linux Debian
   unarchive:
     src: https://discovirtual.ifsc.edu.br/index.php/s/7LaUM9ofkcWP47c/download
