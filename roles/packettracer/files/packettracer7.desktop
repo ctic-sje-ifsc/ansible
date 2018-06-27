@@ -1,6 +1,6 @@
 #!/usr/bin/env xdg-open
 [Desktop Entry]
-Exec=/opt/pt/bin/Packettracer7
+Exec=/opt/pt/packettracer
 Icon=/opt/pt/art/app.png
 Type=Application
 Terminal=false
