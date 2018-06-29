@@ -9,6 +9,12 @@
 - name: Copiando icone ifsc - Windows
   win_copy:
     src: Icone_ifsc.bmp
+    dest: C:\ProgramData\Microsoft\User Account Pictures\Icone_ifsc.bmp
+  when: ansible_os_family == 'Windows'
+
+- name: Copiando icone ctic - Windows
+  win_copy:
+    src: user.bmp
     dest: C:\ProgramData\Microsoft\User Account Pictures\user.bmp
   when: ansible_os_family == 'Windows'
 
