@@ -1,3 +1,5 @@
 - hosts: cotel
   roles:
     - packettracer
+    - kile
+
