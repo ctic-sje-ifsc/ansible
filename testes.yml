@@ -1,14 +1,12 @@
 ---
 - hosts: testewin
   roles:
-  - ativar_win
-  - windows_update
-  - instala_impressora
+#  - ativar_win
+#  - windows_update
+#  - instala_impressora
   - kile
 
 - hosts: testelin
   roles:
   - flashplayer
   - packettracer
-  - programas_padroes
-  - kile
