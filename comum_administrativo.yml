@@ -11,12 +11,12 @@
         - "pool.ntp.br iburst"
         - "ntp.cais.rnp.br iburst"
         - "ntp.ufsc.br iburst"
-    - role: tersmitten.apt
-      apt_manage_sources_list: true
-      apt_debian_mirror: http://debian.pop-sc.rnp.br/debian
-      apt_debian_contrib_nonfree_enable: true
-      apt_dpkg_configure: true
-      apt_remove: transmission-gtk
+#    - role: tersmitten.apt
+#      apt_manage_sources_list: true
+#      apt_debian_mirror: http://debian.pop-sc.rnp.br/debian
+#      apt_debian_contrib_nonfree_enable: true
+#      apt_dpkg_configure: true
+#      apt_remove: transmission-gtk
 
 - hosts: administrativos_lin:!labfisica
   roles:
