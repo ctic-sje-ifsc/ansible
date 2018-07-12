@@ -1,0 +1,17 @@
+# Ansible managed
+
+deb http://debian.pop-sc.rnp.br/debian stretch main
+deb-src http://debian.pop-sc.rnp.br/debian stretch main
+
+deb http://security.debian.org/ stretch/updates main
+deb-src http://security.debian.org/ stretch/updates main
+
+# stretch-updates, previously known as 'volatile'
+deb http://debian.pop-sc.rnp.br/debian stretch-updates main
+deb-src http://debian.pop-sc.rnp.br/debian stretch-updates main
+
+# Contrib packages contain DFSG-compliant software,
+# but have dependencies not in main (possibly packaged for Debian in non-free).
+# Non-free contains software that does not comply with the DFSG.
+deb http://debian.pop-sc.rnp.br/debian stretch contrib non-free
+deb-src http://debian.pop-sc.rnp.br/debian stretch contrib non-free
