@@ -7,4 +7,4 @@
     owner: root
     group: root
     mode: 0644
-  when: ansible_distribution == 'Debian' && ansible_distribution_release == 'stretch'
+  when: ansible_distribution_release == 'stretch'
