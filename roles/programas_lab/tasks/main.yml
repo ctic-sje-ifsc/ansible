@@ -16,6 +16,7 @@
     - virtualbox-dkms
     - virtualbox-ext-pack
     - virtualbox-guest-utils
+    - virtualbox-guest-x11
   when: ansible_os_family == 'Debian'
 
 
@@ -39,6 +40,8 @@
     - ipcalc
     - tcpdump
     - wireshark
+    - snmp-mibs-downloader
+    - wireshark-doc
   when: ansible_os_family == 'Debian'
 
   # arduino
