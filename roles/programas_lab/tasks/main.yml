@@ -49,6 +49,7 @@
   unarchive:
     src: https://downloads.arduino.cc/arduino-1.8.5-linux64.tar.xz
     dest: /opt/
+    creates: /opt/arduino-1.8.5
     remote_src: yes
     owner: root
     group: root
