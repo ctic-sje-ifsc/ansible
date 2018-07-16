@@ -41,13 +41,11 @@
     - wireshark
   when: ansible_os_family == 'Debian'
 
-  ## arduino
-
+  # arduino
 - name: Baixando e extraindo o arduino - Linux Debian
   unarchive:
     src: https://downloads.arduino.cc/arduino-1.8.5-linux64.tar.xz
     dest: /opt/
-    creates: /opt/
     remote_src: yes
     owner: root
     group: root
