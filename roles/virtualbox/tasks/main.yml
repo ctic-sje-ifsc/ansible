@@ -1,0 +1,31 @@
+#Linux
+
+# Debian
+- name: Adicionar repositório stretch-backports para Virtualbox - Linux Debian
+  apt_repository:
+    repo: deb http://ftp.debian.org/debian stretch-backports main contrib non-free
+    state: present
+    update_cache: yes
+  when: ansible_distribution == 'Debian'
+
+# Debian   
+- name: Instalar os pacotes para o Virtualbox do stretch-backports - Linux Debian
+  apt: name={{item}} state=latest default_release=stretch-backports
+  with_items:
+    - virtualbox
+    - virtualbox-dkms
+    - virtualbox-ext-pack
+    - virtualbox-guest-utils
+    - virtualbox-guest-x11
+  when: ansible_distribution == 'Debian'
+
+#Windows
+
+- name: Instalar o Virtualbox - Windows
+  win_chocolatey:
+    name: '{{ item }}'
+    version: '5.2.12'
+  with_items:
+  - vboxguestadditions.install
+  - virtualbox
+  when: ansible_os_family == 'Windows'
