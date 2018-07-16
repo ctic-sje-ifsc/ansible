@@ -10,6 +10,7 @@
 - import_playbook: secretaria.yml
 - import_playbook: labfisica.yml
 - import_playbook: cotel.yml
+- import_playbook: mtele.yml
 - import_playbook: testes.yml
 
 - hosts: all
