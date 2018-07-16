@@ -33,7 +33,7 @@
 
 
 
-#Windown
+#Windows
 - name: Instalar pacotes padroes - Windows
   win_chocolatey: name={{ item }} state=latest
   with_items:
