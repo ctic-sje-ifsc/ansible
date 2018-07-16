@@ -1,0 +1,35 @@
+#Linux
+
+- name: Baixando e extraindo o arduino - Linux Debian
+  unarchive:
+    src: https://downloads.arduino.cc/arduino-1.8.5-linux64.tar.xz
+    dest: /opt/
+    creates: /opt/arduino-1.8.5
+    remote_src: yes
+    owner: root
+    group: root
+    mode: 0755
+  when: ansible_os_family == 'Debian'
+
+- name: Criando o arquivo arduino.desktop - Linux Debian
+  copy:
+    src: arduino.desktop
+    dest: /usr/share/applications/arduino.desktop
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
+# Permissao para gravar na placa
+- name: Adiciona no grupo dialout
+  user:
+    name: mayara.sousa
+    groups: dialout
+    append: yes
+
+#Windows
+- name: Instalar o Arduino - Windows
+  win_chocolatey:
+    name: arduino
+    state: latest
+  when: ansible_os_family == 'Windows'
