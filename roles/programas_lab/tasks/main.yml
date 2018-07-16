@@ -1,0 +1,70 @@
+#Linux
+
+# Debian
+- name: adicionar repositório backports
+  apt_repository:
+    repo: deb http://ftp.debian.org/debian stretch-backports main contrib non-free
+    state: present
+    update_cache: yes
+  when: ansible_distribution == 'Debian'
+
+# Debian   
+- name: programas do repositório backports
+  apt: name={{item}} state=latest default_release=stretch-backports
+  with_items:
+    - virtualbox
+    - virtualbox-dkms
+    - virtualbox-ext-pack
+    - virtualbox-guest-utils
+  when: ansible_os_family == 'Debian'
+
+
+- name: Instalar pacotes padroes - Linux
+  apt: name={{item}} state=latest
+  with_items:
+    - ethtool
+    - minicom
+    - nmap
+    - geany
+    - unrar
+    - audacity
+    - gimp
+    - inkscape
+    - latexila
+    - scratch
+    - ntfs-3g
+    - android-tools-adb
+    - iperf
+    - xournal 
+    - ipcalc
+    - tcpdump
+    - wireshark
+  when: ansible_os_family == 'Debian'
+
+  ## arduino
+
+- name: Baixando e extraindo o arduino - Linux Debian
+  unarchive:
+    src: https://downloads.arduino.cc/arduino-1.8.5-linux64.tar.xz
+    dest: /opt/
+    creates: /opt/
+    remote_src: yes
+    owner: root
+    group: root
+    mode: 0755
+  when: ansible_os_family == 'Debian'
+
+- name: Criando o arquivo arduino.desktop - Linux Debian
+  copy:
+    src: arduino.desktop
+    dest: /usr/share/applications/arduino.desktop
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
+- name: Adiciona no grupo dialout
+  user:
+    name: mayara.sousa
+    groups: dialout
+    append: yes
