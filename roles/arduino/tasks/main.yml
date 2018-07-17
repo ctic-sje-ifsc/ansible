@@ -26,6 +26,7 @@
     name: mayara.sousa
     groups: dialout
     append: yes
+  when: ansible_os_family == 'Debian'
 
 #Windows
 - name: Instalar o Arduino - Windows
