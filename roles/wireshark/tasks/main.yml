@@ -10,7 +10,7 @@
 - name: Set CAP_NET_RAW+eip CAP_NET_ADMIN+eip on /usr/bin/dumpcap for Wireshark - Linux 
   capabilities:
     path: /usr/bin/dumpcap
-    capability: CAP_NET_RAW+eip CAP_NET_ADMIN+eip
+    capability: "CAP_NET_RAW+eip CAP_NET_ADMIN+eip"
     state: present
 
 
