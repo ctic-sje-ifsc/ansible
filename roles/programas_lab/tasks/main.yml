@@ -21,6 +21,13 @@
     - snmp-mibs-downloader
   when: ansible_os_family == 'Debian'
 
+- name: Remover programas  - Linux
+  apt: name={{item}} state=absent
+  with_items:
+    - transmission
+    - transmission-common
+  when: ansible_os_family == 'Debian'
+
 #Windows e Linux
 - include_role:
     name: virtualbox

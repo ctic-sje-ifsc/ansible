@@ -31,7 +31,12 @@
     - google-chrome-stable
   when: ansible_os_family == 'Debian'
 
-
+- name: Remover programas  - Linux
+  apt: name={{item}} state=absent
+  with_items:
+    - transmission
+    - transmission-common
+  when: ansible_os_family == 'Debian'
 
 #Windows
 - name: Instalar pacotes padroes - Windows
