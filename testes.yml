@@ -11,6 +11,6 @@
   - flashplayer
   - packettracer
 
-- hosts: sj-lin-setor-pat
+- hosts: sj-warsaw
   roles:
   - warsaw
