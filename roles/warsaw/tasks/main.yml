@@ -1,0 +1,13 @@
+---
+#Linux
+- name: Instalar os pacotes necessários para o warsaw
+  apt: name={{item}} state=latest
+  with_items:
+    - libnss3-tools
+    - libcurl3
+  when: ansible_distribution == 'Debian'
+
+- name: Instalar o .deb warsaw - Linux Debian
+  apt:
+    deb: https://cloud.gastecnologia.com.br/bb/downloads/ws/warsaw_setup64.deb
+  when: ansible_os_family == 'Debian'
