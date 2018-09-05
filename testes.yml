@@ -10,7 +10,4 @@
   roles:
   - flashplayer
   - packettracer
-
-- hosts: sj-warsaw
-  roles:
   - warsaw
