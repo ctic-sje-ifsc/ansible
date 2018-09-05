@@ -10,3 +10,7 @@
   roles:
   - flashplayer
   - packettracer
+
+- hosts: sj-lin-setor-pat
+  roles:
+  - warsaw
