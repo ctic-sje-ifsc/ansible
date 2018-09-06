@@ -4,6 +4,7 @@
     - programas_padroes
     - acesso_remoto
     - fonte_garamound
+    - sources_list
     - role: geerlingguy.ntp
       ntp_timezone: America/Sao_Paulo
       ntp_manage_config: true
@@ -11,12 +12,6 @@
         - "pool.ntp.br iburst"
         - "ntp.cais.rnp.br iburst"
         - "ntp.ufsc.br iburst"
-#    - role: tersmitten.apt
-#      apt_manage_sources_list: true
-#      apt_debian_mirror: http://debian.pop-sc.rnp.br/debian
-#      apt_debian_contrib_nonfree_enable: true
-#      apt_dpkg_configure: true
-#      apt_remove: transmission-gtk
 
 - hosts: administrativos_lin:!labfisica
   roles:
