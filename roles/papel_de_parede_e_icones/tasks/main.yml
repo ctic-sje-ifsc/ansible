@@ -38,3 +38,23 @@
     name: UseDefaultTile
     data: 1
   when: ansible_os_family == 'Windows'
+
+# Debian
+
+- name: Copiando o plano de fundo para a máquina - Linux
+  copy:
+    src: fundo_ifsc_sj_novo.jpg
+    dest: /home/fundo_ifsc_sj.jpg
+    owner: root
+    group: root
+    mode: 0755
+  when: ansible_os_family == 'Debian'
+
+- name: Cria o script que modifica o papel de parede - Linux
+  copy:
+    src: trocaplanodefundo.sh
+    dest: /etc/profile.d/trocaplanodefundo.sh
+    owner: root
+    group: root
+    mode: 0755
+  when: ansible_os_family == 'Debian'
