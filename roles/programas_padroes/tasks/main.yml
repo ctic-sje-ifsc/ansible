@@ -38,6 +38,9 @@
     - transmission-common
   when: ansible_os_family == 'Debian'
 
+- include_role:
+    name: warsaw
+
 #Windows
 - name: Instalar pacotes padroes - Windows
   win_chocolatey: name={{ item }} state=latest
@@ -45,17 +48,18 @@
     - googlechrome
     - jre8
     - firefoxesr
-    - flashplayerplugin
     - 7zip
     - vlc
     - libreoffice-oldstable
     - pdfsam
     - cutepdf
     - adobereader
-    - owncloud-client
     - microsoftsecurityessentials 
   when: ansible_os_family == 'Windows'
 
 #Windows e Linux
 - include_role:
     name: owncloud_client
+
+- include_role:
+    name: flashplayer
