@@ -46,3 +46,10 @@
     group: root
     mode: 0644
   when: ansible_os_family == 'Debian'
+
+#Windows
+- name: Instalar o FlashPlayerPlugin - Windows
+  win_chocolatey:
+    name: flashplayerplugin
+    state: latest
+  when: ansible_os_family == 'Windows'
