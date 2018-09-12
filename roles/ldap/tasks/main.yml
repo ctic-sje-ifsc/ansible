@@ -1,7 +1,3 @@
-- name: Instalar pacotes necessarios para o packettracer
-  apt: name=libssl1.0.0 state=latest default_release=jessie-backports
-  when: ansible_distribution == 'Debian'
-
 - name: Instalar pacotes necessarios para autenticação LDAP
   apt: name={{item}} state=latest
   with_items:
