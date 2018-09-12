@@ -1,10 +1,10 @@
 ---
 - hosts: administrativos_lin
   roles:
+    - sources_list
     - programas_padroes
     - acesso_remoto
     - fonte_garamound
-    - sources_list
     - papel_de_parede_e_icones
     - role: geerlingguy.ntp
       ntp_timezone: America/Sao_Paulo
