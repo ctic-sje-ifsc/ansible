@@ -1,28 +1,32 @@
 #Linux
 
-# Debian
-- name: Adicionar repositório stretch-backports para Virtualbox - Linux Debian
+# Ubuntu
+- name: Adicionar apt key de um keyserver
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: E084DAB9
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Adicionar repositório para r-project - Linux Ubuntu
   apt_repository:
-    repo: deb http://ftp.debian.org/debian stretch-backports main contrib non-free
+    repo: deb https://cloud.r-project.org/bin/linux/ubuntu trusty
     state: present
     update_cache: yes
-  when: ansible_distribution == 'Debian'
+  when: ansible_distribution == 'Ubuntu'
 
-# Debian
-- name: Instalar os pacotes para o Virtualbox do stretch-backports - Linux Debian
-  apt: name={{item}} state=latest default_release=stretch-backports
+- name: Instalar os pacotes para o r-project - Linux Ubuntu
+  apt: name={{item}} state=latest
   with_items:
-    - virtualbox
-    - virtualbox-dkms
-    - virtualbox-ext-pack
-    - virtualbox-guest-utils
-    - virtualbox-guest-x11
-  when: ansible_distribution == 'Debian'
+    - r-base
+    - r-base-dev
+    - r-cran-rjava
+    - libjpeg62
+  when: ansible_distribution == 'Ubuntu'
 
 #Windows
 
 - name: Instalar o R Project - Windows
   win_chocolatey:
     name: r.project
-    version: '3.5.1'
+    state: latest
   when: ansible_os_family == 'Windows'
