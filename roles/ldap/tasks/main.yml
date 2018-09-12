@@ -4,6 +4,7 @@
     - libnss-ldap
     - libpam-ldap
     - ldap-utils
+    - libpam-mount
   when: ansible_distribution == 'Debian'
   
 - name: Copiando arquivo /etc/ldap.conf
@@ -46,6 +47,15 @@
   copy:
     src: nsswitch.conf
     dest: /etc/nsswitch.conf
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
+- name: Copiando arquivo /etc/security/pam_mount.conf.xml
+  copy:
+    src: pam_mount.conf.xml
+    dest: /etc/security/pam_mount.conf.xml
     owner: root
     group: root
     mode: 0644
