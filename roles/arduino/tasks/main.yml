@@ -23,9 +23,12 @@
 # Permissao para gravar na placa
 - name: Adiciona no grupo dialout
   user:
-    name: mayara.sousa
+    name: "{{item}}"
     groups: dialout
     append: yes
+  with_items:
+    - mayara.sousa 
+    - elen
   when: ansible_os_family == 'Debian'
 
 #Windows
