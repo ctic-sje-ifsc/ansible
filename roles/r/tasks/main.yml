@@ -33,6 +33,7 @@
     - r.studio
   when: ansible_os_family == 'Windows'
 
+- name: Atalho para o r-project
   win_shortcut:
     description: Atalho para o r-project
     src: '%ProgramFiles%\R\R-3.5.1\bin\x64\Rgui.exe --cd-to-userdocs'
