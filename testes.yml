@@ -13,7 +13,7 @@
 
 - hosts: sj-lin-ctic-37246.maquinas.sj.ifsc.edu.br
   roles:
-  - ldap
+  - ingressa_ldap
 
 - hosts: sj-lin-ricardo.maquinas.sj.ifsc.edu.br
   roles:
