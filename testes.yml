@@ -10,8 +10,15 @@
   roles:
   - flashplayer
   - packettracer
-  - warsaw
-  
+
 - hosts: sj-lin-ctic-37246.maquinas.sj.ifsc.edu.br
   roles:
   - ldap
+
+- hosts: sj-lin-ricardo.maquinas.sj.ifsc.edu.br
+  roles:
+  - r
+
+- hosts: sj-win-ricardo.maquinas.sj.ifsc.edu.br
+  roles:
+  - r
