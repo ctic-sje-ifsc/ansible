@@ -32,3 +32,10 @@
     - r.project
     - r.studio
   when: ansible_os_family == 'Windows'
+
+  win_shortcut:
+    description: Atalho para o r-project
+    src: '%ProgramFiles%\R\R-3.5.1\bin\x64\Rgui.exe --cd-to-userdocs'
+    dest: '%Public%\Desktop\R.lnk'
+    #icon: '%ProgramFiles%\R\R-3.5.1\bin\x64\Rgui.exe,0'
+  when: ansible_os_family == 'Windows'
