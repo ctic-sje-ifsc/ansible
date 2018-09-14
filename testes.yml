@@ -6,10 +6,10 @@
 #  - instala_impressora
   - kile
 
-- hosts: testelin
-  roles:
-  - flashplayer
-  - packettracer
+# - hosts: testelin
+#   roles:
+#   - flashplayer
+#   - packettracer
 
 - hosts: sj-lin-ctic-37246.maquinas.sj.ifsc.edu.br
   roles:
