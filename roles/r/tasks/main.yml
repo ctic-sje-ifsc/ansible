@@ -27,7 +27,7 @@
 - name: Instalar o R - Windows
   win_chocolatey:
     name: "{{item}}"
-    version: latest
+    #version: latest
   with_items:
     - r.project
     - r.studio
