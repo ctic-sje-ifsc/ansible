@@ -12,5 +12,6 @@
 
 - name: Update cert index
   shell: /usr/sbin/update-ca-certificates ; touch /var/update-ca-certificates
+  args:
     creates: /var/update-ca-certificates
   when: ansible_os_family == 'Debian'
