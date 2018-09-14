@@ -1,0 +1,16 @@
+# Cria o diretório /usr/local/share/ca-certificates/extra
+- file:
+    path: /usr/local/share/ca-certificates/extra
+    state: directory
+  when: ansible_os_family == 'Debian'
+
+- name: Copiando arquivo ICP-Brasilv5.crt
+  copy:
+    src: ICP-Brasilv5.crt
+    dest: /usr/local/share/ca-certificates/extra/ICP-Brasilv5.crt
+  when: ansible_os_family == 'Debian'
+
+- name: Update cert index
+  shell: /usr/sbin/update-ca-certificates ; touch /var/update-ca-certificates
+    creates: /var/update-ca-certificates
+  when: ansible_os_family == 'Debian'
