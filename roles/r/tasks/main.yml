@@ -26,9 +26,9 @@
 #Windows
 - name: Instalar o R - Windows
   win_chocolatey:
-    name: '{{ item }}'
+    name: "{{item}}"
     version: latest
   with_items:
-  - r.project
-  - r.studio
+    - r.project
+    - r.studio
   when: ansible_os_family == 'Windows'
