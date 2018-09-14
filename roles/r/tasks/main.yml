@@ -1,20 +1,20 @@
 #Linux
 
 # Ubuntu
-- name: Adicionar apt key de um keyserver
+- name: Adicionar apt key de um keyserver - Ubuntu
   apt_key:
     keyserver: keyserver.ubuntu.com
     id: E084DAB9
   when: ansible_distribution == 'Ubuntu'
 
-- name: Adicionar repositório para r-project - Linux Ubuntu
+- name: Adicionar repositório para r-project - Ubuntu
   apt_repository:
     repo: deb https://cloud.r-project.org/bin/linux/ubuntu trusty
     state: present
     update_cache: yes
   when: ansible_distribution == 'Ubuntu'
 
-- name: Instalar os pacotes para o r-project - Linux Ubuntu
+- name: Instalar os pacotes para o r-project - Ubuntu
   apt: name={{item}} state=latest
   with_items:
     - r-base
@@ -22,6 +22,30 @@
     - r-cran-rjava
     - libjpeg62
   when: ansible_distribution == 'Ubuntu'
+
+# Debian
+- name: Adicionar apt key de um keyserver - Debian
+  apt_key:
+    keyserver: keys.gnupg.net
+    id: 3F32EE77E331692F
+  when: ansible_distribution == 'Debian'
+
+- name: Adicionar repositório para r-project - Debian
+  apt_repository:
+    repo: deb https://cloud.r-project.org/bin/linux/debian stretch
+    state: present
+    update_cache: yes
+  when: ansible_distribution == 'Debian'
+
+- name: Instalar os pacotes para o r-project - Debian
+  apt: name={{item}} state=latest
+  with_items:
+    - r-base
+    - r-base-dev
+    - libopenblas-base
+    - r-cran-rjava
+    - libjpeg62
+  when: ansible_distribution == 'Debian'
 
 #Windows
 - name: Instalar o R - Windows
