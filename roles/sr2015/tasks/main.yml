@@ -1,0 +1,17 @@
+#Windows
+
+- name: Baixar e instalar o SR2015 - Windows
+  win_package:
+    path: https://discovirtual.ifsc.edu.br/index.php/s/MPMc7bX6i6QAQQn
+    arguments: /VERYSILENT
+    product_id: SR2015
+  when: ansible_os_family == 'Windows'
+
+- name: Atalho para o SR2015
+  win_shortcut:
+    description: Atalho para o SR2015
+    src: '%ProgramFiles%\SR 2015\SR2015.exe'
+    dest: '%Public%\Desktop\SR 2015.lnk'
+    icon: '%ProgramFiles%\SR 2015\SR2015.exe,0'
+    state: present
+  when: ansible_os_family == 'Windows'
