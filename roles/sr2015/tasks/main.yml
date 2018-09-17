@@ -2,7 +2,7 @@
 
 - name: Baixar e instalar o SR2015 - Windows
   win_package:
-    path: https://discovirtual.ifsc.edu.br/index.php/s/MPMc7bX6i6QAQQn
+    path: https://discovirtual.ifsc.edu.br/index.php/s/MPMc7bX6i6QAQQn/download
     arguments: /VERYSILENT
     product_id: SR2015
   when: ansible_os_family == 'Windows'
