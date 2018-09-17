@@ -1,0 +1,18 @@
+---
+#Linux
+
+# Debian e Ubuntu    
+- name: Instalar o epoptes-client - Linux
+  apt: name={{item}} state=latest
+  with_items:
+    - epoptes-client 
+  when: ansible_os_family == 'Debian'
+
+
+- name: Adicionar entrada no /etc/hosts sobre quem é o server - Linux
+  lineinfile:
+    regexp: 'server$'
+    path: /etc/hosts
+    line: '192.168.1.1 server'
+  when: ansible_hostname is search("^sj-lin-ric")
+
