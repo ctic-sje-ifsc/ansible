@@ -21,4 +21,4 @@
 
 - hosts: sj-win-ricardo.maquinas.sj.ifsc.edu.br
   roles:
-  - r
+  - sr2015
