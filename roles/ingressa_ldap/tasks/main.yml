@@ -70,3 +70,15 @@
     group: root
     mode: 0644
   when: ansible_os_family == 'Debian'
+
+- name: Instala o lightdm
+  apt: name={{item}} state=latest
+  with_items:
+    - lightdm
+    - lightdm-gtk-greeter
+    - lightdm-gtk-greeter-settings    
+  when: ansible_distribution == 'Debian'
+
+- name: Remove GDM3
+  apt: name=gdm3 state=absent purge=yes
+  when: ansible_distribution == 'Debian'
