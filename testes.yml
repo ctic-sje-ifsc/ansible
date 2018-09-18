@@ -1,20 +1,4 @@
 ---
-- hosts: testewin
-  roles:
-#  - ativar_win
-#  - windows_update
-#  - instala_impressora
-  - kile
-
-# - hosts: testelin
-#   roles:
-#   - flashplayer
-#   - packettracer
-
-- hosts: sj-lin-ctic-37246.maquinas.sj.ifsc.edu.br
-  roles:
-  - cadeia_certificados
-
 - hosts: sj-lin-ricardo.maquinas.sj.ifsc.edu.br
   roles:
   - r
@@ -26,3 +10,11 @@
 - hosts: sj-lin-ctic-humberto-vm.maquinas.sj.ifsc.edu.br
   roles:
   - quadro_interativo
+
+- hosts: sj-lin-deb9lab-123.maquinas.sj.ifsc.edu.br
+  roles:
+  - epoptes_client
+
+- hosts: sj-lin-lab-123456.maquinas.sj.ifsc.edu.br
+  roles:
+  - epoptes_client
