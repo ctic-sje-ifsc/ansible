@@ -13,8 +13,10 @@
 
 - hosts: sj-lin-deb9lab-123.maquinas.sj.ifsc.edu.br
   roles:
-  - epoptes_client
+  - epoptes_server
+  - quadro_interativo  
 
 - hosts: sj-lin-lab-123456.maquinas.sj.ifsc.edu.br
   roles:
-  - epoptes_client
+  - epoptes_server
+  - quadro_interativo  
