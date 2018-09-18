@@ -1,7 +1,7 @@
 - name: Instala epoptes
   apt: name=epoptes state=latest
-  when: ansible_distribution == 'Debian'
+  when: ansible_os_family == 'Debian'
 
 - name: Remove epoptes-client
   apt: name=epoptes-client state=absent purge=yes
-  when: ansible_distribution == 'Debian'
+  when: ansible_os_family == 'Debian'
