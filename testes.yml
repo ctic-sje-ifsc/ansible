@@ -9,7 +9,7 @@
 
 - hosts: sj-lin-ctic-humberto-vm.maquinas.sj.ifsc.edu.br
   roles:
-  - quadro_interativo
+  - octave
 
 - hosts: sj-lin-deb9lab-123.maquinas.sj.ifsc.edu.br
   roles:
@@ -17,4 +17,4 @@
 
 - hosts: sj-lin-lab-123456.maquinas.sj.ifsc.edu.br
   roles:
-  - epoptes_client
+  - octave
