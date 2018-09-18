@@ -3,9 +3,7 @@
 
 # Debian e Ubuntu    
 - name: Instalar o epoptes-client - Linux
-  apt: name={{item}} state=latest
-  with_items:
-    - epoptes-client 
+  apt: name=epoptes-client state=latest
   when: ansible_os_family == 'Debian'
 
 
