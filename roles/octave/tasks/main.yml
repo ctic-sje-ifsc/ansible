@@ -1,0 +1,15 @@
+# Ubuntu
+- name: Adicionar repositório owncloud - Linux Ubuntu
+  apt_repository:
+    repo: ppa:octave/stable
+  when: ansible_distribution == 'Ubuntu'
+
+# Debian e Ubuntu
+- name: Instalar os pacotes para o octave - Linux Ubuntu
+  apt: name={{item}} state=latest
+  with_items:
+    - octave
+    - octave-communications
+    - octave-control
+    - octave-signal    
+  when: ansible_os_family == 'Debian'
