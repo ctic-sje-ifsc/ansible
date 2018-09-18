@@ -5,6 +5,7 @@
     path: https://discovirtual.ifsc.edu.br/index.php/s/MPMc7bX6i6QAQQn/download
     arguments: /VERYSILENT
     product_id: SR2015
+    state: present
   when: ansible_os_family == 'Windows'
 
 - name: Atalho para o SR2015
