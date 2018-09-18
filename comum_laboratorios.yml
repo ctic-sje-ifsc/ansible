@@ -1,10 +1,8 @@
 ---
-- hosts: administrativos_lin
+- hosts: laboratorios_lin
   roles:
     - sources_list
     - programas_padroes
-    - acesso_remoto
-    - fonte_garamound
     - papel_de_parede_e_icones
     - role: geerlingguy.ntp
       ntp_timezone: America/Sao_Paulo
@@ -14,7 +12,7 @@
         - "ntp.cais.rnp.br iburst"
         - "ntp.ufsc.br iburst"
 
-- hosts: administrativos_lin:!labfisica
+- hosts: laboratorios_lin:!labcad1
   roles:
     - role: debops.grub
       grub_users:
@@ -25,10 +23,9 @@
       grub_timeout_hardware: 0
       grub_timeout_virtual: 0
 
-- hosts: imagemwin
+- hosts: laboratorios_win
   roles:
     - programas_padroes
-    - acesso_remoto
     - papel_de_parede_e_icones
     - windows_update
   tasks:

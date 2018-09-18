@@ -3,4 +3,4 @@
   with_items:
     - xterm
     - xinput-calibrator    
-  when: ansible_distribution == 'Debian'
+  when: ansible_os_family == 'Debian'
