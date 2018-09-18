@@ -25,4 +25,4 @@
 
 - hosts: sj-lin-ctic-humberto-vm.maquinas.sj.ifsc.edu.br
   roles:
-  - ingressa_ldap
+  - epoptes_server
