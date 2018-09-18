@@ -1,0 +1,6 @@
+- name: Instalar pacotes necessarios
+  apt: name={{item}} state=latest
+  with_items:
+    - xterm
+    - xinput-calibrator    
+  when: ansible_distribution == 'Debian'

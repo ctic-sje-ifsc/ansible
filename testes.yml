@@ -25,4 +25,4 @@
 
 - hosts: sj-lin-ctic-humberto-vm.maquinas.sj.ifsc.edu.br
   roles:
-  - epoptes_server
+  - quadro_interativo
