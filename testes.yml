@@ -5,7 +5,7 @@
 
 - hosts: sj-win-ricardo.maquinas.sj.ifsc.edu.br
   roles:
-  - sr2015
+  - bricscad
 
 - hosts: sj-lin-ctic-humberto-vm.maquinas.sj.ifsc.edu.br
   roles:
@@ -14,7 +14,7 @@
 - hosts: sj-lin-deb9lab-123.maquinas.sj.ifsc.edu.br
   roles:
   - epoptes_server
-  - quadro_interativo  
+  - quadro_interativo
 
 - hosts: sj-lin-lab-123456.maquinas.sj.ifsc.edu.br
   roles:
