@@ -5,7 +5,7 @@
 
 - hosts: sj-win-ricardo.maquinas.sj.ifsc.edu.br
   roles:
-  - qgis
+  - bricscad
 
 - hosts: sj-lin-ctic-humberto-vm.maquinas.sj.ifsc.edu.br
   roles:
