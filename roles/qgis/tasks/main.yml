@@ -1,0 +1,35 @@
+# Debian e Ubuntu
+- name: Adicionar a chave do repositório do qgis
+  apt_key:
+    url: https://qgis.org/downloads/qgis-2017.gpg.key
+    state: present
+  when: ansible_os_family == 'Debian'
+
+# Ubuntu 18.04
+- name: Adicionar repositório qgis - Ubuntu Bionic
+  apt_repository:
+    repo: deb http://qgis.org/debian bionic main
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bionic')
+
+# Debian 9
+- name: Adicionar repositório qgis - Linux Debian 9
+  apt_repository:
+    repo: deb http://qgis.org/debian stretch main
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
+
+# Debian e Ubuntu
+
+- name: Instalar os pacotes para o qgis
+  apt: name={{item}} state=latest
+  with_items:
+    - qgis
+    - python-qgis
+    - qgis-plugin-grass
+  when: ansible_os_family == 'Debian'
+
+  #Windows
+- name: Install qgis - Windows
+  win_chocolatey:
+    name: qgis
+    state: latest
+  when: ansible_os_family == 'Windows'
