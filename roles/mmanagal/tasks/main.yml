@@ -4,7 +4,8 @@
   win_package:
     path: https://discovirtual.ifsc.edu.br/index.php/s/z3nGEmraAguhHvV/download
     arguments: /VERYSILENT
-    product_id: Mmana-gal
+    creates: 'C:\MMANA-GAL_Basic'
+    product_id: '{93BC44A2-0A38-4144-A7EE-DC4AAF2B4099}'
     state: present
   when: ansible_os_family == 'Windows'
 
