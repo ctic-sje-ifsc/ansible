@@ -1,0 +1,19 @@
+#Windows
+
+- name: Baixar e instalar o BricsCAD - Windows
+  win_package:
+    path: https://discovirtual.ifsc.edu.br/index.php/s/Tt0VjqOqLI3MI8e/download
+    arguments: /qn BRXLICENSESERVER="dko" SHOWRELEASENOTES=""
+    creates: 'C:\Program Files\Bricsys\BricsCAD V18 en_US\bricscad.exe'
+    product_id: brics
+    state: present
+  when: ansible_os_family == 'Windows'
+
+#- name: Atalho para o BricsCAD
+#  win_shortcut:
+#    description: Atalho para o BricsCAD
+#    src: '%Program Files%\Bricsys\BricsCAD V18 en_US\bricscad.exe'
+#    dest: '%Public%\Desktop\BricsCAD.lnk'
+#    icon: '%Program Files%\Bricsys\BricsCAD V18 en_US\bricscad.ico,0'
+#    state: present
+#  when: ansible_os_family == 'Windows'
