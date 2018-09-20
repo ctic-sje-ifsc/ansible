@@ -1,38 +1,28 @@
 #Linux
 
-# Ubuntu
-- name: Adicionar apt key de um keyserver - Ubuntu
-  apt_key:
-    keyserver: keyserver.ubuntu.com
-    id: E084DAB9
-  when: ansible_distribution == 'Ubuntu'
-
-- name: Adicionar repositório para r-project - Ubuntu
-  apt_repository:
-    repo: deb https://cloud.r-project.org/bin/linux/ubuntu trusty
-    state: present
-    update_cache: yes
-  when: ansible_distribution == 'Ubuntu'
-
-- name: Instalar os pacotes para o r-project - Ubuntu
+# Debian e Ubuntu
+- name: Instalar os pacotes para o r-project - Linux
   apt: name={{item}} state=latest
   with_items:
     - r-base
     - r-base-dev
+    - libatlas3-base
     - r-cran-rjava
     - libjpeg62
-  when: ansible_distribution == 'Ubuntu'
+  when: ansible_os_family == 'Debian'
 
-# Debian
-- name: Instalar os pacotes para o r-project - Debian
+- name: Instalar bibliotecas para o r-studio - Linux
   apt: name={{item}} state=latest
   with_items:
-    - r-base
-    - r-base-dev
-    - libopenblas-base
-    - r-cran-rjava
-    - libjpeg62
-  when: ansible_distribution == 'Debian'
+    - r-cran-gdata
+    - r-cran-gmodels
+    - r-cran-gtools
+  when: ansible_os_family == 'Debian'
+
+- name: Install a .deb R-Studio - Linux
+  apt:
+    deb: https://download1.rstudio.org/rstudio-xenial-1.1.456-amd64.deb
+  when: ansible_os_family == 'Debian'
 
 #Windows
 - name: Instalar o R - Windows
