@@ -4,7 +4,8 @@
   win_package:
     path: https://discovirtual.ifsc.edu.br/index.php/s/MPMc7bX6i6QAQQn/download
     arguments: /VERYSILENT
-    product_id: SR2015
+    product_id: SR 2015_is1
+    creates_path: C:\Program Files (x86)\SR 2015
     state: present
   when: ansible_os_family == 'Windows'
 
