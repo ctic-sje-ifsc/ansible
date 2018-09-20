@@ -4,6 +4,11 @@
     - name: update apt cache
       apt: update_cache=yes cache_valid_time=86400
       when: ansible_os_family == 'Debian'
+    - name: Instalar o apt-transport-https
+      apt:
+        name: apt-transport-https
+        state: latest
+      when: ansible_os_family == 'Debian'
 
 - import_playbook: comum_administrativo.yml
 - import_playbook: registro_academico.yml
