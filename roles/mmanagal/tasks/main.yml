@@ -1,0 +1,18 @@
+#Windows
+
+- name: Baixar e instalar o Mmana-gal - Windows
+  win_package:
+    path: https://discovirtual.ifsc.edu.br/index.php/s/z3nGEmraAguhHvV/download
+    arguments: /VERYSILENT
+    product_id: Mmana-gal
+    state: present
+  when: ansible_os_family == 'Windows'
+
+- name: Atalho para o Mmana-gal
+  win_shortcut:
+    description: Atalho para o Mmana-gal
+    src: 'C:\MMANA-GAL_Basic\MMANAGAL_Basic.exe'
+    dest: '%Public%\Desktop\Mmana-gal.lnk'
+    icon: 'C:\MMANA-GAL_Basic\MMANAGAL_Basic.exe,0'
+    state: present
+  when: ansible_os_family == 'Windows'
