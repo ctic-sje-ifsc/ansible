@@ -22,4 +22,4 @@
 
 - hosts: sj-labwin7-12345.maquinas.sj.ifsc.edu.br
   roles:
-  - sr2015
+  - multisimdemo
