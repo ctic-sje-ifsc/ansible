@@ -3,6 +3,7 @@
   roles:
     - sources_list
     - programas_padroes
+    - config_padrao_adm
     - ingressa_ldap
     - acesso_remoto
     - fonte_garamound
@@ -37,4 +38,3 @@
       win_shell: net start w32time ;	w32tm /config /manualpeerlist:"a.st1.ntp.br b.st1.ntp.br c.st1.ntp.br gps.ntp.br" /syncfromflags:manual /reliable:YES /update ; net stop w32time ; net start w32time ; w32tm /config /update ; w32tm /resync ; w32tm /resync ; New-Item c:\gatilho_ntp.txt -type file
       args:
         creates: C:\gatilho_ntp.txt
-
