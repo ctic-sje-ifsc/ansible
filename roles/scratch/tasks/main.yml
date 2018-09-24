@@ -4,15 +4,15 @@
   win_package:
     path: https://scratch.mit.edu/scratchr2/static/sa/Scratch-461.exe
     arguments: -silent -eulaAccepted -desktopShortcut -allowDownload
-    creates: 'C:\Program Files (x86)\Scratch 2\Scratch 2.exe'
+    product_id: '{6E988774-5309-E02E-7EA8-F19CB65C2063}'
     state: present
   when: ansible_os_family == 'Windows'
 
-- name: Atalho para o Scratch 2 - Windows
-  win_shortcut:
-    description: Atalho para o Scratch 2
-    src: 'C:\Program Files (x86)\Scratch 2\Scratch 2.exe'
-    dest: '%Public%\Desktop\Scratch 2.lnk'
-    icon: 'C:\Program Files (x86)\Scratch 2\Scratch 2.exe,0'
-    state: present
-  when: ansible_os_family == 'Windows'
+#- name: Atalho para o Scratch 2 - Windows
+#  win_shortcut:
+#    description: Atalho para o Scratch 2
+#    src: 'C:\Program Files (x86)\Scratch 2\Scratch 2.exe'
+#    dest: '%Public%\Desktop\Scratch 2.lnk'
+#    icon: 'C:\Program Files (x86)\Scratch 2\Scratch 2.exe,0'
+#    state: present
+#  when: ansible_os_family == 'Windows'
