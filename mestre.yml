@@ -4,10 +4,17 @@
     - name: update apt cache
       apt: update_cache=yes cache_valid_time=86400
       when: ansible_os_family == 'Debian'
+    - name: Remove useless packages from the cache
+      apt: autoclean=yes
+      when: ansible_os_family == 'Debian'
+    - name: Remove dependencies that are no longer required
+      apt: autoremove=yes
+      when: ansible_os_family == 'Debian'
+    # - name: Upgrade all packages to the latest version
+    #   apt: name="*" state=latest
+      when: ansible_os_family == 'Debian'
     - name: Instalar o apt-transport-https
-      apt:
-        name: apt-transport-https
-        state: latest
+      apt: name=apt-transport-https state=latest
       when: ansible_os_family == 'Debian'
 
 - import_playbook: comum_administrativo.yml
