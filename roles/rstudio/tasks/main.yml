@@ -1,5 +1,14 @@
 #Linux
 
+# Necessário para testes, depois vai ficar no programas_padroes_labs
+- name: Instalar os pacotes default Java openjdk - Linux
+  apt: name={{item}} state=latest
+  with_items:
+    - default-jdk
+    - default-jre
+  when: ansible_os_family == 'Debian'
+
+
 # Debian e Ubuntu
 - name: Instalar os pacotes para o r-project - Linux
   apt: name={{item}} state=latest
@@ -11,6 +20,12 @@
     - libjpeg62
   when: ansible_os_family == 'Debian'
 
+- name: Install a .deb R-Studio - Linux
+  apt:
+    deb: https://download1.rstudio.org/rstudio-xenial-1.1.456-amd64.deb
+  when: ansible_os_family == 'Debian'
+
+# Bibliotecas Linux
 - name: Instalar bibliotecas para o r-studio - Linux
   apt: name={{item}} state=latest
   with_items:
@@ -19,45 +34,47 @@
     - r-cran-gtools
   when: ansible_os_family == 'Debian'
 
-- name: Install a .deb R-Studio - Linux
-  apt:
-    deb: https://download1.rstudio.org/rstudio-xenial-1.1.456-amd64.deb
-  when: ansible_os_family == 'Debian'
-
 - name: Baixa Biblioteca RWeka e Rwekajars - Linux
-  with_items:
-    - RWekajars_3.9.3-1.tar.gz
-    - RWeka_0.4-39.tar.gz
   get_url:
     url: https://cran.r-project.org/src/contrib/{{item}}
     dest: /var/{{item}}
-  when: ansible_os_family == 'Debian'
-
-- name: Instala Biblioteca RWeka e Rwekajars - Linux
   with_items:
     - RWekajars_3.9.3-1.tar.gz
     - RWeka_0.4-39.tar.gz
+  when: ansible_os_family == 'Debian'
+
+- name: Instala Biblioteca RWeka e Rwekajars - Linux
   command: /usr/bin/R CMD INSTALL /var/{{item}}
   args:
     creates: /usr/local/lib/R/site-library/RWeka
   when: ansible_os_family == 'Debian'
+  with_items:
+    - RWekajars_3.9.3-1.tar.gz
+    - RWeka_0.4-39.tar.gz
 
 #Windows
 - name: Instalar o R - Windows
   win_chocolatey:
     name: "{{item}}"
-    #version: latest
   with_items:
     - r.project
     - r.studio
   when: ansible_os_family == 'Windows'
 
-- name: Atalho para o r-project
+- name: Atalho para o r-project - Windows
   win_shortcut:
     description: Atalho para o r-project
     src: '%ProgramFiles%\R\R-3.5.1\bin\x64\Rgui.exe'
     dest: '%Public%\Desktop\R.lnk'
     icon: '%ProgramFiles%\R\R-3.5.1\bin\x64\Rgui.exe,0'
     args: '--cd-to-userdocs'
+    state: present
+  when: ansible_os_family == 'Windows'
+
+- name: Atalho para o RStudio - Windows
+  win_shortcut:
+    description: Atalho para o RStudio
+    src: '%ProgramFiles%\RStudio\bin\rstudio.exe'
+    dest: '%Public%\Desktop\RStudio.lnk'
     state: present
   when: ansible_os_family == 'Windows'
