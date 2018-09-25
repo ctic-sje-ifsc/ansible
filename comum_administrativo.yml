@@ -27,7 +27,7 @@
       grub_timeout_hardware: 0
       grub_timeout_virtual: 0
 
-- hosts: imagemwin
+- hosts: administrativos_win
   roles:
     - programas_padroes_adm
     - acesso_remoto
