@@ -24,6 +24,24 @@
     deb: https://download1.rstudio.org/rstudio-xenial-1.1.456-amd64.deb
   when: ansible_os_family == 'Debian'
 
+- name: Baixa Biblioteca RWeka e Rwekajars - Linux
+  with_items:
+    - RWekajars_3.9.3-1.tar.gz
+    - RWeka_0.4-39.tar.gz
+  get_url:
+    url: https://cran.r-project.org/src/contrib/{{item}}
+    dest: /var/{{item}}
+  when: ansible_os_family == 'Debian'
+
+- name: Instala Biblioteca RWeka e Rwekajars - Linux
+  with_items:
+    - RWekajars_3.9.3-1.tar.gz
+    - RWeka_0.4-39.tar.gz
+  command: /usr/bin/R CMD INSTALL /var/{{item}}
+  args:
+    creates: /usr/local/lib/R/site-library/RWeka
+  when: ansible_os_family == 'Debian'
+
 #Windows
 - name: Instalar o R - Windows
   win_chocolatey:
