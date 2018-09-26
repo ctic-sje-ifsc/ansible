@@ -17,6 +17,7 @@
       apt: name=apt-transport-https state=latest
       when: ansible_os_family == 'Debian'
 
+# Administrativos
 - import_playbook: comum_administrativo.yml
 - import_playbook: registro_academico.yml
 - import_playbook: secretaria.yml
@@ -25,6 +26,10 @@
 - import_playbook: mtele.yml
 - import_playbook: des2.yml
 - import_playbook: testes.yml
+
+# Laboratorios
+- import_playbook: comum_laboratorios.yml
+- import_playbook: labprogramacao.yml
 
 - hosts: all
   gather_facts: false
