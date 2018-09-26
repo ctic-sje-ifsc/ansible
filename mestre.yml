@@ -12,7 +12,7 @@
       when: ansible_os_family == 'Debian'
     # - name: Upgrade all packages to the latest version
     #   apt: name="*" state=latest
-      when: ansible_os_family == 'Debian'
+    #   when: ansible_os_family == 'Debian'
     - name: Instalar o apt-transport-https
       apt: name=apt-transport-https state=latest
       when: ansible_os_family == 'Debian'
