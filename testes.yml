@@ -1,7 +1,7 @@
 ---
 - hosts: sj-lin-ricardo.maquinas.sj.ifsc.edu.br
   roles:
-  - r
+  - rstudio
 
 - hosts: sj-win-ricardo.maquinas.sj.ifsc.edu.br
   roles:
@@ -13,13 +13,12 @@
 
 - hosts: sj-lin-deb9lab-123.maquinas.sj.ifsc.edu.br
   roles:
-  - epoptes_server
-  - quadro_interativo
+  - rstudio
 
 - hosts: sj-lin-lab-123456.maquinas.sj.ifsc.edu.br
   roles:
-  - qgis
+  - rstudio
 
 - hosts: sj-labwin7-12345.maquinas.sj.ifsc.edu.br
   roles:
-  - multisimdemo
+  - bricscad
