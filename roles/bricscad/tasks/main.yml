@@ -1,20 +1,12 @@
 #Windows
 
-# VERSAO QUE NÃO FICA BAIXANDO SEMPRE, TESTAR COM O VAULT FUTURAMENTE
-# O PROBLEMA É COM O LINK, ELE NÃO RECONHECE QUE SEJA O MESMO ARQUIVO
-# - name: Baixar o instalador do Bricscad
-#   win_get_url:
-#     url: 'https://discovirtual.ifsc.edu.br/remote.php/webdav/SJE/CTIC/BricsCAD-V18.2.20-1-pt_BR(x64).msi'
-#     dest: 'C:\users\BricsCAD-V18.2.20-1-pt_BR(x64).msi'
-#     force: no
-#     url_username: USER
-#     url_password: SENHA
-
 - name: Baixar o instalador do Bricscad
   win_get_url:
-    url: 'https://discovirtual.ifsc.edu.br/index.php/s/Ssjev623jAUQdsW/download'
+    url: 'https://discovirtual.ifsc.edu.br/remote.php/webdav/SJE/CTIC/BricsCAD-V18.2.20-1-pt_BR(x64).msi'
     dest: 'C:\users\BricsCAD-V18.2.20-1-pt_BR(x64).msi'
     force: no
+    url_username: "{{ url_username }}"
+    url_password: "{{ url_password }}"
 
 - name: Baixar e instalar o BricsCAD - Windows
   win_package:
