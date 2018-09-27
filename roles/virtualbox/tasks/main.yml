@@ -25,6 +25,7 @@
   win_chocolatey:
     name: '{{ item }}'
     version: '5.2.12'
+    skip_scripts: yes
   with_items:
   - vboxguestadditions.install
   - virtualbox
