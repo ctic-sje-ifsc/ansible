@@ -28,10 +28,96 @@
     - transmission-common
   when: ansible_os_family == 'Debian'
 
+#Windows
+- name: Instalar pacotes padroes laboratorios - Windows
+  win_chocolatey: name={{ item }} state=latest
+  with_items:
+    - googlechrome
+    - jre8
+    - firefox
+    - 7zip
+    - vlc
+    - cutepdf
+    - adobereader
+    - geogebra
+    - putty
+    - adobeair
+    - librecad
+    - cadconverter
+    - subtitleworkshop
+    - microsoftsecurityessentials 
+  when: ansible_os_family == 'Windows'
+
+- name: Instalar o LibreOffice Still 6.0.6 - Windows
+  win_chocolatey:
+    name: libreoffice-still
+    version: '6.0.6'
+  when: ansible_os_family == 'Windows'  
+
+- name: Instalar o Unity 2018.2.10 - Windows
+  win_chocolatey:
+    name: unity
+    version: '2018.2.10'
+  when: ansible_os_family == 'Windows' 
+
+- name: Instalar o FreeCad 0.17 - Windows
+  win_chocolatey:
+    name: freecad
+    version: '0.17'
+  when: ansible_os_family == 'Windows'  
+
+- include_role:
+    name: bricscad
+
+- include_role:
+    name: mmanagal
+
+- include_role:
+    name: scratch
+
+- include_role:
+    name: sr2015
+
+
+
+# Windows atalhos
+
+- name: Cria o atalho do LibreCad - Windows
+  win_shortcut:
+    src: C:\Program Files (x86)\LibreCAD\LibreCAD.exe
+    dest: C:\Users\Public\Desktop\LibreCAD.lnk
+    icon: C:\Program Files (x86)\LibreCAD\LibreCAD.exe,0
+  when: ansible_os_family == 'Windows'  
+
+- name: Cria o atalho do CADConverter - Windows
+  win_shortcut:
+    src: C:\Program Files (x86)\CoolUtils\TotalCADConverter\CADConverter.exe
+    dest: C:\Users\Public\Desktop\CADConverter.lnk
+    icon: C:\Program Files (x86)\CoolUtils\TotalCADConverter\CADConverter.exe,0
+  when: ansible_os_family == 'Windows'
+
+- name: Cria o atalho do Subtitleworkshop - Windows
+  win_shortcut:
+    src: C:\Program Files (x86)\Subtitle Workshop\SubtitleWorkshop.exe
+    dest: C:\Users\Public\Desktop\SUbtitleWorkshop.lnk
+    icon: C:\Program Files (x86)\Subtitle Workshop\SubtitleWorkshop.exe,0
+  when: ansible_os_family == 'Windows'
+
 #Windows e Linux
 - include_role:
     name: virtualbox
+
 - include_role:
     name: wireshark
+
 - include_role:
     name: arduino
+
+- include_role:
+    name: flashplayer
+
+- include_role:
+    name: qgis
+    
+- include_role:
+    name: rstudio
