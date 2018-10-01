@@ -50,12 +50,17 @@
     - firefoxesr
     - 7zip
     - vlc
-    - libreoffice-oldstable
     - pdfsam
     - cutepdf
     - adobereader
     - microsoftsecurityessentials 
   when: ansible_os_family == 'Windows'
+
+- name: Instalar o LibreOffice Still 6.0.6 - Windows
+  win_chocolatey:
+    name: libreoffice-still
+    version: '6.0.6'
+  when: ansible_os_family == 'Windows'  
 
 #Windows e Linux
 - include_role:
