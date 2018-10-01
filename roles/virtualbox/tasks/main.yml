@@ -8,7 +8,6 @@
     update_cache: yes
   when: ansible_distribution == 'Debian'
 
-# Debian   
 - name: Instalar os pacotes para o Virtualbox do stretch-backports - Linux Debian
   apt: name={{item}} state=latest default_release=stretch-backports
   with_items:
@@ -19,8 +18,19 @@
     - virtualbox-guest-x11
   when: ansible_distribution == 'Debian'
 
-#Windows
+# Ubuntu
+- name: Instalar os pacotes para o Virtualbox do ubuntu - Linux Ubuntu
+  apt: name={{item}} state=latest
+  with_items:
+    - virtualbox
+    - virtualbox-dkms
+    - virtualbox-ext-pack
+    - virtualbox-guest-utils
+    - virtualbox-guest-x11
+  when: ansible_distribution == 'Ubuntu'
 
+
+#Windows
 - name: Instalar o Virtualbox - Windows
   win_chocolatey:
     name: '{{ item }}'
