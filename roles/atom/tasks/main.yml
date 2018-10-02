@@ -22,8 +22,8 @@
   when: ansible_os_family == 'Debian'
 
 #Windows
-- name: Instalar o Atom - Windows
-  win_chocolatey:
-    name: atom
-    state: latest
-  when: ansible_os_family == 'Windows'
+# - name: Instalar o Atom - Windows
+#   win_chocolatey:
+#     name: atom
+#     state: latest
+#   when: ansible_os_family == 'Windows'
