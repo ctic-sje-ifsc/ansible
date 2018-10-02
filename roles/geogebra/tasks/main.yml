@@ -1,0 +1,21 @@
+#Linux
+
+- name: Baixar e instalar geogebra 5 - Linux
+  apt:
+    deb: http://www.geogebra.org/download/deb.php?arch=amd64
+  when: ansible_os_family == 'Debian'
+
+- name: Atualizacao de pacotes geogebra - Linux
+  apt: name={{item}} state=latest
+  with_items:
+    - geogebra5
+    #- geogebra-classic #Geogebra 6
+  when: ansible_os_family == 'Debian'
+
+#Windows
+- name: Baixar e instalar geogebra 5 - Windows
+  win_chocolatey:
+    win_chocolatey:
+      name: geogebra5
+      state: latest
+  when: ansible_os_family == 'Windows'
