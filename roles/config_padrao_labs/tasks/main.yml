@@ -1,1 +1,38 @@
 ---
+
+# Permissao para gravar na placa
+- name: Adiciona no grupo dialout
+  user:
+    name: "{{item}}"
+    groups: dialout
+    append: yes
+  with_items:
+    - aluno
+    - mayara.sousa 
+    - arliones.hoeller
+    - roberto.matos
+    - elen
+  when: ansible_os_family == 'Debian'
+
+###Solicitado pelo Mello no chamado IFSC#2018060710000808 de 07/06/18
+- name: Adiciona no grupo plugdev
+  user:
+    name: "{{item}}"
+    groups: plugdev
+    append: yes
+  with_items:
+    - aluno
+  when: ansible_os_family == 'Debian'
+
+### Bau: Liberacao da porta paralela
+# - name: Adiciona no grupo dialout
+#   file:
+#     path: /dev/parport0
+#     mode: "a+rw"
+#     state: file
+
+### Para resolver o problema da janela de informacao que ficava fundo amarelo com letra branca do chamado IFSC#2017082510000862
+# - name: Remove arquivo Troll
+#   file:
+#     path: /home/aluno/.config/Trolltech.conf
+#     state: absent
