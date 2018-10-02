@@ -1,11 +1,11 @@
 ---
 - hosts: sj-lin-ricardo.maquinas.sj.ifsc.edu.br
   roles:
-  - rstudio
+  - geogebra5
 
 - hosts: sj-win-ricardo.maquinas.sj.ifsc.edu.br
   roles:
-  - bricscad
+  - geogebra5
 
 - hosts: sj-lin-ctic-humberto-vm.maquinas.sj.ifsc.edu.br
   roles:
@@ -17,7 +17,7 @@
 
 - hosts: sj-lin-lab-123456.maquinas.sj.ifsc.edu.br
   roles:
-  - virtualbox
+  - geogebra5
 
 - hosts: sj-labwin7-12345.maquinas.sj.ifsc.edu.br
   roles:
