@@ -1,4 +1,4 @@
-#Linux
+# Linux --------------------------------------------------------------------------------------------------------------
 - name: Instalar pacotes padroes de laboratorios - Linux
   apt: name={{item}} state=latest
   with_items:
@@ -11,15 +11,167 @@
     - gimp
     - inkscape
     - latexila
-    - scratch
     - ntfs-3g
     - android-tools-adb
     - iperf
-    - xournal
+    - xournal 
     - ipcalc
     - tcpdump
     - snmp-mibs-downloader
   when: ansible_os_family == 'Debian'
+
+- name: Instalar pacotes padroes de laboratorios - Linux
+  apt: name={{item}} state=latest
+  with_items:
+    - abntex
+    - adobe-flashplugin
+    - as31
+    - avidemux
+    - avr-libc
+    - avrdude
+    - chrpath
+    - cutecom
+    - diffstat
+    - distcc
+    - distccmon-gnome
+    - dnsutils
+    - eagle:i386
+    - fish
+    - fritzing
+    - fritzing-data
+    - g++-4.8
+    - g++-arm-linux-gnueabi
+    - gcc-arm-linux-gnueabi
+    - gcc-arm-none-eabi
+    - gcc-avr
+    - gdb
+    - gedit
+    - git
+    - glade
+    - gnupg2
+    - gradle
+    - ipython3
+    - kalzium
+    - kdenlive
+    - kicad
+    - kile
+    - kile-l10n
+    - kolourpaint4
+    - konsole
+    - lib32stdc++6
+    - libao-dev
+    - libboost-all-dev
+    - libc6-dev-i386
+    - libcurl4-openssl-dev
+    - libdbus-1-dev
+    - libglade2-dev
+    - libglademm-2.4-dev
+    - libgtk-3-dev
+    - libgtkmm-2.4-dev
+    - libgtkmm-3.0-dev
+    - libnl-3-dev
+    - libnl-genl-3-dev
+    - libpcap-dev
+    - libpcre++-dev
+    - libreoffice
+    - libreoffice-l10n-pt-br
+    - libsqlite3-dev
+    - libssl-dev
+    - libstdc++-4.8-dev
+    - libswt-gtk-3-jni:i386
+    - libzmq-dev
+    - linux-headers-generic
+    - logisim
+    - maven2
+    - mcu8051ide
+    - mosquitto-clients
+    - mysql-client
+    - mysql-workbench
+    - nemiver
+    - nodejs
+    - nodejs-legacy
+    - npm
+    - okular
+    - pinta
+    - python-dev
+    - python-pip
+    - python-virtualenv
+    - python3
+    - python3-dev
+    - python3.4-venv
+    - rabbitmq-server
+    - resolvconf
+    - spyder3
+    - sqlite3
+    - sqlitebrowser
+    - ssh
+    - subversion
+    - swig
+    - texlive-extra-utils
+    - texlive-lang-portuguese
+    - traceroute
+    - tree
+    - ttf-ancient-fonts
+    - u-boot-tools
+    - uuid-dev
+    - vim
+    - vlc
+    - whois
+    - wxmaxima
+    - x2goclient
+    - xpdf
+    - zlib1g-dev
+  when: ansible_os_family == 'Debian'
+
+
+# - name: Instalar lista de pacotes pedida pelo Arliones - Linux
+#   apt: name={{item}} state=latest
+#   with_items:
+#     - ethtool
+#     - cmake
+#     - pkg-config
+#     - libavcodec-dev
+#     - libavformat-dev
+#     - libswscale-dev
+#     - python-numpy
+#     - libtbb2
+#     - libtbb-dev
+#     - libjpeg-dev
+#     - libjasper-dev
+#     - libdc1394-22-dev
+#     - libopencv-*
+#     - qemu-system-x86
+#     - qemu-utils
+#     - qemu-common
+#     - libxt6:i386
+#     - libdbus-glib-1-2:i386
+#     - libasound2:i386
+#     - libxpm4:i386
+#     - libusb-0.1-4:i386
+#   when: ansible_os_family == 'Debian'
+
+# - name: Instalar lista de pacotes pedida pelo Arliones - Linux
+#   apt: name={{item}} state=latest
+#   with_items:
+#     - libcppunit-dev
+#     - cxxtest
+#     - libcunit1
+#     - libcunit1-dev
+#   when: ansible_os_family == 'Debian'
+
+# - name: Instala flask com python pip  - Linux
+#   pip: name={{item}}
+#   with_items:
+#     - flask
+#     - flask-httpauth
+#   when: ansible_os_family == 'Debian'
+
+# - name: Instalar lista de pacotes necessarios para o quartus no Debian - Linux
+#   apt: name={{item}} state=latest
+#   with_items:
+#     - libbz2-1.0:i386
+#     - libsm6:i386
+#   when: ansible_os_family == 'Debian'
 
 - name: Remover programas  - Linux
   apt: name={{item}} state=absent
@@ -28,7 +180,24 @@
     - transmission-common
   when: ansible_os_family == 'Debian'
 
-#Windows
+- include_role:
+    name: softwares_sdr
+
+## Para lembrar de colocar quando for feito:
+
+# - include_role:
+#     name: octave
+
+# - include_role:
+#     name: 
+
+# - include_role:
+#     name: zoiper
+
+# - include_role:
+#     name: netbeans
+
+# Windows --------------------------------------------------------------------------------------------------------------
 - name: Instalar pacotes padroes laboratorios - Windows
   win_chocolatey: name={{ item }} state=latest
   with_items:
@@ -44,26 +213,26 @@
     - librecad
     - cadconverter
     - subtitleworkshop
-    - microsoftsecurityessentials
+    - microsoftsecurityessentials 
   when: ansible_os_family == 'Windows'
 
 - name: Instalar o LibreOffice Still 6.0.6 - Windows
   win_chocolatey:
     name: libreoffice-still
     version: '6.0.6'
-  when: ansible_os_family == 'Windows'
+  when: ansible_os_family == 'Windows'  
 
 - name: Instalar o Unity 2018.2.10 - Windows
   win_chocolatey:
     name: unity
     version: '2018.2.10'
-  when: ansible_os_family == 'Windows'
+  when: ansible_os_family == 'Windows' 
 
 - name: Instalar o FreeCad 0.17 - Windows
   win_chocolatey:
     name: freecad
     version: '0.17'
-  when: ansible_os_family == 'Windows'
+  when: ansible_os_family == 'Windows'  
 
 - include_role:
     name: bricscad
@@ -77,15 +246,14 @@
 - include_role:
     name: sr2015
 
-
-# Windows atalhos
+# Windows atalhos --------------------------------------------------------------------------------------------------------------
 
 - name: Cria o atalho do LibreCad - Windows
   win_shortcut:
     src: C:\Program Files (x86)\LibreCAD\LibreCAD.exe
     dest: C:\Users\Public\Desktop\LibreCAD.lnk
     icon: C:\Program Files (x86)\LibreCAD\LibreCAD.exe,0
-  when: ansible_os_family == 'Windows'
+  when: ansible_os_family == 'Windows'  
 
 - name: Cria o atalho do CADConverter - Windows
   win_shortcut:
@@ -101,7 +269,7 @@
     icon: C:\Program Files (x86)\Subtitle Workshop\SubtitleWorkshop.exe,0
   when: ansible_os_family == 'Windows'
 
-#Windows e Linux
+# Windows e Linux --------------------------------------------------------------------------------------------------------------
 - include_role:
     name: virtualbox
 
@@ -121,4 +289,9 @@
     name: rstudio
 
 - include_role:
-    name: geogebra
+    name: atom
+
+## Para lembrar de colocar quando for feito:
+
+# - include_role:
+#     name: cmap_tools
