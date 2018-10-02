@@ -189,7 +189,7 @@
 #     name: octave
 
 # - include_role:
-#     name: 
+#     name: astah
 
 # - include_role:
 #     name: zoiper
@@ -290,6 +290,9 @@
 
 - include_role:
     name: atom
+
+- include_role:
+    name: geogebra
 
 ## Para lembrar de colocar quando for feito:
 
