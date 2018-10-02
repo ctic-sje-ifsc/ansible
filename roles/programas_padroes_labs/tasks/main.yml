@@ -15,7 +15,7 @@
     - ntfs-3g
     - android-tools-adb
     - iperf
-    - xournal 
+    - xournal
     - ipcalc
     - tcpdump
     - snmp-mibs-downloader
@@ -39,32 +39,31 @@
     - vlc
     - cutepdf
     - adobereader
-    - geogebra
     - putty
     - adobeair
     - librecad
     - cadconverter
     - subtitleworkshop
-    - microsoftsecurityessentials 
+    - microsoftsecurityessentials
   when: ansible_os_family == 'Windows'
 
 - name: Instalar o LibreOffice Still 6.0.6 - Windows
   win_chocolatey:
     name: libreoffice-still
     version: '6.0.6'
-  when: ansible_os_family == 'Windows'  
+  when: ansible_os_family == 'Windows'
 
 - name: Instalar o Unity 2018.2.10 - Windows
   win_chocolatey:
     name: unity
     version: '2018.2.10'
-  when: ansible_os_family == 'Windows' 
+  when: ansible_os_family == 'Windows'
 
 - name: Instalar o FreeCad 0.17 - Windows
   win_chocolatey:
     name: freecad
     version: '0.17'
-  when: ansible_os_family == 'Windows'  
+  when: ansible_os_family == 'Windows'
 
 - include_role:
     name: bricscad
@@ -79,7 +78,6 @@
     name: sr2015
 
 
-
 # Windows atalhos
 
 - name: Cria o atalho do LibreCad - Windows
@@ -87,7 +85,7 @@
     src: C:\Program Files (x86)\LibreCAD\LibreCAD.exe
     dest: C:\Users\Public\Desktop\LibreCAD.lnk
     icon: C:\Program Files (x86)\LibreCAD\LibreCAD.exe,0
-  when: ansible_os_family == 'Windows'  
+  when: ansible_os_family == 'Windows'
 
 - name: Cria o atalho do CADConverter - Windows
   win_shortcut:
@@ -118,6 +116,9 @@
 
 - include_role:
     name: qgis
-    
+
 - include_role:
     name: rstudio
+
+- include_role:
+    name: geogebra
