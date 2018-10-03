@@ -7,6 +7,7 @@
     force: no
     url_username: "{{ url_username }}"
     url_password: "{{ url_password }}"
+  when: ansible_os_family == 'Windows'
 
 - name: Baixar e instalar o BricsCAD - Windows
   win_package:
