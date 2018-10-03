@@ -1,0 +1,10 @@
+[Desktop Entry] 
+Name=JetBrains Toolbox
+Exec=/opt/jetbrains/apps/JetBrains/Toolbox/bin/jetbrains-toolbox %u
+Icon=/opt/jetbrains/apps/JetBrains/Toolbox/toolbox.svg
+StartupNotify=false
+Categories=Development;IDE;
+Terminal=false
+X-GNOME-Autostart-enabled=false
+StartupWMClass=jetbrains-toolbox
+MimeType=x-scheme-handler/jetbrains;
