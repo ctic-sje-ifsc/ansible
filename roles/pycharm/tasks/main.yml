@@ -8,6 +8,7 @@
     group: root
     mode: 0755
     recurse: yes
+  when: ansible_os_family == 'Debian'
 
 - name: Baixando e extraindo o Pycharm jetbrains - Linux Debian
   unarchive:
@@ -36,3 +37,4 @@
     group: 513
     mode: 0775
     recurse: yes
+  when: ansible_os_family == 'Debian'

@@ -8,6 +8,7 @@
     group: root
     mode: 0755
     recurse: yes
+  when: ansible_os_family == 'Debian'
 
 - name: Baixando e extraindo o Toolbox jetbrains - Linux Debian
   unarchive:
@@ -36,6 +37,7 @@
     group: ctic
     mode: 0750
     recurse: yes
+  when: ansible_os_family == 'Debian'
 
 - name: Criando o link do Toolbox para o usuário CTIC
   file:
