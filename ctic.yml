@@ -1,0 +1,34 @@
+#- hosts: ctic
+#  roles:
+#    - code
+#    - teamviewer
+#    - virtualbox
+- hosts: sj-lin-ctic-744396.maquinas.sj.ifsc.edu.br
+  roles:
+#    - code
+#    - teamviewer
+    - virtualbox
+    - role: geerlingguy.nfs
+      nfs_exports: [ "/dados *(rw,sync,no_root_squash)" ]
+  tasks:
+  - name: Pacotes do Ricardo
+    apt: name={{item}} state=latest
+    with_items:
+      - keepassx
+      - k3b
+      - konsole
+      - keychain
+      - nfs-common
+      - curl
+      - dcfldd
+      - ethtool
+      - git
+      - gparted
+      - lm-sensors
+      - remmina
+      - vinagre
+      - samba
+      - tcpdump
+      - unzip
+      - usbutils
+      - vlan
