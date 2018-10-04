@@ -92,6 +92,7 @@
     owner: root
     group: lp
     mode: 0755
+  when: ansible_os_family == 'Debian'
 
 - name: Copia arquivo client.conf para configurar o cups client
   copy:
