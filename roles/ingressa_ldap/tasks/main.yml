@@ -85,6 +85,14 @@
   apt: name=cups-client state=latest
   when: ansible_distribution == 'Debian'
 
+- name: Cria diretório /etc/cups
+  file:
+    path: /etc/cups
+    state: directory
+    owner: root
+    group: lp
+    mode: 0755
+
 - name: Copia arquivo client.conf para configurar o cups client
   copy:
     src: client.conf
