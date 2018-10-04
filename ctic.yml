@@ -8,6 +8,7 @@
 #    - code
 #    - teamviewer
     - virtualbox
+    - softwares_remotos
     - role: geerlingguy.nfs
       nfs_exports: [ "/dados *(rw,sync,no_root_squash)" ]
   tasks:
