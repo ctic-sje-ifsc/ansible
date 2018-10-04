@@ -10,7 +10,7 @@
 
 - name: Adicionar repositório do docker - Linux Debian
   apt_repository:
-    repo: deb [arch=amd64] https://download.docker.com/linux/debian
+    repo: deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable
     state: present
     update_cache: yes
   when: ansible_distribution == 'Debian'
