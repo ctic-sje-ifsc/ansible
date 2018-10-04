@@ -20,9 +20,9 @@
         comment: 'O local mais seguro de todos'
         path: /dados
         browseable: yes
-        create_mode: 777
-        directory_mode: 777
-        valid_users: %S
+        create_mode: '777'
+        directory_mode: '777'
+        valid_users: '%S'
         writable: yes
         read_only: no
         guest_ok: yes
