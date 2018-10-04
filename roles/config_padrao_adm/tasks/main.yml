@@ -2,15 +2,10 @@
 #Linux
 
 - name: Alterar  tempo de retry do dhcp - Linux
-  lineinfile:
-    regexp: '^#retry'
-    path: /etc/dhcp/dhclient.conf
-    line: 'retry 30'
-  when: ansible_os_family == 'Debian'
-
-- name: Alterar  tempo de retry do dhcp 2 - Linux
-  lineinfile:
-    regexp: '^retry'
-    path: /etc/dhcp/dhclient.conf
-    line: 'retry 30'
+  copy:
+    src: dhclient.conf
+    dest: /etc/dhcp/dhclient.conf
+    owner: root
+    group: root
+    mode: 0644
   when: ansible_os_family == 'Debian'
