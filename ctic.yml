@@ -26,10 +26,14 @@
       - git
       - gparted
       - lm-sensors
-      - remmina
       - vinagre
       - samba
       - tcpdump
       - unzip
       - usbutils
       - vlan
+  - name: Install a .deb Microsoft VS Code - Linux Debian
+    apt:
+      deb: https://go.microsoft.com/fwlink/?LinkID=760868
+ 
+ 
