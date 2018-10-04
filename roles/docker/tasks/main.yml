@@ -1,0 +1,29 @@
+---
+#Linux
+
+# Debian
+- name: Adicionar a chave do repositório do docker - Linux Debian
+  apt_key:
+    url: https://download.docker.com/linux/debian/gpg
+    state: present
+  when: ansible_distribution == 'Debian'
+
+- name: Adicionar repositório do docker - Linux Debian
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/debian
+    state: present
+    update_cache: yes
+  when: ansible_distribution == 'Debian'
+
+- name: Instalar o docker - Linux Debian
+  apt:
+    name: docker-ce
+    state: latest
+  when: ansible_distribution == 'Debian'
+
+#Windows
+# - name: Instalar o docker - Windows
+#   win_chocolatey:
+#     name: docker
+#     state: latest
+#   when: ansible_os_family == 'Windows'
