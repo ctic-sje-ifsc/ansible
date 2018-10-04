@@ -3,7 +3,8 @@
 #    - code
 #    - teamviewer
 #    - virtualbox
-- hosts: sj-lin-ctic-744396.maquinas.sj.ifsc.edu.br
+#- hosts: sj-lin-ctic-744396.maquinas.sj.ifsc.edu.br
+- hosts: sj-lin-ricardo.maquinas.sj.ifsc.edu.br
   roles:
     - code
     - kubernetes
