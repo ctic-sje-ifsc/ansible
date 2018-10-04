@@ -30,9 +30,11 @@
 #     path: /dev/parport0
 #     mode: "a+rw"
 #     state: file
+#   when: ansible_os_family == 'Debian'
 
 ### Para resolver o problema da janela de informacao que ficava fundo amarelo com letra branca do chamado IFSC#2017082510000862
 # - name: Remove arquivo Troll
 #   file:
 #     path: /home/aluno/.config/Trolltech.conf
 #     state: absent
+#   when: ansible_distribution == 'Ubuntu'
