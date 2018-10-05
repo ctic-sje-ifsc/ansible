@@ -43,6 +43,7 @@
       - gparted
       - lm-sensors
       - vinagre
+      - nautilus-dropbox
 #      - samba
       - tcpdump
       - unzip
