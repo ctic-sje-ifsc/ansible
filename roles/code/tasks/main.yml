@@ -1,0 +1,29 @@
+---
+#Linux
+
+# Debian e Ubuntu
+- name: Adicionar a chave do repositório do vscode - Linux
+  apt_key:
+    url: https://packages.microsoft.com/keys/microsoft.asc
+    state: present
+  when: ansible_os_family == 'Debian'
+
+- name: Adicionar repositório do vscode - Linux
+  apt_repository:
+    repo: deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main
+    state: present
+    update_cache: yes
+  when: ansible_os_family == 'Debian'
+
+- name: Instalar o vscode - Linux
+  apt:
+    name: code
+    state: latest
+  when: ansible_os_family == 'Debian'
+
+#Windows
+# - name: Instalar o Visual Studio Code - Windows
+#   win_chocolatey:
+#     name: vscode
+#     state: latest
+#   when: ansible_os_family == 'Windows'

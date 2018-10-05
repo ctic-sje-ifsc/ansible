@@ -28,7 +28,8 @@
 - import_playbook: cotel.yml
 - import_playbook: mtele.yml
 - import_playbook: des2.yml
-- import_playbook: testes.yml
+#- import_playbook: testes.yml
+- import_playbook: ctic.yml
 
 # Laboratorios
 - import_playbook: comum_laboratorios.yml
