@@ -1,0 +1,12 @@
+#Linux
+
+- name: Install a .deb Rambox 0.5.17 - Linux
+  apt:
+    deb: https://github.com/ramboxapp/community-edition/releases/download/0.5.17/Rambox_0.5.17-x64.deb
+  when: ansible_os_family == 'Debian'
+
+#Windows
+#- name: Instalar o Rambox - Windows
+#  win_chocolatey:
+#    name: rambox
+#  when: ansible_os_family == 'Windows'
