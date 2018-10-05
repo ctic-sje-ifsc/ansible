@@ -1,63 +1,107 @@
 # Linux --------------------------------------------------------------------------------------------------------------
-- name: Instalar pacotes padroes de laboratorios - Linux
+
+- name: Instalar pacotes GUI ou "conhecidos" padroes de laboratorios - Linux
   apt: name={{item}} state=latest
   with_items:
-    - ethtool
-    - minicom
-    - nmap
     - geany
     - unrar
     - audacity
     - gimp
     - inkscape
     - latexila
-    - ntfs-3g
-    - android-tools-adb
-    - iperf
     - xournal 
-    - ipcalc
-    - tcpdump
-    - snmp-mibs-downloader
+    - abntex
+    - adobe-flashplugin
+    - avidemux
+    - fritzing
+    - kalzium
+    - kdenlive
+    - kicad
+    - kile
+    - kile-l10n
+    - kolourpaint4
+    - konsole
+    - gedit
+    - okular
+    - pinta
+    - mcu8051ide
+    - vlc
+    - x2goclient
+    - xpdf
+    - libreoffice
+    - libreoffice-l10n-pt-br
   when: ansible_os_family == 'Debian'
 
-# - name: Instalar pacotes padroes de laboratorios - Linux
+# - name: Instalar pacotes de ferramentas "conhecidas" padroes de laboratorios - Linux
 #   apt: name={{item}} state=latest
 #   with_items:
-#     - abntex
-#     - adobe-flashplugin
-#     - as31
-#     - avidemux
-#     - avr-libc
-#     - avrdude
-#     - chrpath
+#     - ethtool
+#     - minicom
+#     - nmap
+#     - ntfs-3g
+#     - android-tools-adb
+#     - iperf
+#     - ipcalc
+#     - tcpdump
+#     - snmp-mibs-downloader
 #     - cutecom
+#     - avrdude
+#     - gdb
+#     - ipython3
+#     - git
+#     - logisim
+#     - maven2
+#     - mosquitto-clients
+#     - mysql-client
+#     - mysql-workbench
+#     - nemiver
+#     - nodejs
+#     - nodejs-legacy
+#     - npm
+#     - python-dev
+#     - python-pip
+#     - python-virtualenv
+#     - python3
+#     - python3-dev
+#     - python3.4-venv
+#     - rabbitmq-server
+#     - vim
+#     - whois
+#     - wxmaxima
+#     - traceroute
+#     - tree
+#     - ttf-ancient-fonts
+#     - u-boot-tools
+#     - uuid-dev
+#     - resolvconf
+#     - spyder3
+#     - sqlite3
+#     - sqlitebrowser
+#     - subversion
+#     - gcc-avr
+#     - as31
+#     - chrpath
 #     - diffstat
 #     - distcc
 #     - distccmon-gnome
 #     - dnsutils
 #     - eagle:i386
 #     - fish
-#     - fritzing
-#     - fritzing-data
-#     - g++-4.8
+# #    - g++-4.8
 #     - g++-arm-linux-gnueabi
 #     - gcc-arm-linux-gnueabi
 #     - gcc-arm-none-eabi
-#     - gcc-avr
-#     - gdb
-#     - gedit
-#     - git
 #     - glade
 #     - gnupg2
 #     - gradle
-#     - ipython3
-#     - kalzium
-#     - kdenlive
-#     - kicad
-#     - kile
-#     - kile-l10n
-#     - kolourpaint4
-#     - konsole
+#     - swig
+#     - texlive-extra-utils
+#     - texlive-lang-portuguese
+#   when: ansible_os_family == 'Debian'
+
+# - name: Instalar pacotes de bibliotecas padroes de laboratorios - Linux
+#   apt: name={{item}} state=latest
+#   with_items:
 #     - lib32stdc++6
 #     - libao-dev
 #     - libboost-all-dev
@@ -73,56 +117,15 @@
 #     - libnl-genl-3-dev
 #     - libpcap-dev
 #     - libpcre++-dev
-#     - libreoffice
-#     - libreoffice-l10n-pt-br
 #     - libsqlite3-dev
 #     - libssl-dev
 #     - libstdc++-4.8-dev
 #     - libswt-gtk-3-jni:i386
 #     - libzmq-dev
 #     - linux-headers-generic
-#     - logisim
-#     - maven2
-#     - mcu8051ide
-#     - mosquitto-clients
-#     - mysql-client
-#     - mysql-workbench
-#     - nemiver
-#     - nodejs
-#     - nodejs-legacy
-#     - npm
-#     - okular
-#     - pinta
-#     - python-dev
-#     - python-pip
-#     - python-virtualenv
-#     - python3
-#     - python3-dev
-#     - python3.4-venv
-#     - rabbitmq-server
-#     - resolvconf
-#     - spyder3
-#     - sqlite3
-#     - sqlitebrowser
-#     - ssh
-#     - subversion
-#     - swig
-#     - texlive-extra-utils
-#     - texlive-lang-portuguese
-#     - traceroute
-#     - tree
-#     - ttf-ancient-fonts
-#     - u-boot-tools
-#     - uuid-dev
-#     - vim
-#     - vlc
-#     - whois
-#     - wxmaxima
-#     - x2goclient
-#     - xpdf
 #     - zlib1g-dev
+#     - avr-libc
 #   when: ansible_os_family == 'Debian'
-
 
 # - name: Instalar lista de pacotes pedida pelo Arliones - Linux
 #   apt: name={{item}} state=latest
@@ -228,11 +231,11 @@
     version: '2018.2.10'
   when: ansible_os_family == 'Windows' 
 
-- name: Instalar o FreeCad 0.17 - Windows
-  win_chocolatey:
-    name: freecad
-    version: '0.17'
-  when: ansible_os_family == 'Windows'  
+# - name: Instalar o FreeCad 0.17 - Windows
+#   win_chocolatey:
+#     name: freecad
+#     version: 'latest'
+#   when: ansible_os_family == 'Windows'  
 
 - include_role:
     name: bricscad
