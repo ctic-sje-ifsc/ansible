@@ -13,9 +13,8 @@
   when: ansible_os_family == 'Debian'
 
 #Windows
-- name: Baixar e instalar geogebra 5 - Windows
+- name: Baixar e instalar Geogebra - Windows
   win_chocolatey:
-    win_chocolatey:
-      name: geogebra
-      state: latest
+    name: geogebra
+    state: latest
   when: ansible_os_family == 'Windows'
