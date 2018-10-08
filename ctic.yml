@@ -50,3 +50,8 @@
       - unzip
       - usbutils
       - vlan
+      - sshfs
+      - python-pip
+      - virtualenv
+  - pip:
+      name: pywinrm
