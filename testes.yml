@@ -5,7 +5,7 @@
 
 - hosts: sj-win-ricardo.maquinas.sj.ifsc.edu.br
   roles:
-  - geogebra
+  - chemdraw_12
 
 - hosts: sj-lin-ctic-humberto-vm.maquinas.sj.ifsc.edu.br
   roles:
