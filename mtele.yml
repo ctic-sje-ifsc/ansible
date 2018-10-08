@@ -3,3 +3,7 @@
     - packettracer
     - kile
     - programas_padroes_labs
+
+- hosts: sj-mtele-38105.maquinas.sj.ifsc.edu.br
+  roles:
+    - zoiper
