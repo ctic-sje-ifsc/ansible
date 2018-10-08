@@ -1,0 +1,30 @@
+#Windows
+
+- name: Baixar e instalar o Chem Draw 12 - Windows
+  win_package:
+    path: https://discovirtual.ifsc.edu.br/index.php/s/MPMc7bX6i6QAQQn/download
+    arguments: /qb
+    product_id: '{48DEAAF2-8276-4BBD-B7B6-91E454938476}'
+    creates_path: C:\Program Files (x86)\CambridgeSoft\
+    state: present
+  when: ansible_os_family == 'Windows'
+
+- name: Atalho para o Chem Draw 12 - Windows
+  win_shortcut:
+    description: Atalho para o Chem Draw 12
+    src: 'C:\Program Files (x86)\CambridgeSoft\ChemOffice2010\Chem3D\Chem3D.exe'
+    dest: '%Public%\Desktop\ChemDraw12.lnk'
+    icon: 'C:\Program Files (x86)\CambridgeSoft\ChemOffice2010\Chem3D\Chem3D.exe,0'
+    state: present
+  when: ansible_os_family == 'Windows'
+
+#### Ativação manual ####
+
+- name: Serial do ChemDraw
+  win_lineinfile:
+    path: C:\Program Files (x86)\CambridgeSoft\serial.txt
+    create: yes
+    line: 'Name: Mulder
+Organization: X-Files Email: mulder@xfiles.org
+s/n: 875-317589-4732
+Activation Code: AAD-CBDMI-D2-QEEY-HLGNL-GZLM-IDCAM'
