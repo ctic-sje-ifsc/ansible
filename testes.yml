@@ -1,7 +1,7 @@
 ---
 - hosts: sj-lin-ricardo.maquinas.sj.ifsc.edu.br
   roles:
-  - cmaptools
+  - final_semestre
 
 - hosts: sj-win-ricardo.maquinas.sj.ifsc.edu.br
   roles:
@@ -13,7 +13,7 @@
 
 - hosts: sj-lin-deb9lab-123.maquinas.sj.ifsc.edu.br
   roles:
-  - rstudio
+  - cmaptools
 
 - hosts: sj-lin-lab-123456.maquinas.sj.ifsc.edu.br
   roles:
