@@ -1,0 +1,19 @@
+- name: Baixa e extrai cmaptools
+  unarchive:
+    src: https://discovirtual.ifsc.edu.br/index.php/s/wnlZX0c1BM3DGGA/download
+    dest: /opt/
+    creates: /opt/CmapTools
+    remote_src: yes
+    owner: root
+    group: root
+    mode: 0755  
+  when: ansible_os_family == 'Debian'
+
+- name: Criando o arquivo cmaptools.desktop - Linux Debian
+  copy:
+    src: cmaptools.desktop
+    dest: /usr/share/applications/cmaptools.desktop
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
