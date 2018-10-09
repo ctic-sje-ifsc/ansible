@@ -31,7 +31,18 @@
   win_lineinfile:
     path: C:\Program Files (x86)\CambridgeSoft\serial.txt
     create: yes
-    line: 'Name: Mulder
-Organization: X-Files Email: mulder@xfiles.org
-s/n: 875-317589-4732
-Activation Code: AAD-CBDMI-D2-QEEY-HLGNL-GZLM-IDCAM'
+    line: '{{item}}'
+  with_items:
+    - 'Name: Mulder'
+    - 'Organization: X-Files Email: mulder@xfiles.org'
+    - 's/n: 875-317589-4732'
+    - 'Activation Code: AAD-CBDMI-D2-QEEY-HLGNL-GZLM-IDCAM'
+
+- name: teste do ChemDraw
+  blockinfile:
+    path: C:\Program Files (x86)\CambridgeSoft\teste.txt
+    create: yes
+    content: "Name: Mulder
+    Organization: X-Files Email: mulder@xfiles.org
+    s/n: 875-317589-4732
+    Activation Code: AAD-CBDMI-D2-QEEY-HLGNL-GZLM-IDCAM"
