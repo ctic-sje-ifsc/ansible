@@ -1,11 +1,18 @@
 #Windows
 
+- name: Baixar o instalador do Chem Draw 12 - Windows
+  win_get_url:
+    url: 'https://discovirtual.ifsc.edu.br/remote.php/webdav/SJE/CTIC/CambridgeSoft_ChemDraw_Ultra_12.0.msi'
+    dest: 'C:\users\CambridgeSoft_ChemDraw_Ultra_12.0.msi'
+    force: no
+    url_username: "{{ url_username }}"
+    url_password: "{{ url_password }}"
+  when: ansible_os_family == 'Windows'
+
 - name: Baixar e instalar o Chem Draw 12 - Windows
   win_package:
-    path: https://discovirtual.ifsc.edu.br/index.php/s/MPMc7bX6i6QAQQn/download
-    arguments: /qb
+    path: 'C:\users\CambridgeSoft_ChemDraw_Ultra_12.0.msi'
     product_id: '{48DEAAF2-8276-4BBD-B7B6-91E454938476}'
-    creates_path: C:\Program Files (x86)\CambridgeSoft\
     state: present
   when: ansible_os_family == 'Windows'
 
@@ -18,8 +25,8 @@
     state: present
   when: ansible_os_family == 'Windows'
 
-#### Ativação manual ####
 
+#### Ativação manual ####
 - name: Serial do ChemDraw
   win_lineinfile:
     path: C:\Program Files (x86)\CambridgeSoft\serial.txt
