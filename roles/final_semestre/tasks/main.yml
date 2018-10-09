@@ -1,0 +1,33 @@
+---
+#Linux
+
+# Debian e Ubuntu
+- name: Extrair as máquinas virtuais - Linux
+  unarchive:
+    src: /home/backup/{{ item }}
+    dest: /
+    remote_src: yes
+  with_items:
+    - 1-Grafico.bz
+    - 2-Grafico.bz
+    - 3-Grafico.bz
+    - 4-Grafico.bz
+    - 5-Grafico.bz
+    - 6-Grafico.bz
+    - 1-Servidor.bz
+    - 2-Servidor.bz
+    - 3-Servidor.bz
+    - 4-Servidor.bz
+    - 5-Servidor.bz
+    - 6-Servidor.bz
+    - 7-Servidor.bz
+    - 8-Servidor.bz
+    - 9-Servidor.bz
+    - 10-Servidor.bz
+  when: ansible_os_family == 'Debian'
+
+- name: Zerando pasta compartilhada entre sistemas - Linux
+  file:
+    state: absent
+    path: /media/aluno/trabalhos/
+  when: ansible_os_family == 'Debian'
