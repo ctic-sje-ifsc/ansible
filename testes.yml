@@ -1,7 +1,7 @@
 ---
 - hosts: sj-lin-ricardo.maquinas.sj.ifsc.edu.br
   roles:
-  - zoiper
+  - cmaptools
 
 - hosts: sj-win-ricardo.maquinas.sj.ifsc.edu.br
   roles:
