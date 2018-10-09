@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=CmapTools
+Comment=CmapTools
+Exec=/opt/CmapTools/bin/CmapTools
+Icon=/opt/CmapTools/cmap-logo.png
+Terminal=false
+Type=Application
+Categories=Utility
