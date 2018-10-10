@@ -38,3 +38,13 @@
 #     path: /home/aluno/.config/Trolltech.conf
 #     state: absent
 #   when: ansible_distribution == 'Ubuntu'
+
+
+- name: Inclui o mudulo de limpeza do Windows
+  include_role:
+    name: limpa_temp_windows
+  vars:
+    play: 0
+
+# play: 0 desativa
+# play: 1 ativa
