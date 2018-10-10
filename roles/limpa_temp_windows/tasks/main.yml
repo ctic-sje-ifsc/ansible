@@ -1,0 +1,15 @@
+- name: Clean Temp Windows
+  win_shell: del /q/f/s C:\Windows\TEMP\*
+  args:
+    executable: cmd
+  when: ( ansible_os_family == 'Windows' and  play == 1 )
+
+- name: Clean chocolatey/nuget cache Windows
+  win_file:
+    path: '{{ item }}'
+    state: absent
+  with_items:
+  - '%UserProfile%\AppData\Local\Temp\chocolatey\'
+  - '%UserProfile%\AppData\Local\Temp\nuget\'
+  - '%UserProfile%\AppData\Local\NuGet\Cache\'
+  when: ( ansible_os_family == 'Windows' and  play == 1 )
