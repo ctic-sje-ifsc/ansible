@@ -2,7 +2,7 @@
 <!DOCTYPE pam_mount SYSTEM "pam_mount.conf.xml.dtd">
 <!--
 	See pam_mount.conf(5) for a description.
-	Este arquivo eh gerado automaticamente pelo Puppet, nao adianta editar.
+	Este arquivo eh alterado automaticamente pelo Ansible, nao adianta editar.
 -->
 
 <pam_mount>
