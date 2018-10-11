@@ -9,6 +9,15 @@
     mode: 0755  
   when: ansible_os_family == 'Debian'
 
+- name: Criando o arquivo cmap-logo.png - Linux Debian
+  copy:
+    src: cmap-logo.png
+    dest: /opt/CmapTools/cmap-logo.png
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
 - name: Criando o arquivo cmaptools.desktop - Linux Debian
   copy:
     src: cmaptools.desktop
