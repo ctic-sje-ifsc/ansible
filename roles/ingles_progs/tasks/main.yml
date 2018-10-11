@@ -2,14 +2,14 @@
   apt: name={{item}} state=latest
   with_items:
     - gnome-subtitles
-  when: ansible_distribution == 'Debian'
+  when: ansible_os_family == 'Debian'
 
 - name: Cria diretório /opt/antconc
   file:
     path: /opt/antconc
     state: directory
-    owner: aluno
-    group: 513
+    owner: root
+    group: root
     mode: 0755
     recurse: yes
   when: ansible_os_family == 'Debian'
@@ -20,8 +20,8 @@
     dest: /opt/antconc
     creates: /opt/antconc/AntConc_64bit
     remote_src: yes
-    owner: aluno
-    group: 513    
+    owner: root
+    group: root   
   when: ansible_os_family == 'Debian'
 
 - name: Criando o arquivo antconc.desktop - Linux
@@ -37,8 +37,8 @@
   file:
     path: /opt/antconc
     state: directory
-    owner: aluno
-    group: 513
+    owner: root
+    group: root
     mode: 0755
     recurse: yes
   when: ansible_os_family == 'Debian'
