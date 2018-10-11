@@ -9,8 +9,12 @@
 
 - hosts: sj-lin-ctic-humberto-vm.maquinas.sj.ifsc.edu.br
   roles:
-  - qgis
+  - cmaptools
 
+- hosts: sj-lin-ctic-humberto-mate.maquinas.sj.ifsc.edu.br
+  roles:
+  - cmaptools
+  
 - hosts: sj-lin-deb9lab-123.maquinas.sj.ifsc.edu.br
   roles:
   - cmaptools
