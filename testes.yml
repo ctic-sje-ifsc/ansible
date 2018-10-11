@@ -1,7 +1,7 @@
 ---
 - hosts: sj-lin-ricardo.maquinas.sj.ifsc.edu.br
   roles:
-  - final_semestre
+  - ingressa_ldap_gdm
 
 - hosts: sj-win-ricardo.maquinas.sj.ifsc.edu.br
   roles:

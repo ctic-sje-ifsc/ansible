@@ -1,0 +1,8 @@
+# Login manager options
+# =====================
+[org/gnome/login-screen]
+logo='/usr/share/icons/hicolor/48x48/emblems/emblem-debian-white.png'
+fallback-logo='/usr/share/icons/hicolor/48x48/emblems/emblem-debian-white.png'
+
+# - Disable user list
+disable-user-list=true

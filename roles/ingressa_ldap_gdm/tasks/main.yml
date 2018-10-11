@@ -81,6 +81,15 @@
     mode: 0644
   when: ansible_os_family == 'Debian'
 
+- name: Copiando arquivo /etc/gdm3/greeter.dconf-defaults
+  copy:
+    src: greeter.dconf-defaults
+    dest: /etc/gdm3/greeter.dconf-defaults
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
 - name: Instala cups-client
   apt: name=cups-client state=latest
   when: ansible_distribution == 'Debian'
@@ -103,16 +112,16 @@
     mode: 0644
   when: ansible_os_family == 'Debian'
   
-- name: Instala o lightdm
-  apt: name={{item}} state=latest
+- name: Remove lightdm
+  apt: name={{item}} state=absent purge=yes
   with_items:
     - lightdm
     - lightdm-gtk-greeter
     - lightdm-gtk-greeter-settings    
   when: ansible_distribution == 'Debian'
 
-- name: Remove GDM3
-  apt: name=gdm3 state=absent purge=yes
+- name: Instala o GDM3
+  apt: name=gdm3 state=latest
   when: ansible_distribution == 'Debian'
 
 # Windows
