@@ -5,7 +5,7 @@
   when: ansible_distribution == 'Ubuntu'
 
 # Debian e Ubuntu
-- name: Instalar os pacotes para o octave - Linux Ubuntu
+- name: Instalar os pacotes para o octave - Linux
   apt: name={{item}} state=latest
   with_items:
     - octave
