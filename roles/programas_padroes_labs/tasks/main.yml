@@ -201,10 +201,10 @@
 - include_role:
     name: softwares_sdr
 
-## Para lembrar de colocar quando for feito:
+- include_role:
+    name: octave
 
-# - include_role:
-#     name: octave
+## Para lembrar de colocar quando for feito:
 
 # - include_role:
 #     name: astah
