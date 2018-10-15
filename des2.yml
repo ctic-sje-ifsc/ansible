@@ -3,3 +3,7 @@
     - packettracer
     - kile
     - programas_padroes_labs
+
+- hosts: sj-lin-des2-744927.maquinas.sj.ifsc.edu.br
+  roles:
+    - ingressa_ldap_gdm
