@@ -48,3 +48,43 @@
 
 # play: 0 desativa
 # play: 1 ativa
+
+###################### Inicio Gerencia sudoers aluno
+
+- name: Adiciona e modifica entrada do usuario aluno no sudoers - Linux
+  lineinfile:
+    path: /etc/sudoers
+    state: present
+    regexp: '^aluno '
+    line: 'aluno ALL=(ALL) NOPASSWD: SETENV: /sbin/ethtool,/home/aluno/netkit2/bin/tap.py,/sbin/iptables,/sbin/ifconfig,/usr/sbin/iptraf,/usr/sbin/tcpdump,/sbin/route,/usr/local/netkit/bin/vclean,/usr/bin/minicom,/usr/sbin/brctl,/usr/sbin/traceroute,/usr/local/netkit/bin/manage_tuntap,/usr/bin/wireshark,/sbin/iwconfig,/sbin/iwlist,/sbin/iw,/etc/init.d/firewall.sh,/usr/bin/usb-creator-gtk,/sbin/dhclient,/usr/bin/MercurioIV_Linux_1.1.0.run, /etc/init.d/isc-dhcp-server,/etc/init.d/udev'
+    validate: '/usr/sbin/visudo -cf %s'
+
+###################### Fim Gerencia sudoers aluno
+
+###################### Inicio do ApagaAluno
+
+- name: Mantem o estado do arquivo /etc/init.d/apagaAluno.sh - Linux Debian
+  copy:
+    src: apagaAluno.sh
+    dest: /etc/init.d/apagaAluno.sh
+    owner: root
+    group: root
+    mode: 0755
+  when: ansible_os_family == 'Debian'
+
+- name: Mantem o estado do arquivo /lib/systemd/system/apagaAluno.service - Linux Debian
+  copy:
+    src: apagaAluno.service
+    dest: /lib/systemd/system/apagaAluno.service
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
+- name: restart service cron on centos, in all cases, also issue daemon-reload to pick up config changes
+  systemd:
+    enabled: yes
+    daemon_reload: yes
+    name: apagaAluno 
+
+###################### Fim do ApagaAluno
