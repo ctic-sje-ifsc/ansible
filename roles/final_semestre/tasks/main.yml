@@ -31,3 +31,9 @@
     state: absent
     path: /media/aluno/trabalhos/
   when: ansible_os_family == 'Debian'
+
+- name: Cria pasta compartilhada entre sistemas - Linux
+  file:
+    state: directory
+    path: /media/aluno/trabalhos/
+  when: ansible_os_family == 'Debian'
