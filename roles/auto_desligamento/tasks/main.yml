@@ -1,0 +1,29 @@
+#Linux
+
+# Debian
+- name: Tarefa para desligar computador - Linux Debian
+  cron:
+    name: "desligamento"
+    minute: "0"
+    hour: "23"
+    user: "root"
+    job: "/sbin/poweroff"
+    state: present
+  when: ansible_distribution == 'Debian'
+
+#Windows
+- name: Tarefa para desligar computador - Windows
+  win_scheduled_task:
+    name: Desligamento automatico
+    description: desligando o computador
+    #run_only_if_idle: yes
+    #start_when_available: yes
+    state: present
+    actions:
+    - path: cmd.exe
+      arguments: C:\Windows\System32\shutdown.exe -s -f -t 0
+    triggers:
+    - type: daily
+      start_boundary: '23:00:00'
+  #ou Stop-Computer -Force
+  when: ansible_os_family == 'Windows'
