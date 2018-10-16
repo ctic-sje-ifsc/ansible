@@ -101,3 +101,11 @@
   when: ansible_os_family == 'Debian'
 
 ###################### Fim do ApagaAluno
+
+
+###################### Inicio dos Includes
+
+- include_role:
+    name: sshd_config
+
+###################### Fim dos Includes
