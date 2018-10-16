@@ -1,0 +1,28 @@
+
+#Debian e Ubuntu
+- name: Instalar ssh's  - Linux Debian
+  apt: name={{item}} state=latest
+  with_items:
+    - openssh-client
+    - openssh-server
+    - openssh-sftp-server
+  when: ansible_os_family == 'Debian'
+
+- name: Altera o arquivo sshd_config - Linux Debian
+  copy:
+    src: sshd_config
+    dest: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: 0644
+  notify: reinicia sshd
+  when: ansible_os_family == 'Debian'
+
+- name: Cria o arquivo issue.net.ifsc - Linux Debian
+  copy:
+    src: issue.net.ifsc
+    dest: /etc/issue.net.ifsc
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
