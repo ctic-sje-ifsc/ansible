@@ -1,5 +1,7 @@
 ---
 
+###################### Inicio Adiciona no grupo dialout
+
 # Permissao para gravar na placa
 - name: Adiciona no grupo dialout
   user:
@@ -14,7 +16,10 @@
     - elen
   when: ansible_os_family == 'Debian'
 
-###Solicitado pelo Mello no chamado IFSC#2018060710000808 de 07/06/18
+###################### Fim Adiciona no grupo dialout
+
+###################### Inicio Solicitado pelo Mello no chamado IFSC#2018060710000808 de 07/06/18
+
 - name: Adiciona no grupo plugdev
   user:
     name: "{{item}}"
@@ -23,6 +28,8 @@
   with_items:
     - aluno
   when: ansible_os_family == 'Debian'
+
+###################### Fim Solicitado pelo Mello no chamado
 
 ### Bau: Liberacao da porta paralela
 # - name: Adiciona no grupo dialout
@@ -39,6 +46,7 @@
 #     state: absent
 #   when: ansible_distribution == 'Ubuntu'
 
+###################### Inicio limpa_windows
 
 - name: Inclui o mudulo de limpeza do Windows
   include_role:
@@ -48,6 +56,9 @@
 
 # play: 0 desativa
 # play: 1 ativa
+
+###################### Fim limpa_windows
+
 
 ###################### Inicio Gerencia sudoers aluno
 
