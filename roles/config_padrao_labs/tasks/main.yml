@@ -108,4 +108,7 @@
 - include_role:
     name: sshd_config
 
+# - include_role:
+#     name: auto_desligamento
+
 ###################### Fim dos Includes
