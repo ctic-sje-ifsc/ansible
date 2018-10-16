@@ -15,19 +15,20 @@
 - name: Tarefa para desligar computador - Windows
   win_scheduled_task:
     name: Desligamento automatico
-    username: ctic
     #run_only_if_idle: yes
     #start_when_available: yes
     state: present
     actions:
-    - path: shutdown.exe
-      arguments: -s -f -t 0
-  # - path: PowerShell.exe
-  #   arguments: | 
-  #     Stop-Computer -Force
+    # - path: shutdown.exe
+    #   arguments: -s -f -t 0
+    - path: PowerShell.exe
+      arguments: | 
+        Stop-Computer -Force
     triggers:
     - type: registration
     - type: daily
       start_boundary: '23:00:00'
+    username: SYSTEM
+    enabled: yes
   #ou Stop-Computer -Force
   when: ansible_os_family == 'Windows'
