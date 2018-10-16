@@ -15,14 +15,18 @@
 - name: Tarefa para desligar computador - Windows
   win_scheduled_task:
     name: Desligamento automatico
-    description: desligando o computador
+    username: ctic
     #run_only_if_idle: yes
     #start_when_available: yes
     state: present
     actions:
-    - path: cmd.exe
-      arguments: C:\Windows\System32\shutdown.exe -s -f -t 0
+    - path: shutdown.exe
+      arguments: -s -f -t 0
+  # - path: PowerShell.exe
+  #   arguments: | 
+  #     Stop-Computer -Force
     triggers:
+    - type: registration
     - type: daily
       start_boundary: '23:00:00'
   #ou Stop-Computer -Force
