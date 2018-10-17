@@ -9,7 +9,7 @@
     - kubernetes
     - docker
     - rambox
-#    - teamviewer
+    - teamviewer
     - virtualbox
     - softwares_remotos
     - role: geerlingguy.nfs
