@@ -25,5 +25,9 @@
     username: SYSTEM
     state: present
     enabled: yes
-    # run_only_if_idle: yes 
+  when: ansible_os_family == 'Windows'
+
+- name: Altera plano de energia para alto desempenho (não hiberna)
+  win_power_plan:
+    name: alto desempenho
   when: ansible_os_family == 'Windows'
