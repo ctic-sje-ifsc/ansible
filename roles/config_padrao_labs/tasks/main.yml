@@ -114,6 +114,131 @@
 
 ###################### Fim do senha_aluno
 
+###################### Inicio do atalhos_e_icones
+
+- name: Mantem o estado do arquivo /usr/share/applications/quartus13.0sp1.desktop - Linux
+  copy:
+    src: quartus13.0sp1.desktop
+    dest: /usr/share/applications/quartus13.0sp1.desktop
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
+- name: Mantem o estado do arquivo /usr/share/applications/matlab2012b.desktop - Linux
+  copy:
+    src: matlab2012b.desktop
+    dest: /usr/share/applications/matlab2012b.desktop
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
+- name: Mantem o estado do arquivo /usr/share/applications/matlab2015a.desktop - Linux
+  copy:
+    src: matlab2015a.desktop
+    dest: /usr/share/applications/matlab2015a.desktop
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
+# # Deixei comentado para verificar se ainda eh necessario
+# - name: Adicionar entrada export no /etc/bash.bashrc- Linux
+#   lineinfile:
+#     regexp: '^export MGLS_LICENSE_FILE'
+#     path: /etc/bash.bashrc
+#     line: 'export MGLS_LICENSE_FILE=1800@vm-lan2.sj.ifsc.edu.br'
+#   when: ansible_os_family == 'Debian'
+
+# - name: Adicionar entrada export no /etc/bash.bashrcs - Linux
+#   lineinfile:
+#     regexp: '^export LD_LIBRARY_PATH'
+#     path: /etc/bash.bashrc
+#     line: 'export LD_LIBRARY_PATH=/opt/altera/13.0sp1/lib32'
+#   when: ansible_os_family == 'Debian'
+
+## Feito para resolver o chamado IFSC#2017062710000273 do Moecke:
+- name: Mantem o estado do arquivo /usr/share/applications/modelsim10.1d.desktop - Linux
+  copy:
+    src: modelsim10.1d.desktop
+    dest: /usr/share/applications/modelsim10.1d.desktop
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
+- name: Mantem o estado do arquivo /usr/share/applications/modesim.png - Linux
+  copy:
+    src: modesim.png
+    dest: /opt/altera/13.0sp1/modelsim_ae/modesim.png
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
+# # Deixei comentado porque a princípio já está na instalação
+# - name: Cria um link do /opt/altera/13.0sp1/modelsim_ae/bin/vsim para ../vco - Linux
+#   file:
+#     src: ../vco
+#     dest: /opt/altera/13.0sp1/modelsim_ae/bin/vsim
+#     state: link
+#   when: ansible_os_family == 'Debian'
+
+- name: Cria um link do vsim no /usr/local/bin - Linux
+  file:
+    src: /opt/altera/13.0sp1/modelsim_ae/bin/vsim
+    dest: /usr/local/bin/vsim
+    state: link
+  when: ansible_os_family == 'Debian'
+
+- name: Cria um link do matlab15 no /usr/local/bin - Linux
+  file:
+    src: /opt/matlab/R2015a/bin/matlab
+    dest: /usr/local/bin/matlab15
+    state: link
+  when: ansible_os_family == 'Debian'
+
+- name: Cria um link do matlab12 no /usr/local/bin - Linux
+  file:
+    src: /opt/matlab/R2012b/bin/matlab
+    dest: /usr/local/bin/matlab12
+    state: link
+  when: ansible_os_family == 'Debian'
+
+- name: Cria um link do salve seus trabalhos aqui no home do aluno - Linux
+  file:
+    src: /media/aluno/trabalhos
+    dest: /home/aluno/trabalhos
+    owner: aluno
+    group: aluno
+    state: link
+  when: ansible_os_family == 'Debian'
+
+# Para solucionar problemas com Ctrl + C Ctrl + v no matlab
+# Deixei comentado porque podemos modificar e deixar já no home do aluno
+# - name: Mantem o estado do arquivo /home/aluno/.matlab/R2015a/matlab.prf - Linux
+#   copy:
+#     src: matlab.prf
+#     dest: /home/aluno/.matlab/R2015a/matlab.prf
+#     owner: aluno
+#     group: aluno
+#     mode: 0644
+#   when: ansible_os_family == 'Debian'
+
+# 	#Cria um link com as configuracoes corretas do x2goclient a pedido-chamado do Moecke
+# Deixei comentado porque podemos modificar e deixar já no home do aluno
+# - name: Mantem o estado do arquivo /home/aluno/.x2goclient - Linux
+#   copy:
+#     src: .
+#     dest: /home/aluno/.x2goclient
+#     owner: aluno
+#     group: aluno
+#     mode: 0644
+#   when: ansible_os_family == 'Debian'
+
+###################### Fim do atalhos_e_icones
+
 
 ###################### Inicio dos Includes
 
