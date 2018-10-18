@@ -7,3 +7,10 @@
 - hosts: sj-lin-mtele-38105.maquinas.sj.ifsc.edu.br
   roles:
     - zoiper
+  tasks:
+    - name: Adiciona usuaria mayara.sousa no grupo sudo
+      user:
+        name: mayara.sousa
+        groups: sudo
+        append: yes
+      when: ansible_os_family == 'Debian'
