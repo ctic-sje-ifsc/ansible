@@ -168,10 +168,10 @@
     mode: 0644
   when: ansible_os_family == 'Debian'
 
-- name: Mantem o estado do arquivo /usr/share/applications/modesim.png - Linux
+- name: Mantem o estado do arquivo /usr/share/applications/modelsim.png - Linux
   copy:
-    src: modesim.png
-    dest: /opt/altera/13.0sp1/modelsim_ae/modesim.png
+    src: modelsim.png
+    dest: /opt/altera/13.0sp1/modelsim_ae/modelsim.png
     owner: root
     group: root
     mode: 0644
