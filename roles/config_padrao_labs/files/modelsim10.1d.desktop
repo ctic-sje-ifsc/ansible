@@ -1,0 +1,11 @@
+#Este arquivo eh gerado automaticamente pelo Ansible, nao adianta editar.
+[Desktop Entry]
+Version=1.0
+Name=ModelSim-Altera Edition 10.1d
+Comment=ModelSim simulation software for Altera FPGA's
+Exec=xterm -iconic -geometry 0x0 -b 0 -class widget /opt/altera/13.0sp1/modelsim_ae/bin/vsim
+Icon=/opt/altera/13.0sp1/modelsim_ae/modesim.png
+Terminal=false
+Type=Application
+Encoding=UTF-8
+Categories=Development
