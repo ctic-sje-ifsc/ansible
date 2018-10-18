@@ -1,0 +1,9 @@
+# Linux
+
+# Antes de atualizar o MAC, precisa reiniciar as máquinas para confirmar que o /home/aluno estão limpos.
+
+- name: Atualiza o MAC das VMs
+  shell: /bin/rm -rf /home/aluno ;tar -zxvf /home/backup/aluno.tgz -C / ; /bin/su -c '/usr/bin/VBoxManage modifyvm 1-Grafico --macaddress1 auto --macaddress2 auto ; /usr/bin/VBoxManage modifyvm 2-Grafico --macaddress1 auto --macaddress2 auto ; /usr/bin/VBoxManage modifyvm 3-Grafico --macaddress1 auto --macaddress2 auto ; /usr/bin/VBoxManage modifyvm 4-Grafico --macaddress1 auto --macaddress2 auto ; /usr/bin/VBoxManage modifyvm 5-Grafico --macaddress1 auto --macaddress2 auto ; /usr/bin/VBoxManage modifyvm 6-Grafico --macaddress1 auto --macaddress2 auto ; /usr/bin/VBoxManage modifyvm 1-Servidor --macaddress1 auto --macaddress2 auto ; /usr/bin/VBoxManage modifyvm 2-Servidor --macaddress1 auto --macaddress2 auto ; /usr/bin/VBoxManage modifyvm 3-Servidor --macaddress1 auto --macaddress2 auto ; /usr/bin/VBoxManage modifyvm 4-Servidor --macaddress1 auto --macaddress2 auto ; /usr/bin/VBoxManage modifyvm 5-Servidor --macaddress1 auto --macaddress2 auto ; /usr/bin/VBoxManage modifyvm 6-Servidor --macaddress1 auto --macaddress2 auto ; /usr/bin/VBoxManage modifyvm 7-Servidor --macaddress1 auto --macaddress2 auto ; /usr/bin/VBoxManage modifyvm 8-Servidor --macaddress1 auto --macaddress2 auto ; /usr/bin/VBoxManage modifyvm 9-Servidor --macaddress1 auto --macaddress2 auto ; /usr/bin/VBoxManage modifyvm 10-Servidor --macaddress1 auto --macaddress2 auto' aluno
+
+- name: Faz backup do último aluno.tgz e cria um novo com o MAC atualizado
+  shell: /bin/mv /home/backup/aluno.tgz /home/backup/aluno-$(date +'%d-%m-%Y').tgz ; /bin/tar -zcvf /home/backup/aluno.tgz /home/aluno
