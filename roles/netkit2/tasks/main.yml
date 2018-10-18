@@ -1,0 +1,58 @@
+# Somente Linux
+
+- name: Instala o pacotes necessarios para o netkit2 - Linux
+  apt: name={{item}} state=latest
+  with_items:
+    - graphviz
+    - python-vte
+    - bridge-utils
+    - uml-utilities
+    - libc6-i386
+  when: ansible_distribution == 'Debian'
+
+- name: Cria diretorio para extrair o netkit2 - Linux
+  file:
+    path: /usr/local/netkit2
+    state: directory
+    owner: root
+    group: root
+    mode: 1777
+    recurse: no
+  when: ansible_os_family == 'Debian'
+
+- name: Baixando e extraindo o Netkit2 - Linux
+  unarchive:
+    src: http://tele.sj.ifsc.edu.br/~msobral/netkit2/install/netkit2.tar.bz2
+    dest: /usr/local/netkit2
+    creates: /usr/local/netkit2/netkit-version.txt
+    remote_src: yes
+    owner: root
+    group: root   
+  when: ansible_os_family == 'Debian'
+  
+- name: Criando o arquivo netkit2.desktop - Linux
+  copy:
+    src: netkit2.desktop
+    dest: /usr/share/applications/netkit2.desktop
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
+- name: Criando o arquivo /etc/profile.d/netkit2.sh - Linux
+  copy:
+    src: netkit2.sh
+    dest: /etc/profile.d/netkit2.sh
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
+- name: Criando o arquivo /etc/sudoers.d/netkit2 - Linux
+  copy:
+    src: netkit2
+    dest: /etc/sudoers.d/netkit2
+    owner: root
+    group: root
+    mode: 0440
+  when: ansible_os_family == 'Debian'
