@@ -102,6 +102,18 @@
 
 ###################### Fim do ApagaAluno
 
+###################### Inicio senha_aluno
+
+- name: Cria usuário aluno com a senha aluno
+  user:
+    name: aluno
+    groups: vboxusers
+    password: $6$B5dpvoG43l67q0sx$r0LDKV2TgNItf/kYx/76l89ZN4LhP/ksYIxp.SSVGttHoSZXLSoB6Hkg2A6y7M7aFJ8zEuauf5kS/yA/P61kN1
+    append: yes
+  when: ansible_os_family == 'Debian'
+
+###################### Fim do senha_aluno
+
 
 ###################### Inicio dos Includes
 
@@ -113,13 +125,3 @@
 
 ###################### Fim dos Includes
 
-###################### Inicio senha_aluno
-
-- name: Cria usuário aluno com a senha aluno
-  user:
-    name: aluno
-    groups: vboxusers
-    password: $6$B5dpvoG43l67q0sx$r0LDKV2TgNItf/kYx/76l89ZN4LhP/ksYIxp.SSVGttHoSZXLSoB6Hkg2A6y7M7aFJ8zEuauf5kS/yA/P61kN1
-    append: yes
-
-###################### Fim do senha_aluno

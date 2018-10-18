@@ -14,18 +14,29 @@
     - softwares_remotos
     - role: geerlingguy.nfs
       nfs_exports: [ "/dados *(rw,sync,no_root_squash)" ]
-#    - role: bertvv.samba
-#      samba_shares:
-#      - name: ctic
-#        comment: 'O local mais seguro de todos'
-#        path: /dados
-#        browseable: yes
-#        create_mode: '777'
-#        directory_mode: '777'
-#        valid_users: '%S'
-#        writable: yes
-#        read_only: no
-#        guest_ok: yes
+    - role: bertvv.samba
+      samba_shares:
+        - name: ctic
+          comment: 'O local mais seguro de todos'
+          path: /dados
+          browseable: yes
+          create_mode: '777'
+          directory_mode: '777'
+          valid_users: '%S'
+          writable: yes
+          read_only: no
+          guest_ok: yes
+      samba_users:
+        - name: ctic
+          password: "{{ url_password }}"
+      vars:
+        url_password: !vault |
+                  $ANSIBLE_VAULT;1.1;AES256
+                  34373439376333303561656263653634373864643164613931616662666434623265346634613730
+                  3432353434323966396165303330663961366662323534650a313466326538653038373733623438
+                  61646334383363306161613265636361366333333266323064643638356331313133393330326663
+                  3538336639323837620a653633633463343730373962333661613364316532663161613637656530
+                  3433
   tasks:
   - name: Instalar os pacotes para o Ansible do stretch-backports - Linux Debian
     apt: name=ansible state=latest default_release=stretch-backports
