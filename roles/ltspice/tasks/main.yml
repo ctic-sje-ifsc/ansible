@@ -1,0 +1,22 @@
+---
+#Windows
+
+- name: Copia o arquivo de configuracao do UltraVNC - Windows
+  win_copy:
+    src: LTC.zip
+    dest: C:\instaladores\LTC.zip
+  when: ansible_os_family == 'Windows'
+
+- name: Extrai o LTC em C:\Program Files\
+  win_unzip:
+    src: C:\instaladores\LTC.zip
+    dest: C:\Program Files\
+    creates: C:\Program Files\LTC
+  when: ansible_os_family == 'Windows'
+
+- name: Cria o atalho do Ltspice - Windows
+  win_shortcut:
+    src: C:\Program Files\LTC\LTspiceXVII\XVIIx64.exe
+    dest: C:\Users\Public\Desktop\LTspiceXVII.lnk
+    icon: C:\Program Files\LTC\LTspiceXVII\XVIIx64.exe,0
+  when: ansible_os_family == 'Windows'
