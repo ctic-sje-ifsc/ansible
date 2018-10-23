@@ -239,6 +239,13 @@
 
 ###################### Fim do atalhos_e_icones
 
+###################### Inicio pasta instaladores Windows
+- name: Cria a pasta C:\instaladores\ - Windows
+  win_file:
+    path: C:\instaladores\
+    state: directory
+  when: ansible_os_family == 'Windows'
+###################### Fim pasta instaladores Windows
 
 ###################### Inicio dos Includes
 
