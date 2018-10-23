@@ -16,7 +16,7 @@
     state: directory
     owner: root
     group: root
-    mode: 1777
+    mode: 01777
     recurse: no
   when: ansible_os_family == 'Debian'
 
@@ -27,7 +27,8 @@
     creates: /usr/local/netkit2/netkit-version.txt
     remote_src: yes
     owner: root
-    group: root   
+    group: root
+    mode: 01777
   when: ansible_os_family == 'Debian'
   
 - name: Criando o arquivo netkit2.desktop - Linux
@@ -55,4 +56,12 @@
     owner: root
     group: root
     mode: 0440
+  when: ansible_os_family == 'Debian'
+
+- name: Adicionar entrada no /usr/local/netkit2/bin/netkit2  - Linux
+  lineinfile:
+    regexp: "^  Check_Host.*$"
+    state: present
+    path: /usr/local/netkit2/bin/netkit2
+    line: "  Check_Host = 'tele.sj.ifsc.edu.br'"
   when: ansible_os_family == 'Debian'
