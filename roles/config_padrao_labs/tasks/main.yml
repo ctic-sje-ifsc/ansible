@@ -67,7 +67,7 @@
     path: /etc/sudoers
     state: present
     regexp: '^aluno '
-    line: 'aluno ALL=(ALL) NOPASSWD: SETENV: /sbin/ethtool,/home/aluno/netkit2/bin/tap.py,/sbin/iptables,/sbin/ifconfig,/usr/sbin/iptraf,/usr/sbin/tcpdump,/sbin/route,/usr/local/netkit/bin/vclean,/usr/bin/minicom,/usr/sbin/brctl,/usr/sbin/traceroute,/usr/local/netkit/bin/manage_tuntap,/usr/bin/wireshark,/sbin/iwconfig,/sbin/iwlist,/sbin/iw,/etc/init.d/firewall.sh,/usr/bin/usb-creator-gtk,/sbin/dhclient,/usr/bin/MercurioIV_Linux_1.1.0.run, /etc/init.d/isc-dhcp-server,/etc/init.d/udev'
+    line: 'aluno ALL=(ALL) NOPASSWD: SETENV: /sbin/ethtool,/usr/local/netkit2/bin/tap.py,/sbin/iptables,/sbin/ifconfig,/usr/sbin/iptraf,/usr/sbin/tcpdump,/sbin/route,/usr/local/netkit/bin/vclean,/usr/bin/minicom,/usr/sbin/brctl,/usr/sbin/traceroute,/usr/local/netkit/bin/manage_tuntap,/usr/bin/wireshark,/sbin/iwconfig,/sbin/iwlist,/sbin/iw,/etc/init.d/firewall.sh,/usr/bin/usb-creator-gtk,/sbin/dhclient,/usr/bin/MercurioIV_Linux_1.1.0.run, /etc/init.d/isc-dhcp-server,/etc/init.d/udev'
     validate: '/usr/sbin/visudo -cf %s'
   when: ansible_os_family == 'Debian'
 
