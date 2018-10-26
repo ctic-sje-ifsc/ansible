@@ -1,60 +1,13 @@
-#- hosts: ctic
-#  roles:
-#    - code
-#    - teamviewer
-#    - virtualbox
-- hosts: sj-lin-ctic-744396.maquinas.sj.ifsc.edu.br
-  roles:
-    - code
-    - kubernetes
-    - docker
-    # - rambox
-    # - teamviewer
-    # - virtualbox
-    - softwares_remotos
-    - role: geerlingguy.nfs
-      nfs_exports: [ "/dados *(rw,sync,no_root_squash)" ]
-    # - role: bertvv.samba
-    #   samba_shares:
-    #     - name: ctic
-    #       comment: 'O local mais seguro de todos'
-    #       path: /dados
-    #       browseable: yes
-    #       create_mode: '777'
-    #       directory_mode: '777'
-    #       valid_users: '%S'
-    #       writable: yes
-    #       read_only: no
-    #       guest_ok: yes
-    #   samba_users:
-    #     - name: USERNAME
-    #       password: PASSWORD
+- hosts: sj-lin-sinal-28672.maquinas.sj.ifsc.edu.br
   tasks:
-  - name: Instalar os pacotes para o Ansible do stretch-backports - Linux Debian
-    apt: name=ansible state=latest default_release=stretch-backports
-  - name: Pacotes do Ricardo
+  - name: Instalar pacotes para o pc do sinal - Linux Debian
     apt: name={{item}} state=latest
     with_items:
-      - keepassx
-      - k3b
-      - konsole
-      - keychain
-      - nfs-common
+      - gcc
+      - vim
       - curl
-      - dcfldd
       - ethtool
-      - git
-      - gparted
       - lm-sensors
-      - vinagre
-      - nautilus-dropbox
-      - samba
       - tcpdump
-      - unzip
-      - usbutils
-      - vlan
-      - sshfs
-      - python-pip
-      - virtualenv
-  - pip:
-      name: pywinrm
+  - name: Compilar script do sinal
+  shell: source /root/sinalcrontab.sh
