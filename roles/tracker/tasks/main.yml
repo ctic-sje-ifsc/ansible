@@ -1,0 +1,19 @@
+- name: Baixa e extrai tracker
+  unarchive:
+    src: https://discovirtual.ifsc.edu.br/index.php/s/XIFC6A0ZvxQ2MkF/download
+    dest: /opt/
+    creates: /opt/tracker
+    remote_src: yes
+    owner: root
+    group: root
+    mode: 0755  
+  when: ansible_os_family == 'Debian'
+
+- name: Criando o arquivo tracker.desktop - Linux Debian
+  copy:
+    src: astah_community.desktop
+    dest: /usr/share/applications/tracker.desktop
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
