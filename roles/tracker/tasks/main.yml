@@ -11,7 +11,7 @@
 
 - name: Criando o arquivo tracker.desktop - Linux Debian
   copy:
-    src: astah_community.desktop
+    src: tracker.desktop
     dest: /usr/share/applications/tracker.desktop
     owner: root
     group: root
