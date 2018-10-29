@@ -1,0 +1,7 @@
+---
+- hosts: coger
+  roles:
+    - role: softwares_remotos
+      apps:
+        - asctime
+
