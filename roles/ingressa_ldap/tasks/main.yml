@@ -140,8 +140,8 @@
     domain_admin_password: "{{ domain_admin_password }}"
     state: domain
   register: domain_state
-  when: (ansible_os_family == 'Windows' and ansible_windows_domain_member == 'false')
+  when: (ansible_os_family == 'Windows' and ansible_windows_domain_member == false)
 
 - win_reboot:
-  when: (ansible_os_family == 'Windows' and ansible_windows_domain_member == 'false' and domain_state.reboot_required)
+  when: (ansible_os_family == 'Windows' and ansible_windows_domain_member == false and domain_state.reboot_required)
 
