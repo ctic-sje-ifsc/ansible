@@ -1,0 +1,7 @@
+- hosts: sj-lin-cotur-005681.maquinas.sj.ifsc.edu.br
+  roles:
+    - sinal
+
+- hosts: sj-lin-cotur-29739.maquinas.sj.ifsc.edu.br
+  roles:
+    - sinal
