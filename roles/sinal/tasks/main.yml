@@ -19,18 +19,27 @@
     state: directory
     owner: root
     group: root
-    mode: 0755
+    mode: 0777
     recurse: yes
   when: ansible_os_family == 'Debian'
 
-- name: Copiando arquivo necessario para o sinal
+- name: Copiando arquivo necessario para o sinal 64bits
   copy:
-    src: "s1"
-    dest: /opt/sinal/
+    src: "s1_64"
+    dest: /opt/sinal/s1
     owner: root
     group: root
     mode: 0777
-  when: ansible_os_family == 'Debian'
+  when: ( ansible_os_family == 'Debian' and ansible_userspace_bits == '64' )
+
+- name: Copiando arquivo necessario para o sinal 32bits
+  copy:
+    src: "s1_32"
+    dest: /opt/sinal/s1
+    owner: root
+    group: root
+    mode: 0777
+  when: ( ansible_os_family == 'Debian' and ansible_userspace_bits == '32' )
 
 - name: Cron horario do inicio das aulas
   cron:
