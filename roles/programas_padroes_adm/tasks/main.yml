@@ -63,6 +63,7 @@
   win_chocolatey:
     name: libreoffice-still
     version: '6.0.6'
+    force: yes
   when: ansible_os_family == 'Windows'  
 
 #Windows e Linux
