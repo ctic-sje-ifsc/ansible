@@ -40,15 +40,6 @@
     mode: 0644
   when: ansible_os_family == 'Debian'
 
-- name: Criando o arquivo /etc/profile.d/netkit2.sh - Linux
-  copy:
-    src: netkit2.sh
-    dest: /etc/profile.d/netkit2.sh
-    owner: root
-    group: root
-    mode: 0644
-  when: ansible_os_family == 'Debian'
-
 - name: Criando o arquivo /etc/sudoers.d/netkit2 - Linux
   copy:
     src: netkit2
@@ -64,4 +55,18 @@
     state: present
     path: /usr/local/netkit2/bin/netkit2
     line: "  Check_Host = 'tele.sj.ifsc.edu.br'"
+  when: ansible_os_family == 'Debian'
+
+- name: Set NETKIT2_HOME in /etc/bash.bashrc - Linux
+  lineinfile:
+    dest: /etc/bash.bashrc
+    state: present
+    line: 'export NETKIT2_HOME=/usr/local/netkit2'
+  when: ansible_os_family == 'Debian'
+
+- name: Set PATH in /etc/bash.bashrc - Linux
+  lineinfile:
+    dest: /etc/bash.bashrc
+    state: present
+    line: 'export PATH=$PATH:$NETKIT2_HOME/bin'
   when: ansible_os_family == 'Debian'
