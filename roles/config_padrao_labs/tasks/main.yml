@@ -239,6 +239,23 @@
 
 ###################### Fim do atalhos_e_icones
 
+###################### Início do NTP do Linux
+
+- name: Inclui o role do NTP do Linux
+  include_role:
+    name: geerlingguy.ntp
+  vars:
+    ntp_timezone: America/Sao_Paulo
+    ntp_manage_config: true
+    ntp_servers:
+      - "pool.ntp.br iburst"
+      - "ntp.cais.rnp.br iburst"
+      - "ntp.ufsc.br iburst"
+  when: ansible_os_family == 'Debian'
+
+###################### Fim do NTP do Linux
+
+
 ###################### Inicio pasta instaladores Windows
 - name: Cria a pasta C:\instaladores\ - Windows
   win_file:
@@ -247,6 +264,14 @@
   when: ansible_os_family == 'Windows'
 ###################### Fim pasta instaladores Windows
 
+###################### Início do NTP Windows
+- name: Configura servidores NTP para o Windows
+  win_shell: net start w32time ;	w32tm /config /manualpeerlist:"a.st1.ntp.br b.st1.ntp.br c.st1.ntp.br gps.ntp.br" /syncfromflags:manual /reliable:YES /update ; net stop w32time ; net start w32time ; w32tm /config /update ; w32tm /resync ; w32tm /resync ; New-Item c:\gatilho_ntp.txt -type file
+  args:
+    creates: C:\gatilho_ntp.txt
+  when: ansible_os_family == 'Windows'
+###################### Fim do NTP Windows
+
 ###################### Inicio dos Includes
 
 - include_role:
@@ -254,6 +279,9 @@
 
 # - include_role:
 #     name: auto_desligamento
+
+# - include_role:
+#     name: openaudit
 
 ###################### Fim dos Includes
 
