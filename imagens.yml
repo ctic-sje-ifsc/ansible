@@ -1,0 +1,46 @@
+---
+- hosts: imagens_adm_lin
+  roles:
+    - sources_list
+    - programas_padroes_adm
+    - config_padrao_adm
+    - acesso_remoto
+    - fonte_garamound
+    - papel_de_parede_e_icones
+#    - auto_desligamento
+
+- hosts: imagens_adm_win
+  roles:
+    - programas_padroes_adm
+    - config_padrao_adm
+    - acesso_remoto
+    - papel_de_parede_e_icones
+    - windows_update
+#    - ingressa_ldap
+#    - auto_desligamento
+#    - instala_impressora
+
+
+# - hosts: imagens_lab_lin
+#   roles:
+#     - sources_list
+#     - programas_padroes_labs
+#     - config_padrao_labs
+#     - papel_de_parede_e_icones
+#     - role: debops.grub
+#       grub_users:
+#         - name: 'su'
+#           password: 'NBLWAThUq5'
+#           superuser: True
+#       grub_default: '0'
+#       grub_timeout_hardware: 0
+#       grub_timeout_virtual: 0
+#       apt_install__enabled: false
+#       apt__enabled: false
+
+# - hosts: imagens_lab_win
+#   roles:
+#     - programas_padroes_labs
+#     - config_padrao_labs
+#     - papel_de_parede_e_icones
+#     - windows_update
