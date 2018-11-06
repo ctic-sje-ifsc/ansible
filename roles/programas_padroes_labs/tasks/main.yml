@@ -45,7 +45,6 @@
     - eclipse-emf
     - eclipse-jdt
     - eclipse-pde
-    
   when: ansible_os_family == 'Debian'
 
 # ## inicio dos pacotes do jessie
@@ -222,13 +221,16 @@
 - include_role:
     name: octave
 
+- include_role:
+    name: cmaptools
+
+- include_role:
+    name: astah
+
+- include_role:
+    name: zoiper
+
 ## Para lembrar de colocar quando for feito:
-
-# - include_role:
-#     name: astah
-
-# - include_role:
-#     name: zoiper
 
 # - include_role:
 #     name: netbeans
@@ -282,6 +284,9 @@
 - include_role:
     name: sr2015
 
+# - include_role:
+#     name: progisp
+
 # Windows atalhos --------------------------------------------------------------------------------------------------------------
 
 - name: Cria o atalho do LibreCad - Windows
@@ -329,8 +334,3 @@
 
 - include_role:
     name: geogebra
-
-## Para lembrar de colocar quando for feito:
-
-# - include_role:
-#     name: cmap_tools
