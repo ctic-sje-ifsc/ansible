@@ -56,7 +56,6 @@
     - pdfsam
     - cutepdf
     - adobereader
-    - microsoftsecurityessentials 
   when: ansible_os_family == 'Windows'
 
 - name: Instalar o LibreOffice Still 6.0.6 - Windows
@@ -65,6 +64,18 @@
     version: '6.0.6'
     #force: yes
   when: ansible_os_family == 'Windows'  
+
+- name: Instalar o microsoftsecurityessentials - Windows 7
+  win_chocolatey:
+    name: microsoftsecurityessentials 
+    version: latest
+  when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 7 Professional')  
+
+# - name: Instalar o NOMEDOSOFTWARE defender - Windows 8.1
+#   win_chocolatey:
+#     name: NOMEDOSOFTWARE 
+#     version: latest
+#   when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 8.1 Pro') 
 
 #Windows e Linux
 - include_role:
