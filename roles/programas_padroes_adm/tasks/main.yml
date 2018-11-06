@@ -46,7 +46,7 @@
 
 #Windows
 - name: Instalar pacotes padroes - Windows
-  win_chocolatey: name={{ item }} state=latest
+  win_chocolatey: name={{ item }} state=latest timeout=9000
   with_items:
     - googlechrome
     - jre8
@@ -62,6 +62,7 @@
   win_chocolatey:
     name: libreoffice-still
     version: '6.0.6'
+    timeout: 9000
     #force: yes
   when: ansible_os_family == 'Windows'  
 

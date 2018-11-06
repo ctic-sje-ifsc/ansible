@@ -31,4 +31,5 @@
   win_chocolatey:
     name: foxitreader
     state: latest
+    timeout: 9000
   when: ansible_os_family == 'Windows'
