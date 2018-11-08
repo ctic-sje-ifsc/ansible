@@ -1,0 +1,144 @@
+# Linux
+- name: Instalar pacotes necessarios para autenticação LDAP
+  apt: name={{item}} state=latest
+  with_items:
+    - libnss-ldap
+    - libpam-ldap
+    - ldap-utils
+    - libpam-mount
+    - cifs-utils
+  when: ansible_distribution == 'Debian'
+  
+- name: Copiando arquivo /etc/ldap.conf
+  copy:
+    src: ldap.conf
+    dest: /etc/ldap.conf
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
+- name: Copiando arquivo /etc/ldap/ldap.conf
+  copy:
+    src: ldap.conf
+    dest: /etc/ldap/ldap.conf
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
+- name: Copiando arquivo /etc/libnss-ldap.conf
+  copy:
+    src: ldap.conf
+    dest: /etc/libnss-ldap.conf
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
+- name: Copiando arquivo /etc/pam_ldap.conf
+  copy:
+    src: ldap.conf
+    dest: /etc/pam_ldap.conf
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
+- name: Copiando arquivo /etc/pam.d/common-auth
+  copy:
+    src: common-auth
+    dest: /etc/pam.d/common-auth
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
+- name: Copiando arquivo /etc/pam.d/common-session
+  copy:
+    src: common-session
+    dest: /etc/pam.d/common-session
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
+- name: Copiando arquivo /etc/nsswitch.conf
+  copy:
+    src: nsswitch.conf
+    dest: /etc/nsswitch.conf
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
+- name: Copiando arquivo /etc/security/pam_mount.conf.xml
+  copy:
+    src: pam_mount.conf.xml
+    dest: /etc/security/pam_mount.conf.xml
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
+- name: Instala cups-client
+  apt: name=cups-client state=latest
+  when: ansible_distribution == 'Debian'
+
+- name: Cria diretório /etc/cups
+  file:
+    path: /etc/cups
+    state: directory
+    owner: root
+    group: lp
+    mode: 0755
+  when: ansible_os_family == 'Debian'
+
+- name: Remove o /etc/cups/client.conf
+  file:
+    path: /etc/cups/client.conf
+    state: absent
+  when: ansible_os_family == 'Debian'
+  
+- name: Instala o lightdm
+  apt: name={{item}} state=latest
+  with_items:
+    - lightdm
+    - lightdm-gtk-greeter
+    - lightdm-gtk-greeter-settings    
+  when: ansible_distribution == 'Debian'
+
+- name: Remove GDM3
+  apt: name=gdm3 state=absent purge=yes
+  when: ansible_distribution == 'Debian'
+
+# Windows
+
+- name: Configuracao no registro necessaria para ingresso no dominio - Windows
+  win_regedit:
+    path: HKLM:\System\CurrentControlSet\Services\LanManWorkstation\Parameters
+    name: DNSNameResolutionRequired
+    data: 0
+    type: dword
+  when: ansible_os_family == 'Windows'
+
+- name: Configuracao no registro necessaria para ingresso no dominio 2 - Windows
+  win_regedit:
+    path: HKLM:\System\CurrentControlSet\Services\LanManWorkstation\Parameters
+    name: DomainCompatibilityMode
+    data: 1
+    type: dword
+  when: ansible_os_family == 'Windows'
+
+- name: Ingressa no dominio - Windows
+  win_domain_membership:
+    dns_domain_name: cefetsc
+    domain_admin_user: "{{ domain_admin_user }}"
+    domain_admin_password: "{{ domain_admin_password }}"
+    state: domain
+  register: domain_state
+  when: (ansible_os_family == 'Windows' and ansible_windows_domain_member == false)
+
+- win_reboot:
+  when: (ansible_os_family == 'Windows' and ansible_windows_domain_member == false and domain_state.reboot_required)
+

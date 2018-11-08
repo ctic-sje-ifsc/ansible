@@ -1,0 +1,305 @@
+- name: Instala a impressora Argox - Linux
+  blockinfile:
+    path: /etc/cups/printers.conf
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - Argox"
+    content: |
+      <Printer Argox>
+      UUID urn:uuid:9725d01e-d047-38d5-706e-0b2406ed785c
+      Info Argox
+      MakeModel ARGOX OS-214 plus PPLA
+      DeviceURI parallel:/dev/usb/lp0
+      State Idle
+      StateTime 1541683378
+      ConfigTime 1541682710
+      Type 36932
+      Accepting Yes
+      Shared No
+      JobSheets none none
+      QuotaPeriod 0
+      PageLimit 0
+      KLimit 0
+      OpPolicy default
+      ErrorPolicy retry-job
+      </Printer>
+  when: ( ansible_os_family == 'Debian' and  install == 1 and argox == 1 )
+
+- name: Instala a impressora ImpCompras - Linux
+  blockinfile:
+    path: /etc/cups/printers.conf
+    marker: "# {mark} ANSIBLE MANAGED BLOCK ImpCompras"
+    content: |
+      <Printer ImpCompras>
+      UUID urn:uuid:1101979c-312e-3bf2-7b77-3d4e37848272
+      Info Lexmark MX611dhe
+      DeviceURI ipp://vm-lan2/printers/ImpCompras
+      State Idle
+      StateTime 1474292804
+      ConfigTime 1496336591
+      Type 6
+      Accepting Yes
+      Shared No
+      JobSheets none none
+      QuotaPeriod 0
+      PageLimit 0
+      KLimit 0
+      OpPolicy default
+      ErrorPolicy abort-job
+      </Printer>
+  when: ( ansible_os_family == 'Debian' and  install == 1 and compras == 1 )
+
+- name: Instala a impressora reprografia_reserva - Linux
+  blockinfile:
+    path: /etc/cups/printers.conf
+    marker: "# {mark} ANSIBLE MANAGED BLOCK reprografia_reserva "
+    content: |
+      <Printer reprografia_reserva>
+      UUID urn:uuid:ef4f0aaa-0f49-3b9e-7afc-fed50abe8c4b
+      Info Sharp MX-M363N
+      DeviceURI ipp://vm-lan2/printers/reprografia_reserva
+      State Idle
+      StateTime 1473940443
+      ConfigTime 1496336591
+      Type 6
+      Accepting Yes
+      Shared No
+      JobSheets none none
+      QuotaPeriod 0
+      PageLimit 0
+      KLimit 0
+      OpPolicy default
+      ErrorPolicy abort-job
+      </Printer>
+  when: ( ansible_os_family == 'Debian' and  install == 1 and reprografia_reserva == 1 )
+
+- name: Instala a impressora reprografia_principal - Linux
+  blockinfile:
+    path: /etc/cups/printers.conf
+    marker: "# {mark} ANSIBLE MANAGED BLOCK reprografia_principal"
+    content: |
+      <Printer reprografia_principal>
+      UUID urn:uuid:a495fc7c-aa14-3045-62de-3a58634f6286
+      AuthInfoRequired none
+      Info Kyocera Taskalfa 5501i
+      DeviceURI ipp://vm-lan2/printers/reprografia_principal
+      State Idle
+      StateTime 1473939314
+      ConfigTime 1496336591
+      Type 6
+      Accepting Yes
+      Shared No
+      JobSheets none none
+      QuotaPeriod 0
+      PageLimit 0
+      KLimit 0
+      OpPolicy default
+      ErrorPolicy abort-job
+      Attribute marker-colors \#000000,none
+      Attribute marker-levels 36,-1
+      Attribute marker-names TK-6307,Waste Toner Box
+      Attribute marker-types toner,waste-toner
+      Attribute marker-change-time 1473939312
+      </Printer>
+  when: ( ansible_os_family == 'Debian' and  install == 1 and reprografia_principal == 1 )
+
+- name: Instala a impressora ImpCGP - Linux
+  blockinfile:
+    path: /etc/cups/printers.conf
+    marker: "# {mark} ANSIBLE MANAGED BLOCK ImpCGP"
+    content: |
+      <Printer ImpCGP>
+      UUID urn:uuid:ea779c60-6775-3ea3-70a3-ec6f07272f9c
+      Info Lexmark MX611dhe
+      DeviceURI ipp://vm-lan2/printers/ImpCGP
+      State Idle
+      StateTime 1474292746
+      ConfigTime 1496336591
+      Type 6
+      Accepting Yes
+      Shared No
+      JobSheets none none
+      QuotaPeriod 0
+      PageLimit 0
+      KLimit 0
+      OpPolicy default
+      ErrorPolicy abort-job
+      </Printer>
+  when: ( ansible_os_family == 'Debian' and  install == 1 and cgp == 1 )
+
+- name: Instala a impressora ImpBiblioteca_USB - Linux
+  blockinfile:
+    path: /etc/cups/printers.conf
+    marker: "# {mark} ANSIBLE MANAGED BLOCK ImpBiblioteca_USB"
+    content: |
+      <Printer ImpBiblioteca>
+      UUID urn:uuid:656b375f-557e-3ef2-42a6-2709dcc2fbb4
+      Info ImpBiblioteca
+      DeviceURI hp:/usb/HP_LaserJet_1020?serial=FZ04KNA
+      State Idle
+      StateTime 1482239966
+      ConfigTime 1496336591
+      Type 36892
+      Accepting Yes
+      Shared Yes
+      JobSheets none none
+      QuotaPeriod 0
+      PageLimit 0
+      KLimit 0
+      AllowUser @sj-sebib
+      AllowUser biblioteca
+      AllowUser ctic
+      OpPolicy default
+      ErrorPolicy abort-job
+      </Printer>
+  when: ( ansible_os_family == 'Debian' and  install == 1 and biblioteca_usb == 1 )
+  
+- name: Instala a impressora ImpDirecao - Linux
+  blockinfile:
+    path: /etc/cups/printers.conf
+    marker: "# {mark} ANSIBLE MANAGED BLOCK ImpDirecao"
+    content: |
+      <Printer ImpDirecaoColor>
+      UUID urn:uuid:f8f1609d-66b6-3c91-469e-9f093e06a9f2
+      Info Sharp MX-C301
+      DeviceURI ipp://vm-lan2/printers/ImpDirecaoColor
+      State Idle
+      StateTime 1474293271
+      ConfigTime 1496336591
+      Type 6
+      Accepting Yes
+      Shared No
+      JobSheets none none
+      QuotaPeriod 0
+      PageLimit 0
+      KLimit 0
+      OpPolicy default
+      ErrorPolicy abort-job
+      </Printer>
+  when: ( ansible_os_family == 'Debian' and  install == 1 and direcao == 1 )
+
+- name: Instala a impressora ImpFinanceiro - Linux
+  blockinfile:
+    path: /etc/cups/printers.conf
+    marker: "# {mark} ANSIBLE MANAGED BLOCK ImpFinanceiro"
+    content: |
+      <Printer ImpFinanceiro>
+      UUID urn:uuid:1e9ad194-c243-3f65-6ba7-5ad2192081b0
+      Info Lexmark MX611dhe
+      DeviceURI ipp://vm-lan2/printers/ImpFinanceiro
+      State Idle
+      StateTime 1474292859
+      ConfigTime 1496336591
+      Type 6
+      Accepting Yes
+      Shared No
+      JobSheets none none
+      QuotaPeriod 0
+      PageLimit 0
+      KLimit 0
+      OpPolicy default
+      ErrorPolicy abort-job
+      </Printer>
+  when: ( ansible_os_family == 'Debian' and  install == 1 and financeiro == 1 )
+
+- name: Instala a impressora ImpSecretaria - Linux
+  blockinfile:
+    path: /etc/cups/printers.conf
+    marker: "# {mark} ANSIBLE MANAGED BLOCK ImpSecretaria"
+    content: |
+      <Printer ImpSecretaria>
+      UUID urn:uuid:2b5be820-a8de-3ff3-7693-e5ecb8e2278b
+      Info Lexmark MX611dhe
+      DeviceURI ipp://vm-lan2/printers/ImpSecretaria
+      State Idle
+      StateTime 1474292916
+      ConfigTime 1496336591
+      Type 6
+      Accepting Yes
+      Shared No
+      JobSheets none none
+      QuotaPeriod 0
+      PageLimit 0
+      KLimit 0
+      OpPolicy default
+      ErrorPolicy abort-job
+      </Printer>
+  when: ( ansible_os_family == 'Debian' and  install == 1 and secretaria == 1 )
+
+- name: Instala a impressora Almoxarifado - Linux
+  blockinfile:
+    path: /etc/cups/printers.conf
+    marker: "# {mark} ANSIBLE MANAGED BLOCK Almoxarifado"
+    content: |
+      <Printer Deskjet-6940-series>
+      UUID urn:uuid:2b16e2f6-9468-3716-700d-c9f334ebaa71
+      Info HP Deskjet 6940 series
+      Location sj-lin-almox-756044
+      DeviceURI usb://HP/Deskjet%206940%20series?serial=MY7589R3MN04Q9
+      State Idle
+      StateTime 1487097439
+      Type 36892
+      Accepting Yes
+      Shared Yes
+      JobSheets none none
+      QuotaPeriod 0
+      PageLimit 0
+      KLimit 0
+      OpPolicy default
+      ErrorPolicy stop-printer
+      </Printer>
+  when: ( ansible_os_family == 'Debian' and  install == 1 and almoxarifado == 1 )
+
+- name: Instala a impressora ImpBiblio - Linux
+  blockinfile:
+    path: /etc/cups/printers.conf
+    marker: "# {mark} ANSIBLE MANAGED BLOCK ImpBiblio"
+    content: |
+      <Printer ImpBiblio>
+      UUID urn:uuid:44b57a23-1446-3ea9-4b18-47b2d62c999e
+      AuthInfoRequired none
+      Info ImpBiblioteca
+      DeviceURI ipp://191.36.9.251/printers/ImpBiblioteca
+      State Idle
+      StateTime 1487873280
+      Type 6
+      Accepting Yes
+      Shared No
+      JobSheets none none
+      QuotaPeriod 0
+      PageLimit 0
+      KLimit 0
+      AllowUser @sj-sebib
+      AllowUser biblioteca
+      AllowUser ctic
+      OpPolicy default
+      ErrorPolicy abort-job
+      </Printer>
+  when: ( ansible_os_family == 'Debian' and  install == 1 and biblioteca == 1 )
+
+- name: Instalar o cups-pdf - Linux
+  apt:
+    name: cups-pdf
+    state: latest
+  when: ( ansible_os_family == 'Debian' and  install == 1 and pdf == 1 )
+
+- name: Instala a impressora PDF - Linux
+  blockinfile:
+    path: /etc/cups/printers.conf
+    marker: "# {mark} ANSIBLE MANAGED BLOCK pdf"
+    content: |
+      <Printer PDF>
+      UUID urn:uuid:5e5a92d6-9406-322e-5788-90f9ed3eb6b5
+      Info PDF
+      DeviceURI cups-pdf:/
+      State Idle
+      StateTime 1489769514
+      Type 8388612
+      Accepting Yes
+      Shared No
+      JobSheets none none
+      QuotaPeriod 0
+      PageLimit 0
+      KLimit 0
+      OpPolicy default
+      ErrorPolicy stop-printer
+      </Printer>
+  when: ( ansible_os_family == 'Debian' and  install == 1 and pdf == 1 )
