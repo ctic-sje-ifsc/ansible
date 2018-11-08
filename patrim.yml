@@ -1,3 +1,11 @@
 - hosts: patrim
   roles:
     - spotify
+    - ingressa_ldap_sem_cups_client
+    - role: instala_impressora_cups
+      install: 1
+      argox: 1
+      compras: 1
+  tasks:
+  - name: Instalar o software para criar as etiquetas Linux Debian
+    apt: name=glabels state=latest
