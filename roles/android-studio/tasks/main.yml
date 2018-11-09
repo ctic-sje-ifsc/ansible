@@ -11,9 +11,11 @@
   command: /usr/bin/snap install android-studio --classic
   args:
     creates: /snap/android-studio
+  when: ansible_os_family == 'Debian'
 
 - name: Atualiza Android Studio via SNAP
   command: /usr/bin/snap refresh
+  when: ansible_os_family == 'Debian'
 
 - name: Instalar pacotes pra aceleração de hardware - Linux
   apt: name={{ packages }} state=latest
