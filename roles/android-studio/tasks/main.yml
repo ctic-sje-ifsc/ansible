@@ -1,0 +1,76 @@
+## módulo que precisa de ser instalado na imagem padrão, pois precisa de interação manual
+
+- name: Instala snapd - Linux
+  apt: name={{ packages }} state=latest
+  vars:
+    packages:
+    - snapd
+  when: ansible_os_family == 'Debian'
+
+- name: Instala android studio via SNAP
+  command: /usr/bin/snap install android-studio --classic
+  args:
+    creates: /snap/android-studio
+
+- name: Atualiza Android Studio via SNAP
+  command: /usr/bin/snap refresh
+
+- name: Instalar pacotes pra aceleração de hardware - Linux
+  apt: name={{ packages }} state=latest
+  vars:
+    packages:
+    - qemu-kvm
+    - bridge-utils
+    - libvirt-daemon    
+  when: ansible_os_family == 'Debian'
+
+#Cria diretórios onde ficará os arquivos que ficariam na pasta do usuário -  Linux
+- file:
+    path: /opt/android-studio
+    state: directory
+    mode: 0777
+    owner: root
+    group: root
+  when: ansible_os_family == 'Debian'
+
+- file:
+    path: /opt/android-studio/Android
+    state: directory
+    mode: 0777
+    owner: root
+    group: root
+  when: ansible_os_family == 'Debian'
+
+- file:
+    path: /opt/android-studio/.android
+    state: directory
+    mode: 0777
+    owner: root
+    group: root
+  when: ansible_os_family == 'Debian'
+
+- file:
+    path: /opt/android-studio/.AndroidStudio3.2
+    state: directory
+    mode: 0777
+    owner: root
+    group: root
+  when: ansible_os_family == 'Debian'
+
+- file:
+    src: /opt/android-studio/Android
+    dest: /home/aluno/Android
+    state: link
+  when: ansible_os_family == 'Debian'
+
+- file:
+    src: /opt/android-studio/.android
+    dest: /home/aluno/.android
+    state: link
+  when: ansible_os_family == 'Debian'
+
+- file:
+    src: /opt/android-studio/.AndroidStudio3.2
+    dest: /home/aluno/.AndroidStudio3.2
+    state: link
+  when: ansible_os_family == 'Debian'
