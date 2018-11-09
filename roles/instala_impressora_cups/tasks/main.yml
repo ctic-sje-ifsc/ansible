@@ -1,3 +1,21 @@
+- lineinfile:
+    path: /etc/cups/cups-browsed.conf
+    regexp: '^BrowseRemoteProtocols'
+    line: 'BrowseRemoteProtocols none'
+  when: ( ansible_os_family == 'Debian' and  install == 1 )
+
+- lineinfile:
+    path: /etc/cups/cups-browsed.conf
+    regexp: '^BrowseLocalProtocols'
+    line: 'BrowseLocalProtocols none'
+  when: ( ansible_os_family == 'Debian' and  install == 1 )
+
+- lineinfile:
+    path: /etc/cups/cups-browsed.conf
+    regexp: '^BrowseProtocols'
+    line: 'BrowseProtocols none'
+  when: ( ansible_os_family == 'Debian' and  install == 1 )
+
 - name: Instala a impressora Argox - Linux
   blockinfile:
     path: /etc/cups/printers.conf
