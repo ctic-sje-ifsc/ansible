@@ -22,7 +22,7 @@
 
 - name: Baixando e extraindo o Netkit2 - Linux
   unarchive:
-    src: http://tele.sj.ifsc.edu.br/~msobral/netkit2/install/netkit2.tar.bz2
+    src: https://discovirtual.ifsc.edu.br/index.php/s/rx9CfeNckhyzUq0/download
     dest: /usr/local/netkit2
     creates: /usr/local/netkit2/netkit-version.txt
     remote_src: yes
@@ -57,16 +57,20 @@
     line: "  Check_Host = 'tele.sj.ifsc.edu.br'"
   when: ansible_os_family == 'Debian'
 
-- name: Set NETKIT2_HOME in /etc/bash.bashrc - Linux
-  lineinfile:
-    dest: /etc/bash.bashrc
-    state: present
-    line: 'export NETKIT2_HOME=/usr/local/netkit2'
+- name: Criando o arquivo .xsessionrc - Linux
+  copy:
+    src: .xsessionrc
+    dest: /home/aluno/.xsessionrc
+    owner: root
+    group: root
+    mode: 0755
   when: ansible_os_family == 'Debian'
 
-- name: Set PATH in /etc/bash.bashrc - Linux
-  lineinfile:
-    dest: /etc/bash.bashrc
-    state: present
-    line: 'export PATH=$PATH:$NETKIT2_HOME/bin'
+  - name: Criando o arquivo .xsessionrc - Linux
+  copy:
+    src: .xsessionrc
+    dest: /etc/skel/.xsessionrc
+    owner: root
+    group: root
+    mode: 0755
   when: ansible_os_family == 'Debian'
