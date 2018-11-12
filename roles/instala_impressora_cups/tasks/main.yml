@@ -16,6 +16,33 @@
     line: 'BrowseProtocols none'
   when: ( ansible_os_family == 'Debian' and  install == 1 )
 
+- name: Cria diretório /usr/share/cups/model/argox/ - Linux
+  file:
+    path: /usr/share/cups/model/argox/
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  when: ( ansible_os_family == 'Debian' and  install == 1 and argox == 1 )
+
+- name: Copia os arquivos ppd Argox - Linux Debian
+  copy:
+    src: ppd/ 
+    dest: /usr/share/cups/model/argox/
+    owner: root
+    group: root
+    mode: 0644
+  when: ( ansible_os_family == 'Debian' and  install == 1 and argox == 1 )
+
+- name:  Copia o arquivo rastertoargox - Linux Debian
+  copy:
+    src: rastertoargox 
+    dest: /usr/lib/cups/filter/rastertoargox
+    owner: root
+    group: root
+    mode: 0744
+  when: ( ansible_os_family == 'Debian' and  install == 1 and argox == 1 )
+
 - name: Instala a impressora Argox - Linux
   blockinfile:
     path: /etc/cups/printers.conf
