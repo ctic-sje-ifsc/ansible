@@ -11,9 +11,3 @@
   apt:
     deb: safesignidentityclient_3.0.77-Ubuntu_amd64.deb
   when: ansible_os_family == 'Debian'
-
-- name: Remove repositorio wheezy provisorio - Linux
-  apt_repository:
-    repo: deb http://ftp.de.debian.org/debian wheezy main
-    state: absent
-  when: ansible_os_family == 'Debian'
