@@ -1,7 +1,8 @@
 # Linux
 - name: Instalar pacotes necessarios para autenticação LDAP
-  apt: name={{item}} state=latest
-  with_items:
+  apt: name={{ packages }} state=latest
+  vars:
+    packages:
     - libnss-ldap
     - libpam-ldap
     - ldap-utils
@@ -104,8 +105,9 @@
   when: ansible_os_family == 'Debian'
   
 - name: Instala o lightdm
-  apt: name={{item}} state=latest
-  with_items:
+  apt: name={{ packages }} state=latest
+  vars:
+    packages:
     - lightdm
     - lightdm-gtk-greeter
     - lightdm-gtk-greeter-settings    

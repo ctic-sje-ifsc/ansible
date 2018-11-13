@@ -1,8 +1,9 @@
 # Linux --------------------------------------------------------------------------------------------------------------
 
 - name: Instalar pacotes GUI ou "conhecidos" padroes de laboratorios - Linux
-  apt: name={{item}} state=latest
-  with_items:
+  apt: name={{ packages }} state=latest
+  vars:
+    packages:
     - geany
     - unrar
     - audacity
@@ -15,8 +16,6 @@
     - kalzium
     - kdenlive
     - kicad
-    - kile
-    - kile-l10n
     - kolourpaint4
     - konsole
     - gedit
@@ -32,7 +31,7 @@
 
 ## Instala Eclipse com suporte a C/C++ e Java - Alternativa ao Eclipse modificado que o Arliones tinha sugerido.
 
-- name: Instalar pacotes GUI ou "conhecidos" padroes de laboratorios - Linux
+- name: Instala Eclipse com suporte a C/C++ e Java - Linux
   apt: name={{ packages }} state=latest
   vars:
     packages:
@@ -57,9 +56,10 @@
 #   when: ansible_distribution == 'Debian'
 
 # - name: Instalar pacotes do debian jessie
-#   apt: name={{item}} state=latest default_release=jessie
+#   apt: name={{ packages }} state=latest default_release=jessie
 #   when: ansible_distribution == 'Debian'
-#   with_items:
+#   vars:
+#     packages:
 #     - eagle:i386
 #     - g++-4.8
 #     - maven2
@@ -70,8 +70,9 @@
 # ## fim dos pacotes do jessie
 
 # - name: Instalar pacotes de ferramentas "conhecidas" padroes de laboratorios - Linux
-#   apt: name={{item}} state=latest
-#   with_items:
+#   apt: name={{ packages }} state=latest
+#   vars:
+#     packages:
 #     - ethtool
 #     - minicom
 #     - nmap
@@ -133,8 +134,9 @@
 #   when: ansible_os_family == 'Debian'
 
 # - name: Instalar pacotes de bibliotecas padroes de laboratorios - Linux
-#   apt: name={{item}} state=latest
-#   with_items:
+#   apt: name={{ packages }} state=latest
+#   vars:
+#     packages:
 #     - lib32stdc++6
 #     - libao-dev
 #     - libboost-all-dev
@@ -160,8 +162,9 @@
 #   when: ansible_os_family == 'Debian'
 
 # - name: Instalar lista de pacotes pedida pelo Arliones - Linux
-#   apt: name={{item}} state=latest
-#   with_items:
+#   apt: name={{ packages }} state=latest
+#   vars:
+#     packages:
 #     - ethtool
 #     - cmake
 #     - pkg-config
@@ -186,8 +189,9 @@
 #   when: ansible_os_family == 'Debian'
 
 # - name: Instalar lista de pacotes pedida pelo Arliones - Linux
-#   apt: name={{item}} state=latest
-#   with_items:
+#   apt: name={{ packages }} state=latest
+#   vars:
+#     packages:
 #     - libcppunit-dev
 #     - cxxtest
 #     - libcunit1
@@ -195,22 +199,25 @@
 #   when: ansible_os_family == 'Debian'
 
 # - name: Instala flask com python pip  - Linux
-#   pip: name={{item}}
-#   with_items:
+#   pip: name={{ packages }}
+#   vars:
+#     packages:
 #     - flask
 #     - flask-httpauth
 #   when: ansible_os_family == 'Debian'
 
 # - name: Instalar lista de pacotes necessarios para o quartus no Debian - Linux
-#   apt: name={{item}} state=latest
-#   with_items:
+#   apt: name={{ packages }} state=latest
+#   vars:
+#     packages:
 #     - libbz2-1.0:i386
 #     - libsm6:i386
 #   when: ansible_os_family == 'Debian'
 
 - name: Remover programas  - Linux
-  apt: name={{item}} state=absent
-  with_items:
+  apt: name={{ packages }} state=absent
+  vars:
+    packages:
     - transmission
     - transmission-common
   when: ansible_os_family == 'Debian'
@@ -230,15 +237,41 @@
 - include_role:
     name: zoiper
 
-## Para lembrar de colocar quando for feito:
+- include_role:
+    name: android-studio
+
+- include_role:
+    name: clion
+
+- include_role:
+    name: code
+
+- include_role:
+    name: idea
+
+- include_role:
+    name: pycharm
 
 # - include_role:
-#     name: netbeans
+#     name: ingles_progs
+
+- include_role:
+    name: jetbrains-toolbox
+
+- include_role:
+    name: netbeans82
+
+- include_role:
+    name: netkit2
+
+- include_role:
+    name: packettracer
 
 # Windows --------------------------------------------------------------------------------------------------------------
 - name: Instalar pacotes padroes laboratorios - Windows
   win_chocolatey: name={{ item }} state=latest
-  with_items:
+  vars:
+    packages:
     - googlechrome
     - jre8
     - firefox
@@ -284,8 +317,17 @@
 - include_role:
     name: sr2015
 
+- include_role:
+    name: chemdraw_12
+
+- include_role:
+    name: ltspice
+
+- include_role:
+    name: tracker
+
 # - include_role:
-#     name: progisp
+#     name: progsisp
 
 # Windows atalhos --------------------------------------------------------------------------------------------------------------
 
@@ -311,6 +353,7 @@
   when: ansible_os_family == 'Windows'
 
 # Windows e Linux --------------------------------------------------------------------------------------------------------------
+
 - include_role:
     name: virtualbox
 
@@ -329,8 +372,11 @@
 - include_role:
     name: rstudio
 
-- include_role:
-    name: atom
+# - include_role:
+#     name: atom
 
 - include_role:
     name: geogebra
+
+- include_role:
+    name: kile

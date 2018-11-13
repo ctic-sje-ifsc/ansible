@@ -1,8 +1,9 @@
 # Somente Linux
 
 - name: Instala o pacotes necessarios para o netkit2 - Linux
-  apt: name={{item}} state=latest
-  with_items:
+  apt: name={{ packages }} state=latest
+  vars:
+    packages:
     - graphviz
     - python-vte
     - bridge-utils

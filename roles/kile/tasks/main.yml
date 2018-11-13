@@ -3,8 +3,9 @@
 
 #Debian e Ubuntu
 - name: Instalar as sugestoes de pacotes para o kile - Linux Debian
-  apt: name={{item}} state=latest
-  with_items:
+  apt: name={{ packages }} state=latest
+  vars:
+    packages:
     - aspell
     - asymptote
     - context

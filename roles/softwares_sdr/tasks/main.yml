@@ -1,8 +1,9 @@
 #Linux
 
 - name: Instalar pacotes necessários e referentes ao GNU-RADIO - Linux
-  apt: name={{item}} state=latest
-  with_items:
+  apt: name={{ packages }} state=latest
+  vars:
+    packages:
     - gnuradio
     - gqrx-sdr
     - rtl-sdr

@@ -12,8 +12,9 @@
   when: ansible_distribution == 'Debian'
 
 - name: Instalar pacotes necessarios para o packettracer - Linux
-  apt: name={{item}} state=latest
-  with_items:
+  apt: name={{ packages }} state=latest
+  vars:
+    packages:
     - libqt5webkit5
     - libqt5webkit5-dev
     - libqt5multimedia5

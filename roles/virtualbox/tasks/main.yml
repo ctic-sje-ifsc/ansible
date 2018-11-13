@@ -9,8 +9,9 @@
   when: ansible_distribution == 'Debian'
 
 - name: Instalar os pacotes para o Virtualbox do stretch-backports - Linux Debian
-  apt: name={{item}} state=latest default_release=stretch-backports
-  with_items:
+  apt: name={{ packages }} state=latest default_release=stretch-backports
+  vars:
+    packages:
     - virtualbox
     - virtualbox-dkms
     - virtualbox-ext-pack
@@ -20,8 +21,9 @@
 
 # Ubuntu
 - name: Instalar os pacotes para o Virtualbox do ubuntu - Linux Ubuntu
-  apt: name={{item}} state=latest
-  with_items:
+  apt: name={{ packages }} state=latest
+  vars:
+    packages:
     - virtualbox
     - virtualbox-dkms
     - virtualbox-ext-pack

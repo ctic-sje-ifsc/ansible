@@ -1,8 +1,9 @@
 ---
 #Linux
 - name: Instalar os pacotes necessários para o warsaw
-  apt: name={{item}} state=latest
-  with_items:
+  apt: name={{ packages }} state=latest
+  vars:
+    packages:
     - libnss3-tools
     - libcurl3
   when: ansible_distribution == 'Debian'

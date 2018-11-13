@@ -20,8 +20,9 @@
 # Debian e Ubuntu
 
 - name: Instalar os pacotes para o qgis
-  apt: name={{item}} state=latest
-  with_items:
+  apt: name={{ packages }} state=latest
+  vars:
+    packages:
     - qgis
     - python-qgis
     - qgis-plugin-grass

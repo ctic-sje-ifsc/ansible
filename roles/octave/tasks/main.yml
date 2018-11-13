@@ -6,8 +6,9 @@
 
 # Debian e Ubuntu
 - name: Instalar os pacotes para o octave - Linux
-  apt: name={{item}} state=latest
-  with_items:
+  apt: name={{ packages }} state=latest
+  vars:
+    packages:
     - octave
     - octave-communications
     - octave-control
