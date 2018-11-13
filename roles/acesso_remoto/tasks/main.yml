@@ -1,5 +1,6 @@
 ---
 #Linux
+
 - name: Instalando o pacote necessario - Linux
   apt: name=x11vnc state=latest
   when: ansible_os_family == 'Debian'

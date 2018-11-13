@@ -2,8 +2,9 @@
 
 # Necessário para testes, depois vai ficar no programas_padroes_labs
 - name: Instalar os pacotes default Java openjdk - Linux
-  apt: name={{item}} state=latest
-  with_items:
+  apt: name={{ packages }} state=latest
+  vars:
+    packages:
     - default-jdk
     - default-jre
   when: ansible_os_family == 'Debian'
@@ -11,8 +12,9 @@
 
 # Debian e Ubuntu
 - name: Instalar os pacotes para o r-project - Linux
-  apt: name={{item}} state=latest
-  with_items:
+  apt: name={{ packages }} state=latest
+  vars:
+    packages:
     - r-base
     - r-base-dev
     - libatlas3-base
@@ -27,8 +29,9 @@
 
 # Bibliotecas Linux
 - name: Instalar bibliotecas para o r-studio - Linux
-  apt: name={{item}} state=latest
-  with_items:
+  apt: name={{ packages }} state=latest
+  vars:
+    packages:
     - r-cran-gdata
     - r-cran-gmodels
     - r-cran-gtools

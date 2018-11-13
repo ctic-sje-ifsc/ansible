@@ -7,8 +7,9 @@
   when: ansible_os_family == 'Debian'
 
 - name: Instalar pacotes padroes - Linux
-  apt: name={{item}} state=latest
-  with_items:
+  apt: name={{ packages }} state=latest
+  vars:
+    packages:
     - aptitude 
     - vim 
     - firmware-linux 
@@ -32,8 +33,9 @@
   when: ansible_os_family == 'Debian'
 
 - name: Remover programas  - Linux
-  apt: name={{item}} state=absent
-  with_items:
+  apt: name={{ packages }} state=absent
+  vars:
+    packages:
     - transmission
     - transmission-common
   when: ansible_os_family == 'Debian'
@@ -63,14 +65,16 @@
     name: libreoffice-still
     version: '6.0.6'
     timeout: 9000
-    #force: yes
+    force: yes
   when: ansible_os_family == 'Windows'  
 
-- name: Instalar o microsoftsecurityessentials - Windows 7
-  win_chocolatey:
-    name: microsoftsecurityessentials 
-    version: latest
-  when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 7 Professional')  
+# - name: Instalar o microsoftsecurityessentials - Windows 7
+#   win_chocolatey:
+#     name: microsoftsecurityessentials 
+#     version: latest
+#     timeout: 9000
+#     #force: yes
+#   when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 7 Professional')  
 
 # - name: Instalar o NOMEDOSOFTWARE defender - Windows 8.1
 #   win_chocolatey:
@@ -84,3 +88,6 @@
 
 - include_role:
     name: flashplayer
+
+# - include_role:
+#     name: auto_desligamento

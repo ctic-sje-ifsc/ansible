@@ -280,8 +280,8 @@
 # - include_role:
 #     name: auto_desligamento
 
-# - include_role:
-#     name: openaudit
+- include_role:
+    name: openaudit
 
 ###################### Fim dos Includes
 

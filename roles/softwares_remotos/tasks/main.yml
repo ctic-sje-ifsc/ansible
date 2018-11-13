@@ -11,8 +11,9 @@
 
 # Debian e Ubuntu    
 - name: Instalar pacotes necessarios para o remmina
-  apt: name={{item}} state=latest default_release=stretch-backports
-  with_items:
+  apt: name={{ packages }} state=latest default_release=stretch-backports
+  vars:
+    packages:
     - remmina 
     - remmina-plugin-rdp
     - remmina-plugin-secret

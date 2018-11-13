@@ -1,6 +1,7 @@
 - name: Instalar pacote gnome-subtitles - Linux
-  apt: name={{item}} state=latest
-  with_items:
+  apt: name={{ packages }} state=latest
+  vars:
+    packages:
     - gnome-subtitles
   when: ansible_os_family == 'Debian'
 

@@ -6,8 +6,9 @@
   when: ansible_os_family == 'Debian'
 
 - name: Atualizacao de pacotes geogebra - Linux
-  apt: name={{item}} state=latest
-  with_items:
+  apt: name={{ packages }} state=latest
+  vars:
+    packages:
     - geogebra5
     #- geogebra-classic #Geogebra 6
   when: ansible_os_family == 'Debian'
