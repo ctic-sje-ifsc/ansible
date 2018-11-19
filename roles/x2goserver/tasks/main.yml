@@ -1,0 +1,29 @@
+# Debian e Ubuntu
+- name: Adicionar a chave para o x2goserver - Linux
+  apt_key:
+    keyserver: keys.gnupg.net
+    id: E1F958385BFE2B6E
+  when: ansible_os_family == 'Debian'
+
+- name: Arquivo do source list x2goserver - Linux
+  copy:
+    src: x2go.list
+    dest: /etc/apt/sources.list.d/x2go.list
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+  notify:
+    - update apt cache
+
+- name: Instalar os pacotes x2go-keyring - Linux
+  apt: name=x2go-keyring state=latest update_cache=yes
+  when: ansible_os_family == 'Debian'
+
+- name: Instalar pacotes para o x2goserver - Linux
+  apt: name={{ packages }} state=latest
+  vars:
+    packages:
+    - x2goserver
+    - x2goserver-xsession
+  when: ansible_os_family == 'Debian'
