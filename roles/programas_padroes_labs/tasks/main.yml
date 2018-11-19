@@ -69,69 +69,54 @@
 
 # ## fim dos pacotes do jessie
 
-# - name: Instalar pacotes de ferramentas "conhecidas" padroes de laboratorios - Linux
-#   apt: name={{ packages }} state=latest
-#   vars:
-#     packages:
-#     - ethtool
-#     - minicom
-#     - nmap
-#     - ntfs-3g
-#     - android-tools-adb
-#     - iperf
-#     - ipcalc
-#     - tcpdump
-#     - snmp-mibs-downloader
-#     - cutecom
-#     - avrdude
-#     - gdb
-#     - ipython3
-#     - git
-#     - logisim
-#     - maven
-#     - mosquitto-clients
-#     - mysql-client
-#     - mysql-workbench
-#     - nemiver
-#     - nodejs
-# #    - nodejs-legacy # Nao tem no ubuntu
-#     - python-dev
-#     - python-pip
-#     - python-virtualenv
-#     - python3
-#     - python3-dev
-#     - rabbitmq-server
-#     - vim
-#     - whois
-#     - wxmaxima
-#     - traceroute
-#     - tree
-#     - ttf-ancient-fonts
-#     - u-boot-tools
-#     - uuid-dev
-#     - resolvconf
-#     - spyder3
-#     - sqlite3
-#     - sqlitebrowser
-#     - subversion
-#     - gcc-avr
-#     - as31
-#     - chrpath
-#     - diffstat
-#     - distcc
-#     - distccmon-gnome
-#     - dnsutils
-#     - fish
-#     - g++-arm-linux-gnueabi
-#     - gcc-arm-linux-gnueabi
-#     - gcc-arm-none-eabi
-#     - glade
-#     - gnupg2
-#     - gradle
-#     - swig
-#     - texlive-extra-utils
-#     - texlive-lang-portuguese
-#   when: ansible_os_family == 'Debian'
+- name: Instalar pacotes de ferramentas "conhecidas" padroes de laboratorios - Linux
+  apt: name={{ packages }} state=latest
+  vars:
+    packages:
+    - ethtool
+    - minicom
+    - nmap
+    - ntfs-3g
+    - iperf
+    - ipcalc
+    - tcpdump
+    - snmp-mibs-downloader
+    - cutecom
+    - avrdude
+    - gdb
+    - ipython3
+    - git
+    - logisim
+    - mosquitto-clients
+    - mysql-client
+    - nemiver
+    - nodejs
+#    - nodejs-legacy # Nao tem no ubuntu
+    - vim
+    - whois
+    - wxmaxima
+    - traceroute
+    - tree
+    - u-boot-tools
+    - uuid-dev
+    - resolvconf
+    - spyder3
+    - subversion
+    - gcc-avr
+    - as31
+    - chrpath
+    - diffstat
+    - dnsutils
+    - fish
+    - g++-arm-linux-gnueabi
+    - gcc-arm-linux-gnueabi
+    - gcc-arm-none-eabi
+    - glade
+    - gnupg
+    - swig
+    - texlive-extra-utils
+    - texlive-lang-portuguese
+  when: ansible_os_family == 'Debian'
 
 # - name: Instalar pacotes de bibliotecas padroes de laboratorios - Linux
 #   apt: name={{ packages }} state=latest
@@ -155,11 +140,32 @@
 #     - libsqlite3-dev
 #     - libssl-dev
 # #    - libstdc++-4.8-dev # nao tem mais, tem a mais atual
-#     - libzmq3-dev
 # #    - linux-headers-generic # nao tem no debian
 #     - zlib1g-dev
 #     - avr-libc
 #   when: ansible_os_family == 'Debian'
+
+- name: Instalar lista de pacotes pedida pelo Emerson Mello - Linux
+  apt: name={{ packages }} state=latest
+  vars:
+    packages:
+    - gradle
+    - sqlite3
+    - sqlitebrowser
+    - rabbitmq-server
+    - python-virtualenv
+    - maven
+    - mysql-workbench
+    - python-dev
+    - python-pip
+    - python3
+    - python3-dev
+    - libzmq3-dev
+    - distcc
+    - distccmon-gnome
+    - ttf-ancient-fonts
+    - android-tools-adb
+  when: ansible_os_family == 'Debian'
 
 # - name: Instalar lista de pacotes pedida pelo Arliones - Linux
 #   apt: name={{ packages }} state=latest
@@ -198,13 +204,13 @@
 #     - libcunit1-dev
 #   when: ansible_os_family == 'Debian'
 
-# - name: Instala flask com python pip  - Linux
-#   pip: name={{ packages }}
-#   vars:
-#     packages:
-#     - flask
-#     - flask-httpauth
-#   when: ansible_os_family == 'Debian'
+- name: Instala flask com python pip  - Linux
+  pip: name={{ packages }}
+  vars:
+    packages:
+    - flask
+    - flask-httpauth
+  when: ansible_os_family == 'Debian'
 
 # - name: Instalar lista de pacotes necessarios para o quartus no Debian - Linux
 #   apt: name={{ packages }} state=latest
