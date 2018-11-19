@@ -1,0 +1,16 @@
+# Ansible managed
+
+# X2Go Repository (release builds)
+deb http://packages.x2go.org/debian stretch extras main
+# X2Go Repository (sources of release builds)
+deb-src http://packages.x2go.org/debian stretch extras main
+
+# X2Go Repository (Saimaa ESR builds)
+#deb http://packages.x2go.org/debian stretch extras saimaa
+# X2Go Repository (sources of Saimaa ESR builds)
+#deb-src http://packages.x2go.org/debian stretch extras saimaa
+
+# X2Go Repository (nightly builds)
+#deb http://packages.x2go.org/debian stretch extras heuler
+# X2Go Repository (sources of nightly builds)
+#deb-src http://packages.x2go.org/debian stretch extras heuler
