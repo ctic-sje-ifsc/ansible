@@ -43,8 +43,8 @@
 - include_role:
     name: warsaw
 
-- include_role:
-    name: foxit
+# - include_role:
+#     name: foxit
 
 #Windows
 - name: Instalar pacotes padroes - Windows
