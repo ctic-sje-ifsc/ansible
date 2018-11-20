@@ -176,24 +176,26 @@
     marker: "# {mark} ANSIBLE MANAGED BLOCK ImpBiblioteca_USB"
     content: |
       <Printer ImpBiblioteca>
-      UUID urn:uuid:656b375f-557e-3ef2-42a6-2709dcc2fbb4
+      UUID urn:uuid:fb4156cd-356d-3c05-4a36-205fe33f2293
       Info ImpBiblioteca
+      Location 
+      MakeModel HP LaserJet 1020 Foomatic/foo2zjs-z1 (recommended)
       DeviceURI hp:/usb/HP_LaserJet_1020?serial=FZ04KNA
       State Idle
-      StateTime 1482239966
-      ConfigTime 1496336591
-      Type 36892
+      StateTime 1542736660
+      ConfigTime 1542736640
+      Type 8425476
       Accepting Yes
       Shared Yes
       JobSheets none none
       QuotaPeriod 0
       PageLimit 0
       KLimit 0
+      OpPolicy default
       AllowUser @sj-sebib
       AllowUser biblioteca
       AllowUser ctic
-      OpPolicy default
-      ErrorPolicy abort-job
+      ErrorPolicy retry-job
       </Printer>
   when: ( ansible_os_family == 'Debian' and  install == 1 and biblioteca_usb == 1 )
   
