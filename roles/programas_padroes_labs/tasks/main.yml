@@ -64,7 +64,6 @@
 #     - g++-4.8
 #     - maven2
 #     - npm
-#     - python3.4-venv
 #     - libswt-gtk-3-jni:i386
 
 # ## fim dos pacotes do jessie
@@ -167,7 +166,25 @@
     - distccmon-gnome
     - ttf-ancient-fonts
     - android-tools-adb
+    - python3-venv
   when: ansible_os_family == 'Debian'
+
+
+# # java
+- name: Instalar os pacotes  Java openjdk - Linux
+  apt: name={{ packages }} state=latest
+  vars:
+    packages:
+    - openjdk-11-doc
+    - openjdk-11-jdk
+    - openjdk-11-jre
+    - openjdk-8-doc
+    - openjdk-8-jdk
+    - openjdk-8-jre
+    - default-jre
+    - default-jdk
+  when: ansible_os_family == 'Debian'
+
 
 # - name: Instalar lista de pacotes pedida pelo Arliones - Linux
 #   apt: name={{ packages }} state=latest
