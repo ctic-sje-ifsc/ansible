@@ -9,7 +9,8 @@
     - papel_de_parede_e_icones
 
 # Chamado do Jorge casagrande pedindo para desativar o desligamento na máquina dele IFSC#2018112610001119
-- hosts: administrativos_lin:!sj-lin-cotel-38112.maquinas.sj.ifsc.edu.br
+# Chamado do Diego Medeiros pedindo para desativar o desligamento na máquina dele IFSC#2018112810000143
+- hosts: administrativos_lin:!sj-lin-cotel-38112.maquinas.sj.ifsc.edu.br:!sj-lin-des2-744927.maquinas.sj.ifsc.edu.br
   roles:
     - auto_desligamento
 
