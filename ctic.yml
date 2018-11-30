@@ -56,5 +56,6 @@
       - sshfs
       - python-pip
       - virtualenv
+      - net-tools
   - pip:
       name: pywinrm
