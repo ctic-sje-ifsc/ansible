@@ -4,19 +4,26 @@
 # Debian
 - name: Adicionar repositório remmina
   apt_repository:
-    repo: deb http://ftp.debian.org/debian stretch-backports main
+    repo: deb http://ftp.debian.org/debian jessie main
     state: present
     update_cache: yes
   when: ansible_distribution == 'Debian'
 
+#pode ser removido depois que aplicar a todos os computadores.
+- name: Reverte versão do libssh-4 para stable
+  apt: name={{ packages }} state=present force=yes
+  vars:
+    packages:      
+      - libssh-4=0.7.3-2+deb9u1
+
 # Debian e Ubuntu    
 - name: Instalar pacotes necessarios para o remmina
-  apt: name={{ packages }} state=latest default_release=stretch-backports
+  apt: name={{ packages }} state=present default_release=jessie force=yes
   vars:
     packages:
-    - remmina 
-    - remmina-plugin-rdp
-    - remmina-plugin-secret
+    - remmina=1.1.1-2
+    - remmina-common=1.1.1-2
+    - remmina-plugin-rdp=1.1.1-2
     - libfreerdp-plugins-standard
   when: ansible_os_family == 'Debian'
 
