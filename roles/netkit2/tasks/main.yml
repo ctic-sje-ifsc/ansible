@@ -58,14 +58,16 @@
     line: "  Check_Host = 'tele.sj.ifsc.edu.br'"
   when: ansible_os_family == 'Debian'
 
-- name: Criando o arquivo .xsessionrc - Linux
-  copy:
-    src: .xsessionrc
-    dest: /home/aluno/.xsessionrc
-    owner: root
-    group: root
-    mode: 0755
-  when: ansible_os_family == 'Debian'
+# Descomentar para gerar a imagem (tar home aluno)
+
+# - name: Criando o arquivo .xsessionrc - Linux
+#   copy:
+#     src: .xsessionrc
+#     dest: /home/aluno/.xsessionrc
+#     owner: root
+#     group: root
+#     mode: 0755
+#   when: ansible_os_family == 'Debian'
 
 - name: Criando o arquivo .xsessionrc - Linux
   copy:

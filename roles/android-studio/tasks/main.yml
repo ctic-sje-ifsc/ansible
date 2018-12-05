@@ -67,6 +67,8 @@
     group: root
   when: ansible_os_family == 'Debian'
 
+# Descomentar para gerar a imagem
+
 # - file:
 #     src: /opt/android-studio/Android
 #     dest: /home/aluno/Android
