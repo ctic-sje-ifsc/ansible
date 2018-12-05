@@ -1,0 +1,11 @@
+#Este arquivo eh gerado automaticamente pelo Puppet, nao adianta editar.
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=Acesso Remoto CTIC - SJE
+Comment=Acesso Remoto CTIC - SJE
+Exec=/usr/bin/x11vnc -auth guess -noxdamage -rfbport 5900 -shared -forever -xkb -nopw
+Icon=/var/suporte_remoto.png
+Terminal=true
+Type=Application
+Categories=Development

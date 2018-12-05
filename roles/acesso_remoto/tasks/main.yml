@@ -5,13 +5,27 @@
   apt: name=x11vnc state=latest
   when: ansible_os_family == 'Debian'
   
-- name: Copiando o script para o profile - Linux
+- name: Remove o antigo script do profile - Linux
+  file:
+    path: /etc/profile.d/x11vnc.sh
+    state: absent
+  when: ansible_os_family == 'Debian'
+
+- name: Copiando o arquivo .desktop Acesso remoto - Linux
   copy:
-    src: x11vnc.sh
-    dest: /etc/profile.d/x11vnc.sh
+    src: suporte_remoto.desktop
+    dest: /usr/share/applications/suporte_remoto.desktop
     owner: root
     group: root
     mode: 0644
+  when: ansible_os_family == 'Debian'
+
+# Copiado os icones
+
+- name: Copiando o icone Acesso remoto - Linux
+  copy:
+    src: suporte_remoto.png
+    dest: /var/
   when: ansible_os_family == 'Debian'
 
 #Windows  
