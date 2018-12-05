@@ -67,26 +67,26 @@
     group: root
   when: ansible_os_family == 'Debian'
 
-- file:
-    src: /opt/android-studio/Android
-    dest: /home/aluno/Android
-    state: link
-  when: ansible_os_family == 'Debian'
+# - file:
+#     src: /opt/android-studio/Android
+#     dest: /home/aluno/Android
+#     state: link
+#   when: ansible_os_family == 'Debian'
 
-- file:
-    src: /opt/android-studio/.android
-    dest: /home/aluno/.android
-    state: link
-  when: ansible_os_family == 'Debian'
+# - file:
+#     src: /opt/android-studio/.android
+#     dest: /home/aluno/.android
+#     state: link
+#   when: ansible_os_family == 'Debian'
 
-- file:
-    src: /opt/android-studio/.AndroidStudio3.2
-    dest: /home/aluno/.AndroidStudio3.2
-    state: link
-  when: ansible_os_family == 'Debian'
+# - file:
+#     src: /opt/android-studio/.AndroidStudio3.2
+#     dest: /home/aluno/.AndroidStudio3.2
+#     state: link
+#   when: ansible_os_family == 'Debian'
 
-- file:
-    src: /opt/android-studio/.gradle
-    dest: /home/aluno/.gradle
-    state: link
-  when: ansible_os_family == 'Debian'
+# - file:
+#     src: /opt/android-studio/.gradle
+#     dest: /home/aluno/.gradle
+#     state: link
+#   when: ansible_os_family == 'Debian'
