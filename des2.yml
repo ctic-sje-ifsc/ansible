@@ -4,6 +4,11 @@
     - kile
     - programas_padroes_labs
 
-- hosts: sj-lin-des2-744927.maquinas.sj.ifsc.edu.br
+- hosts: sj-lin-des2-744927.maquinas.sj.ifsc.edu.br #Diego
   roles:
     - ingressa_ldap_gdm
+  tasks:
+  - name: Pacotes do Diego
+    apt: name={{item}} state=latest
+    with_items:
+      - nautilus-dropbox
