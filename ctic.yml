@@ -57,5 +57,6 @@
       - python-pip
       - virtualenv
       - net-tools
+      - dnsutils
   - pip:
       name: pywinrm
