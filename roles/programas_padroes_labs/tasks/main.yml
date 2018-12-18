@@ -1,5 +1,10 @@
 # Linux --------------------------------------------------------------------------------------------------------------
 
+- name: Install a .deb Google Chrome - Linux Debian
+  apt:
+    deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  when: ansible_os_family == 'Debian'
+
 - name: Instalar pacotes GUI ou "conhecidos" padroes de laboratorios - Linux
   apt: name={{ packages }} state=latest
   vars:
@@ -27,6 +32,10 @@
     - xpdf
     - libreoffice
     - libreoffice-l10n-pt-br
+    - google-chrome-stable
+    - pdfsam
+    - pdfshuffler
+    - qalculate
   when: ansible_os_family == 'Debian'
 
 ## Instala Eclipse com suporte a C/C++ e Java - Alternativa ao Eclipse modificado que o Arliones tinha sugerido.
@@ -117,6 +126,7 @@
     - texlive-lang-portuguese
     - python3-pip
     - python-rope
+    - htop
   when: ansible_os_family == 'Debian'
 
 # - name: Instalar pacotes de bibliotecas padroes de laboratorios - Linux
@@ -167,6 +177,7 @@
     - ttf-ancient-fonts
     - android-tools-adb
     - python3-venv
+    - figlet
   when: ansible_os_family == 'Debian'
 
 
@@ -231,13 +242,48 @@
     - flask-httpauth
   when: ansible_os_family == 'Debian'
 
-# - name: Instalar lista de pacotes necessarios para o quartus no Debian - Linux
-#   apt: name={{ packages }} state=latest
-#   vars:
-#     packages:
-#     - libbz2-1.0:i386
-#     - libsm6:i386
-#   when: ansible_os_family == 'Debian'
+### Inicio pacotes necessarios para o Quartus
+
+- name: Instalar lista de pacotes necessarios para o quartus no Debian - Linux
+  apt: name={{ packages }} state=latest
+  vars:
+    packages:
+    - libbz2-1.0:i386
+    - libsm6:i386
+    - libc6:i386 
+    - libpng16-16:i386 
+    - libsm6:i386 
+    - libncurses5:i386 
+    - libstdc++6:i386 
+    - libxft2:i386 
+    - libxext6:i386 
+    - lib32z1 
+    - libbz2-1.0:i386 
+    - libxrender1:i386 
+    - libfreetype6:i386 
+    - libfontconfig1:i386 
+  when: ansible_os_family == 'Debian'
+
+- name: Install a .deb libpng12:i386 - Linux Debian
+  apt:
+    deb: http://mirrors.kernel.org/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1_i386.deb
+  when: ansible_os_family == 'Debian'
+
+- name: Install a .deb libpng12 - Linux Debian
+  apt:
+    deb: http://mirrors.kernel.org/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1_amd64.deb
+  when: ansible_os_family == 'Debian'
+
+- name: Instalar lista de pacotes necessarios para o Matlab no Debian - Linux
+  apt: name={{ packages }} state=latest
+  vars:
+    packages:
+    - libglu1-mesa 
+    - libasound2
+    - libgl1-mesa-dri
+  when: ansible_os_family == 'Debian'
+
+### Fim pacotes necessarios para o Quartus
 
 - name: Remover programas  - Linux
   apt: name={{ packages }} state=absent
@@ -405,3 +451,6 @@
 
 - include_role:
     name: kile
+
+- include_role:
+    name: foxit
