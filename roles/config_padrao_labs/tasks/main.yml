@@ -10,7 +10,7 @@
     append: yes
   with_items:
     - aluno
-    - mayara.sousa 
+    - mayara.sousa
     - arliones.hoeller
     - roberto.matos
     - elen
@@ -97,7 +97,7 @@
   systemd:
     enabled: yes
     daemon_reload: yes
-    name: apagaAluno 
+    name: apagaAluno
   when: ansible_os_family == 'Debian'
 
 ###################### Fim do ApagaAluno
@@ -264,6 +264,17 @@
   when: ansible_os_family == 'Windows'
 ###################### Fim pasta instaladores Windows
 
+###################### Inicio criacao de atalhos Windows
+- name: Atalho para o D - Windows
+  win_shortcut:
+    description: Atalho para trabalhos
+    src: 'D:\'
+    dest: '%Public%\Desktop\SALVE SEUS TRABALHOS AQUI.lnk'
+    icon: 'C:\Windows\system32\imageres.dll,0'
+    state: present
+  when: ansible_os_family == 'Windows'
+  ###################### Fim criacao de atalhos Windows
+
 ###################### Início do NTP Windows
 - name: Configura servidores NTP para o Windows
   win_shell: net start w32time ;	w32tm /config /manualpeerlist:"a.st1.ntp.br b.st1.ntp.br c.st1.ntp.br gps.ntp.br" /syncfromflags:manual /reliable:YES /update ; net stop w32time ; net start w32time ; w32tm /config /update ; w32tm /resync ; w32tm /resync ; New-Item c:\gatilho_ntp.txt -type file
@@ -284,4 +295,3 @@
     name: openaudit
 
 ###################### Fim dos Includes
-
