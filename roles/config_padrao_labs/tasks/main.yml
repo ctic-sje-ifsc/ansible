@@ -270,7 +270,7 @@
     description: Atalho para trabalhos
     src: 'D:\'
     dest: '%Public%\Desktop\SALVE SEUS TRABALHOS AQUI.lnk'
-    icon: 'C:\Windows\system32\imageres.dll,0'
+    icon: 'C:\Windows\system32\imageres.dll,24'
     state: present
   when: ansible_os_family == 'Windows'
   ###################### Fim criacao de atalhos Windows

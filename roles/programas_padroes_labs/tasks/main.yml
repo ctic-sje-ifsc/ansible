@@ -357,10 +357,11 @@
   - microsoftsecurityessentials
   when: ansible_os_family == 'Windows'
 
-- name: Instalar o LibreOffice Still 6.0.6 - Windows
+- name: Instalar o LibreOffice Still 6.0.7 - Windows
   win_chocolatey:
     name: libreoffice-still
-    version: '6.0.6'
+    version: '6.0.7'
+    #force: yes
   when: ansible_os_family == 'Windows'
 
 - name: Instalar o Unity 2018.2.10 - Windows
