@@ -25,9 +25,9 @@
     - dia 
     - kolourpaint4 
     - kdenlive
-    - kde-l10n-ptbr  
-    - chromium  
-    - chromium-l10n 
+    - kde-l10n-ptbr
+    - chromium
+    - chromium-l10n
     - openjdk-8-jre
     - icedtea-8-plugin
     - google-chrome-stable
@@ -61,27 +61,27 @@
     - adobereader
   when: ansible_os_family == 'Windows'
 
-- name: Instalar o LibreOffice Still 6.0.6 - Windows
+- name: Instalar o LibreOffice Still 6.0.7 - Windows
   win_chocolatey:
     name: libreoffice-still
-    version: '6.0.6'
+    version: '6.0.7'
     timeout: 9000
-    force: yes
-  when: ansible_os_family == 'Windows'  
+    #force: yes
+  when: ansible_os_family == 'Windows'
 
 # - name: Instalar o microsoftsecurityessentials - Windows 7
 #   win_chocolatey:
-#     name: microsoftsecurityessentials 
+#     name: microsoftsecurityessentials
 #     version: latest
 #     timeout: 9000
 #     #force: yes
-#   when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 7 Professional')  
+#   when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 7 Professional')
 
 # - name: Instalar o NOMEDOSOFTWARE defender - Windows 8.1
 #   win_chocolatey:
-#     name: NOMEDOSOFTWARE 
+#     name: NOMEDOSOFTWARE
 #     version: latest
-#   when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 8.1 Pro') 
+#   when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 8.1 Pro')
 
 #Windows e Linux
 - include_role:
