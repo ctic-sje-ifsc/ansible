@@ -1,39 +1,61 @@
 #Antes de atualizar, verificar se o Ansible já gerencia snap
 
-- name: Cria diretório jetbrains e apps
-  file:
-    path: /opt/jetbrains/apps
-    state: directory
-    owner: root
-    group: root
-    mode: 0755
+- name: Instala snapd - Linux
+  apt: name={{ packages }} state=latest
+  vars:
+    packages:
+    - snapd
   when: ansible_os_family == 'Debian'
 
-- name: Baixando e extraindo o Clion jetbrains - Linux Debian
-  unarchive:
-    src: https://discovirtual.ifsc.edu.br/index.php/s/2g8H8QCvIm8k83H/download
-    dest: /opt/jetbrains/apps
-    creates: /opt/jetbrains/apps/CLion/ch-0
-    remote_src: yes
-    owner: aluno
-    group: 513    
+- name: Instala Clion via SNAP
+  command: /usr/bin/snap install clion --classic
+  args:
+    creates: /snap/clion/
   when: ansible_os_family == 'Debian'
 
-- name: Criando o arquivo jetbrains-clion.desktop - Linux Debian
-  copy:
-    src: jetbrains-clion.desktop
-    dest: /usr/share/applications/jetbrains-clion.desktop
-    owner: root
-    group: root
-    mode: 0644
+- name: Atualiza Clion via SNAP
+  command: /usr/bin/snap refresh
   when: ansible_os_family == 'Debian'
 
-- name: Corrige permissões
-  file:
-    path: /opt/jetbrains/apps/CLion
-    state: directory
-    owner: aluno
-    group: 513
-    mode: 0775
-    recurse: yes
-  when: ansible_os_family == 'Debian'
+# - name: Cria diretório jetbrains e apps
+#   file:
+#     path: /opt/jetbrains/apps
+#     state: directory
+#     owner: root
+#     group: root
+#     mode: 0755
+#   when: ansible_os_family == 'Debian'
+
+# - name: Baixando e extraindo o Clion jetbrains - Linux Debian
+#   unarchive:
+#     src: https://discovirtual.ifsc.edu.br/index.php/s/2g8H8QCvIm8k83H/download
+#     dest: /opt/jetbrains/apps
+#     creates: /opt/jetbrains/apps/CLion/ch-0
+#     remote_src: yes
+#     owner: aluno
+#     group: 513    
+#   when: ansible_os_family == 'Debian'
+
+# - name: Criando o arquivo jetbrains-clion.desktop - Linux Debian
+#   copy:
+#     src: jetbrains-clion.desktop
+#     dest: /usr/share/applications/jetbrains-clion.desktop
+#     owner: root
+#     group: root
+#     mode: 0644
+#   when: ansible_os_family == 'Debian'
+
+# - file:
+#     path: /usr/share/applications/jetbrains-clion.desktop
+#     state: absent
+#   when: ansible_os_family == 'Debian'
+
+# - name: Corrige permissões
+#   file:
+#     path: /opt/jetbrains/apps/CLion
+#     state: directory
+#     owner: aluno
+#     group: 513
+#     mode: 0775
+#     recurse: yes
+#   when: ansible_os_family == 'Debian'

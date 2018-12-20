@@ -1,0 +1,305 @@
+#!/bin/sh
+#
+#Copyright 1991-2012 Mentor Graphics Corporation
+#
+#All Rights Reserved.
+#
+#THIS WORK CONTAINS TRADE SECRET AND PROPRIETARY INFORMATION WHICH IS THE PROPERTY OF
+#MENTOR GRAPHICS CORPORATION OR ITS LICENSORS AND IS SUBJECT TO LICENSE TERMS.
+#
+
+# MTI_VCO_MODE environment variable may be set to "32" or "64"
+# to force selection of 32-bit or 64-bit platform directory for executables.
+export MGLS_LICENSE_FILE=1800@vm-lan2.sj.ifsc.edu.br
+export LD_LIBRARY_PATH=/opt/altera/13.0sp1/lib32
+mode=${MTI_VCO_MODE:-""}
+
+PATH="/bin:$PATH"
+
+arg0=$0
+cmd=`basename $arg0`
+
+uname=`uname`
+utype=`uname -r`
+umach=`uname -m`
+
+case $uname in
+  AIX)
+    islink=-L
+    ;;
+  CYGWIN_NT*)
+    arg0=`dirname $arg0`
+    islink=-h
+    ;;
+  Win*)
+    uname=CYGWIN_NT
+    islink=-h
+    ;;
+  *)
+    islink=-h
+    ;;
+esac
+
+while [ $islink $arg0 ] ; do
+  x=`/bin/ls -ld $arg0`
+  x=`expr "$x" : '.* \(.*\)'`
+  case $x in
+    /*) arg0=$x                 ;;
+    *)  arg0=`dirname $arg0`/$x ;;
+  esac
+done
+
+dir=`dirname $arg0`
+
+vco=${uname}${utype}
+case $vco in
+  SunOS4*)
+    echo "Error: $cmd is not supported on ${uname} ${utype}"
+    exit 1
+    ;;
+  SunOS5.5*)
+    echo "Error: $cmd is not supported on ${uname} ${utype}"
+    exit 1
+    ;;
+  SunOS5.6*)
+    echo "Error: $cmd is not supported on ${uname} ${utype}"
+    exit 1
+    ;;
+  SunOS5.7*)
+    echo "Error: $cmd is not supported on ${uname} ${utype}"
+    exit 1
+    ;;
+  SunOS5*)
+    # Use 64-bit platform only if 32-bit is not installed and OS and cpu
+    # support 64-bit. User may set PATH to platform-specific directory or set
+    # environment variable MTI_VCO_MODE to 32 or 64 to override default
+    # behavior.
+    #
+    if [ -x /bin/isainfo ] ; then
+      isa="`/bin/isainfo -n 2>&1`"
+    else
+      isa=""
+    fi
+    case $mode.$isa in
+      32.amd*)          vco="sunos5x86"         ;;
+      64.amd*)          vco="sunos5x86_64"      ;;
+      .amd32*)          vco="sunos5x86"         ;;
+      .amd*)
+       if [ -x /bin/getconf ] \
+        && /bin/getconf _XBS5_LP64_OFF64 > /dev/null 2>&1 \
+        && [ ! -x $dir/sunos5x86/vsim ] \
+        && [ -x $dir/sunos5x86_64/vsim ] ; then
+          vco="sunos5x86_64"
+        else
+          vco="sunos5x86"
+        fi
+        ;;
+      32.i386*)         vco="sunos5x86"         ;;
+      64.i386*)         vco="sunos5x86_64"      ;;
+      .i386*)
+        if [ -x /bin/getconf ] \
+        && /bin/getconf _XBS5_LP64_OFF64 > /dev/null 2>&1 \
+        && [ ! -x $dir/sunos5x86/vsim ] \
+        && [ -x $dir/sunos5x86_64/vsim ] ; then
+          vco="sunos5x86_64"
+        else
+          vco="sunos5x86"
+        fi
+        ;;
+      32.sparc*)        vco="sunos5"            ;;
+      64.sparc*)        vco="sunos5v9"          ;;
+      .sparcv9*)
+        if [ -x /bin/getconf ] \
+        && /bin/getconf _XBS5_LP64_OFF64 > /dev/null 2>&1 \
+        && [ ! -x $dir/sunos5/vsim ] \
+        && [ -x $dir/sunos5v9/vsim ] ; then
+          vco="sunos5v9"
+        else
+          vco="sunos5"
+        fi
+        ;;
+      *)                vco="sunos5"            ;;
+    esac
+    ;;
+  HP-UX*)
+    # Use hpux_ia64 if IA-64 architecture.
+    #
+    # Use hppa64 platform only if hp700 is not installed
+    # and OS and cpu support 64-bit. User should set PATH to
+    # platform-specific directory to override default behavior.
+    #
+    # Use hp700_1020 platform only if hp700 is not installed
+    # and hppa64 is not installed or OS/CPU doesn't support it.
+    if [ "$mode" != "32"  ]           \
+    && [ "$umach" = "ia64" ]          \
+    && ( [ "$mode" = "64" ]           \
+      || [ -x $dir/hpux_$umach/vsim ] \
+      || [ ! -x $dir/hp700/vsim ] ) ; then
+      vco="hpux_ia64"
+    elif [ "$mode" != "32"  ]         \
+      && [ "$umach" != "ia64" ]       \
+      && ( [ "$mode" = "64" ]         \
+        || ( [ ! -x $dir/hp700/vsim ] \
+          && [ -x $dir/hppa64/vsim ]  \
+          && [ -x /bin/getconf ]      \
+          && [ "`/bin/getconf KERNEL_BITS 2>&1`" = "64" ] ) ) ; then
+      vco="hppa64"
+    elif [ ! -x $dir/hp700/vsim ] \
+      && [ -x $dir/hp700_1020/vsim ] ; then
+      vco="hp700_1020"
+    else
+      vco="hp700"
+    fi
+    ;;
+  AIX*)
+    # Use rs64 platform only if rs6000 is not installed
+    # and OS and cpu support 64-bit. User should set PATH to
+    # platform-specific directory to override default behavior.
+    if [ "$mode" != "32"  ]                                 \
+    && ( [ "$mode" = "64" ]                                 \
+      || ( [ ! -x $dir/rs6000/vsim ]                        \
+        && [ -x $dir/rs64/vsim ]                            \
+        && [ -x /bin/getconf ]                              \
+        && [ "`/bin/getconf _XBS5_LP64_OFF64 2>&1`" = "1" ] \
+        && /bin/locale64 > /dev/null 2>&1 ) ) ; then
+      vco="rs64"
+    else
+      vco="rs6000"
+    fi
+    ;;
+  Linux*)
+
+        # On Linux, default to 32 bit unless MTI_VCO_MODE is set
+        if  [ "$mode" = "" ] \
+        &&  ( [ -x $dir/linux_gcc3/vsim ] \
+        ||    [ -x $dir/linux/vsim ] \
+        ||    [ -x $dir/linuxle/vsim ] \
+        ||    [ -x $dir/linuxpe/vsim ] ) ; then
+                mode="32";
+        fi
+
+    # If IA-64 or X86-64 architecture and machine-specific vsim is not
+    # installed but linux vsim is available, use linux platform.
+    # Otherwise use machine-specific platform.
+    #
+    if [ "$mode" != "32"  ]            \
+    && ( [ "$umach" = "ia64" ]         \
+      || [ "$umach" = "x86_64" ] )     \
+    && ( [ "$mode" = "64" ]            \
+      || [ -x $dir/linux_$umach/vsim ] \
+      || [ ! -x $dir/linux/vsim ] ) ; then
+      if [ "$umach" = "ia64" ] && [ -x $dir/linux_ia64_gcc3/vsim ]; then
+        vco="linux_ia64_gcc3"
+      else
+        vco="linux_$umach"
+      fi
+    else
+      if [ -x $dir/linux_gcc3/vsim ] \
+      && [ ! -x $dir/linux/vsim ]; then
+        vco="linux_gcc3"
+      else
+        case $utype in
+          2.4.[7-9]*)       vco="linux" ;;
+          2.4.[1-9][0-9]*)  vco="linux" ;;
+          2.[5-9]*)         vco="linux" ;;
+          2.[1-9][0-9]*)    vco="linux" ;;
+          3.[0-9]*)             vco="linux" ;;
+          *)                vco="linux" ;;
+        esac
+        if [ ! -x "$dir/$vco/vsim" ]; then
+          if [ -x "$dir/linuxle/vsim" ]; then
+            vco="linuxle"
+          elif [ -x "$dir/linuxpe/vsim" ]; then
+            vco="linuxpe"
+          fi
+        fi
+      fi
+    fi
+    ;;
+  CYGWIN_NT*)
+    if [ -x "$dir/win32/vsim" ]; then
+      vco="win32"
+    elif [ -x "$dir/win32pe/vsim" ]; then
+      vco="win32pe"
+    fi
+    if [ "$mode" =  ""  ] ||
+       [ "$mode" = "64" ] ; then
+      sysostype="`systeminfo 2>&1 | grep -i 'System Type' | cut -f1 -d- | sed s@x@X@ | cut -f2 -dX`"
+      if [ "$sysostype" == "64" ] ; then
+        vco="win64"
+      fi
+    fi
+  ;;
+*)
+    vco="unknown"
+    ;;
+esac
+
+case $cmd in
+  qhdir)
+    cmd=vdir
+    ;;
+  qhmap)
+    cmd=vmap
+    ;;
+  qvlcom)
+    cmd=vlog
+    ;;
+  qhcvt)
+    cmd=../convert.tcl
+    ;;
+  qhlib)
+    cmd=vlib
+    ;;
+  qhsim)
+    cmd=vsim
+    ;;
+  qhdel)
+    cmd=vdel
+    ;;
+  qhmake)
+    cmd=vmake
+    ;;
+  qvhcom)
+    cmd=vcom
+    ;;
+  qhgencomp)
+    cmd=vgencomp
+    ;;
+  vco)
+    echo $vco
+    exit
+    ;;
+esac
+
+# verify that we can find the command to execute.
+if [ -x $dir/$vco/$cmd ] ; then
+  arg0=$dir/$vco/$cmd
+else
+  # if bin nolonger has symbolic links in it then
+  # we need to look up and over
+  f2=$dir/$vco/$cmd
+  if [ -x $f2 ] ; then
+    arg0=$f2
+  elif [ -x $dir/${vco}pe/$cmd ] ; then
+    arg0=$dir/${vco}pe/$cmd
+  elif [ -x $dir/${vco}le/$cmd ] ; then
+    arg0=$dir/${vco}le/$cmd
+  else
+    # Last ditch effort.  Use original arg0 and try it!
+    d2=`dirname $0`
+    f2=$d2/$vco/$cmd
+    if [ -x $f2 ] ; then
+      arg0=$f2
+    else
+      echo "Error: cannot find $dir/$vco/$cmd"
+      exit 1
+    fi
+  fi
+fi
+
+if [ -z "$*" ] ; then
+  exec $arg0
+else
+  exec $arg0 "$@"
+fi

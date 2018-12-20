@@ -69,6 +69,20 @@
 #     mode: 0755
 #   when: ansible_os_family == 'Debian'
 
+- name: Adicionar entrada NETKIT2_HOME export no /etc/security/pam_env.conf - Linux
+  lineinfile:
+    regexp: '^NETKIT2_HOME'
+    path: /etc/security/pam_env.conf
+    line: 'NETKIT2_HOME     DEFAULT=/usr/local/netkit2'
+  when: ansible_os_family == 'Debian'
+
+- name: Adicionar entrada PATH export no /etc/security/pam_env.conf - Linux
+  lineinfile:
+    regexp: '^PATH'
+    path: /etc/security/pam_env.conf
+    line: 'PATH     DEFAULT=$PATH:$NETKIT2_HOME/bin'
+  when: ansible_os_family == 'Debian'
+
 - name: Criando o arquivo .xsessionrc - Linux
   copy:
     src: .xsessionrc

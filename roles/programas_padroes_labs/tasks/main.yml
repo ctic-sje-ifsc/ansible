@@ -9,6 +9,7 @@
   apt: name={{ packages }} state=latest
   vars:
     packages:
+    - apt-transport-https
     - geany
     - unrar
     - audacity
@@ -36,6 +37,7 @@
     - pdfsam
     - pdfshuffler
     - qalculate
+    - mate-applet-brisk-menu
   when: ansible_os_family == 'Debian'
 
 ## Instala Eclipse com suporte a C/C++ e Java - Alternativa ao Eclipse modificado que o Arliones tinha sugerido.
@@ -81,6 +83,7 @@
   apt: name={{ packages }} state=latest
   vars:
     packages:
+    - xterm
     - ethtool
     - minicom
     - nmap
@@ -302,8 +305,8 @@
 - include_role:
     name: cmaptools
 
-- include_role:
-    name: astah
+# - include_role:
+#     name: astah
 
 - include_role:
     name: zoiper

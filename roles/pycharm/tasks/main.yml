@@ -1,39 +1,61 @@
 #Antes de atualizar, verificar se o Ansible já gerencia snap
 
-- name: Cria diretório jetbrains e apps
-  file:
-    path: /opt/jetbrains/apps
-    state: directory
-    owner: root
-    group: root
-    mode: 0755
+- name: Instala snapd - Linux
+  apt: name={{ packages }} state=latest
+  vars:
+    packages:
+    - snapd
   when: ansible_os_family == 'Debian'
 
-- name: Baixando e extraindo o Pycharm jetbrains - Linux Debian
-  unarchive:
-    src: https://discovirtual.ifsc.edu.br/index.php/s/fvdK55V0kstR6zP/download
-    dest: /opt/jetbrains/apps
-    creates: /opt/jetbrains/apps/PyCharm-P/ch-0
-    remote_src: yes
-    owner: aluno
-    group: 513    
+- name: Instala PyCharm PRO via SNAP
+  command: /usr/bin/snap install pycharm-professional --classic
+  args:
+    creates: /snap/pycharm-professional/
   when: ansible_os_family == 'Debian'
 
-- name: Criando o arquivo jetbrains-pycharm.desktop - Linux Debian
-  copy:
-    src: jetbrains-pycharm.desktop
-    dest: /usr/share/applications/jetbrains-pycharm.desktop
-    owner: root
-    group: root
-    mode: 0644
+- name: Atualiza PyCharm PRO via SNAP
+  command: /usr/bin/snap refresh
   when: ansible_os_family == 'Debian'
 
-- name: Corrige permissões
-  file:
-    path: /opt/jetbrains/apps/PyCharm-P
-    state: directory
-    owner: aluno
-    group: 513
-    mode: 0775
-    recurse: yes
-  when: ansible_os_family == 'Debian'
+# - name: Cria diretório jetbrains e apps
+#   file:
+#     path: /opt/jetbrains/apps
+#     state: directory
+#     owner: root
+#     group: root
+#     mode: 0755
+#   when: ansible_os_family == 'Debian'
+
+# - name: Baixando e extraindo o Pycharm jetbrains - Linux Debian
+#   unarchive:
+#     src: https://discovirtual.ifsc.edu.br/index.php/s/fvdK55V0kstR6zP/download
+#     dest: /opt/jetbrains/apps
+#     creates: /opt/jetbrains/apps/PyCharm-P/ch-0
+#     remote_src: yes
+#     owner: aluno
+#     group: 513    
+#   when: ansible_os_family == 'Debian'
+
+# # - name: Criando o arquivo jetbrains-pycharm.desktop - Linux Debian
+# #   copy:
+# #     src: jetbrains-pycharm.desktop
+# #     dest: /usr/share/applications/jetbrains-pycharm.desktop
+# #     owner: root
+# #     group: root
+# #     mode: 0644
+# #   when: ansible_os_family == 'Debian'
+
+# - file:
+#     path: /usr/share/applications/jetbrains-pycharm.desktop
+#     state: absent
+#   when: ansible_os_family == 'Debian'
+
+# - name: Corrige permissões
+#   file:
+#     path: /opt/jetbrains/apps/PyCharm-P
+#     state: directory
+#     owner: aluno
+#     group: 513
+#     mode: 0775
+#     recurse: yes
+#   when: ansible_os_family == 'Debian'

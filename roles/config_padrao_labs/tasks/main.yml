@@ -75,14 +75,14 @@
 
 ###################### Inicio do ApagaAluno
 
-- name: Mantem o estado do arquivo /etc/init.d/apagaAluno.sh - Linux
-  copy:
-    src: apagaAluno.sh
-    dest: /etc/init.d/apagaAluno.sh
-    owner: root
-    group: root
-    mode: 0755
-  when: ansible_os_family == 'Debian'
+# - name: Mantem o estado do arquivo /etc/init.d/apagaAluno.sh - Linux
+#   copy:
+#     src: apagaAluno.sh
+#     dest: /etc/init.d/apagaAluno.sh
+#     owner: root
+#     group: root
+#     mode: 0755
+#   when: ansible_os_family == 'Debian'
 
 - name: Mantem o estado do arquivo /lib/systemd/system/apagaAluno.service - Linux
   copy:
@@ -101,6 +101,25 @@
   when: ansible_os_family == 'Debian'
 
 ###################### Fim do ApagaAluno
+
+##################### Inicio adiciona arquitetura i386
+
+- name: Check if i386 is enabled
+  shell: dpkg --print-foreign-architectures | grep i386
+  register: result_i386_check
+  changed_when: result_i386_check.rc == 1
+  failed_when: result_i386_check.rc > 1
+  when: ansible_os_family == 'Debian'
+
+- name: Enable i386 architecture
+  command: dpkg --add-architecture i386
+  when: ansible_os_family == 'Debian' and result_i386_check.rc == 1
+
+- name: Ensure apt cache is up to date
+  apt: update_cache=yes
+  when: ansible_os_family == 'Debian' and result_i386_check.rc == 1
+
+##################### Fim adiciona arquitetura i386
 
 ###################### Inicio senha_aluno
 
@@ -143,20 +162,27 @@
     mode: 0644
   when: ansible_os_family == 'Debian'
 
-# # Deixei comentado para verificar se ainda eh necessario
-# - name: Adicionar entrada export no /etc/bash.bashrc- Linux
-#   lineinfile:
-#     regexp: '^export MGLS_LICENSE_FILE'
-#     path: /etc/bash.bashrc
-#     line: 'export MGLS_LICENSE_FILE=1800@vm-lan2.sj.ifsc.edu.br'
-#   when: ansible_os_family == 'Debian'
+# Configuracao da variavel de licenca e biblioteca lib32
+- name: Adicionar entrada MGLS_LICENSE_FILE export no /etc/security/pam_env.conf - Linux
+  lineinfile:
+    regexp: '^MGLS_LICENSE_FILE'
+    path: /etc/security/pam_env.conf
+    line: 'MGLS_LICENSE_FILE   DEFAULT=1800@vm-lan2.sj.ifsc.edu.br'
+  when: ansible_os_family == 'Debian'
 
-# - name: Adicionar entrada export no /etc/bash.bashrcs - Linux
-#   lineinfile:
-#     regexp: '^export LD_LIBRARY_PATH'
-#     path: /etc/bash.bashrc
-#     line: 'export LD_LIBRARY_PATH=/opt/altera/13.0sp1/lib32'
-#   when: ansible_os_family == 'Debian'
+- name: Adicionar entrada LD_LIBRARY_PATH export no /etc/security/pam_env.conf - Linux
+  lineinfile:
+    regexp: '^LD_LIBRARY_PATH'
+    path: /etc/security/pam_env.conf
+    line: 'LD_LIBRARY_PATH     DEFAULT=/opt/altera/13.0sp1/lib32'
+  when: ansible_os_family == 'Debian'
+
+- name: Adicionar entrada LM_LICENSE_FILE export no /etc/security/pam_env.conf - Linux
+  lineinfile:
+    regexp: '^LM_LICENSE_FILE'
+    path: /etc/security/pam_env.conf
+    line: 'LM_LICENSE_FILE     DEFAULT=1800@vm-lan2.sj.ifsc.edu.br'
+  when: ansible_os_family == 'Debian'  
 
 ## Feito para resolver o chamado IFSC#2017062710000273 do Moecke:
 - name: Mantem o estado do arquivo /usr/share/applications/modelsim10.1d.desktop - Linux
@@ -177,13 +203,21 @@
     mode: 0644
   when: ansible_os_family == 'Debian'
 
-# # Deixei comentado porque a princípio já está na instalação
-# - name: Cria um link do /opt/altera/13.0sp1/modelsim_ae/bin/vsim para ../vco - Linux
-#   file:
-#     src: ../vco
-#     dest: /opt/altera/13.0sp1/modelsim_ae/bin/vsim
-#     state: link
-#   when: ansible_os_family == 'Debian'
+- name: Mantem o estado do arquivo /opt/altera/13.0sp1/modelsim_ae/vco - Linux
+  copy:
+    src: vco
+    dest: /opt/altera/13.0sp1/modelsim_ae/vco
+    owner: root
+    group: root
+    mode: 0555
+  when: ansible_os_family == 'Debian'
+
+- name: Cria um link do /opt/altera/13.0sp1/modelsim_ae/bin/vsim para ../vco - Linux
+  file:
+    src: /opt/altera/13.0sp1/modelsim_ae/vco
+    dest: /opt/altera/13.0sp1/modelsim_ae/bin/vsim
+    state: link
+  when: ansible_os_family == 'Debian'
 
 - name: Cria um link do vsim no /usr/local/bin - Linux
   file:
@@ -206,14 +240,14 @@
     state: link
   when: ansible_os_family == 'Debian'
 
-- name: Cria um link do salve seus trabalhos aqui no home do aluno - Linux
-  file:
-    src: /media/aluno/trabalhos
-    dest: /home/aluno/trabalhos
-    owner: aluno
-    group: aluno
-    state: link
-  when: ansible_os_family == 'Debian'
+# - name: Cria um link do salve seus trabalhos aqui no home do aluno - Linux
+#   file:
+#     src: /media/aluno/trabalhos
+#     dest: /home/aluno/trabalhos
+#     owner: aluno
+#     group: aluno
+#     state: link
+#   when: ansible_os_family == 'Debian'
 
 # Para solucionar problemas com Ctrl + C Ctrl + v no matlab
 # Deixei comentado porque podemos modificar e deixar já no home do aluno
@@ -226,16 +260,16 @@
 #     mode: 0644
 #   when: ansible_os_family == 'Debian'
 
-# 	#Cria um link com as configuracoes corretas do x2goclient a pedido-chamado do Moecke
-# Deixei comentado porque podemos modificar e deixar já no home do aluno
-# - name: Mantem o estado do arquivo /home/aluno/.x2goclient - Linux
-#   copy:
-#     src: .
-#     dest: /home/aluno/.x2goclient
-#     owner: aluno
-#     group: aluno
-#     mode: 0644
-#   when: ansible_os_family == 'Debian'
+- name: Mantem o estado do arquivo /home/aluno/.x2goclient - Linux
+  copy:
+    src: sessions
+    dest: /home/aluno/.x2goclient/sessions 
+    owner: aluno
+    group: aluno
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+  tags:
+    - packages
 
 ###################### Fim do atalhos_e_icones
 
@@ -253,6 +287,19 @@
       - "ntp.ufsc.br iburst"
   when: ansible_os_family == 'Debian'
 
+###################### Fim do NTP do Linux
+
+###################### Correcao Bug do xpdf pe do NTP do Linux
+
+- name: Modifica o arquivo /usr/bin/xpdf - Linux
+  copy:
+    src: xpdf
+    dest: /usr/bin/xpdf
+    owner: root
+    group: root
+    mode: 0755
+  when: ansible_os_family == 'Debian'
+  
 ###################### Fim do NTP do Linux
 
 
@@ -284,4 +331,44 @@
     name: openaudit
 
 ###################### Fim dos Includes
+
+###################### Inicio configuração SP1
+- name: Cria o arquivo /etc/X11/Xsession.d/99SP1 - Linux
+  copy:
+    src: SP1
+    dest: /etc/X11/Xsession.d/99SP1
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
+- name: Cria o arquivo cat /etc/profile.d/99SP1.sh - Linux
+  copy:
+    src: SP1
+    dest: /etc/profile.d/99SP1.sh 
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian' 
+
+- name: Adicionar entrada export no /home/aluno/.bashrc - Linux
+  lineinfile:
+    regexp: '^export PS1='
+    path: /home/aluno/.bashrc
+    line: 'export PS1="\u: \[\e[34m\]\W\[\e[m\]\\$ "'
+  when: ansible_os_family == 'Debian'
+ 
+###################### Fim configuração SP1
+
+###################### Inicio configuração VIM
+- name: Cria o arquivo /etc/vim/vimrc - Linux
+  copy:
+    src: vimrc
+    dest: /etc/vim/vimrc
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
+###################### Fim configuração VIM
 

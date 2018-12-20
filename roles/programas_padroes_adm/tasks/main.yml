@@ -10,11 +10,12 @@
   apt: name={{ packages }} state=latest
   vars:
     packages:
+    - apt-transport-https
     - aptitude 
     - vim 
     - firmware-linux 
     - vlc 
-    - unrar 
+    - unrar
     - dkms 
     - ntp 
     - libcurl3 

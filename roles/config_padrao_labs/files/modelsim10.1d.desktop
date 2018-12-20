@@ -2,7 +2,7 @@
 [Desktop Entry]
 Version=1.0
 Name=ModelSim-Altera Edition 10.1d
-Comment=ModelSim simulation software for Altera FPGA's
+Comment=ModelSim simulation software for Altera FPGAs
 Exec=xterm -iconic -geometry 0x0 -b 0 -class widget /opt/altera/13.0sp1/modelsim_ae/bin/vsim
 Icon=/opt/altera/13.0sp1/modelsim_ae/modesim.png
 Terminal=false
