@@ -1,0 +1,37 @@
+runtime! debian.vim
+
+"inicio config Mello
+"---------------------------
+" ativa destaque de cores
+syntax on
+
+" nao cria arquivos de backup (ex: arquivo~) 
+set nobackup
+
+" expandir tabs em spacos
+set expandtab
+
+" tamanho do tab = 4 espacos
+set tabstop=4
+
+" identacao com largura de 4 espacos
+set shiftwidth=4    
+
+set showcmd
+set showmatch
+set ignorecase
+set incsearch
+set smartcase               " Se tiver alguma letra maiúscula, ativa o case sensitive
+
+set wildmode=longest,list   " Completa o comando com TAB igual o bash
+
+" Arquivos .sh sao sempre bash, e não sh
+au FileType sh let b:is_bash=1
+
+"fim config Mello
+
+" Source a global configuration file if available
+if filereadable("/etc/vim/vimrc.local")
+  source /etc/vim/vimrc.local
+endif
+
