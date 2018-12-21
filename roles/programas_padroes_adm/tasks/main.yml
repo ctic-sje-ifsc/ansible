@@ -11,19 +11,19 @@
   vars:
     packages:
     - apt-transport-https
-    - aptitude 
-    - vim 
-    - firmware-linux 
-    - vlc 
+    - aptitude
+    - vim
+    - firmware-linux
+    - vlc
     - unrar
-    - dkms 
-    - ntp 
-    - libcurl3 
-    - ssh 
-    - pdfsam 
-    - ttf-mscorefonts-installer 
-    - dia 
-    - kolourpaint4 
+    - dkms
+    - ntp
+    - libcurl3
+    - ssh
+    - pdfsam
+    - ttf-mscorefonts-installer
+    - dia
+    - kolourpaint4
     - kdenlive
     - kde-l10n-ptbr
     - chromium
@@ -31,6 +31,7 @@
     - openjdk-8-jre
     - icedtea-8-plugin
     - google-chrome-stable
+    - nfs-common
   when: ansible_os_family == 'Debian'
 
 - name: Remover programas  - Linux
