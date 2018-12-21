@@ -216,6 +216,7 @@
   file:
     src: /opt/altera/13.0sp1/modelsim_ae/vco
     dest: /opt/altera/13.0sp1/modelsim_ae/bin/vsim
+    force: yes
     state: link
   when: ansible_os_family == 'Debian'
 

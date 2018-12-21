@@ -204,7 +204,6 @@
 #   apt: name={{ packages }} state=latest
 #   vars:
 #     packages:
-#     - ethtool
 #     - cmake
 #     - pkg-config
 #     - libavcodec-dev

@@ -1,2 +1,0 @@
-export NETKIT2_HOME=/usr/local/netkit2
-export PATH=$PATH:$NETKIT2_HOME/bin
