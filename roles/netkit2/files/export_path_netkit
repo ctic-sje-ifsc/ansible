@@ -1,0 +1,3 @@
+#!/bin/sh
+
+export PROMPT_COMMAND='export PATH=$PATH:$NETKIT2_HOME/bin'
