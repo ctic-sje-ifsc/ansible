@@ -46,20 +46,6 @@
 #     state: absent
 #   when: ansible_distribution == 'Ubuntu'
 
-###################### Inicio limpa_windows
-
-- name: Inclui o mudulo de limpeza do Windows
-  include_role:
-    name: limpa_temp_windows
-  vars:
-    play: 0
-
-# play: 0 desativa
-# play: 1 ativa
-
-###################### Fim limpa_windows
-
-
 ###################### Inicio Gerencia sudoers aluno
 
 - name: Adiciona e modifica entrada do usuario aluno no sudoers - Linux
@@ -182,7 +168,7 @@
     regexp: '^LM_LICENSE_FILE'
     path: /etc/security/pam_env.conf
     line: 'LM_LICENSE_FILE     DEFAULT=1800@vm-lan2.sj.ifsc.edu.br'
-  when: ansible_os_family == 'Debian'  
+  when: ansible_os_family == 'Debian'
 
 ## Feito para resolver o chamado IFSC#2017062710000273 do Moecke:
 - name: Mantem o estado do arquivo /usr/share/applications/modelsim10.1d.desktop - Linux
@@ -264,7 +250,7 @@
 - name: Mantem o estado do arquivo /home/aluno/.x2goclient - Linux
   copy:
     src: sessions
-    dest: /home/aluno/.x2goclient/sessions 
+    dest: /home/aluno/.x2goclient/sessions
     owner: aluno
     group: aluno
     mode: 0644
@@ -300,7 +286,7 @@
     group: root
     mode: 0755
   when: ansible_os_family == 'Debian'
-  
+
 ###################### Fim do NTP do Linux
 
 
@@ -333,6 +319,14 @@
 
 ###################### Inicio dos Includes
 
+- name: Inclui o mudulo de limpeza do Windows
+  include_role:
+    name: limpa_temp_windows
+  vars:
+    play: 0
+    # play: 0 desativa
+    # play: 1 ativa
+
 - include_role:
     name: sshd_config
 
@@ -357,11 +351,11 @@
 - name: Cria o arquivo cat /etc/profile.d/99SP1.sh - Linux
   copy:
     src: SP1
-    dest: /etc/profile.d/99SP1.sh 
+    dest: /etc/profile.d/99SP1.sh
     owner: root
     group: root
     mode: 0644
-  when: ansible_os_family == 'Debian' 
+  when: ansible_os_family == 'Debian'
 
 - name: Adicionar entrada export no /home/aluno/.bashrc - Linux
   lineinfile:
@@ -369,7 +363,7 @@
     path: /home/aluno/.bashrc
     line: 'export PS1="\u: \[\e[34m\]\W\[\e[m\]\\$ "'
   when: ansible_os_family == 'Debian'
- 
+
 ###################### Fim configuração SP1
 
 ###################### Inicio configuração VIM
@@ -383,4 +377,3 @@
   when: ansible_os_family == 'Debian'
 
 ###################### Fim configuração VIM
-
