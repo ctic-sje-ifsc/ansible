@@ -58,17 +58,6 @@
     line: "  Check_Host = 'tele.sj.ifsc.edu.br'"
   when: ansible_os_family == 'Debian'
 
-# Descomentar para gerar a imagem (tar home aluno)
-
-# - name: Criando o arquivo .xsessionrc - Linux
-#   copy:
-#     src: .xsessionrc
-#     dest: /home/aluno/.xsessionrc
-#     owner: root
-#     group: root
-#     mode: 0755
-#   when: ansible_os_family == 'Debian'
-
 - name: Adicionar entrada NETKIT2_HOME export no /etc/security/pam_env.conf - Linux
   lineinfile:
     regexp: '^NETKIT2_HOME'
@@ -76,11 +65,10 @@
     line: 'NETKIT2_HOME     DEFAULT=/usr/local/netkit2'
   when: ansible_os_family == 'Debian'
 
-- name: Cria o arquivo /etc/X11/Xsession.d/99export_path_netkit.sh - Linux
-  copy:
-    src: export_path_netkit
-    dest: /etc/X11/Xsession.d/99export_path_netkit
-    owner: root
-    group: root
-    mode: 0644
+- name: Adicionar entrada no /etc/bash.bashrc  - Linux
+  lineinfile:
+    regexp: "^export PATH="
+    state: present
+    path: /etc/bash.bashrc
+    line: 'export PATH=/usr/local/netkit2/bin:$PATH'
   when: ansible_os_family == 'Debian'
