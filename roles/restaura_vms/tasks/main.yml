@@ -3,7 +3,7 @@
 - name: Restaurar as máquinas virtuais - Linux
   unarchive:
     src: /home/backup/{{ item }}
-    dest: /
+    dest: /home/VMDK/
     remote_src: yes
   with_items: "{{nome_vms}}"
   when: ansible_os_family == 'Debian'
