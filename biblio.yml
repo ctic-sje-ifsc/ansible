@@ -1,15 +1,27 @@
-- hosts: biblio
+- hosts: biblio:!sj-lin-biblio-g36hqn1.maquinas.sj.ifsc.edu.br
   roles:
     - ingressa_ldap_sem_cups_client
+    - role: instala_impressora_cups
+      install: 1
+      compras: 1
+      cgp: 1
+      biblioteca: 1
+      financeiro: 1
+      reprografia_principal: 1
+      pdf: 1
     - role: softwares_remotos
       apps:
         - sophiaslade
 
 - hosts: sj-lin-biblio-g36hqn1.maquinas.sj.ifsc.edu.br
   roles:
+    - ingressa_ldap_sem_cups_client
     - role: instala_impressora_cups
       install: 0
       compras: 1
       cgp: 1
       biblioteca_usb: 1
       financeiro: 1
+    - role: softwares_remotos
+      apps:
+        - sophiaslade
