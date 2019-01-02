@@ -10,6 +10,7 @@
 
 - name: Adicionar repositório do vscode - Linux
   apt_repository:
+    filename: packages_microsoft_com_repos_vscode
     repo: deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main
     state: present
     update_cache: yes
