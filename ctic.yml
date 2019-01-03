@@ -60,3 +60,15 @@
       - dnsutils
   - pip:
       name: pywinrm
+  # Permissao para gravar na placa
+  - name: Adiciona no grupo docker
+    user:
+      name: "{{item}}"
+      groups: docker
+      append: yes
+    with_items:
+      - rmartins
+      - humbertos
+      - gabriel.souza
+      - etorresini
+    when: ansible_os_family == 'Debian'
