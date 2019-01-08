@@ -61,14 +61,14 @@
 
 ###################### Inicio do ApagaAluno
 
-# - name: Mantem o estado do arquivo /etc/init.d/apagaAluno.sh - Linux
-#   copy:
-#     src: apagaAluno.sh
-#     dest: /etc/init.d/apagaAluno.sh
-#     owner: root
-#     group: root
-#     mode: 0755
-#   when: ansible_os_family == 'Debian'
+- name: Mantem o estado do arquivo /etc/init.d/apagaAluno.sh - Linux
+  copy:
+    src: apagaAluno.sh
+    dest: /etc/init.d/apagaAluno.sh
+    owner: root
+    group: root
+    mode: 0755
+  when: ansible_os_family == 'Debian'
 
 - name: Mantem o estado do arquivo /lib/systemd/system/apagaAluno.service - Linux
   copy:
