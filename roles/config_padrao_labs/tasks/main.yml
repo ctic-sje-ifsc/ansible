@@ -327,6 +327,14 @@
     # play: 0 desativa
     # play: 1 ativa
 
+- name: Inclui o modulo atualiza_mac
+  include_role:
+    name: atualiza_mac
+  vars:
+    play: 0
+    # play: 0 desativa
+    # play: 1 ativa
+
 - include_role:
     name: sshd_config
 
