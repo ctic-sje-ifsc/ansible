@@ -1,19 +1,10 @@
-- lineinfile:
-    path: /etc/cups/cups-browsed.conf
-    regexp: '^BrowseRemoteProtocols'
-    line: 'BrowseRemoteProtocols none'
-  when: ( ansible_os_family == 'Debian' and  install == 1 )
-
-- lineinfile:
-    path: /etc/cups/cups-browsed.conf
-    regexp: '^BrowseLocalProtocols'
-    line: 'BrowseLocalProtocols none'
-  when: ( ansible_os_family == 'Debian' and  install == 1 )
-
-- lineinfile:
-    path: /etc/cups/cups-browsed.conf
-    regexp: '^BrowseProtocols'
-    line: 'BrowseProtocols none'
+- name:  Copia o arquivo cups-browsed.conf com a pesquisa de impressoras desativada- Linux Debian
+  copy:
+    src: cups-browsed.conf 
+    dest: /etc/cups/cups-browsed.conf
+    owner: root
+    group: root
+    mode: 0644
   when: ( ansible_os_family == 'Debian' and  install == 1 )
 
 - name: Cria diretório /usr/share/cups/model/argox/ - Linux
@@ -42,6 +33,15 @@
     group: root
     mode: 0744
   when: ( ansible_os_family == 'Debian' and  install == 1 and argox == 1 )
+
+- name: Cria arquivo /etc/cups/printers.conf
+  file:
+    path: /etc/cups/printers.conf
+    state: touch
+    owner: root
+    group: lp
+    mode: 0600
+  when: ( ansible_os_family == 'Debian' and  install == 1)
 
 - name: Instala a impressora Argox - Linux
   blockinfile:
