@@ -1,0 +1,34 @@
+# - hosts: cad2_lin
+#   roles:
+#     - qgis
+
+# - hosts: sj-lin-cad2-37247.maquinas.sj.ifsc.edu.br
+#   roles: 
+#     - role: restaura_vms
+#       nome_vms: 
+#         - 1-Grafico.bz
+
+# - hosts: cad2_lin
+#   roles: 
+#     - role: restaura_vms
+#       nome_vms:
+#         - 1-Grafico.bz
+#         - 2-Grafico.bz
+#         - 3-Grafico.bz
+#         - 4-Grafico.bz
+#         - 5-Grafico.bz
+#         - 6-Grafico.bz
+#         - 1-Servidor.bz
+#         - 2-Servidor.bz
+#         - 3-Servidor.bz
+#         - 4-Servidor.bz
+#         - 5-Servidor.bz
+#         - 6-Servidor.bz
+#         - 7-Servidor.bz
+#         - 8-Servidor.bz
+#         - 9-Servidor.bz
+#         - 10-Servidor.bz
+
+# - hosts: cad2_win
+#   roles:
+#     - qgis
