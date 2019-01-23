@@ -22,8 +22,8 @@
       - "ntp.ufsc.br iburst"
   when: ansible_os_family == 'Debian'
 
-# - include_role:
-#     name: openaudit
+- include_role:
+    name: openaudit
 
 #Windows
 
