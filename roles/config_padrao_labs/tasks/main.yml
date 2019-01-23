@@ -319,22 +319,6 @@
 
 ###################### Inicio dos Includes
 
-- name: Inclui o mudulo de limpeza do Windows
-  include_role:
-    name: limpa_temp_windows
-  vars:
-    play: 0
-    # play: 0 desativa
-    # play: 1 ativa
-
-- name: Inclui o modulo atualiza_mac
-  include_role:
-    name: atualiza_mac
-  vars:
-    play: 0
-    # play: 0 desativa
-    # play: 1 ativa
-
 - include_role:
     name: sshd_config
 
@@ -343,6 +327,9 @@
 
 - include_role:
     name: openaudit
+
+- include_role:
+    name: protege_win
 
 ###################### Fim dos Includes
 
