@@ -1,15 +1,23 @@
-# - hosts: redes
+- hosts: redes
+  tasks:
+  - name: Monta /dev/sda2 em /media/aluno/trabalhos fstab - Linux
+    mount:
+      path: /media/aluno/trabalhos
+      src: /dev/sda2
+      fstype: ext4
+      state: present
+    when: ansible_os_family == 'Debian'
+
 #   roles:
 #     - qgis
-
 # - hosts: sj-lin-redes-38103.maquinas.sj.ifsc.edu.br
-#   roles: 
+#   roles:
 #     - role: restaura_vms
-#       nome_vms: 
+#       nome_vms:
 #         - 1-Grafico.bz
 
 # - hosts: redes
-#   roles: 
+#   roles:
 #     - role: restaura_vms
 #       nome_vms:
 #         - 1-Grafico.bz
