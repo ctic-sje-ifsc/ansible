@@ -18,7 +18,7 @@
 
 - name: Copia os arquivos ppd Argox - Linux Debian
   copy:
-    src: ppd/ 
+    src: ppd/argox_OS-214_plus_ppla.ppd
     dest: /usr/share/cups/model/argox/
     owner: root
     group: root
@@ -31,13 +31,13 @@
     dest: /usr/lib/cups/filter/rastertoargox
     owner: root
     group: root
-    mode: 0744
+    mode: 0755
   when: ( ansible_os_family == 'Debian' and  install == 1 and argox == 1 )
 
 - name: Cria arquivo /etc/cups/printers.conf
-  file:
-    path: /etc/cups/printers.conf
-    state: touch
+  copy:
+    src: printers.conf
+    dest: /etc/cups/printers.conf    
     owner: root
     group: lp
     mode: 0600
