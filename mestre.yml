@@ -39,10 +39,10 @@
 - import_playbook: comum_laboratorios.yml
 - import_playbook: labprogramacao.yml
 - import_playbook: labredes.yml
-- import_playbook: labsidi.yml
-- import_playbook: labcad1.yml
-- import_playbook: labcad2.yml
-- import_playbook: labcad3.yml
+# - import_playbook: labsidi.yml
+# - import_playbook: labcad1.yml
+# - import_playbook: labcad2.yml
+# - import_playbook: labcad3.yml
 
 - hosts: all
   gather_facts: false
