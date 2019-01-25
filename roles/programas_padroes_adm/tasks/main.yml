@@ -32,6 +32,7 @@
     - icedtea-8-plugin
     - google-chrome-stable
     - nfs-common
+    - libreoffice-pdfimport
   when: ansible_os_family == 'Debian'
 
 - name: Remover programas  - Linux
