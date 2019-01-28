@@ -25,6 +25,15 @@
     mode: 0644
   when: ( ansible_os_family == 'Debian' and  install == 1 and argox == 1 )
 
+- name: Copia os arquivos ppd Argox para /etc/cups/ppd/  - Linux Debian
+  copy:
+    src: ppd/argox_OS-214_plus_ppla.ppd
+    dest: /etc/cups/ppd/Argox.ppd
+    owner: root
+    group: lp
+    mode: 0640
+  when: ( ansible_os_family == 'Debian' and  install == 1 and argox == 1 )
+
 - name:  Copia o arquivo rastertoargox - Linux Debian
   copy:
     src: rastertoargox 
