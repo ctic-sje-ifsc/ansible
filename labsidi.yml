@@ -11,14 +11,26 @@
       apt_install__enabled: false
       apt__enabled: false
 
+- hosts: sidi_lin:!sj-lin-sidi-703872.maquinas.sj.ifsc.edu.br #sem maquina do prof
+  # roles:
+  #   - role: restaura_vms
+  #     nome_vms:
+  #       - 1-Grafico.bz
+  tasks:
+  - name: Instalar os pacotes para os laboratorios - Linux Debian
+    apt: name={{item}} state=latest
+    with_items:
+      - epoptes-client
+
+
 # - hosts: sj-lin-sidi-37247.maquinas.sj.ifsc.edu.br
-#   roles: 
+#   roles:
 #     - role: restaura_vms
-#       nome_vms: 
+#       nome_vms:
 #         - 1-Grafico.bz
 
 # - hosts: sidi_lin
-#   roles: 
+#   roles:
 #     - role: restaura_vms
 #       nome_vms:
 #         - 1-Grafico.bz
