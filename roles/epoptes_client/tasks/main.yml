@@ -6,56 +6,44 @@
   apt: name=epoptes-client state=latest
   when: ansible_os_family == 'Debian'
 
-- name: Adicionar entrada no /etc/default sobre quem é o server do sidi - Linux
-  copy:
-    src: epoptes-client-sidi
-    dest: /etc/default/epoptes-client
-    owner: root
-    group: root
-    mode: 0644
+- name: Adicionar entrada no /etc/default/epoptes-client sobre quem é o server do sidi - Linux
+  lineinfile:
+    regexp: '^SERVER'
+    path: /etc/default/epoptes-client
+    line: 'SERVER=sj-lin-sidi-703872.maquinas.sj.ifsc.edu.br'
   when: ansible_hostname is search("^sj-lin-sidi")
 
-  - name: Adicionar entrada no /etc/default sobre quem é o server do redes - Linux
-  copy:
-    src: epoptes-client-redes
-    dest: /etc/default/epoptes-client
-    owner: root
-    group: root
-    mode: 0644
+- name: Adicionar entrada no /etc/default/epoptes-client sobre quem é o server do redes - Linux
+  lineinfile:
+    regexp: '^SERVER'
+    path: /etc/default/epoptes-client
+    line: 'SERVER=sj-lin-redes-744530.maquinas.sj.ifsc.edu.br'
   when: ansible_hostname is search("^sj-lin-redes")
 
-  - name: Adicionar entrada no /etc/default sobre quem é o server do prog - Linux
-  copy:
-    src: epoptes-client-prog
-    dest: /etc/default/epoptes-client
-    owner: root
-    group: root
-    mode: 0644
+- name: Adicionar entrada no /etc/default/epoptes-client sobre quem é o server do programacao - Linux
+  lineinfile:
+    regexp: '^SERVER'
+    path: /etc/default/epoptes-client
+    line: 'SERVER=sj-lin-prog-744523.maquinas.sj.ifsc.edu.br'
   when: ansible_hostname is search("^sj-lin-prog")
 
-  - name: Adicionar entrada no /etc/default sobre quem é o server do cad1 - Linux
-  copy:
-    src: epoptes-client-cad1
-    dest: /etc/default/epoptes-client
-    owner: root
-    group: root
-    mode: 0644
+- name: Adicionar entrada no /etc/default/epoptes-client sobre quem é o server do cad1 - Linux
+  lineinfile:
+    regexp: '^SERVER'
+    path: /etc/default/epoptes-client
+    line: 'SERVER=sj-lin-cad1-37247.maquinas.sj.ifsc.edu.br'
   when: ansible_hostname is search("^sj-lin-cad1")
 
-  - name: Adicionar entrada no /etc/default sobre quem é o server do cad2 - Linux
-  copy:
-    src: epoptes-client-cad2
-    dest: /etc/default/epoptes-client
-    owner: root
-    group: root
-    mode: 0644
+- name: Adicionar entrada no /etc/default/epoptes-client sobre quem é o server do cad2 - Linux
+  lineinfile:
+    regexp: '^SERVER'
+    path: /etc/default/epoptes-client
+    line: 'SERVER=sj-lin-cad2-38841.maquinas.sj.ifsc.edu.br'
   when: ansible_hostname is search("^sj-lin-cad2")
 
-  - name: Adicionar entrada no /etc/default sobre quem é o server do cad3 - Linux
-  copy:
-    src: epoptes-client-cad3
-    dest: /etc/default/epoptes-client
-    owner: root
-    group: root
-    mode: 0644
+- name: Adicionar entrada no /etc/default/epoptes-client sobre quem é o server do cad3 - Linux
+  lineinfile:
+    regexp: '^SERVER'
+    path: /etc/default/epoptes-client
+    line: 'SERVER=sj-lin-cad3-744528.maquinas.sj.ifsc.edu.br'
   when: ansible_hostname is search("^sj-lin-cad3")
