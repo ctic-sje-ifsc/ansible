@@ -1,0 +1,57 @@
+---
+#Linux
+
+# Debian e Ubuntu
+- name: Configuracao dos monitores para o lab sidi - Linux
+  copy:
+    content: "{{ xrandr --output VIRTUAL1 --off --output DP2 --off --output DP1 --off --output HDMI2 --mode 1600x900 --pos 1600x0 --rotate normal --output HDMI1 --primary --mode 1600x900 --pos 0x0 --rotate normal --output VGA1 --mode 1600x900 --pos 1600x0 --rotate normal }}"
+    dest: /etc/profile.d/configura_monitor.sh
+    owner: root
+    group: root
+    mode: 0777
+  when: ansible_hostname is search("^sj-lin-sidi")
+
+- name: Configuracao dos monitores para o lab redes - Linux
+  copy:
+    content: "{{ xrandr --output VIRTUAL1 --off --output DP1 --off --output HDMI3 --off --output HDMI2 --mode 1280x1024 --primary --pos 0x0 --rotate normal --output HDMI1 --mode 1280x1024 --pos 1280x0 --rotate normal --output VGA1 --mode 1280x1024 --pos 1280x0 --rotate normal }}"
+    dest: /etc/profile.d/configura_monitor.sh
+    owner: root
+    group: root
+    mode: 0777
+  when: ansible_hostname is search("^sj-lin-redes")
+
+- name: Configuracao dos monitores para o lab prog - Linux
+  copy:
+    content: "{{ xrandr --output VIRTUAL1 --off --output DP1 --off --output HDMI3 --off --output HDMI2 --mode 1600x900 --primary --pos 0x0 --rotate normal --output HDMI1 --mode 1280x1024 --pos 1600x0 --rotate normal --output VGA1 --mode 1440x900 --pos 1600x0 --rotate normal }}"
+    dest: /etc/profile.d/configura_monitor.sh
+    owner: root
+    group: root
+    mode: 0777
+  when: ansible_hostname is search("^sj-lin-prog")
+
+# - name: Configuracao dos monitores para o lab cad1 - Linux
+#   copy:
+#     content: "{{ xrandr --output VIRTUAL1 --off --output DP2 --off --output DP1 --off --output HDMI2 --mode 1600x900 --pos 1600x0 --rotate normal --output HDMI1 --primary --mode 1600x900 --pos 0x0 --rotate normal --output VGA1 --mode 1600x900 --pos 1600x0 --rotate normal }}"
+#     dest: /etc/profile.d/configura_monitor.sh
+#     owner: root
+#     group: root
+#     mode: 0777
+#   when: ansible_hostname is search("^sj-lin-cad1")
+
+# - name: Configuracao dos monitores para o lab cad2 - Linux
+#   copy:
+#     content: "{{ xrandr --output VIRTUAL1 --off --output DP2 --off --output DP1 --off --output HDMI2 --mode 1600x900 --pos 1600x0 --rotate normal --output HDMI1 --primary --mode 1600x900 --pos 0x0 --rotate normal --output VGA1 --mode 1600x900 --pos 1600x0 --rotate normal }}"
+#     dest: /etc/profile.d/configura_monitor.sh
+#     owner: root
+#     group: root
+#     mode: 0777
+#   when: ansible_hostname is search("^sj-lin-cad2")
+
+# - name: Configuracao dos monitores para o lab cad3 - Linux
+#   copy:
+#     content: "{{ xrandr --output VIRTUAL1 --off --output DP2 --off --output DP1 --off --output HDMI2 --mode 1600x900 --pos 1600x0 --rotate normal --output HDMI1 --primary --mode 1600x900 --pos 0x0 --rotate normal --output VGA1 --mode 1600x900 --pos 1600x0 --rotate normal }}"
+#     dest: /etc/profile.d/configura_monitor.sh
+#     owner: root
+#     group: root
+#     mode: 0777
+#   when: ansible_hostname is search("^sj-lin-cad3")

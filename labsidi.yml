@@ -11,45 +11,11 @@
       apt_install__enabled: false
       apt__enabled: false
 
-- hosts: sidi_lin:!sj-lin-sidi-703872.maquinas.sj.ifsc.edu.br #sem maquina do prof
-  # roles:
-  #   - role: restaura_vms
-  #     nome_vms:
-  #       - 1-Grafico.bz
-  tasks:
-  - name: Instalar os pacotes para os laboratorios - Linux Debian
-    apt: name={{item}} state=latest
-    with_items:
-      - epoptes-client
+- hosts: sidi_lin:!sj-lin-sidi-703872.maquinas.sj.ifsc.edu.br
+  roles:
+    - epoptes-client
 
-
-# - hosts: sj-lin-sidi-37247.maquinas.sj.ifsc.edu.br
-#   roles:
-#     - role: restaura_vms
-#       nome_vms:
-#         - 1-Grafico.bz
-
-# - hosts: sidi_lin
-#   roles:
-#     - role: restaura_vms
-#       nome_vms:
-#         - 1-Grafico.bz
-#         - 2-Grafico.bz
-#         - 3-Grafico.bz
-#         - 4-Grafico.bz
-#         - 5-Grafico.bz
-#         - 6-Grafico.bz
-#         - 1-Servidor.bz
-#         - 2-Servidor.bz
-#         - 3-Servidor.bz
-#         - 4-Servidor.bz
-#         - 5-Servidor.bz
-#         - 6-Servidor.bz
-#         - 7-Servidor.bz
-#         - 8-Servidor.bz
-#         - 9-Servidor.bz
-#         - 10-Servidor.bz
-
-# - hosts: sidi_win
-#   roles:
-#     - qgis
+- hosts: sj-lin-sidi-703872.maquinas.sj.ifsc.edu.br #Maquina do professor
+  roles:
+    - epoptes-server
+    - ingressa_ldap

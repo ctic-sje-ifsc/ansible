@@ -1,16 +1,61 @@
 ---
 #Linux
 
-# Debian e Ubuntu    
+# Debian e Ubuntu
 - name: Instalar o epoptes-client - Linux
   apt: name=epoptes-client state=latest
   when: ansible_os_family == 'Debian'
 
+- name: Adicionar entrada no /etc/default sobre quem é o server do sidi - Linux
+  copy:
+    src: epoptes-client-sidi
+    dest: /etc/default/epoptes-client
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_hostname is search("^sj-lin-sidi")
 
-- name: Adicionar entrada no /etc/hosts sobre quem é o server - Linux
-  lineinfile:
-    regexp: 'server$'
-    path: /etc/hosts
-    line: '192.168.1.1 server'
-  when: ansible_hostname is search("^sj-lin-ric")
+  - name: Adicionar entrada no /etc/default sobre quem é o server do redes - Linux
+  copy:
+    src: epoptes-client-redes
+    dest: /etc/default/epoptes-client
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_hostname is search("^sj-lin-redes")
 
+  - name: Adicionar entrada no /etc/default sobre quem é o server do prog - Linux
+  copy:
+    src: epoptes-client-prog
+    dest: /etc/default/epoptes-client
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_hostname is search("^sj-lin-prog")
+
+  - name: Adicionar entrada no /etc/default sobre quem é o server do cad1 - Linux
+  copy:
+    src: epoptes-client-cad1
+    dest: /etc/default/epoptes-client
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_hostname is search("^sj-lin-cad1")
+
+  - name: Adicionar entrada no /etc/default sobre quem é o server do cad2 - Linux
+  copy:
+    src: epoptes-client-cad2
+    dest: /etc/default/epoptes-client
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_hostname is search("^sj-lin-cad2")
+
+  - name: Adicionar entrada no /etc/default sobre quem é o server do cad3 - Linux
+  copy:
+    src: epoptes-client-cad3
+    dest: /etc/default/epoptes-client
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_hostname is search("^sj-lin-cad3")
