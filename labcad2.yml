@@ -5,7 +5,7 @@
         - name: 'su'
           password: 'NBLWAThUq5'
           superuser: True
-      grub_default: '0'
+      grub_default: '2'
       grub_timeout_hardware: 15
       grub_timeout_virtual: 15
       apt_install__enabled: false
@@ -18,7 +18,7 @@
       fstype: vfat
       state: present
     when: ansible_os_family == 'Debian'
-    
+
 # - hosts: sj-lin-cad2-37247.maquinas.sj.ifsc.edu.br
 #   roles:
 #     - role: restaura_vms
