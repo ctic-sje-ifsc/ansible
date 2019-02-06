@@ -14,9 +14,9 @@
 - hosts: sidi_lin:!sj-lin-sidi-703872.maquinas.sj.ifsc.edu.br
   roles:
     - epoptes_client
-    - configura_monitores
 
 - hosts: sj-lin-sidi-703872.maquinas.sj.ifsc.edu.br #Maquina do professor
   roles:
     - epoptes_server
     - ingressa_ldap
+    - configura_monitores
