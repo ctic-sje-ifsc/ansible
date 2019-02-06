@@ -5,3 +5,9 @@
 - name: Remove epoptes-client
   apt: name=epoptes-client state=absent purge=yes
   when: ansible_distribution == 'Debian'
+
+- name: Deleta o grupo epoptes local
+  group:
+    name: epoptes
+    state: absent
+  when: ansible_distribution == 'Debian'
