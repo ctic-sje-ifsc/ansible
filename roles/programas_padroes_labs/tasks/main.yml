@@ -38,6 +38,7 @@
     - pdfshuffler
     - qalculate
     - mate-applet-brisk-menu
+    - dconf-tools
   when: ansible_os_family == 'Debian'
 
 ## Instala Eclipse com suporte a C/C++ e Java - Alternativa ao Eclipse modificado que o Arliones tinha sugerido.
