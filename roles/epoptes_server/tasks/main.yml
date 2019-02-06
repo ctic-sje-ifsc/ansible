@@ -10,4 +10,5 @@
   group:
     name: epoptes
     state: absent
+    local: yes
   when: ansible_distribution == 'Debian'
