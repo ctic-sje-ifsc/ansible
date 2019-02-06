@@ -13,9 +13,9 @@
     creates: /snap/pycharm-professional/
   when: ansible_os_family == 'Debian'
 
-- name: Atualiza PyCharm PRO via SNAP
-  command: /usr/bin/snap refresh
-  when: ansible_os_family == 'Debian'
+# - name: Atualiza PyCharm PRO via SNAP
+#   command: /usr/bin/snap refresh
+#   when: ansible_os_family == 'Debian'
 
 # - name: Cria diretório jetbrains e apps
 #   file:
@@ -33,7 +33,7 @@
 #     creates: /opt/jetbrains/apps/PyCharm-P/ch-0
 #     remote_src: yes
 #     owner: aluno
-#     group: 513    
+#     group: 513
 #   when: ansible_os_family == 'Debian'
 
 # # - name: Criando o arquivo jetbrains-pycharm.desktop - Linux Debian
