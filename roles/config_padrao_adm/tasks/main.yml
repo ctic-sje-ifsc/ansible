@@ -1,7 +1,7 @@
 ---
 #Linux
 
-- name: Alterar tempo de retry do dhcp - Linux
+- name: Alterar tempo de retry do dhcp no adm- Linux
   copy:
     src: dhclient.conf
     dest: /etc/dhcp/dhclient.conf

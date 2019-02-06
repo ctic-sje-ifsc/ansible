@@ -1,5 +1,14 @@
 ---
 
+- name: Alterar tempo de retry do dhcp no lab- Linux
+  copy:
+    src: dhclient.conf
+    dest: /etc/dhcp/dhclient.conf
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
 ###################### Inicio Adiciona no grupo dialout
 
 # Permissao para gravar na placa
@@ -234,6 +243,7 @@
     owner: aluno
     group: aluno
     state: link
+    force: yes
   when: ansible_os_family == 'Debian'
 
 # Para solucionar problemas com Ctrl + C Ctrl + v no matlab

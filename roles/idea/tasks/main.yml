@@ -13,9 +13,9 @@
     creates: /snap/intellij-idea-ultimate/
   when: ansible_os_family == 'Debian'
 
-- name: Atualiza IDEA Ultimate via SNAP
-  command: /usr/bin/snap refresh
-  when: ansible_os_family == 'Debian'
+# - name: Atualiza IDEA Ultimate via SNAP
+#   command: /usr/bin/snap refresh
+#   when: ansible_os_family == 'Debian'
 
 # - name: Cria diretório jetbrains e apps
 #   file:
