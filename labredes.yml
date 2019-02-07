@@ -1,38 +1,22 @@
 - hosts: redes
-  tasks:
-  - name: Monta /dev/sda2 em /media/aluno/trabalhos fstab - Linux
-    mount:
-      path: /media/aluno/trabalhos
-      src: /dev/sda2
-      fstype: ext4
-      state: present
-    when: ansible_os_family == 'Debian'
+  roles:
+    - role: debops.grub
+      grub_users:
+        - name: 'su'
+          password: 'NBLWAThUq5'
+          superuser: True
+      grub_default: '0'
+      grub_timeout_hardware: 15
+      grub_timeout_virtual: 15
+      apt_install__enabled: false
+      apt__enabled: false
 
-#   roles:
-#     - qgis
-# - hosts: sj-lin-redes-38103.maquinas.sj.ifsc.edu.br
-#   roles:
-#     - role: restaura_vms
-#       nome_vms:
-#         - 1-Grafico.bz
+- hosts: redes:!sj-lin-redes-744530.maquinas.sj.ifsc.edu.br
+  roles:
+    - epoptes_client
 
-# - hosts: redes
-#   roles:
-#     - role: restaura_vms
-#       nome_vms:
-#         - 1-Grafico.bz
-#         - 2-Grafico.bz
-#         - 3-Grafico.bz
-#         - 4-Grafico.bz
-#         - 5-Grafico.bz
-#         - 6-Grafico.bz
-#         - 1-Servidor.bz
-#         - 2-Servidor.bz
-#         - 3-Servidor.bz
-#         - 4-Servidor.bz
-#         - 5-Servidor.bz
-#         - 6-Servidor.bz
-#         - 7-Servidor.bz
-#         - 8-Servidor.bz
-#         - 9-Servidor.bz
-#         - 10-Servidor.bz
+- hosts: sj-lin-redes-744530.maquinas.sj.ifsc.edu.br #Maquina do professor
+  roles:
+    - epoptes_server
+    - ingressa_ldap
+    - configura_monitores
