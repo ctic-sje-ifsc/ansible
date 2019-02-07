@@ -10,6 +10,14 @@
       grub_timeout_virtual: 15
       apt_install__enabled: false
       apt__enabled: false
+  tasks:
+  - name: Monta /dev/sda3 em /media/aluno/trabalhos fstab - Linux
+    mount:
+      path: /media/aluno/trabalhos
+      src: /dev/sda3
+      fstype: vfat
+      state: present
+    when: ansible_os_family == 'Debian'
 
 - hosts: sidi_lin:!sj-lin-sidi-703872.maquinas.sj.ifsc.edu.br
   roles:
