@@ -36,7 +36,7 @@
 - name: Instalar o Virtualbox - Windows
   win_chocolatey:
     name: '{{ item }}'
-    version: '5.2.12'
+    version: '5.2.22'
     skip_scripts: yes
   with_items:
   - vboxguestadditions.install
