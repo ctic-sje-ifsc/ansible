@@ -33,6 +33,7 @@
     - google-chrome-stable
     - nfs-common
     - libreoffice-pdfimport
+    - firmware-amd-graphics
   when: ansible_os_family == 'Debian'
 
 - name: Remover programas  - Linux

@@ -7,8 +7,8 @@
   when: ansible_distribution == 'Debian'
 
 - name: Deleta o grupo epoptes local
-  group:
-    name: epoptes
+  lineinfile:
+    path: /etc/group
     state: absent
-    local: yes
+    regexp: '^epoptes'
   when: ansible_distribution == 'Debian'
