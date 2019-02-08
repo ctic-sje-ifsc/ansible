@@ -131,6 +131,7 @@
     - python3-pip
     - python-rope
     - htop
+    - firmware-amd-graphics
   when: ansible_os_family == 'Debian'
 
 # - name: Instalar pacotes de bibliotecas padroes de laboratorios - Linux
