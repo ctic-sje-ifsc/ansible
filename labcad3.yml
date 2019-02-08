@@ -24,13 +24,6 @@
 
 # Windows
 
-- hosts: cad3_win
-  roles:
-    - programas_padroes_labs
-    - config_padrao_labs
-    - papel_de_parede_e_icones
-    - windows_update
-
 - hosts: sj-cad3-744528.maquinas.sj.ifsc.edu.br #Maquina do professor
   roles:
     - ingressa_ldap
