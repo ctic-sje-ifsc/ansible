@@ -18,7 +18,7 @@
   copy:
     content: |
       #!/bin/bash
-      xrandr --output VIRTUAL1 --off --output DP1 --off --output HDMI3 --off --output HDMI2 --mode 1280x1024 --primary --pos 0x0 --rotate normal --output HDMI1 --mode 1280x1024 --pos 1280x0 --rotate normal --output VGA1 --mode 1280x1024 --pos 1280x0 --rotate normal
+      xrandr --output VGA-1 --mode 1600x900 --pos 1920x0 --rotate normal --output DP-1 --off --output HDMI-3 --off --output HDMI-2 --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-1 --mode 1600x900 --pos 1920x0 --rotate normal
         
     dest: /etc/X11/Xsession.d/99ConfigMonitor
     owner: root
@@ -30,7 +30,7 @@
   copy:
     content: |
       #!/bin/bash
-      xrandr --output VIRTUAL1 --off --output DP1 --off --output HDMI3 --off --output HDMI2 --mode 1600x900 --primary --pos 0x0 --rotate normal --output HDMI1 --mode 1280x1024 --pos 1600x0 --rotate normal --output VGA1 --mode 1440x900 --pos 1600x0 --rotate normal
+      xrandr --output VGA-1 --mode 1600x900 --pos 1600x0 --rotate normal --output DP-1 --off --output HDMI-3 --off --output HDMI-2 --mode 1600x900 --pos 0x0 --rotate normal --output HDMI-1 --mode 1600x900 --pos 0x0 --rotate normal
         
     dest: /etc/X11/Xsession.d/99ConfigMonitor
     owner: root
