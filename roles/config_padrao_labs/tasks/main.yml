@@ -382,3 +382,16 @@
   when: ansible_os_family == 'Debian'
 
 ###################### Fim configuração VIM
+
+##################### Inicio configuracao interfaces
+- name: Mantem o estado do arquivo /etc/network/interfaces.d/eth0 - Linux
+  copy:
+    content: |
+      allow-hotplug eth0
+      iface eth0 inet dhcp
+    dest: /etc/network/interfaces.d/eth0
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+##################### Fim configuracao interfaces
