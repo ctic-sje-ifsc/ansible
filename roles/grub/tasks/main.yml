@@ -1,0 +1,12 @@
+---
+#Linux
+- name: Modifica o arquivo /etc/default/grub - Debian stretch
+  copy:
+    src: "{{tipo}}"
+    dest: /etc/default/grub
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+  notify:
+    - update grub
