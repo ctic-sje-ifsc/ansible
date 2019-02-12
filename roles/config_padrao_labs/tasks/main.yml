@@ -236,6 +236,14 @@
     state: link
   when: ansible_os_family == 'Debian'
 
+- name: Cria pasta compartilhada entre sistemas - Linux
+  file:
+    state: directory
+    path: /media/aluno/trabalhos/
+    owner: aluno
+    group: aluno    
+  when: ansible_os_family == 'Debian'
+
 - name: Cria um link do salve seus trabalhos aqui no home do aluno - Linux
   file:
     src: /media/aluno/trabalhos
@@ -395,3 +403,14 @@
     mode: 0644
   when: ansible_os_family == 'Debian'
 ##################### Fim configuracao interfaces
+
+
+##################### Corrige problema no Matlab
+## https://www.mathworks.com/matlabcentral/answers/260924-why-do-i-get-a-segmentation-fault-when-i-try-to-start-matlab-on-ubuntu-15-04-or-newer
+- name: Remove arquivo /opt/matlab/R2015a/sys/os/glnxa64/libstdc++.so.6
+  file:
+    path: /opt/matlab/R2015a/sys/os/glnxa64/libstdc++.so.6
+    state: absent
+  when: ansible_distribution == 'Debian'
+##################### Fim do corrige problema no Matlab
+
