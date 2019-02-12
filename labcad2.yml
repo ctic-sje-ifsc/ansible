@@ -10,6 +10,7 @@
       path: /media/aluno/trabalhos
       src: /dev/sda3
       fstype: vfat
+      opts: uid=aluno,gid=aluno
       state: present
     when: ansible_os_family == 'Debian'
 
