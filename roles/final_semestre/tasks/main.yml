@@ -36,4 +36,6 @@
   file:
     state: directory
     path: /media/aluno/trabalhos/
+    owner: aluno
+    group: aluno    
   when: ansible_os_family == 'Debian'
