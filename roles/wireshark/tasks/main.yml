@@ -26,6 +26,6 @@
 - name: Instalar o Wireshark - Windows
   win_chocolatey:
     name: wireshark
-    state: latest
+    # state: latest
   when: ansible_os_family == 'Windows'
 

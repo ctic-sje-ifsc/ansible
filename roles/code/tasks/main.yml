@@ -26,5 +26,5 @@
 # - name: Instalar o Visual Studio Code - Windows
 #   win_chocolatey:
 #     name: vscode
-#     state: latest
+# #     state: latest
 #   when: ansible_os_family == 'Windows'

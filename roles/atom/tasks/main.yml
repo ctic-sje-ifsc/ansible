@@ -25,5 +25,5 @@
 # - name: Instalar o Atom - Windows
 #   win_chocolatey:
 #     name: atom
-#     state: latest
+# #     state: latest
 #   when: ansible_os_family == 'Windows'

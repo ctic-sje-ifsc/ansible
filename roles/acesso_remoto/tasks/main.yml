@@ -33,7 +33,7 @@
 - name: Instalar o ultravnc - Windows
   win_chocolatey:
     name: ultravnc
-    state: latest
+    # state: latest
   when: ansible_os_family == 'Windows'
 
 - name: Criar a pasta do UltraVNC - Windows
