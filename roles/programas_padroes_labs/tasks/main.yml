@@ -344,7 +344,7 @@
 
 # Windows --------------------------------------------------------------------------------------------------------------
 - name: Instalar pacotes padroes laboratorios - Windows
-  win_chocolatey: name={{ item }} state=latest
+  win_chocolatey: name={{ item }} # state=latest timeout=9000
   with_items:
   - googlechrome
   - jre8
@@ -360,19 +360,17 @@
   - subtitleworkshop
   when: ansible_os_family == 'Windows'
 
-# - name: Instalar o microsoftsecurityessentials - Windows 7
-#   win_chocolatey:
-#     name: microsoftsecurityessentials
-#     version: latest
-#     timeout: 9000
-#     force: yes
-#   when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 7 Professional')
-
-- name: Instalar o LibreOffice Still 6.0.7 - Windows
+- name: Instalar o microsoftsecurityessentials - Windows 7
   win_chocolatey:
+    name: microsoftsecurityessentials
+    # version: latest
+  when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 7 Professional')
+
+- name: Instalar o LibreOffice Still - Windows
+  win_chocolatey:
+    # version: latest
+    # force: yes
     name: libreoffice-still
-    version: 'latest'
-    #force: yes
   when: ansible_os_family == 'Windows'
 
 - name: Instalar o Unity 2018.2.10 - Windows
@@ -384,8 +382,8 @@
 # Comentado porque nao estava funcionando
 # - name: Instalar o FreeCad 0.17 - Windows
 #   win_chocolatey:
+    # version: latest
 #     name: freecad
-#     version: 'latest'
 #   when: ansible_os_family == 'Windows'
 
 - include_role:

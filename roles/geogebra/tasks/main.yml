@@ -17,5 +17,5 @@
 - name: Baixar e instalar Geogebra - Windows
   win_chocolatey:
     name: geogebra
-    state: latest
+    # state: latest
   when: ansible_os_family == 'Windows'

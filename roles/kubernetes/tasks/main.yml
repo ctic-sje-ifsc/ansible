@@ -25,5 +25,5 @@
 # - name: Instalar o kubernetes - Windows
 #   win_chocolatey:
 #     name: kubernetes-cli
-#     state: latest
+# #     state: latest
 #   when: ansible_os_family == 'Windows'

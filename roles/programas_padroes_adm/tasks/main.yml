@@ -52,7 +52,7 @@
 
 #Windows
 - name: Instalar pacotes padroes - Windows
-  win_chocolatey: name={{ item }} state=latest timeout=9000
+  win_chocolatey: name={{ item }} # state=latest timeout=9000
   with_items:
     - googlechrome
     - jre8
@@ -67,23 +67,21 @@
 - name: Instalar o LibreOffice Still 6.0.7 - Windows
   win_chocolatey:
     name: libreoffice-still
-    version: '6.0.7'
-    timeout: 9000
-    #force: yes
+    # version: latest
+    # force: yes
   when: ansible_os_family == 'Windows'
 
-# - name: Instalar o microsoftsecurityessentials - Windows 7
-#   win_chocolatey:
-#     name: microsoftsecurityessentials
-#     version: latest
-#     timeout: 9000
-#     #force: yes
-#   when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 7 Professional')
+- name: Instalar o microsoftsecurityessentials - Windows 7
+  win_chocolatey:
+    name: microsoftsecurityessentials
+    # version: latest
+    # force: yes
+  when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 7 Professional')
 
 # - name: Instalar o NOMEDOSOFTWARE defender - Windows 8.1
 #   win_chocolatey:
 #     name: NOMEDOSOFTWARE
-#     version: latest
+# #     version: latest
 #   when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 8.1 Pro')
 
 #Windows e Linux

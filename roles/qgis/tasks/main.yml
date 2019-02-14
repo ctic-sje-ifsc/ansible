@@ -32,5 +32,5 @@
 - name: Install qgis - Windows
   win_chocolatey:
     name: qgis
-    state: latest
+    # state: latest
   when: ansible_os_family == 'Windows'

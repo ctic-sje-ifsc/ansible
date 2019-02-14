@@ -40,5 +40,5 @@
 - name: Install owncloud-client - Windows
   win_chocolatey:
     name: owncloud-client
-    state: latest
+    # state: latest
   when: ansible_os_family == 'Windows'

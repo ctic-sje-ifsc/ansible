@@ -33,12 +33,13 @@
 
 
 #Windows
-- name: Instalar o Virtualbox - Windows
-  win_chocolatey:
-    name: '{{ item }}'
-    version: '5.2.22'
-    skip_scripts: yes
-  with_items:
-  - vboxguestadditions.install
-  - virtualbox
-  when: ansible_os_family == 'Windows'
+# - name: Instalar o Virtualbox - Windows
+#   win_chocolatey:
+#     name: '{{ item }}'
+# #     version: 'latest'
+#     skip_scripts: yes
+#     force: yes
+#   with_items:
+#   - vboxguestadditions.install
+#   - virtualbox
+#   when: ansible_os_family == 'Windows'

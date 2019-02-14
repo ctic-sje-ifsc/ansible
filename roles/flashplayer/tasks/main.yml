@@ -51,5 +51,5 @@
 - name: Instalar o FlashPlayerPlugin - Windows
   win_chocolatey:
     name: flashplayerplugin
-    state: latest
+    # state: latest
   when: ansible_os_family == 'Windows'

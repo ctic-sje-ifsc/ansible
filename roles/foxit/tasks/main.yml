@@ -30,6 +30,5 @@
 - name: Instalar o Foxit - Windows
   win_chocolatey:
     name: foxitreader
-    state: latest
-    timeout: 9000
+    # state: latest
   when: ansible_os_family == 'Windows'
