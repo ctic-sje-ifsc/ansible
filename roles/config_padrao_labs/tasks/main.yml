@@ -236,14 +236,6 @@
     state: link
   when: ansible_os_family == 'Debian'
 
-- name: Cria pasta compartilhada entre sistemas - Linux
-  file:
-    state: directory
-    path: /media/aluno/trabalhos/
-    owner: aluno
-    group: aluno    
-  when: ansible_os_family == 'Debian'
-
 - name: Cria um link do salve seus trabalhos aqui no home do aluno - Linux
   file:
     src: /media/aluno/trabalhos
@@ -414,3 +406,14 @@
   when: ansible_distribution == 'Debian'
 ##################### Fim do corrige problema no Matlab
 
+##################### Definir versao do java e javac padroes
+- name: Definir versão java padrão
+  alternatives:
+    name: java
+    path: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+
+- name: Definir versão javac padrão
+  alternatives:
+    name: javac
+    path: /usr/lib/jvm/java-8-openjdk-amd64/bin/javac
+##################### Fim do Definir versao do java e javac padroes
