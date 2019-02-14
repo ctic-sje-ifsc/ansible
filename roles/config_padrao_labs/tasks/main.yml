@@ -407,13 +407,15 @@
 ##################### Fim do corrige problema no Matlab
 
 ##################### Definir versao do java e javac padroes
-- name: Definir versão java padrão
+- name: Definir versão java padrão - Linux
   alternatives:
     name: java
     path: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+  when: ansible_distribution == 'Debian'
 
-- name: Definir versão javac padrão
+- name: Definir versão javac padrão - Linux
   alternatives:
     name: javac
     path: /usr/lib/jvm/java-8-openjdk-amd64/bin/javac
+  when: ansible_distribution == 'Debian'
 ##################### Fim do Definir versao do java e javac padroes
