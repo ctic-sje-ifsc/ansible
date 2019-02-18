@@ -133,6 +133,7 @@
     - htop
     - firmware-amd-graphics
     - net-tools
+    - fping
   when: ansible_os_family == 'Debian'
 
 # - name: Instalar pacotes de bibliotecas padroes de laboratorios - Linux
