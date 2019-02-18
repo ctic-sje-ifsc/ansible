@@ -5,6 +5,7 @@
     url: 'https://discovirtual.ifsc.edu.br/remote.php/webdav/SJE/CTIC/CambridgeSoft_ChemDraw_Ultra_12.0.msi'
     dest: 'C:\users\CambridgeSoft_ChemDraw_Ultra_12.0.msi'
     force: no
+    timeout: 300 # 5 minutos
     url_username: "{{ url_username }}"
     url_password: "{{ url_password }}"
   when: ansible_os_family == 'Windows'
