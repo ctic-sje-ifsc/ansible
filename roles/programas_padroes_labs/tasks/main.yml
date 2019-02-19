@@ -134,6 +134,7 @@
     - firmware-amd-graphics
     - net-tools
     - fping
+    - dia
   when: ansible_os_family == 'Debian'
 
 # - name: Instalar pacotes de bibliotecas padroes de laboratorios - Linux
@@ -360,7 +361,6 @@
   - librecad
   - cadconverter
   - subtitleworkshop
-  - dia
   when: ansible_os_family == 'Windows'
 
 - name: Instalar o microsoftsecurityessentials - Windows 7
