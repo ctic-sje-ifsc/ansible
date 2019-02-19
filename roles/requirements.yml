@@ -1,4 +1,4 @@
 - src: geerlingguy.ntp
 #- src: tersmitten.apt
-- src: debops.grub
+#- src: debops.grub
 - src: geerlingguy.nfs

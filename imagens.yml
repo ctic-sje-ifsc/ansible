@@ -28,16 +28,6 @@
     - config_padrao_labs
 #    - papel_de_parede_e_icones
 #    - x2goserver
-    - role: debops.grub
-      grub_users:
-        - name: 'su'
-          password: 'NBLWAThUq5'
-          superuser: True
-      grub_default: '0'
-      grub_timeout_hardware: 0
-      grub_timeout_virtual: 0
-      apt_install__enabled: false
-      apt__enabled: false
 
 - hosts: imagens_lab_win
   roles:
