@@ -360,6 +360,7 @@
   - librecad
   - cadconverter
   - subtitleworkshop
+  - dia
   when: ansible_os_family == 'Windows'
 
 - name: Instalar o microsoftsecurityessentials - Windows 7
