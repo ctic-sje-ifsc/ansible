@@ -20,17 +20,9 @@
     - ingressa_ldap
 
 - hosts: administrativos_lin:!labfisica
-  roles:
-    - role: debops.grub
-      grub_users:
-        - name: 'su'
-          password: 'NBLWAThUq5'
-          superuser: True
-      grub_default: '0'
-      grub_timeout_hardware: 0
-      grub_timeout_virtual: 0
-      apt_install__enabled: false
-      apt__enabled: false
+  roles: 
+    - role: grub
+      tipo: grub_soh_lin
 
 - hosts: administrativos_win
   roles:
