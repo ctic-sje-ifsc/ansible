@@ -7,7 +7,7 @@
     content: |
       #!/bin/bash
       xrandr --output VIRTUAL-1 --off --output DP-2 --off --output DP-1 --off --output HDMI-2 --mode 1600x900 --pos 1600x0 --rotate normal --output HDMI-1 --primary --mode 1600x900 --pos 0x0 --rotate normal --output VGA-1 --mode 1600x900 --pos 1600x0 --rotate normal
-        
+
     dest: /etc/X11/Xsession.d/99ConfigMonitor
     owner: root
     group: root
@@ -19,7 +19,7 @@
     content: |
       #!/bin/bash
       xrandr --output VGA-1 --mode 1600x900 --pos 1920x0 --rotate normal --output DP-1 --off --output HDMI-3 --off --output HDMI-2 --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-1 --mode 1600x900 --pos 1920x0 --rotate normal
-        
+
     dest: /etc/X11/Xsession.d/99ConfigMonitor
     owner: root
     group: root
@@ -31,9 +31,21 @@
     content: |
       #!/bin/bash
       xrandr --output VGA-1 --mode 1600x900 --pos 1600x0 --rotate normal --output DP-1 --off --output HDMI-3 --off --output HDMI-2 --mode 1600x900 --pos 0x0 --rotate normal --output HDMI-1 --mode 1600x900 --pos 0x0 --rotate normal
-        
+
     dest: /etc/X11/Xsession.d/99ConfigMonitor
     owner: root
     group: root
     mode: 0644
-  when: ansible_hostname is search("^sj-lin-prog")  
+  when: ansible_hostname is search("^sj-lin-prog")
+
+- name: Configuracao dos monitores para o lab meios de transmissao - Linux
+  copy:
+    content: |
+      #!/bin/bash
+      xrandr --output VIRTUAL-1 --off --output DP-2 --off --output DP-1 --off --output HDMI-2 --mode 1600x900 --pos 1600x0 --rotate normal --output HDMI-1 --primary --mode 1600x900 --pos 0x0 --rotate normal --output VGA-1 --mode 1600x900 --pos 1600x0 --rotate normal
+
+    dest: /etc/X11/Xsession.d/99ConfigMonitor
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_hostname is search("^sj-lin-labmeios")
