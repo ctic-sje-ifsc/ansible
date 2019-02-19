@@ -39,6 +39,7 @@
     - qalculate
     - mate-applet-brisk-menu
     - dconf-tools
+    - dia
   when: ansible_os_family == 'Debian'
 
 ## Instala Eclipse com suporte a C/C++ e Java - Alternativa ao Eclipse modificado que o Arliones tinha sugerido.
@@ -134,7 +135,6 @@
     - firmware-amd-graphics
     - net-tools
     - fping
-    - dia
   when: ansible_os_family == 'Debian'
 
 # - name: Instalar pacotes de bibliotecas padroes de laboratorios - Linux
