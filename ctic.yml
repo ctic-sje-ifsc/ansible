@@ -9,6 +9,7 @@
     - kubernetes
     - docker
     - rambox
+    - ingressa_ldap
     # - teamviewer
     # - virtualbox
     - softwares_remotos
@@ -33,8 +34,9 @@
   - name: Instalar os pacotes para o Ansible do stretch-backports - Linux Debian
     apt: name=ansible state=latest default_release=stretch-backports
   - name: Pacotes do Ricardo
-    apt: name={{item}} state=latest
-    with_items:
+    apt: name={{ packages }} state=latest
+    vars:
+      packages:
       - keepassx
       - k3b
       - konsole
