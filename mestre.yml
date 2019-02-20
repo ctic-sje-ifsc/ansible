@@ -43,6 +43,8 @@
 - import_playbook: labcad1.yml
 - import_playbook: labcad2.yml
 - import_playbook: labcad3.yml
+- import_playbook: labmeios.yml
+
 
 - hosts: all
   gather_facts: false
