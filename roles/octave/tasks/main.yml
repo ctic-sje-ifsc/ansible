@@ -1,5 +1,5 @@
 # Ubuntu
-- name: Adicionar repositório owncloud - Linux Ubuntu
+- name: Adicionar repositório Octave - Linux Ubuntu
   apt_repository:
     repo: ppa:octave/stable
   when: ansible_distribution == 'Ubuntu'
