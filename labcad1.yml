@@ -1,7 +1,7 @@
 # Linux
 
 - hosts: cad1_lin
-  roles: 
+  roles:
     - role: grub
       tipo: grub_win
   tasks:
@@ -22,6 +22,7 @@
   roles:
     - epoptes_server
     - ingressa_ldap
+    - owncloud_client
 
 # Windows
 

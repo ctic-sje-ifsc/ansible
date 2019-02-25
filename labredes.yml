@@ -1,5 +1,5 @@
 - hosts: redes
-  roles: 
+  roles:
     - role: grub
       tipo: grub_soh_lin
 
@@ -12,3 +12,4 @@
     - epoptes_server
     - ingressa_ldap
     - configura_monitores
+    - owncloud_client
