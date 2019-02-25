@@ -419,3 +419,46 @@
     path: /usr/lib/jvm/java-8-openjdk-amd64/bin/javac
   when: ansible_distribution == 'Debian'
 ##################### Fim do Definir versao do java e javac padroes
+
+
+##################### Cria e aplica SWAP
+
+- name: Create swap file
+  command: fallocate -l 4GB /swapfile
+  args:
+    creates: /swapfile
+  when: ( ansible_distribution == 'Debian' and ansible_swaptotal_mb < 1 )
+
+- name: Change swap file permissions
+  file: 
+    path: /swapfile
+    owner: root
+    group: root
+    mode: 0600
+  when: ( ansible_distribution == 'Debian' and ansible_swaptotal_mb < 1 )
+
+- name: Check swap file type
+  command: file /swapfile
+  register: swapfile
+  when: ( ansible_distribution == 'Debian' and ansible_swaptotal_mb < 1 )
+
+- name: Make swap file
+  command: "mkswap /swapfile"
+  when: ( ansible_distribution == 'Debian' and ansible_swaptotal_mb < 1 and swapfile.stdout.find('swap file') == -1 )
+
+- name: Write swap entry in fstab
+  mount: 
+    name: none
+    src: /swapfile
+    fstype: swap
+    opts: sw
+    passno: 0
+    dump: 0
+    state: present
+  when: ( ansible_distribution == 'Debian' and ansible_swaptotal_mb < 1 )
+
+- name: Mount swap
+  command: "swapon /swapfile"
+  when: (ansible_distribution == 'Debian' and ansible_swaptotal_mb < 1)
+
+##################### Fim e aplica SWAP
