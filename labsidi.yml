@@ -1,6 +1,6 @@
 # Linux
 - hosts: sidi_lin
-  roles: 
+  roles:
     - role: grub
       tipo: grub_lin
   tasks:
@@ -21,6 +21,7 @@
     - epoptes_server
     - ingressa_ldap
     - configura_monitores
+    - owncloud_client
 
 # Windows
 
