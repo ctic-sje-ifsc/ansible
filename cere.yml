@@ -1,0 +1,7 @@
+- hosts: cere
+  tasks:
+  - name: Pacotes especiais
+    apt: name={{ packages }} state=latest
+    vars:
+      packages:
+      - nautilus-dropbox
