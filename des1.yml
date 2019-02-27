@@ -1,0 +1,5 @@
+- hosts: des1
+  roles:
+    - packettracer
+    - kile
+    - programas_padroes_labs
