@@ -22,6 +22,17 @@
       - "ntp.ufsc.br iburst"
   when: ansible_os_family == 'Debian'
 
+##################### Inicio configuracao interfaces
+- name: Mantem o estado do arquivo /etc/network/interfaces - Linux
+  copy:
+    src: interfaces
+    dest: /etc/network/interfaces
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+##################### Fim configuracao interfaces
+
 - include_role:
     name: openaudit
 
