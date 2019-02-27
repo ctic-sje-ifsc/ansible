@@ -27,6 +27,7 @@
 - import_playbook: labfisica.yml
 - import_playbook: cotel.yml
 - import_playbook: mtele.yml
+- import_playbook: des1.yml
 - import_playbook: des2.yml
 - import_playbook: coger.yml
 - import_playbook: cotur.yml
