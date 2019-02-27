@@ -1,0 +1,7 @@
+# GERENCIADO PELO ANSIBLE
+auto lo
+iface lo inet loopback
+source /etc/network/interfaces.d/*
+
+auto eth0
+iface eth0 inet dhcp
