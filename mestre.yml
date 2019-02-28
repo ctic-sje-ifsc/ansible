@@ -35,6 +35,8 @@
 - import_playbook: biblio.yml
 #- import_playbook: testes.yml
 - import_playbook: ctic.yml
+- import_playbook: auditorios_vconf.yml
+- import_playbook: computadores_interativos.yml
 
 # Laboratorios
 - import_playbook: comum_laboratorios.yml
@@ -45,6 +47,7 @@
 - import_playbook: labcad2.yml
 - import_playbook: labcad3.yml
 - import_playbook: labmeios.yml
+- import_playbook: labaplicada.yml
 
 
 - hosts: all
