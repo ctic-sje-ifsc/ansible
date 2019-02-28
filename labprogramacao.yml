@@ -7,6 +7,14 @@
   roles:
     - epoptes_client
 
+# Colocado para testar, depois colocar no role grub ou no comum_laboratorio para todos os labs
+- hosts: programacao
+  roles:
+    - role: hudecof.grub-password
+      grub_password_v2_admin: ctic
+      grub_password_v2_passwd: grub.pbkdf2.sha512.10000.0DCDF87B6E55D6D77C2102BF2DB2DE5B562879E5F50DB5206B177599935ED9C06F76128CB5E08303CADA8AAA7DC6D0B723ED06E70AA65E678925D6BE3AEC984E.D99462728C8FBD20E87DCB393A342D45CE5195C9BC70811BC45F2468B147C0CFFD97773406BAE4E227A0B75A6072365D8CD931095AA97A4F5E9CAD6598DAAA72
+      grub_password_v2_unrestricted: true
+
 - hosts: sj-lin-prog-744523.maquinas.sj.ifsc.edu.br #Maquina do professor
   roles:
     - epoptes_server

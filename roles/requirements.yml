@@ -2,3 +2,4 @@
 #- src: tersmitten.apt
 #- src: debops.grub
 - src: geerlingguy.nfs
+- src: hudecof.grub-password
