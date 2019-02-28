@@ -1,0 +1,4 @@
+- hosts: maud,aud,vconf
+  roles: 
+    - role: grub
+      tipo: grub_lin
