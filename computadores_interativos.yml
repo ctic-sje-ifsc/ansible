@@ -1,0 +1,3 @@
+- hosts: pcinterativo
+  roles:
+    - apaga_wifi_salvo

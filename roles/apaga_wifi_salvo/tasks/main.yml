@@ -1,0 +1,27 @@
+---
+
+- name: Mantem o estado do arquivo /etc/init.d/apagaWifiSalvo.sh - Linux
+  copy:
+    src: apagaWifiSalvo.sh
+    dest: /etc/init.d/apagaWifiSalvo.sh
+    owner: root
+    group: root
+    mode: 0755
+  when: ansible_os_family == 'Debian'
+
+- name: Mantem o estado do arquivo /lib/systemd/system/apagaWifiSalvo.service - Linux
+  copy:
+    src: apagaWifiSalvo.service
+    dest: /lib/systemd/system/apagaWifiSalvo.service
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
+- name: Aplica o daemon-reload e o enable no servico apagaWifiSalvo - Linux
+  systemd:
+    enabled: yes
+    daemon_reload: yes
+    name: apagaWifiSalvo
+  when: ansible_os_family == 'Debian'
+
