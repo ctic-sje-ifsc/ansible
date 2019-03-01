@@ -1,0 +1,22 @@
+#Linux
+
+- name: Criando o arquivo iptables-saved zerado - Linux
+  copy:
+    src: iptables-saved
+    dest: /var/iptables-saved
+    owner: root
+    group: root
+    mode: 0600
+    args:
+      creates: "/var/iptables-saved"
+  when: ( ansible_os_family == 'Debian' and  aluno == 1 )
+
+- name: Tarefa para adicionar iptables-restore na crontab aluno - Linux
+  cron:
+    name: "iptablesRestore"
+    minute: "*/2"
+    user: "root"
+    job: "/usr/bin/find /var/iptables-saved -mmin -1 -type f -exec iptables-restore < /var/iptables-saved {} +"
+    state: present
+  when: ( ansible_os_family == 'Debian' and  aluno == 1 )
+
