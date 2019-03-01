@@ -1,13 +1,16 @@
 - hosts: redes
+  ignore_unreachable: true
   roles:
     - role: grub
       tipo: grub_soh_lin
 
 - hosts: redes:!sj-lin-redes-744530.maquinas.sj.ifsc.edu.br
+  ignore_unreachable: true
   roles:
     - epoptes_client
 
 - hosts: sj-lin-redes-744530.maquinas.sj.ifsc.edu.br #Maquina do professor
+  ignore_unreachable: true
   roles:
     - epoptes_server
     - ingressa_ldap

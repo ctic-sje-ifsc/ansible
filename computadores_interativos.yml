@@ -1,3 +1,4 @@
 - hosts: pcinterativo
+  ignore_unreachable: true
   roles:
     - apaga_wifi_salvo

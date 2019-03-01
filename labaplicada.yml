@@ -1,14 +1,17 @@
 #Linux
 - hosts: aplicada
+  ignore_unreachable: true
   roles:
     - role: grub
       tipo: grub_lin
 
 - hosts: aplicada
+  ignore_unreachable: true
   roles:
     - ingressa_ldap
 
 # Windows
 - hosts: aplicada_win
+  ignore_unreachable: true
   roles:
     - ingressa_ldap
