@@ -1,4 +1,5 @@
 - hosts: des1
+  ignore_unreachable: true
   roles:
     - packettracer
     - kile

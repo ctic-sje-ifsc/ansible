@@ -1,4 +1,5 @@
 - hosts: maud,aud,vconf
+  ignore_unreachable: true
   roles: 
     - role: grub
       tipo: grub_lin

@@ -1,5 +1,6 @@
 ---
 - hosts: reg
+  ignore_unreachable: true
   roles:
     - role: softwares_remotos
       apps:
