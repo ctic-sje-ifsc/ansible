@@ -387,7 +387,7 @@
 - name: Mantem o estado do arquivo /etc/network/interfaces.d/eth0 - Linux
   copy:
     content: |
-      allow-hotplug eth0
+      auto eth0
       iface eth0 inet dhcp
     dest: /etc/network/interfaces.d/eth0
     owner: root
