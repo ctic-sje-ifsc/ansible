@@ -430,7 +430,7 @@
   when: ( ansible_distribution == 'Debian' and ansible_swaptotal_mb < 1 )
 
 - name: Change swap file permissions
-  file: 
+  file:
     path: /swapfile
     owner: root
     group: root
@@ -447,7 +447,7 @@
   when: ( ansible_distribution == 'Debian' and ansible_swaptotal_mb < 1 and swapfile.stdout.find('swap file') == -1 )
 
 - name: Write swap entry in fstab
-  mount: 
+  mount:
     name: none
     src: /swapfile
     fstype: swap
@@ -462,3 +462,16 @@
   when: (ansible_distribution == 'Debian' and ansible_swaptotal_mb < 1)
 
 ##################### Fim e aplica SWAP
+
+###################### Inicio do arquivo para gravar FPGA no Quartus
+
+# - name: Copia o arquivo altera-usb-blaster.rules - Linux
+#   copy:
+#     src: altera-usb-blaster.rules
+#     dest: /etc/udev/rules.d/altera-usb-blaster.rules
+#     owner: root
+#     group: root
+#     mode: 0755
+#   when: ansible_os_family == 'Debian'
+
+  ##################### Fim do arquivo para gravar FPGA no Quartus
