@@ -1,4 +1,10 @@
 ---
+
+- hosts: all
+  gather_facts: false
+  tasks:
+    - meta: clear_host_errors
+
 - hosts: all
   tasks:
     - name: Instalar o aptitude, necessario para o modulo apt
