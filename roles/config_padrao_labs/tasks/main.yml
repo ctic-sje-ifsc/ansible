@@ -465,13 +465,13 @@
 
 ###################### Inicio do arquivo para gravar FPGA no Quartus
 
-# - name: Copia o arquivo altera-usb-blaster.rules - Linux
-#   copy:
-#     src: altera-usb-blaster.rules
-#     dest: /etc/udev/rules.d/altera-usb-blaster.rules
-#     owner: root
-#     group: root
-#     mode: 0755
-#   when: ansible_os_family == 'Debian'
+- name: Copia o arquivo altera-usb-blaster.rules - Linux
+  copy:
+    src: altera-usb-blaster.rules
+    dest: /etc/udev/rules.d/altera-usb-blaster.rules
+    owner: root
+    group: root
+    mode: 0755
+  when: ansible_os_family == 'Debian'
 
   ##################### Fim do arquivo para gravar FPGA no Quartus
