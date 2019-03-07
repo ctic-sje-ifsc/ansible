@@ -2,4 +2,4 @@
   ignore_unreachable: true
   roles: 
     - role: grub
-      tipo: grub_lin
+      tipo: grub_win
