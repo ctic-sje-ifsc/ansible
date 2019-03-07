@@ -1,0 +1,5 @@
+- hosts: ledis
+  ignore_unreachable: true
+  roles: 
+    - role: grub
+      tipo: grub_lin

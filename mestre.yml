@@ -40,6 +40,7 @@
 - import_playbook: ctic.yml
 - import_playbook: auditorios_vconf.yml
 - import_playbook: computadores_interativos.yml
+- import_playbook: ledis.yml
 
 # Laboratorios
 - import_playbook: comum_laboratorios.yml
