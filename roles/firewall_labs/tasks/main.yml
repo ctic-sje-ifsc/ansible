@@ -20,3 +20,11 @@
     state: present
   when: ( ansible_os_family == 'Debian' and  aluno == 1 )
 
+- name: Copia script para a maquina do professor - Linux
+  file:
+    src: firewall.sh
+    dest: /etc/init.d
+    owner: root
+    group: root
+    mode: "a+x"
+  when: ( ansible_os_family == 'Debian' and  prof == 1 )
