@@ -41,6 +41,7 @@
 - import_playbook: auditorios_vconf.yml
 - import_playbook: computadores_interativos.yml
 - import_playbook: ledis.yml
+- import_playbook: mcul.yml
 
 # Laboratorios
 - import_playbook: comum_laboratorios.yml
@@ -52,6 +53,7 @@
 - import_playbook: labcad3.yml
 - import_playbook: labmeios.yml
 - import_playbook: labaplicada.yml
+- import_playbook: labcsfio.yml
 
 
 - hosts: all
