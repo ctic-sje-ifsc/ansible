@@ -10,8 +10,8 @@
 
 - name: Adicionar repositório do vscode - Linux
   apt_repository:
-    filename: packages_microsoft_com_repos_vscode
-    repo: deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main
+    filename: vscode
+    repo: deb [arch=amd64] http://packages.microsoft.com/repos/vscode stable main
     state: present
     update_cache: yes
   when: ansible_os_family == 'Debian'
@@ -21,6 +21,11 @@
     name: code
     state: latest
   when: ansible_os_family == 'Debian'
+
+- name: Remove source list duplicado do code
+  file:
+    path: /etc/apt/sources.list.d/packages_microsoft_com_repos_vscode.list
+    state: absent
 
 #Windows
 # - name: Instalar o Visual Studio Code - Windows
