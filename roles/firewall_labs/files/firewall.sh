@@ -6,12 +6,13 @@ echo -n "Qual laboratório: "
 read LAB
 
 testa_ping(){
-    target=${1}
-    timeout 1 ping -q -i 0.2 -c2 ${target} > /dev/null 2>&1
-    teste="$?"
-    if [ ${teste} = "0" ] ; then
-      ssh root@${target} "$(typeset -f ${comando}); ${comando}" 2> /dev/null
-    fi
+  target=${1}
+  timeout 1 ping -q -i 0.2 -c2 ${target} > /dev/null 2>&1
+  teste="$?"
+  if [ ${teste} = "0" ] ; then
+    ssh root@${target} "$(typeset -f limpa); limpa" 2> /dev/null
+    ssh root@${target} "$(typeset -f ${comando}); ${comando}" 2> /dev/null
+  fi
 }
 
 limpa(){
