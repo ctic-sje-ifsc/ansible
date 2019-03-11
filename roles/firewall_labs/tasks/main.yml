@@ -1,16 +1,5 @@
 #Linux
 
-- name: Criando o arquivo iptables-saved zerado - Linux
-  copy:
-    src: iptables-saved
-    dest: /var/iptables-saved
-    owner: root
-    group: root
-    mode: 0600
-    args:
-      creates: "/var/iptables-saved"
-  when: ( ansible_os_family == 'Debian' and  aluno == 1 )
-
 - name: Tarefa para adicionar iptables-restore na crontab aluno - Linux
   cron:
     name: "iptablesRestore"
@@ -20,11 +9,29 @@
     state: present
   when: ( ansible_os_family == 'Debian' and  aluno == 1 )
 
-- name: Copia script para a maquina do professor - Linux
+- name: Copia script para a maquina do professor no sidi - Linux
   file:
-    src: firewall.sh
-    dest: /etc/init.d
+    src: firewall_sidi.sh
+    dest: /etc/init.d/firewall.sh
     owner: root
     group: root
     mode: "a+x"
-  when: ( ansible_os_family == 'Debian' and  prof == 1 )
+  when: ( ansible_os_family == 'Debian' and  ansible_hostname is search("^sj-lin-sidi") and prof == 1 )
+
+- name: Copia script para a maquina do professor no redes - Linux
+  file:
+    src: firewall_redes.sh
+    dest: /etc/init.d/firewall.sh
+    owner: root
+    group: root
+    mode: "a+x"
+  when: ( ansible_os_family == 'Debian' and  ansible_hostname is search("^sj-lin-redes") and prof == 1 )
+
+- name: Copia script para a maquina do professor no prog - Linux
+  file:
+    src: firewall_prog.sh
+    dest: /etc/init.d/firewall.sh
+    owner: root
+    group: root
+    mode: "a+x"
+  when: ( ansible_os_family == 'Debian' and  ansible_hostname is search("^sj-lin-prog") and prof == 1 )
