@@ -1,13 +1,13 @@
 #Linux
 
-- name: Tarefa para adicionar iptables-restore na crontab aluno - Linux
-  cron:
-    name: "iptablesRestore"
-    minute: "*/2"
-    user: "root"
-    job: "/usr/bin/find /var/iptables-saved -mmin -1 -type f -exec iptables-restore < /var/iptables-saved {} +"
-    state: present
-  when: ( ansible_os_family == 'Debian' and  aluno == 1 )
+# - name: Tarefa para adicionar iptables-restore na crontab aluno - Linux
+#   cron:
+#     name: "iptablesRestore"
+#     minute: "*/2"
+#     user: "root"
+#     job: "/usr/bin/find /var/iptables-saved -mmin -1 -type f -exec iptables-restore < /var/iptables-saved {} +"
+#     state: present
+#   when: ( ansible_os_family == 'Debian' and  aluno == 1 )
 
 - name: Copia script para a maquina do professor no sidi - Linux
   file:
@@ -16,7 +16,7 @@
     owner: root
     group: root
     mode: "a+x"
-  when: ( ansible_os_family == 'Debian' and  ansible_hostname is search("^sj-lin-sidi") and prof == 1 )
+  when: ( ansible_os_family == 'Debian' and  ansible_hostname is search("^sj-lin-sidi") )
 
 - name: Copia script para a maquina do professor no redes - Linux
   file:
@@ -25,7 +25,7 @@
     owner: root
     group: root
     mode: "a+x"
-  when: ( ansible_os_family == 'Debian' and  ansible_hostname is search("^sj-lin-redes") and prof == 1 )
+  when: ( ansible_os_family == 'Debian' and  ansible_hostname is search("^sj-lin-redes") )
 
 - name: Copia script para a maquina do professor no prog - Linux
   file:
@@ -34,4 +34,4 @@
     owner: root
     group: root
     mode: "a+x"
-  when: ( ansible_os_family == 'Debian' and  ansible_hostname is search("^sj-lin-prog") and prof == 1 )
+  when: ( ansible_os_family == 'Debian' and  ansible_hostname is search("^sj-lin-prog") )

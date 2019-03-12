@@ -1,15 +1,24 @@
 #!/bin/bash
 
+exec_cmd(){}
+# Testa se a maquina esta na rede e executa o comando do firewall
+maquinas=(703873 703874 703875 703876 703877 703878 703879 703880 703881 703882 703883 703884 703885 744600 744603 744604 744605 744606 744609 756046 756047 756048 756049 756050)
+for line in ${maquinas[@]}; do
+   ssh root@${target} "iptables -F && ip6tables -F" 2> /dev/null
+   copy_file sj-lin-sidi-${line}.maquinas.sj.ifsc.edu.br
+   ssh root@${target} "iptables-restore < /var/iptables-saved && ip6tables-restore < /var/iptables-saved" 2> /dev/null
+done
+}
+
 copy_file(){
     target=${1}
     timeout 1 ping -q -i 0.2 -c2 ${target} > /dev/null 2>&1
     teste="$?"
     if [ ${teste} = "0" ] ; then
-      ssh root@${target} "$(typeset -f libera); libera" 2> /dev/null
       ssh root@${target} "$(typeset -f ${comando}); ${comando}" 2> /dev/null
-      echo "${target} bloqueada."
+      echo "Máquina ${target} OK."
     else
-      echo "Máquina ${target} não bloqueada."
+      echo "Máquina ${target} falhou na aplicação da regra."
     fi
 }
 
@@ -73,19 +82,21 @@ COMMIT" | tee /var/iptables-saved
 COMMIT" | tee /var/ip6tables-saved
 }
 
-if [ $# -ne 1 ];
-    then
-        echo "Sintaxe errada. Exemplo:"
-        echo ".$0 (libera|bloqueia|wiki)"
-        exit
-fi
-
-maquinas=(703873 703874 703875 703876 703877 703878 703879 703880 703881 703882 703883 703884 703885 744600 744603 744604 744605 744606 744609 756046 756047 756048 756049 756050)
-
-# Testa se a maquina esta na rede e executa o comando do firewall
-comando=${1}
-for line in ${maquinas[@]}; do
-   ssh root@${target} "iptables -F && ip6tables -F" 2> /dev/null
-   copy_file sj-lin-sidi-${line}.maquinas.sj.ifsc.edu.br
-   ssh root@${target} "iptables-restore < /var/iptables-saved && ip6tables-restore < /var/iptables-saved" 2> /dev/null
-done
+case ${1} in
+  "libera")
+    comando=${1}
+    exec_cmd
+    ;;
+  "bloqueia")
+    comando=${1}
+    exec_cmd
+    ;;
+  "wiki")
+    comando=${1}
+    exec_cmd
+    ;;
+  *)
+    echo "Sintaxe errada. Exemplo:"
+    echo ".$0 (libera|bloqueia|wiki)"
+    exit
+esac
