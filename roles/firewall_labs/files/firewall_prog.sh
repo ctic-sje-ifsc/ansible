@@ -1,15 +1,25 @@
 #!/bin/bash
 
+exec_cmd(){}
+# Testa se a maquina esta na rede e executa o comando do firewall
+  maquinas=(38111 38125 744522 744527 744531 744532 744534 744535 744537 744538 744601 744602 744607 756043 756045 756051 866459 866460 866461 866462 866463 866464 866465 866466)
+  for line in ${maquinas[@]}; do
+    ssh root@${target} "iptables -F && ip6tables -F" 2> /dev/null
+    copy_file sj-lin-sidi-${line}.maquinas.sj.ifsc.edu.br
+    ssh root@${target} "iptables-restore < /var/iptables-saved && ip6tables-restore < /var/iptables-saved" 2> /dev/null
+  done
+  }
+
 copy_file(){
-    target=${1}
-    timeout 1 ping -q -i 0.2 -c2 ${target} > /dev/null 2>&1
-    teste="$?"
-    if [ ${teste} = "0" ] ; then
-      ssh root@${target} "$(typeset -f libera); libera" 2> /dev/null
-      ssh root@${target} "$(typeset -f ${comando}); ${comando}" 2> /dev/null
-    else
-      echo "Máquina ${target} não bloqueada. Desligada ou sem rede."
-    fi
+  target=${1}
+  timeout 1 ping -q -i 0.2 -c2 ${target} > /dev/null 2>&1
+  teste="$?"
+  if [ ${teste} = "0" ] ; then
+    ssh root@${target} "$(typeset -f ${comando}); ${comando}" 2> /dev/null
+    echo "Máquina ${target} OK."
+  else
+    echo "Máquina ${target} falhou na aplicação da regra."
+  fi
 }
 
 libera(){
@@ -72,19 +82,21 @@ COMMIT" | tee /var/iptables-saved
 COMMIT" | tee /var/ip6tables-saved
 }
 
-if [ $# -ne 1 ];
-    then
-        echo "Sintaxe errada. Exemplo:"
-        echo ".$0 (libera|bloqueia|wiki)"
-        exit
-fi
-
-maquinas=(38111 38125 744522 744527 744531 744532 744534 744535 744537 744538 744601 744602 744607 756043 756045 756051 866459 866460 866461 866462 866463 866464 866465 866466)
-
-# Testa se a maquina esta na rede e executa o comando do firewall
-comando=${1}
-for line in ${maquinas[@]}; do
-   ssh root@${target} "iptables -F && ip6tables -F" 2> /dev/null
-   copy_file sj-lin-prog-${line}.maquinas.sj.ifsc.edu.br
-   ssh root@${target} "iptables-restore < /var/iptables-saved && ip6tables-restore < /var/ip6tables-saved" 2> /dev/null
-done
+case ${1} in
+  "libera")
+    comando=${1}
+    exec_cmd
+    ;;
+  "bloqueia")
+    comando=${1}
+    exec_cmd
+    ;;
+  "wiki")
+    comando=${1}
+    exec_cmd
+    ;;
+  *)
+    echo "Sintaxe errada. Exemplo:"
+    echo ".$0 (libera|bloqueia|wiki)"
+    exit
+esac

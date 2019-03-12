@@ -1,15 +1,25 @@
 #!/bin/bash
 
+exec_cmd(){}
+  # Testa se a maquina esta na rede e executa o comando do firewall
+  maquinas=(38103 38106 38107 38109 38110 38114 38115 38116 38117 38118 38119 38120 38123 38126 38127 38128 38130 38131 38132 38135 38136 613025 710812)
+  for line in ${maquinas[@]}; do
+    ssh root@${target} "iptables -F && ip6tables -F" 2> /dev/null
+    copy_file sj-lin-sidi-${line}.maquinas.sj.ifsc.edu.br
+    ssh root@${target} "iptables-restore < /var/iptables-saved && ip6tables-restore < /var/iptables-saved" 2> /dev/null
+  done
+}
+
 copy_file(){
-    target=${1}
-    timeout 1 ping -q -i 0.2 -c2 ${target} > /dev/null 2>&1
-    teste="$?"
-    if [ ${teste} = "0" ] ; then
-      ssh root@${target} "$(typeset -f libera); libera" 2> /dev/null
-      ssh root@${target} "$(typeset -f ${comando}); ${comando}" #2> /dev/null
-    else
-      echo "Máquina ${target} não bloqueada."
-    fi
+  target=${1}
+  timeout 1 ping -q -i 0.2 -c2 ${target} > /dev/null 2>&1
+  teste="$?"
+  if [ ${teste} = "0" ] ; then
+    ssh root@${target} "$(typeset -f ${comando}); ${comando}" 2> /dev/null
+    echo "Máquina ${target} OK."
+  else
+    echo "Máquina ${target} falhou na aplicação da regra."
+  fi
 }
 
 libera(){
@@ -72,19 +82,21 @@ COMMIT" | tee /var/iptables-saved
 COMMIT" | tee /var/ip6tables-saved
 }
 
-if [ $# -ne 1 ];
-    then
-        echo "Sintaxe errada. Exemplo:"
-        echo ".$0 (libera|bloqueia|wiki)"
-        exit
-fi
-
-maquinas=(38103 38106 38107 38109 38110 38114 38115 38116 38117 38118 38119 38120 38123 38126 38127 38128 38130 38131 38132 38135 38136 613025 710812)
-
-# Testa se a maquina esta na rede e executa o comando do firewall
-comando=${1}
-for line in ${maquinas[@]}; do
-   ssh root@${target} "iptables -F && ip6tables -F" 2> /dev/null
-   copy_file sj-lin-redes-${line}.maquinas.sj.ifsc.edu.br
-   ssh root@${target} "iptables-restore < /var/iptables-saved && ip6tables-restore < /var/iptables-saved" 2> /dev/null
-done
+case ${1} in
+  "libera")
+    comando=${1}
+    exec_cmd
+    ;;
+  "bloqueia")
+    comando=${1}
+    exec_cmd
+    ;;
+  "wiki")
+    comando=${1}
+    exec_cmd
+    ;;
+  *)
+    echo "Sintaxe errada. Exemplo:"
+    echo ".$0 (libera|bloqueia|wiki)"
+    exit
+esac
