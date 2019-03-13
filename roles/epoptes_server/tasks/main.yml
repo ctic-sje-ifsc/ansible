@@ -6,9 +6,9 @@
   apt: name=epoptes-client state=absent purge=yes
   when: ansible_distribution == 'Debian'
 
-- name: Deleta o grupo epoptes local
+- name: Criar o grupo epoptes no arquivo /etc/group - Linux
   lineinfile:
-    path: /etc/group
-    state: absent
     regexp: '^epoptes'
-  when: ansible_distribution == 'Debian'
+    path: /etc/group
+    line: 'epoptes:x:900:gabriel.souza,humbertos,ctic,etorresini,odilson,moecke'
+  when: ansible_os_family == 'Debian'
