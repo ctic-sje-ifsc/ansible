@@ -95,7 +95,6 @@
     - tcpdump
     - snmp-mibs-downloader
     - cutecom
-    - avrdude
     - gdb
     - ipython3
     - git
@@ -115,7 +114,6 @@
     - resolvconf
     - spyder3
     - subversion
-    - gcc-avr
     - as31
     - chrpath
     - diffstat
@@ -136,6 +134,19 @@
     - net-tools
     - fping
     - libpcre++-dev
+  when: ansible_os_family == 'Debian'
+
+- name: Instalar lista de pacotes pedida pelo Roberto de Matos Chamado IFSC#2019030810001087 - Linux
+  apt: name={{ packages }} state=latest
+  vars:
+    packages:
+    - binutils-avr
+    - gcc-avr
+    - gdb-avr
+    - avr-libc
+    - simulavr
+    - avrdude
+    - avarice
   when: ansible_os_family == 'Debian'
 
 # - name: Instalar pacotes de bibliotecas padroes de laboratorios - Linux
@@ -162,7 +173,6 @@
 # #    - libstdc++-4.8-dev # nao tem mais, tem a mais atual
 # #    - linux-headers-generic # nao tem no debian
 #     - zlib1g-dev
-#     - avr-libc
 #   when: ansible_os_family == 'Debian'
 
 - name: Instalar lista de pacotes pedida pelo Emerson Mello - Linux
