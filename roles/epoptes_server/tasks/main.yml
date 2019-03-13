@@ -10,5 +10,5 @@
   lineinfile:
     regexp: '^epoptes'
     path: /etc/group
-    line: 'epoptes:x:900:gabriel.souza,humbertos,ctic,etorresini,odilson,moecke'
+    line: 'epoptes:x:900:gabriel.souza,humbertos,ctic,etorresini,odilson,moecke,casagrande,mayara.sousa,roberto.nobrega,ederson.luiz'
   when: ansible_os_family == 'Debian'
