@@ -5,6 +5,12 @@
     - kile
     - programas_padroes_labs
 
+- hosts: des2
+  ignore_unreachable: true
+  roles:
+    - role: grub
+      tipo: grub_lin
+
 - hosts: sj-lin-des2-744927.maquinas.sj.ifsc.edu.br #Diego
   ignore_unreachable: true
   roles:
