@@ -10,5 +10,5 @@
   lineinfile:
     regexp: '^epoptes'
     path: /etc/group
-    line: 'epoptes:x:900:gabriel.souza,humbertos,ctic,etorresini,odilson,moecke,casagrande,mayara.sousa,roberto.nobrega,ederson.luiz'
+    line: 'epoptes:x:900:gabriel.souza,humbertos,rmartins,marcelo.muniz,ctic,bau,eraldo,jorgec,michels,moecke,niltons,saul,sclima,volney,jaci,claudiacastro,volnei,rosane,jair.cadorin,rubem,vidomar,leda,pedrop,odilson,graciane,elen,pedroarmando,adenir,tisemp,mdoniak,msobral,ndoki,amoreira,mbd,mello,meosorio,noronha,casagrande,hellen,willi,silvianac,cantu,schalata,andrealves,etorresini,diegomedeiros,deise.arndt,fabiosouza,sergio.passos,claudinice.bertotti,diego.botelho,paulo.mafra,vivi,guilherme.schmidt,bruno.chang,argus.rocha,rodrigo.farias,juliano.souza,juliana.camilo,marnio.graciosa,gustavo.araujo,roberto.matos,fabricio.silva,felipe.pereira,claudia.bastos,arliones.hoeller,bruno.fontana,tomas.grimm,kleber.magno,fernando.cosentino,roberto.nobrega,jose.menezes,tulio.alberton,ramon.mayor,ana.negri,simara.sonaglio,clayrton.henrique,fernando.rodrigues,bruno.wisintainer,luciano.barreto,cleber.amaral,douglas,joao.carlos,fernanda.cherem,ederson.luiz,karin.eickhoff,heron.avila,mayara.sousa,tallys.barbosa'
   when: ansible_os_family == 'Debian'
