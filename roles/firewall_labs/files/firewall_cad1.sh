@@ -39,6 +39,7 @@ case ${comando} in
     comando4=${comando}
     comando6=${comando}
     exec_cmd
+    exit 0
     ;;
   "bloqueia")
     comando4=block4

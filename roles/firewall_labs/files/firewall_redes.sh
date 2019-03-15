@@ -4,7 +4,10 @@ exec_cmd(){
   while true; do
     for line in ${maquinas[@]}; do
       target=sj-lin-${lab}-${line}.maquinas.sj.ifsc.edu.br
-      ssh -q root@${target} "iptables-restore < /var/${comando4} && ip6tables-restore < /var/${comando6}"
+      timeout 1 ping -q -i 0.2 -c2 ${target} > /dev/null 2>&1
+      teste="$?"
+      if [ ${teste} = "0" ] ; then
+        ssh -q root@${target} "iptables-restore < /var/${comando4} && ip6tables-restore < /var/${comando6}"
         echo "Máquina ${target} OK."
       else
         echo "Máquina ${target} falhou na aplicação da regra."
@@ -36,6 +39,7 @@ case ${comando} in
     comando4=${comando}
     comando6=${comando}
     exec_cmd
+    exit 0
     ;;
   "bloqueia")
     comando4=block4
