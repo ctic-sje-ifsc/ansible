@@ -236,15 +236,15 @@
     state: link
   when: ansible_os_family == 'Debian'
 
-- name: Cria um link do salve seus trabalhos aqui no home do aluno - Linux
-  file:
-    src: /media/aluno/trabalhos
-    dest: /home/aluno/trabalhos
-    owner: aluno
-    group: aluno
-    state: link
-    force: yes
-  when: ansible_os_family == 'Debian'
+# - name: Cria um link do salve seus trabalhos aqui no home do aluno - Linux
+#   file:
+#     src: /media/aluno/trabalhos
+#     dest: /home/aluno/trabalhos
+#     owner: aluno
+#     group: aluno
+#     state: link
+#     force: yes
+#   when: ansible_os_family == 'Debian'
 
 # Para solucionar problemas com Ctrl + C Ctrl + v no matlab
 # Deixei comentado porque podemos modificar e deixar já no home do aluno
