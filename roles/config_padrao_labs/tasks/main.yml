@@ -344,8 +344,8 @@
 - include_role:
     name: chaves_ssh
 
-# - include_role:
-#     name: firewall_labs
+- include_role:
+    name: firewall_labs
 
 ###################### Fim dos Includes
 

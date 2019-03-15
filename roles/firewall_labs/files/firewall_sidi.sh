@@ -13,8 +13,8 @@ exec_cmd(){
         echo "Máquina ${target} falhou na aplicação da regra."
       fi
     done
+    echo "Executado regra ${comando}"
     sleep ${tempo}
-    echo "Executado"
   done
 }
 
