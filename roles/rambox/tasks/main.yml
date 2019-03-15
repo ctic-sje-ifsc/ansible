@@ -2,7 +2,7 @@
 
 - name: Install a .deb Rambox 0.6.3 - Linux
   apt:
-    deb: https://github.com/ramboxapp/community-edition/releases/download/0.6.3/Rambox-0.6.3-linux-amd64.deb
+    deb: https://github.com/ramboxapp/community-edition/releases/download/0.6.4/Rambox-0.6.4-linux-amd64.deb
   when: ansible_os_family == 'Debian'
 
 #Windows
