@@ -53,3 +53,18 @@
     group: root
     mode: 0755
   when: ( ansible_os_family == 'Debian' and  ansible_hostname is search("^sj-lin-cad3-744528") )
+
+- name: Copia regras para todas as maquinas - Linux
+  copy:
+    src: "{{ item }}"
+    dest: /var
+    owner: root
+    group: root
+    mode: 0755
+  with_items:
+    - block4
+    - block6
+    - wiki4
+    - wiki6
+    - libera
+  when: ansible_os_family == 'Debian'
