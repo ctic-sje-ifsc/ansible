@@ -42,23 +42,6 @@
     - dia
   when: ansible_os_family == 'Debian'
 
-## Instala Eclipse com suporte a C/C++ e Java - Alternativa ao Eclipse modificado que o Arliones tinha sugerido.
-
-- name: Instala Eclipse com suporte a C/C++ e Java - Linux
-  apt: name={{ packages }} state=latest
-  vars:
-    packages:
-    - eclipse-cdt
-    - eclipse
-    - eclipse-cdt-autotools
-    - eclipse-cdt-jni
-    - eclipse-egit
-    - eclipse-gef
-    - eclipse-emf
-    - eclipse-jdt
-    - eclipse-pde
-  when: ansible_os_family == 'Debian'
-
 # ## inicio dos pacotes do jessie
 
 # - name: Adicionar repositório jessie para instalar alguns pacotes
@@ -339,6 +322,9 @@
 
 - include_role:
     name: pycharm
+
+- include_role:
+    name: eclipse
 
 # - include_role:
 #     name: ingles_progs
