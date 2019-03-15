@@ -4,10 +4,7 @@ exec_cmd(){
   while true; do
     for line in ${maquinas[@]}; do
       target=sj-lin-${lab}-${line}.maquinas.sj.ifsc.edu.br
-      timeout 1 ping -q -i 0.2 -c2 ${target} > /dev/null 2>&1
-      teste="$?"
-      if [ ${teste} = "0" ] ; then
-        ssh root@${target} "iptables-restore < /var/${comando4} && ip6tables-restore < /var/${comando6}"
+      ssh -q root@${target} "iptables-restore < /var/${comando4} && ip6tables-restore < /var/${comando6}"
         echo "Máquina ${target} OK."
       else
         echo "Máquina ${target} falhou na aplicação da regra."
@@ -21,7 +18,7 @@ exec_cmd(){
 ##### Ajustes do script #####
 # Colocar aqui todos os patrimonios da maquina do laboratório
 maquinas=(38103 38106 38107 38109 38110 38114 38115 38116 38117 38118 38119 38120 38123 38126 38127 38128 38130 38131 38132 38135 38136 613025 710812)
-lab=cad1 #Especificar qual o laboratório
+lab=redes #Especificar qual o laboratório
 tempo=60 #Quandos segundos a aplicação da regra será repetida
 
 # Inicio do script

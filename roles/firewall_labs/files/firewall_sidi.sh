@@ -7,7 +7,7 @@ exec_cmd(){
       timeout 1 ping -q -i 0.2 -c2 ${target} > /dev/null 2>&1
       teste="$?"
       if [ ${teste} = "0" ] ; then
-        ssh root@${target} "iptables-restore < /var/${comando4} && ip6tables-restore < /var/${comando6}"
+        ssh -q root@${target} "iptables-restore < /var/${comando4} && ip6tables-restore < /var/${comando6}"
         echo "Máquina ${target} OK."
       else
         echo "Máquina ${target} falhou na aplicação da regra."
