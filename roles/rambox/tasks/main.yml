@@ -1,8 +1,12 @@
 #Linux
+- name: Verifica versao do rambox
+  shell: GET https://api.github.com/repos/ramboxapp/community-edition/tags |grep name |cut -d'"' -f4 -s
+  register: versao
+  ignore_errors: True
 
-- name: Install a .deb Rambox 0.6.3 - Linux
+- name: Install a .deb Rambox {{ versao.stdout }} - Linux
   apt:
-    deb: https://github.com/ramboxapp/community-edition/releases/download/0.6.4/Rambox-0.6.4-linux-amd64.deb
+    deb: https://github.com/ramboxapp/community-edition/releases/download/{{ versao.stdout }}/Rambox-{{ versao.stdout }}-linux-amd64.deb
   when: ansible_os_family == 'Debian'
 
 #Windows
