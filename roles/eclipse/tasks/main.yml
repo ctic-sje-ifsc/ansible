@@ -1,0 +1,31 @@
+## Instala Eclipse com suporte a C/C++ e Java - Alternativa ao Eclipse modificado que o Arliones tinha sugerido.
+
+- name: Instala Eclipse com suporte a C/C++ e Java - Linux
+  apt: name={{ packages }} state=latest
+  vars:
+    packages:
+    - eclipse-cdt
+    - eclipse
+    - eclipse-cdt-autotools
+    - eclipse-cdt-jni
+    - eclipse-egit
+    - eclipse-gef
+    - eclipse-emf
+    - eclipse-jdt
+    - eclipse-pde
+  when: ansible_os_family == 'Debian'
+
+- name: Copia plugins do avr - Linux
+  copy:
+    src: "{{ item }}"
+    dest: /usr/lib/eclipse/plugins
+    owner: root
+    group: root
+    mode: 0554
+  with_items:
+    - de.innot.avreclipse.core_2.4.1.jar
+    - de.innot.avreclipse.core.managedbuildsystem_2.4.1.jar
+    - de.innot.avreclipse.doc_2.4.1.jar
+    - de.innot.avreclipse.root_2.4.1.jar
+    - de.innot.avreclipse.ui_2.4.1.jar
+  when: ansible_os_family == 'Debian'
