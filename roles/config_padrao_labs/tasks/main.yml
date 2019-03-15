@@ -341,6 +341,9 @@
 - include_role:
     name: protege_win
 
+- include_role:
+    name: chaves_ssh
+
 # - include_role:
 #     name: firewall_labs
 

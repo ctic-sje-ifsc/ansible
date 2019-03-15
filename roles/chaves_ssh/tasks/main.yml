@@ -1,0 +1,104 @@
+---
+#Linux
+
+## CAD1
+- name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys do CAD1 - Linux
+  authorized_key:
+    user: root
+    state: present
+    key: "{{ lookup('file', 'cad1.id_rsa.pub') }}" 
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("^sj-lin-cad1")
+
+- name: Modifica o arquivo /root/.ssh/id_rsa do CAD1 - lINUX
+  copy:
+    src: cad1.id_rsa
+    dest: /root/.ssh/id_rsa
+    owner: root
+    group: root
+    mode: 0400
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-cad1-37247")
+
+## CAD2
+- name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys do CAD2 - Linux
+  authorized_key:
+    user: root
+    state: present
+    key: "{{ lookup('file', 'cad2.id_rsa.pub') }}"
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("^sj-lin-cad2")
+
+- name: Modifica o arquivo /root/.ssh/id_rsa do CAD2 - lINUX
+  copy:
+    src: cad2.id_rsa
+    dest: /root/.ssh/id_rsa
+    owner: root
+    group: root
+    mode: 0400
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-cad2-38841")
+
+## CAD3
+- name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys do CAD3 - Linux
+  authorized_key:
+    user: root
+    state: present
+    key: "{{ lookup('file', 'cad3.id_rsa.pub') }}"
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("^sj-lin-cad3")
+
+- name: Modifica o arquivo /root/.ssh/id_rsa do CAD3 - lINUX
+  copy:
+    src: cad3.id_rsa
+    dest: /root/.ssh/id_rsa
+    owner: root
+    group: root
+    mode: 0400
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-cad3-744528")
+
+## SIDI
+- name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys do SIDI - Linux
+  authorized_key:
+    user: root
+    state: present
+    key: "{{ lookup('file', 'sidi.id_rsa.pub') }}" 
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("^sj-lin-sidi")
+
+- name: Modifica o arquivo /root/.ssh/id_rsa do SIDI - lINUX
+  copy:
+    src: sidi.id_rsa
+    dest: /root/.ssh/id_rsa
+    owner: root
+    group: root
+    mode: 0400
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-sidi-703872")
+
+## REDES
+- name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys do REDES - Linux
+  authorized_key:
+    user: root
+    state: present
+    key: "{{ lookup('file', 'redes.id_rsa.pub') }}" 
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("^sj-lin-redes")
+
+- name: Modifica o arquivo /root/.ssh/id_rsa do REDES - lINUX
+  copy:
+    src: redes.id_rsa
+    dest: /root/.ssh/id_rsa
+    owner: root
+    group: root
+    mode: 0400
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-redes-744530")
+
+## PROG
+- name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys do PROG - Linux
+  authorized_key:
+    user: root
+    state: present
+    key: "{{ lookup('file', 'prog.id_rsa.pub') }}" 
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("^sj-lin-prog")
+
+- name: Modifica o arquivo /root/.ssh/id_rsa do PROG - lINUX
+  copy:
+    src: prog.id_rsa
+    dest: /root/.ssh/id_rsa
+    owner: root
+    group: root
+    mode: 0400
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-prog-744523")
