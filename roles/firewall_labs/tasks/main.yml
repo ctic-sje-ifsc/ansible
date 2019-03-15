@@ -1,37 +1,55 @@
 #Linux
 
-# - name: Tarefa para adicionar iptables-restore na crontab aluno - Linux
-#   cron:
-#     name: "iptablesRestore"
-#     minute: "*/2"
-#     user: "root"
-#     job: "/usr/bin/find /var/iptables-saved -mmin -1 -type f -exec iptables-restore < /var/iptables-saved {} +"
-#     state: present
-#   when: ( ansible_os_family == 'Debian' and  aluno == 1 )
-
 - name: Copia script para a maquina do professor no sidi - Linux
-  file:
+  copy:
     src: firewall_sidi.sh
     dest: /etc/init.d/firewall.sh
     owner: root
     group: root
-    mode: "a+x"
-  when: ( ansible_os_family == 'Debian' and  ansible_hostname is search("^sj-lin-sidi") )
+    mode: 0755
+  when: ( ansible_os_family == 'Debian' and  ansible_hostname is search("^sj-lin-sidi-703872") )
 
 - name: Copia script para a maquina do professor no redes - Linux
-  file:
+  copy:
     src: firewall_redes.sh
     dest: /etc/init.d/firewall.sh
     owner: root
     group: root
-    mode: "a+x"
-  when: ( ansible_os_family == 'Debian' and  ansible_hostname is search("^sj-lin-redes") )
+    mode: 0755
+  when: ( ansible_os_family == 'Debian' and  ansible_hostname is search("^sj-lin-redes-744530") )
 
 - name: Copia script para a maquina do professor no prog - Linux
-  file:
+  copy:
     src: firewall_prog.sh
     dest: /etc/init.d/firewall.sh
     owner: root
     group: root
-    mode: "a+x"
-  when: ( ansible_os_family == 'Debian' and  ansible_hostname is search("^sj-lin-prog") )
+    mode: 0755
+  when: ( ansible_os_family == 'Debian' and  ansible_hostname is search("^sj-lin-prog-744523") )
+
+- name: Copia script para a maquina do professor no cad1 - Linux
+  copy:
+    src: firewall_cad1.sh
+    dest: /etc/init.d/firewall.sh
+    owner: root
+    group: root
+    mode: 0755
+  when: ( ansible_os_family == 'Debian' and  ansible_hostname is search("^sj-lin-cad1-37247") )
+
+- name: Copia script para a maquina do professor no cad2 - Linux
+  copy:
+    src: firewall_cad2.sh
+    dest: /etc/init.d/firewall.sh
+    owner: root
+    group: root
+    mode: 0755
+  when: ( ansible_os_family == 'Debian' and  ansible_hostname is search("^sj-lin-cad2-38841") )
+
+- name: Copia script para a maquina do professor no cad3 - Linux
+  copy:
+    src: firewall_cad3.sh
+    dest: /etc/init.d/firewall.sh
+    owner: root
+    group: root
+    mode: 0755
+  when: ( ansible_os_family == 'Debian' and  ansible_hostname is search("^sj-lin-cad3-744528") )

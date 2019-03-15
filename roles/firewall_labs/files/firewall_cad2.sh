@@ -20,8 +20,8 @@ exec_cmd(){
 
 ##### Ajustes do script #####
 # Colocar aqui todos os patrimonios da maquina do laboratório
-maquinas=(38103 38106 38107 38109 38110 38114 38115 38116 38117 38118 38119 38120 38123 38126 38127 38128 38130 38131 38132 38135 38136 613025 710812)
-lab=cad1 #Especificar qual o laboratório
+maquinas=(38841 38842 38847 38851 38852 710789 710801 710804 710805 710806 710809 710811 710817 710819 710823)
+lab=cad2 #Especificar qual o laboratório
 tempo=60 #Quandos segundos a aplicação da regra será repetida
 
 # Inicio do script
