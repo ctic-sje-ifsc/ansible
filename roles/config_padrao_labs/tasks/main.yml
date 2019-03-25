@@ -1,6 +1,6 @@
 ---
 
-- name: Alterar tempo de retry do dhcp no lab- Linux
+- name: Alterar tempo de retry do dhcp no lab - Linux
   copy:
     src: dhclient.conf
     dest: /etc/dhcp/dhclient.conf
@@ -480,4 +480,19 @@
     mode: 0755
   when: ansible_os_family == 'Debian'
 
-  ##################### Fim do arquivo para gravar FPGA no Quartus
+##################### Fim do arquivo para gravar FPGA no Quartus
+
+###################### Inicio da conf de atalho para abrir o terminal
+
+- name: Cria o arquivo /etc/X11/Xsession.d/99AtalhoTerminal - Linux
+  copy:
+    content: |
+      dconf write /org/mate/marco/global-keybindings/run-command-terminal "'<Primary><Alt>t'"
+
+    dest: /etc/X11/Xsession.d/99AtalhoTerminal
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
+##################### Fim da conf de atalho para abrir o terminal
