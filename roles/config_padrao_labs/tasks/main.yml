@@ -496,3 +496,23 @@
   when: ansible_os_family == 'Debian'
 
 ##################### Fim da conf de atalho para abrir o terminal
+
+###################### Inicio da configuracao do gdb chamado 2019032610000179
+
+- name: Adicionar entrada SHELL no /etc/bash.bashrc  - Linux
+  lineinfile:
+    regexp: "^export SHELL="
+    state: present
+    path: /etc/bash.bashrc
+    line: 'export SHELL=/bin/bash'
+  when: ansible_os_family == 'Debian'
+
+  #Descomentar o codigo abaixo caso o codigo acima nao funcionar
+# - name: Adicionar entrada SHELL export no /etc/security/pam_env.conf - Linux
+#   lineinfile:
+#     regexp: '^SHELL'
+#     path: /etc/security/pam_env.conf
+#     line: 'SHELL     DEFAULT=/bin/bash'
+#   when: ansible_os_family == 'Debian'
+
+##################### Fim da configuracao do gdb chamado 2019032610000179
