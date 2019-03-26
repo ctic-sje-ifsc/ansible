@@ -1,17 +1,49 @@
-#- hosts: ctic
-#  roles:
-#    - code
-#    - teamviewer
-#    - virtualbox
-- hosts: sj-lin-ctic-744396.maquinas.sj.ifsc.edu.br
+- hosts: ctic
   roles:
     - code
-    - kubernetes
-    - docker
+    - teamviewer
+    - virtualbox
     - rambox
     - ingressa_ldap
-    # - teamviewer
-    # - virtualbox
+  tasks:
+  - name: Instalar os pacotes para o Ansible do stretch-backports - Linux Debian
+    apt: name=ansible state=latest default_release=stretch-backports
+  - name: Pacotes padroes da CTIC
+    apt: name={{ packages }} state=latest
+    vars:
+      packages:
+      - keepassx
+      - konsole
+      - nfs-common
+      - curl
+      - ethtool
+      - git
+      - gparted
+      - vinagre
+      - samba
+      - tcpdump
+      - usbutils
+      - sshfs
+      - net-tools
+      - dnsutils
+  - name: Adiciona no grupo docker
+    user:
+      name: "{{item}}"
+      groups: docker
+      append: yes
+    with_items:
+      - rmartins
+      - humbertos
+      - gabriel.souza
+      - marcelo.alejandro
+      - etorresini
+    when: ansible_os_family == 'Debian'
+
+##################  Maquina do RICARDO  ##################
+- hosts: sj-lin-ctic-744396.maquinas.sj.ifsc.edu.br
+  roles:
+    - kubernetes
+    - docker
     - softwares_remotos
     - role: geerlingguy.nfs
       nfs_exports: [ "/dados *(rw,sync,no_root_squash)" ]
@@ -31,46 +63,22 @@
     #     - name: USERNAME
     #       password: PASSWORD
   tasks:
-  - name: Instalar os pacotes para o Ansible do stretch-backports - Linux Debian
-    apt: name=ansible state=latest default_release=stretch-backports
   - name: Pacotes do Ricardo
     apt: name={{ packages }} state=latest
     vars:
       packages:
-      - keepassx
       - k3b
-      - konsole
       - keychain
-      - nfs-common
-      - curl
       - dcfldd
-      - ethtool
-      - git
-      - gparted
       - lm-sensors
-      - vinagre
       - nautilus-dropbox
-      - samba
-      - tcpdump
       - unzip
-      - usbutils
       - vlan
-      - sshfs
-      - python-pip
+      - python3-pip
+      - python3-tk
+      - gir1.2-appindicator3-0.1
+      - python-appindicator
       - virtualenv
-      - net-tools
-      - dnsutils
   - pip:
       name: pywinrm
-  # Permissao para gravar na placa
-  - name: Adiciona no grupo docker
-    user:
-      name: "{{item}}"
-      groups: docker
-      append: yes
-    with_items:
-      - rmartins
-      - humbertos
-      - gabriel.souza
-      - etorresini
-    when: ansible_os_family == 'Debian'
+##########################################################
