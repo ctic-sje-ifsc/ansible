@@ -12,6 +12,7 @@
     apt: name={{ packages }} state=latest
     vars:
       packages:
+      - docker
       - keepassx
       - konsole
       - nfs-common
@@ -43,7 +44,6 @@
 - hosts: sj-lin-ctic-744396.maquinas.sj.ifsc.edu.br
   roles:
     - kubernetes
-    - docker
     - softwares_remotos
     - role: geerlingguy.nfs
       nfs_exports: [ "/dados *(rw,sync,no_root_squash)" ]
