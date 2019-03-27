@@ -14,7 +14,6 @@
     - cad1-37247
     - cad2-38841
     - cad3-744528
-    - ricardo
   when: ( ansible_os_family == 'Debian' and  ansible_hostname is search("^sj-lin-{{ item }}") )
 
 - name: Copia o arquivo com os patrimonios para a maquina do professor - Linux
@@ -31,7 +30,6 @@
     - cad1-37247
     - cad2-38841
     - cad3-744528
-    - ricardo
   when: ( ansible_os_family == 'Debian' and  ansible_hostname is search("^sj-lin-{{ item }}") )
 
 - name: Copia regras para todas as maquinas - Linux
