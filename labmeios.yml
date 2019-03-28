@@ -1,11 +1,11 @@
 - hosts: labmeios
-  ignore_unreachable: true
+#  ignore_unreachable: true
   roles:
     - role: grub
       tipo: grub_soh_lin
 
 - hosts: labmeios
-  ignore_unreachable: true
+#  ignore_unreachable: true
   roles:
     - ingressa_ldap
     - configura_monitores

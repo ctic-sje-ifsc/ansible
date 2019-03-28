@@ -1,6 +1,6 @@
 # Linux
 - hosts: sidi_lin
-  ignore_unreachable: true
+#  ignore_unreachable: true
   roles:
     - role: grub
       tipo: grub_lin
@@ -14,12 +14,12 @@
     when: ansible_os_family == 'Debian'
 
 - hosts: sidi_lin:!sj-lin-sidi-703872.maquinas.sj.ifsc.edu.br
-  ignore_unreachable: true
+#  ignore_unreachable: true
   roles:
     - epoptes_client
 
 - hosts: sj-lin-sidi-703872.maquinas.sj.ifsc.edu.br #Maquina do professor
-  ignore_unreachable: true
+#  ignore_unreachable: true
   roles:
     - epoptes_server
     - ingressa_ldap
@@ -29,6 +29,6 @@
 # Windows
 
 - hosts: sj-sidi-703872.maquinas.sj.ifsc.edu.br #Maquina do professor
-  ignore_unreachable: true
+#  ignore_unreachable: true
   roles:
     - ingressa_ldap

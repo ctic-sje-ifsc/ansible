@@ -1,7 +1,7 @@
 #Linux
 
 - hosts: cad3_lin
-  ignore_unreachable: true
+#  ignore_unreachable: true
   roles:
     - role: grub
       tipo: grub_win
@@ -16,12 +16,12 @@
     when: ansible_os_family == 'Debian'
 
 - hosts: cad3_lin:!sj-lin-cad3-744528.maquinas.sj.ifsc.edu.br
-  ignore_unreachable: true
+#  ignore_unreachable: true
   roles:
     - epoptes_client
 
 - hosts: sj-lin-cad3-744528.maquinas.sj.ifsc.edu.br #Maquina do professor
-  ignore_unreachable: true
+#  ignore_unreachable: true
   roles:
     - epoptes_server
     - ingressa_ldap
@@ -30,6 +30,6 @@
 # Windows
 
 - hosts: sj-cad3-744528.maquinas.sj.ifsc.edu.br #Maquina do professor
-  ignore_unreachable: true
+#  ignore_unreachable: true
   roles:
     - ingressa_ldap

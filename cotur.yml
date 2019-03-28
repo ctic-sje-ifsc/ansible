@@ -1,4 +1,4 @@
 - hosts: cotur_sinal
-  ignore_unreachable: true
+#  ignore_unreachable: true
   roles:
     - sinal

@@ -1,5 +1,5 @@
 - hosts: patrim
-  ignore_unreachable: true
+#  ignore_unreachable: true
   roles:
     - spotify
     - ingressa_ldap_sem_cups_client

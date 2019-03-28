@@ -1,6 +1,6 @@
 ---
 - hosts: administrativos_lin
-  ignore_unreachable: true
+#  ignore_unreachable: true
   roles:
     - sources_list
     - programas_padroes_adm
@@ -13,25 +13,25 @@
 # Chamado do Jorge casagrande pedindo para desativar o desligamento na máquina dele IFSC#2018112610001119
 # Chamado do Diego Medeiros pedindo para desativar o desligamento na máquina dele IFSC#2018112810000143
 - hosts: administrativos_lin:!sj-lin-cotel-38112.maquinas.sj.ifsc.edu.br:!sj-lin-des2-744927.maquinas.sj.ifsc.edu.br
-  ignore_unreachable: true
+#  ignore_unreachable: true
   roles:
     - auto_desligamento
 
 # PC do Prof Diego usa Gnome + GDM3
 - hosts: administrativos_lin:!sj-lin-des2-744927.maquinas.sj.ifsc.edu.br:!patrim:!biblio
-  ignore_unreachable: true
+#  ignore_unreachable: true
   roles:
     - ingressa_ldap
 
 #Colocar os grupos que possuem mais de uma distribuicao instalada e criar o playbook para o grupo
 - hosts: administrativos_lin:!labfisica:!maud:!aud:!vconf:!ledis:!mcul:!des2
-  ignore_unreachable: true
+#  ignore_unreachable: true
   roles:
     - role: grub
       tipo: grub_soh_lin
 
 - hosts: administrativos_win
-  ignore_unreachable: true
+#  ignore_unreachable: true
   roles:
     - programas_padroes_adm
     - config_padrao_adm
