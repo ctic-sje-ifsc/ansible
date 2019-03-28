@@ -117,6 +117,8 @@
     - net-tools
     - fping
     - libpcre++-dev
+    - python3-tk
+    - gir1.2-appindicator3-0.1
   when: ansible_os_family == 'Debian'
 
 - name: Instalar lista de pacotes pedida pelo Roberto de Matos Chamado IFSC#2019030810001087 - Linux

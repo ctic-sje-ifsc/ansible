@@ -1,58 +1,36 @@
 #Linux
 
-- name: Copia script para a maquina do professor no sidi - Linux
+- name: Copia script para a maquina do professor - Linux
   copy:
-    src: firewall_sidi.sh
+    src: firewall.sh
     dest: /etc/init.d/firewall.sh
     owner: root
     group: root
     mode: 0755
-  when: ( ansible_os_family == 'Debian' and  ansible_hostname is search("^sj-lin-sidi-703872") )
+  with_items:
+    - sidi-703872
+    - redes-744530
+    - prog-744523
+    - cad1-37247
+    - cad2-38841
+    - cad3-744528
+  when: ( ansible_os_family == 'Debian' and  ansible_hostname is search("^sj-lin-{{ item }}") )
 
-- name: Copia script para a maquina do professor no redes - Linux
+- name: Copia o arquivo com os patrimonios para a maquina do professor - Linux
   copy:
-    src: firewall_redes.sh
-    dest: /etc/init.d/firewall.sh
+    src: pat
+    dest: /var/pat
     owner: root
     group: root
     mode: 0755
-  when: ( ansible_os_family == 'Debian' and  ansible_hostname is search("^sj-lin-redes-744530") )
-
-- name: Copia script para a maquina do professor no prog - Linux
-  copy:
-    src: firewall_prog.sh
-    dest: /etc/init.d/firewall.sh
-    owner: root
-    group: root
-    mode: 0755
-  when: ( ansible_os_family == 'Debian' and  ansible_hostname is search("^sj-lin-prog-744523") )
-
-- name: Copia script para a maquina do professor no cad1 - Linux
-  copy:
-    src: firewall_cad1.sh
-    dest: /etc/init.d/firewall.sh
-    owner: root
-    group: root
-    mode: 0755
-  when: ( ansible_os_family == 'Debian' and  ansible_hostname is search("^sj-lin-cad1-37247") )
-
-- name: Copia script para a maquina do professor no cad2 - Linux
-  copy:
-    src: firewall_cad2.sh
-    dest: /etc/init.d/firewall.sh
-    owner: root
-    group: root
-    mode: 0755
-  when: ( ansible_os_family == 'Debian' and  ansible_hostname is search("^sj-lin-cad2-38841") )
-
-- name: Copia script para a maquina do professor no cad3 - Linux
-  copy:
-    src: firewall_cad3.sh
-    dest: /etc/init.d/firewall.sh
-    owner: root
-    group: root
-    mode: 0755
-  when: ( ansible_os_family == 'Debian' and  ansible_hostname is search("^sj-lin-cad3-744528") )
+  with_items:
+    - sidi-703872
+    - redes-744530
+    - prog-744523
+    - cad1-37247
+    - cad2-38841
+    - cad3-744528
+  when: ( ansible_os_family == 'Debian' and  ansible_hostname is search("^sj-lin-{{ item }}") )
 
 - name: Copia regras para todas as maquinas - Linux
   copy:
