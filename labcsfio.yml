@@ -1,11 +1,11 @@
 - hosts: csfio_lin
-  ignore_unreachable: true
+#  ignore_unreachable: true
   roles:
     - ingressa_ldap
     - role: grub
       tipo: grub_lin
 
 - hosts: csfio_win
-  ignore_unreachable: true
+#  ignore_unreachable: true
   roles:
     - ingressa_ldap

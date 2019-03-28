@@ -1,6 +1,6 @@
 ---
 - hosts: laboratorios_lin
-  ignore_unreachable: true
+#  ignore_unreachable: true
   roles:
     - sources_list
     - programas_padroes_labs
@@ -9,7 +9,7 @@
 
 
 - hosts: laboratorios_win
-  ignore_unreachable: true
+#  ignore_unreachable: true
   roles:
     - programas_padroes_labs
     - config_padrao_labs
