@@ -26,6 +26,8 @@
   file:
     path: /etc/apt/sources.list.d/packages_microsoft_com_repos_vscode.list
     state: absent
+  when: ansible_os_family == 'Debian'
+
 
 #Windows
 # - name: Instalar o Visual Studio Code - Windows
