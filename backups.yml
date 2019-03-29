@@ -1,0 +1,34 @@
+# Linux
+- hosts: backup_lin
+#  ignore_unreachable: true
+  roles:
+    - role: grub
+      tipo: grub_lin
+  tasks:
+  - name: Monta /dev/sda3 em /media/aluno/trabalhos fstab - Linux
+    mount:
+      path: /media/aluno/trabalhos
+      src: /dev/sda3
+      fstype: vfat
+      state: present
+    when: ansible_os_family == 'Debian'
+
+- hosts: sj-lin-bkp-aluno.maquinas.sj.ifsc.edu.br
+#  ignore_unreachable: true
+  roles:
+    - epoptes_client
+
+- hosts: sj-lin-bkp-prof.maquinas.sj.ifsc.edu.br
+#  ignore_unreachable: true
+  roles:
+    - epoptes_server
+    - ingressa_ldap
+    # - configura_monitores
+    - owncloud_client
+
+
+################ Windows ################
+- hosts: sj-bkp-prof.maquinas.sj.ifsc.edu.br #Maquina do professor
+#  ignore_unreachable: true
+  roles:
+    - ingressa_ldap
