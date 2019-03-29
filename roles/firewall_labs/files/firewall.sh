@@ -4,17 +4,24 @@ exec_cmd(){
   while true; do
     for line in ${maquinas[@]}; do
       target=sj-lin-${lab}-${line}.maquinas.sj.ifsc.edu.br
-      timeout 1 ping -q -i 0.2 -c2 ${target} > /dev/null 2>&1
-      teste="$?"
-      if [ ${teste} = "0" ] ; then
+      timeout 0.1 nc -z -w5 ${target} 22  > /dev/null 2>&1
+      if [ ${?} = "0" ] ; then
         ssh -q root@${target} "iptables-restore < /var/${comando4} && ip6tables-restore < /var/${comando6}"&
         echo "Máquina ${target} OK."
+      elif [ ${?} = "1" ] ; then
+        echo "Máquina ${target}: falhou na aplicação da regra. Computador desligado ou sem rede."
+      elif [ ${?} = "124" ] ; then
+        echo "Máquina ${target}: falhou na aplicação da regra. Ligado no Windows???."
       else
-        echo "Máquina ${target} falhou na aplicação da regra."
+        echo "Máquina ${target}: falhou na aplicação da regra."
       fi
     done
     echo "Executado regra ${comando}"
-    sleep ${tempo}
+    if ${repeticao} ; then
+      sleep ${tempo}
+    else
+      exit 0
+    fi
   done
 }
 
@@ -24,7 +31,8 @@ maquinas=$(cat /var/pat |grep ${lab}|cut -d'=' -f2)
 
 # Inicio do script
 comando=${1}
-tempo=${2}
+repeticao=${2}
+tempo=60
 if [ $# -eq 0 ] || [ $# -gt 3 ] ;
     then
         echo "Sintaxe errada. Exemplo:"
@@ -35,9 +43,9 @@ if [ $# -eq 0 ] || [ $# -gt 3 ] ;
         exit
 fi
 
-# Se não for informado periodo de atualizacao das regras eh definido 60 segundos como padrao
-if [ -z ${tempo} ]; then
-	tempo=60
+# Se não for informado repeticao
+if [ -z ${repeticao} ]; then
+	repeticao=true
 fi
 
 case ${comando} in
@@ -62,7 +70,7 @@ case ${comando} in
     firewall.sh
 
 Synopse
-bash ${0} [regra] [tempo de atualização (opcional)]
+bash ${0} [regra] [repeticao (opcional)]
 
 Descrição
 Esse script foi feito para bloquear a internet nos computadores dos alunos quando o professor assim o
@@ -77,11 +85,12 @@ bloqueia  Realiza o bloquear do acesso a todos os sites, se mantém liberado o s
 wiki      Mantém o acesso somente a página da wiki, se mantém liberado o servidor de licenças, o SSH e o ICMP
 ajuda     Exibe esta ajuda.
 
-Tempo de atualização:
-Por padrão o script fica atualizando as regras a cada 60 segundos, esse tempo pode ser alterado por
-qualquer número inteiro e maior que zero, o tempo é em segundos."
+Repetição: (Essa opção é opcional, se não for especificado será adotado 'true')
+true      Executa o script com a regra definida a cada 60 segundos.
+false     Executa o script com a regra definida apenas 1 vez."
     ;;
   *)
+    echo "Comando ${comando} não reconhecido."
     exit 0
     ;;
 esac
