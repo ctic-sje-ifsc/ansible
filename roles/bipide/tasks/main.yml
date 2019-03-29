@@ -1,0 +1,28 @@
+#Windows
+
+- name: Baixar o instalador do BIP IDE - Windows
+  win_get_url:
+    url: 'https://sourceforge.net/projects/bipide/files/latest/download'
+    dest: 'C:\users\bipide.msi'
+    force: no
+    timeout: 300 # 5 minutos
+  when: ansible_os_family == 'Windows'
+
+- name: Instalar o BIP IDE - Windows
+  win_package:
+    path: 'C:\users\bipide.msi'
+    product_id: '{833F7C2A-28F1-4D9B-8D79-3C296B257B0B}'
+    state: present
+  when: ansible_os_family == 'Windows'
+
+### Comando em powershell para mostrar product_id
+### get-wmiobject Win32_Product | Format-Table IdentifyingNumber, Name, LocalPackage -AutoSize
+
+- name: Atalho para o BIP IDE - Windows
+  win_shortcut:
+    description: Atalho para o bipide
+    src: 'C:\Program Files (x86)\Univali\Bipide\Bipide.exe'
+    dest: '%Public%\Desktop\Bipide.lnk'
+    icon: 'C:\Program Files (x86)\Univali\Bipide\pe32.ico,0'
+    state: present
+  when: ansible_os_family == 'Windows'
