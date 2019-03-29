@@ -17,6 +17,9 @@
     state: present
   when: ansible_os_family == 'Windows'
 
+### Comando em powershell para mostrar product_id
+### get-wmiobject Win32_Product | Format-Table IdentifyingNumber, Name, LocalPackage -AutoSize
+
 - name: Atalho para o Chem Draw 12 - Windows
   win_shortcut:
     description: Atalho para o Chem Draw 12

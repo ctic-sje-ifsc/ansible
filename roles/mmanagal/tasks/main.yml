@@ -7,6 +7,9 @@
     product_id: '{93BC44A2-0A38-4144-A7EE-DC4AAF2B4099}_is1'
     state: present
   when: ansible_os_family == 'Windows'
+  
+### Comando em powershell para mostrar product_id
+### get-wmiobject Win32_Product | Format-Table IdentifyingNumber, Name, LocalPackage -AutoSize
 
 - name: Atalho para o Mmana-gal
   win_shortcut:
