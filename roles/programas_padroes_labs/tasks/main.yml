@@ -397,6 +397,9 @@
     name: scratch
 
 - include_role:
+    name: bipide
+
+- include_role:
     name: sr2015
 
 - include_role:
