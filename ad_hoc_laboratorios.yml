@@ -6,22 +6,22 @@
 #   roles:
 #     - final_semestre
 
-# LIMPA TEMP WINDOWS
-- hosts: laboratorios_win
-  roles:
-    - role: limpa_temp_windows
-      play: 0
-      # play: 0 desativa
-      # play: 1 ativa
+# # LIMPA TEMP WINDOWS
+# - hosts: laboratorios_win
+#   roles:
+#     - role: limpa_temp_windows
+#       play: 0
+#       # play: 0 desativa
+#       # play: 1 ativa
 
-# ATUALIZA MAC
-# SEMPRE VERIFICAR O HOST QUE QUER ATINGIR
-- hosts: laboratorios_lin
-  roles:
-    - role: atualiza_mac
-      play: 0
-      # play: 0 desativa
-      # play: 1 ativa
+# # ATUALIZA MAC
+# # SEMPRE VERIFICAR O HOST QUE QUER ATINGIR
+# - hosts: laboratorios_lin
+#   roles:
+#     - role: atualiza_mac
+#       play: 0
+#       # play: 0 desativa
+#       # play: 1 ativa
 
 ## DESCOMENTAR PARA CORRIGIR O EPOPTES, PEGAR AS CHAVES DO SERVER. COMENTAR NOVAMENTE DEPOIS.
 ## LEMBRAR DE RODAR COM A OPÇÃO -l GRUPO_DO_LAB
@@ -30,6 +30,18 @@
 #     - name: Pegar as chaves do epoptes server no cliente - Linux
 #       shell: /usr/sbin/epoptes-client -c
 #       when: ansible_os_family == 'Debian'
+
+# - hosts: sidi_win
+#   tasks:
+#     - name: Turn off computers Windows
+#       raw: shutdown /s /hybrid /t 15 /c "We are turning computers off after maintenance"
+
+# - hosts: sidi_lin
+#   tasks:
+#     - name: Reboot computer para Windows
+#       raw: grub-reboot 2
+#     - name: Turn off computers
+#       raw: reboot
 
 
 # - hosts: laboratorios_lin
