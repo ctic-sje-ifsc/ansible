@@ -343,14 +343,7 @@
     data: 1
     type: dword
   when: ansible_os_family == 'Windows'
-  
-- name: Setar timezone no Windows
-  win_timezone:
-    timezone: E. South America Standard Time
-  when: ansible_os_family == 'Windows'
-###################### Fim da configuracao do UTC Windows
 
-###################### Início da configuracao do UTC Windows
 - name: Setar timezone no Windows
   win_timezone:
     timezone: E. South America Standard Time
