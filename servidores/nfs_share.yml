@@ -1,0 +1,46 @@
+- hosts: nfs_share
+  tasks:
+  - name: Instalar pacotes necessarios para o FTP - Linux
+    apt: name={{ packages }} state=latest
+    vars:
+      packages:
+      - vsftpd
+      - ftp 
+  - name: Cria usuário fog
+    user:
+      name: fog
+      password: $6$cYZmmWnz$XjnaseDogSKb8rDLvbgwMmFX5NwTm9IOoEHK1fybdJHvILV3dJ82Ml8eJpk/w89Cwoce8IzY6/kQQDDuA3pLr0
+      home: /nfs_fog
+      create_home: no
+  - name: Modifica variavel write_enable do /etc/vsftpd.conf
+    lineinfile:
+      path: /etc/vsftpd.conf
+      regexp: '^write_enable=YES'
+      insertafter: '^#write_enable=YES'
+      line: 'write_enable=YES'
+    notify:
+    - restart vsftpd 
+  - name: Cria pasta /nfs_kubernetes
+    file:
+      state: directory
+      path: /nfs_kubernetes
+      owner: nobody
+      group: nogroup
+      mode: 0755
+  - name: Cria pasta /nfs_fog
+    file:
+      state: directory
+      path: /nfs_fog
+      owner: nobody
+      group: fog
+      mode: 0775
+  roles:
+    - role: geerlingguy.nfs
+      nfs_exports: 
+      - "/nfs_kubernetes 191.36.8.0/27(rw,sync,no_root_squash)" 
+      - "/nfs_fog *(rw,sync,no_root_squash)"
+  handlers:
+    - name: restart vsftpd
+      service:
+        name: vsftpd
+        state: restarted
