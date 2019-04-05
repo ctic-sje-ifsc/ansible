@@ -34,6 +34,12 @@
       owner: nobody
       group: fog
       mode: 0775
+  - name: Arrumar permissão das imagens do FOG a cada 2 horas"
+    cron:
+      name: "Arrumar Permissão das imagens do FOG"
+      hour: "*/2"
+      minute: "00"
+      job: "find /nfs_fog/* -type d ! -name dev -exec chmod 0555 {} \\; ; chmod -R 777 /nfs_fog/dev"
   roles:
     - role: geerlingguy.nfs
       nfs_exports: 
