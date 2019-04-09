@@ -1,29 +1,36 @@
 ---
 #Linux
 
-# Debian
-- name: Adicionar a chave do repositório do docker - Linux Debian
+# Debian stretch
+- name: Instalar pacotes do necessários Docker
+  apt: name={{ packages }} state=latest
+  vars:
+    packages:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - gnupg2
+    - software-properties-common
+  when: (ansible_os_family == 'Debian')
+
+- name: Adicionar a chave do repositório do docker
   apt_key:
     url: https://download.docker.com/linux/debian/gpg
     state: present
-  when: ansible_distribution == 'Debian'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
 
-- name: Adicionar repositório do docker - Linux Debian
+- name: Adicionar repositório do docker
   apt_repository:
     repo: deb [arch=amd64] https://download.docker.com/linux/debian stretch stable
     state: present
     update_cache: yes
-  when: ansible_distribution == 'Debian'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
 
-- name: Instalar o docker - Linux Debian
-  apt:
-    name: docker-ce
-    state: latest
-  when: ansible_distribution == 'Debian'
-
-#Windows
-# - name: Instalar o docker - Windows
-#   win_chocolatey:
-#     name: docker
-# #     state: latest
-#   when: ansible_os_family == 'Windows'
+- name: Instalar o docker
+  apt: name={{ packages }} state=latest
+  vars:
+    packages:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
