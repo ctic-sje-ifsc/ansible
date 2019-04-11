@@ -97,7 +97,7 @@
   - replace:
       path: /opt/agatha/docker/spring/config/application.yaml
       regexp: 'dns_definido'
-      replace: 'agatha.sj.ifsc.edu.br'
+      replace: 'gr.ifsc.edu.br'
 
   - replace:
       path: /opt/agatha/docker/spring/config/application.yaml
