@@ -24,7 +24,7 @@
     - ingressa_ldap
 
 #Colocar os grupos que possuem mais de uma distribuicao instalada e criar o playbook para o grupo
-- hosts: administrativos_lin:!labfisica:!maud:!aud:!vconf:!ledis:!mcul:!des2
+- hosts: administrativos_lin:!labfisica:!maud:!aud:!vconf:!ledis:!mcul:!des2:!sj-lin-depe-BRG311F6PN.maquinas.sj.ifsc.edu.br
 #  ignore_unreachable: true
   roles:
     - role: grub
