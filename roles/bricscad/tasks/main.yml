@@ -16,3 +16,19 @@
     product_id: '{0A1EBB09-ADAB-4E6B-9185-54D12E8FBE56}'
     state: present
   when: ansible_os_family == 'Windows'
+
+- name: Baixar o instalador do Bricscad Shape
+  win_get_url:
+    url: 'https://discovirtual.ifsc.edu.br/remote.php/webdav/SJE/CTIC/BricsCAD-Shape-V19.2.06-1-pt_BR(x64).msi'
+    dest: 'C:\users\BricsCAD-Shape-V19.2.06-1-pt_BR(x64).msi'
+    force: no
+    url_username: "{{ url_username }}"
+    url_password: "{{ url_password }}"
+  when: ansible_os_family == 'Windows'
+
+- name: Baixar e instalar o BricsCAD Shape - Windows
+  win_package:
+    path: 'C:\users\BricsCAD-Shape-V19.2.06-1-pt_BR(x64).msi'
+    product_id: '{05FF4C9D-E628-4F30-99CC-C704F5CB21C0}'
+    state: present
+  when: ansible_os_family == 'Windows'
