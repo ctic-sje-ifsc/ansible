@@ -42,6 +42,7 @@
 - import_playbook: computadores_interativos.yml
 - import_playbook: ledis.yml
 - import_playbook: mcul.yml
+- import_playbook: depe.yml
 
 # Laboratorios
 - import_playbook: comum_laboratorios.yml
