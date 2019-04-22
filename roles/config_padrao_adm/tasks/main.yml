@@ -33,6 +33,17 @@
   when: ansible_os_family == 'Debian'
 ##################### Fim configuracao interfaces
 
+##################### Copia script para procurar termos em arquivo odt
+- name: Copia pesquisaodt - Linux
+  copy:
+    src: pesquisaODT
+    dest: /usr/local/bin
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+##################### Fim configuracao interfaces
+
 - include_role:
     name: openaudit
 
