@@ -40,9 +40,24 @@
     dest: /usr/local/bin/pesquisaODT
     owner: root
     group: root
-    mode: 0644
+    mode: 0755
   when: ansible_os_family == 'Debian'
-##################### Fim configuracao interfaces
+##################### Fim configuracao script para procurar termos em arquivo odt
+
+##################### Impressao hodprint
+- name: Instala gtklp
+  apt: name=gtklp state=latest
+  when: ansible_os_family == 'Debian'
+
+- name: Copia hodprint - Linux
+  copy:
+    src: hodprint
+    dest: /usr/bin/hodprint
+    owner: root
+    group: root
+    mode: 0755
+  when: ansible_os_family == 'Debian'
+##################### Fim impressao hodprint
 
 - include_role:
     name: openaudit
