@@ -38,8 +38,29 @@
 
 #Windows
 
-- name: Configura servidores NTP para o Windows
-  win_shell: net start w32time ;	w32tm /config /manualpeerlist:"a.st1.ntp.br b.st1.ntp.br c.st1.ntp.br gps.ntp.br" /syncfromflags:manual /reliable:YES /update ; net stop w32time ; net start w32time ; w32tm /config /update ; w32tm /resync ; w32tm /resync ; New-Item c:\gatilho_ntp.txt -type file
-  args:
-    creates: C:\gatilho_ntp.txt
+- name: Configura servidor NTP para o Windows 1
+  win_regedit:
+    path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DateTime\Servers
+    name: 1
+    data: gps.ntp.br
+  when: ansible_os_family == 'Windows'
+
+- name: Configura servidor NTP para o Windows 2
+  win_regedit:
+    path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DateTime\Servers
+    name: 2
+    data: a.st1.ntp.br
+  when: ansible_os_family == 'Windows'
+
+- name: Configuracao no registro necessaria para UTC - Windows
+  win_regedit:
+    path: HKLM:\System\CurrentControlSet\Control\TimeZoneInformation
+    name: RealTimeIsUniversal
+    data: 1
+    type: dword
+  when: ansible_os_family == 'Windows'
+
+- name: Setar timezone no Windows
+  win_timezone:
+    timezone: E. South America Standard Time
   when: ansible_os_family == 'Windows'
