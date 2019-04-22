@@ -37,7 +37,7 @@
 - name: Copia pesquisaodt - Linux
   copy:
     src: pesquisaODT
-    dest: /usr/local/bin
+    dest: /usr/local/bin/pesquisaODT
     owner: root
     group: root
     mode: 0644
