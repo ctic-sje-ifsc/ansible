@@ -27,10 +27,11 @@
       - smbldap-tools
       - libnss-ldap
       - libpam-ldap
+      - cups
 
   - name: Copiando arquivo /etc/nsswitch.conf
     copy:
-      src: nsswitch.conf
+      src: dk/nsswitch.conf
       dest: /etc/nsswitch.conf
       owner: root
       group: root
@@ -39,7 +40,7 @@
 
   - name: Copiando arquivo /etc/libnss-ldap.conf
     copy:
-      src: ldap.conf
+      src: dk/ldap.conf
       dest: /etc/libnss-ldap.conf
       owner: root
       group: root
@@ -48,7 +49,7 @@
 
   - name: Copiando arquivo /etc/ldap.conf
     copy:
-      src: ldap.conf
+      src: dk/ldap.conf
       dest: /etc/ldap.conf
       owner: root
       group: root
@@ -57,7 +58,7 @@
 
   - name: Copiando arquivo /etc/ldap/ldap.conf
     copy:
-      src: ldap.conf
+      src: dk/ldap.conf
       dest: /etc/ldap/ldap.conf
       owner: root
       group: root
@@ -66,7 +67,7 @@
 
   - name: Copiando arquivo /etc/pam_ldap.conf
     copy:
-      src: ldap.conf
+      src: dk/ldap.conf
       dest: /etc/pam_ldap.conf
       owner: root
       group: root
@@ -75,7 +76,7 @@
 
   - name: Copiando arquivo /etc/pam.d/common-session
     copy:
-      src: common-session
+      src: dk/common-session
       dest: /etc/pam.d/common-session
       owner: root
       group: root
@@ -84,7 +85,7 @@
 
   - name: Copiando arquivo /etc/smbldap-tools/smbldap_bind.conf
     copy:
-      src: smbldap_bind.conf
+      src: dk/smbldap_bind.conf
       dest: /etc/smbldap-tools/smbldap_bind.conf
       owner: root
       group: root
@@ -93,16 +94,57 @@
 
   - name: Copiando arquivo /etc/smbldap-tools/smbldap.conf
     copy:
-      src: smbldap.conf
+      src: dk/smbldap.conf
       dest: /etc/smbldap-tools/smbldap.conf
       owner: root
       group: root
       mode: 0600
     when: ansible_os_family == 'Debian'
 
+  - name: Copiando arquivo /etc/cups/cupsd.conf
+    copy:
+      src: dk/cupsd.conf
+      dest: /etc/cups/cupsd.conf
+      owner: root
+      group: root
+      mode: 0644
+    when: ansible_os_family == 'Debian'
+    notify:
+    - restart cups 
+
+  - name: Copiando arquivo /etc/cups/cupsd.conf
+    copy:
+      src: dk/ppd
+      dest: /etc/cups/ppd
+    when: ansible_os_family == 'Debian'
+    notify:
+    - restart cups 
+
+  - name: Copiando arquivo /etc/cups/printers.conf
+    copy:
+      src: dk/printers.conf
+      dest: /etc/cups/printers.conf
+      owner: root
+      group: root
+      mode: 0644
+    when: ansible_os_family == 'Debian'
+    notify:
+    - restart cups 
+
+  - name: Copiando arquivo /usr/share/cups/banners/ifsc
+    copy:
+      src: dk/ifsc
+      dest: /usr/share/cups/banners/ifsc
+      owner: root
+      group: root
+      mode: 0644
+    when: ansible_os_family == 'Debian'
+    notify:
+    - restart cups 
+
   - name: Copiando arquivo /etc/samba/smb.conf
     copy:
-      src: smb.conf
+      src: dk/smb.conf
       dest: /etc/samba/smb.conf
       owner: root
       group: root
@@ -116,6 +158,10 @@
       service:
         name: samba
         state: restarted    
+    - name: restart cups
+      service:
+        name: cups
+        state: restarted 
 
 # smbpasswd -w *******
 # net getlocalsid (no dk)
