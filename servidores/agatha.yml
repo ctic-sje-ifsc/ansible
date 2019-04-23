@@ -29,7 +29,7 @@
 
 - hosts: agatha
   vars_files:
-    - vars/token_agatha_reitoria.yaml
+    - vars/agatha/token_agatha_reitoria.yaml
   roles:
     - ../roles/docker
 
