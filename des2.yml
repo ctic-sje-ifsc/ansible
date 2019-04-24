@@ -17,8 +17,9 @@
     - ingressa_ldap_gdm
   tasks:
   - name: Pacotes do Diego
-    apt: name={{item}} state=latest
-    with_items:
+    apt: name={{ packages }} state=latest
+    vars:
+      packages:
       - nautilus-dropbox
   - name: Install a .deb Mendeley Desktop - Linux Debian
     apt:
