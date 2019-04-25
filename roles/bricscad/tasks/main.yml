@@ -7,6 +7,7 @@
     force: no
     url_username: "{{ url_username }}"
     url_password: "{{ url_password }}"
+    timeout: 120
   when: ansible_os_family == 'Windows'
 
 - name: Baixar e instalar o BricsCAD - Windows
@@ -24,6 +25,7 @@
     force: no
     url_username: "{{ url_username }}"
     url_password: "{{ url_password }}"
+    timeout: 120
   when: ansible_os_family == 'Windows'
 
 - name: Baixar e instalar o BricsCAD Shape - Windows
