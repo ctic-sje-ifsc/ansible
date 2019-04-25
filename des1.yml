@@ -4,3 +4,11 @@
     - packettracer
     - kile
     - programas_padroes_labs
+
+- hosts: sj-lin-des1-744935.maquinas.sj.ifsc.edu.br #Claudia
+  tasks:
+    - name: Pacotes da Claudia
+      apt: name={{ packages }} state=latest
+      vars:
+        packages:
+        - nautilus-dropbox
