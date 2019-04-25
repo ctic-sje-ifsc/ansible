@@ -18,7 +18,7 @@
     - auto_desligamento
 
 # PC do Prof Diego usa Gnome + GDM3
-- hosts: administrativos_lin:!sj-lin-des2-744927.maquinas.sj.ifsc.edu.br:!patrim:!biblio
+- hosts: administrativos_lin:!sj-lin-des2-744927.maquinas.sj.ifsc.edu.br:!patrim:!biblio:!sj-lin-comaf-37250.maquinas.sj.ifsc.edu.br
 #  ignore_unreachable: true
   roles:
     - ingressa_ldap
