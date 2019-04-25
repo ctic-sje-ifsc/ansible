@@ -36,6 +36,7 @@
 - import_playbook: cotur.yml
 - import_playbook: patrim.yml
 - import_playbook: biblio.yml
+- import_playbook: comaf.yml
 #- import_playbook: testes.yml
 - import_playbook: ctic.yml
 - import_playbook: auditorios_vconf.yml

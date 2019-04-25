@@ -1,0 +1,10 @@
+- hosts: sj-lin-comaf-37250.maquinas.sj.ifsc.edu.br
+#  ignore_unreachable: true
+  roles:
+    - ingressa_ldap_sem_cups_client
+    - savpdf
+    - role: instala_impressora_cups
+      install: 0
+      financeiro: 1
+      cgp: 1
+      pdf: 1
