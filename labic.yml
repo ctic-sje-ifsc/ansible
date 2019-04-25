@@ -1,0 +1,11 @@
+# Linux
+
+# Chamado da aluna Jeneffer Farias Bora IFSC#2019042510000446
+- hosts: labic
+  tasks:
+  - name: Instala pacote idle3
+    apt: name={{ packages }} state=latest
+    vars:
+      packages:
+      - idle3
+

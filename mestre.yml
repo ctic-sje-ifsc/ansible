@@ -55,6 +55,7 @@
 - import_playbook: labmeios.yml
 - import_playbook: labaplicada.yml
 - import_playbook: labcsfio.yml
+- import_playbook: labic.yml
 
 
 - hosts: all
