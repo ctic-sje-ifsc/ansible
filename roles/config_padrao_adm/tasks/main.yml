@@ -34,15 +34,26 @@
 ##################### Fim configuracao interfaces
 
 ##################### Copia script para procurar termos em arquivo odt
-- name: Copia pesquisaodt - Linux
+- name: Copia pesquisaodf - Linux
   copy:
-    src: pesquisaODT
-    dest: /usr/local/bin/pesquisaODT
+    src: pesquisaODF
+    dest: /usr/local/bin/pesquisaODF
     owner: root
     group: root
     mode: 0755
   when: ansible_os_family == 'Debian'
-##################### Fim configuracao script para procurar termos em arquivo odt
+##################### Fim script para procurar termos em arquivo odt
+
+##################### Copia script para procurar termos em arquivo docx xlsx pptx
+- name: Copia pesquisamsx - Linux
+  copy:
+    src: pesquisaMSX
+    dest: /usr/local/bin/pesquisaMSX
+    owner: root
+    group: root
+    mode: 0755
+  when: ansible_os_family == 'Debian'
+##################### Fim script para procurar termos em arquivo docx xlsx pptx
 
 ##################### Impressao hodprint
 - name: Instala gtklp

@@ -1,11 +1,11 @@
 #!/bin/bash
 
 if [ $# -ne 2 ]; then
-        echo "Uso: pesquisaodt CaminhoPesquisa TermoPesquisa"
+        echo "Uso: pesquisaODF CaminhoPesquisa TermoPesquisa"
         exit 1
 fi
 
-find $1 -name "*.odt" | while read file
+find $1 -name "*.od?" | while read file
 do
         unzip -ca "$file" content.xml | grep -qli "$2"
         if [ $? -eq 0 ]; then

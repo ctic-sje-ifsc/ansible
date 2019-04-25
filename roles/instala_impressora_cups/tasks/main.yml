@@ -345,6 +345,7 @@
       <Printer PDF>
       UUID urn:uuid:5e5a92d6-9406-322e-5788-90f9ed3eb6b5
       Info PDF
+      MakeModel Generic CUPS-PDF Printer
       DeviceURI cups-pdf:/
       State Idle
       StateTime 1489769514
