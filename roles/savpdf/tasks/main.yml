@@ -1,0 +1,27 @@
+#renomeia os arquivos salvos com a impressora cups-pdf
+- name: Copia savpdf - Linux
+  copy:
+    src: savpdf
+    dest: /usr/local/bin/savpdf
+    owner: root
+    group: root
+    mode: 0755
+  when: ansible_os_family == 'Debian'
+
+- name: Copia run_savpdf - Linux
+  copy:
+    src: run_savpdf
+    dest: /etc/profile.d/run_savpdf
+    owner: root
+    group: root
+    mode: 0755
+  when: ansible_os_family == 'Debian'
+
+- name: Copia savpdf.desktop - Linux
+  copy:
+    src: savpdf.desktop
+    dest: /usr/share/applications/savpdf.desktop
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'

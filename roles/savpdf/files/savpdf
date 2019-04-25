@@ -1,0 +1,69 @@
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
+import pygtk
+pygtk.require('2.0')
+import gtk
+if gtk.pygtk_version < (2,8):
+   print "PyGtk 2.8 or later required"
+   raise SystemExit
+
+import shutil
+from os.path import expanduser
+from glob import *
+import os
+import sys
+import time
+# savpdf v0.002
+# Holger Rückershäuser 2014
+class savpdf:
+    def __init__(self):
+        self.dialog = gtk.FileChooserDialog(title="Save as",action=gtk.FILE_CHOOSER_ACTION_SAVE,
+                                  buttons=(gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_SAVE,gtk.RESPONSE_OK))
+
+        self.dialog.set_default_response(gtk.RESPONSE_OK)
+        self.dialog.set_do_overwrite_confirmation(True)
+        filter = gtk.FileFilter()
+        filter.set_name("pdf files")
+        filter.add_pattern("*.pdf")
+        self.dialog.add_filter(filter)
+        self.dialog.set_current_name(fname)
+        res = self.dialog.run()
+
+        if res == gtk.RESPONSE_OK:
+           try:
+               nome = self.dialog.get_filename() + ".pdf"
+               shutil.copy(docn, nome)
+               #shutil.copy(docn, self.dialog.get_current_folder())
+               os.remove(docn)
+
+           except:
+               msge = "%s" % sys.exc_info()[1]
+               parent = None
+               md = gtk.MessageDialog(parent,
+                   gtk.DIALOG_DESTROY_WITH_PARENT, gtk.MESSAGE_ERROR,
+                   gtk.BUTTONS_CLOSE, msge)
+               md.run()
+               md.destroy()
+        else:
+               os.remove(docn)
+
+        self.dialog.destroy()
+        while gtk.events_pending():
+            gtk.main_iteration(False)
+
+if __name__ == "__main__":
+    #path to pdf-file ($HOME/PDF)
+    pdf_path = expanduser("~") + '/PDF'
+
+    while True:
+        time.sleep(1)
+
+        doc = glob(pdf_path + '/*.pdf')
+        try:
+            docn = doc[0]
+            fname = docn[docn.rfind('/')+1:]
+        except:
+            pass
+
+        if doc:
+            sav = savpdf()

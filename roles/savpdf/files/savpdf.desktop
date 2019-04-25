@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=savpdf
+Comment=Save dialog for cups-pdf
+Exec=savpdf
+Icon=
+Path=
+Terminal=false
+StartupNotify=false
