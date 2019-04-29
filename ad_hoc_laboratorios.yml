@@ -61,3 +61,10 @@
 #         - 5-Servidor
 #         - 6-Servidor
 #         - 7-Servidor
+
+# - hosts: all
+#   tasks:
+#     - name: Get the MAC address
+#       debug: msg="{{ hostvars[inventory_hostname].ansible_default_ipv4.macaddress }}"
+#     - name: Salvar na maquina que esta executando o ansible os enderecos macs
+#       local_action: shell echo "{{ hostvars[inventory_hostname].ansible_default_ipv4.macaddress }}" >> /tmp/output
