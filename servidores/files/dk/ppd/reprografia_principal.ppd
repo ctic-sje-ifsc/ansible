@@ -33,7 +33,7 @@
 *%
 *%=============================================================================
 
-*FileVersion: "8.1308"
+*FileVersion: "8.1301"
 *FormatVersion: "4.3"
 *LanguageEncoding: ISOLatin1
 *LanguageVersion: English
@@ -45,13 +45,7 @@
 *NickName: "Kyocera TASKalfa 5501i (KPDL)"
 *PCFileName: "TS5501EE.PPD"
 
-
-
-*cupsFilter: "application/vnd.cups-postscript 0 /usr/lib/cups/filter/kyofilter_B"
-
 *% Basic Device Capabilities
-*WatermarkRendering: True
-*JobFinishNotice: False
 *LanguageLevel: "3"
 *ColorDevice: False
 *DefaultColorSpace: Gray
@@ -118,14 +112,14 @@
 *JCLEnd: "<1B>%-12345X@PJL EOJ<0A><1B>%-12345X"
 
 *% Installable Options
-*OpenGroup: InstallableOptions/Op<E7><F5>es Instaladae
+*OpenGroup: InstallableOptions/Installed Options
 
 *% Paper Feeders
-*OpenUI *Option19/Alimentador Opcionales de Papel: PickOne
+*OpenUI *Option19/Paper Feeders: PickOne
 *DefaultOption19: False
-*Option19 False/N<E3>o Instalado: ""
-*Option19 One/Cassetes (3,4): ""
-*Option19 Three/Prateleira lateral: ""
+*Option19 False/Not Installed: ""
+*Option19 One/Cassettes 3, 4: ""
+*Option19 Three/Side Feeder: ""
 *?Option19: "
   save
   (False) currentpagedevice dup /InputAttributes known {
@@ -138,10 +132,10 @@
 *CloseUI: *Option19
 
 *% Job Separator
-*OpenUI *Option26/Separador de trabalhos interno: Boolean
+*OpenUI *Option26/Inner Job Separator: Boolean
 *DefaultOption26: False
-*Option26 False/N<E3>o Instalado: ""
-*Option26 True/Instalada: ""
+*Option26 False/Not Installed: ""
+*Option26 True/Installed: ""
 *?Option26: "
   save
   currentpagedevice dup /OutputAttributes known {
@@ -163,10 +157,10 @@
 *CloseUI: *Option26
 
 *% Job Separator
-*OpenUI *Option27/Separador de trabalhos direito: Boolean
+*OpenUI *Option27/Right Job Separator: Boolean
 *DefaultOption27: False
-*Option27 False/N<E3>o Instalado: ""
-*Option27 True/Instalada: ""
+*Option27 False/Not Installed: ""
+*Option27 True/Installed: ""
 *?Option27: "
   save
   currentpagedevice dup /OutputAttributes known {
@@ -188,10 +182,10 @@
 *CloseUI: *Option27
 
 *% Mailbox
-*OpenUI *Option25/Caixa Postal: Boolean
+*OpenUI *Option25/Mailbox: Boolean
 *DefaultOption25: False
-*Option25 False/N<E3>o Instalado: ""
-*Option25 True/Instalada: ""
+*Option25 False/Not Installed: ""
+*Option25 True/Installed: ""
 *?Option25: "
   save
   currentpagedevice dup /OutputAttributes known {
@@ -213,10 +207,10 @@
 *CloseUI: *Option25
 
 *% Punch Unit
-*OpenUI *Option21/Unidade de fura<E7><E3>o: Boolean
+*OpenUI *Option21/Punch Unit: Boolean
 *DefaultOption21: False
-*Option21 False/N<E3>o Instalado: ""
-*Option21 True/Instalada: ""
+*Option21 False/Not Installed: ""
+*Option21 True/Installed: ""
 *?Option21: "
   save
   currentpagedevice /Punch known {(True)}{(False)} ifelse
@@ -225,10 +219,10 @@
 *CloseUI: *Option21
 
 *% Folding Unit
-*OpenUI *Option22/Unidade de dobragem: Boolean
+*OpenUI *Option22/Folding Unit: Boolean
 *DefaultOption22: False
-*Option22 False/N<E3>o Instalado: ""
-*Option22 True/Instalada: ""
+*Option22 False/Not Installed: ""
+*Option22 True/Installed: ""
 *?Option22: "
   save
   currentpagedevice /Fold known {(True)}{(False)} ifelse
@@ -237,11 +231,11 @@
 *CloseUI: *Option22
 
 *% Finisher
-*OpenUI *Option17/Unidade de acabamento: PickOne
-*DefaultOption17: DF730
-*Option17 None/N<E3>o Instalado: ""
-*Option17 DF770/Finalizador para 4000 folhas: ""
-*Option17 DF730/Finalizador para 1000 folhas: ""
+*OpenUI *Option17/Document Finisher: PickOne
+*DefaultOption17: None
+*Option17 None/Not Installed: ""
+*Option17 DF770/4000-Sheet Finisher: ""
+*Option17 DF730/1000-Sheet Finisher: ""
 *?Option17: "
   save
     currentpagedevice /OutputAttributes get
@@ -257,10 +251,10 @@
 *CloseUI: *Option17
 
 *% Disk Drive
-*OpenUI *Option18/Disco Opcional: PickOne
+*OpenUI *Option18/Optional Disk: PickOne
 *DefaultOption18: HardDisk
-*Option18 None/N<E3>o Instalado: ""
-*Option18 HardDisk/Disco R<ED>gido: ""
+*Option18 None/Not Installed: ""
+*Option18 HardDisk/Hard Disk: ""
 *?Option18: "
   save
   false
@@ -285,11 +279,6 @@
 *FreeVM: "32000000"
 
 *% Constraints
-*UIConstraints: *WmType Hollow *WmTransparent watermark
-*UIConstraints: *WmTransparent watermark *WmType Hollow
-*UIConstraints: *WatermarkRendering False *WmText
-*UIConstraints: *WmText *WatermarkRendering False
-
 *UIConstraints: *Option19 False *InputSlot PF730C
 *UIConstraints: *Option19 False *InputSlot PF730D
 *UIConstraints: *InputSlot PF730C *Option19 False
@@ -364,14 +353,14 @@
 *UIConstraints: *InputSlot ST11 *MediaType Cardstock
 *UIConstraints: *MediaType CoatedPaper *InputSlot ST11
 *UIConstraints: *InputSlot ST11 *MediaType CoatedPaper
-*UIConstraints: *Option17 None *Jog True
-*UIConstraints: *Jog True *Option17 None
+*UIConstraints: *Option17 None *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *Option17 None
 *UIConstraints: *Option17 DF770 *OutputBin INNERTRAY
 *UIConstraints: *OutputBin INNERTRAY *Option17 DF770
 *UIConstraints: *Option17 DF730 *OutputBin INNERTRAY
 *UIConstraints: *OutputBin INNERTRAY *Option17 DF730
-*UIConstraints: *OutputBin INNERTRAY *Jog True
-*UIConstraints: *Jog True *OutputBin INNERTRAY
+*UIConstraints: *OutputBin INNERTRAY *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *OutputBin INNERTRAY
 *UIConstraints: *CustomPageSize True *InputSlot PF730A
 *UIConstraints: *InputSlot PF730A *CustomPageSize True
 *UIConstraints: *CustomPageSize True *InputSlot PF730B
@@ -454,38 +443,38 @@
 *UIConstraints: *PageSize EnvC4 *OutputBin LFTTRAYDWN
 *UIConstraints: *OutputBin LFTTRAYDWN *PageSize A6
 *UIConstraints: *PageSize A6 *OutputBin LFTTRAYDWN
-*UIConstraints: *PageSize A5 *Jog True
-*UIConstraints: *Jog True *PageSize A5
-*UIConstraints: *Jog True *PageSize EnvMonarch
-*UIConstraints: *PageSize EnvMonarch *Jog True
-*UIConstraints: *Jog True *PageSize Env10
-*UIConstraints: *PageSize Env10 *Jog True
-*UIConstraints: *Jog True *PageSize EnvDL
-*UIConstraints: *PageSize EnvDL *Jog True
-*UIConstraints: *Jog True *PageSize EnvC5
-*UIConstraints: *PageSize EnvC5 *Jog True
-*UIConstraints: *Jog True *PageSize Executive
-*UIConstraints: *PageSize Executive *Jog True
-*UIConstraints: *Jog True *PageSize B6
-*UIConstraints: *PageSize B6 *Jog True
-*UIConstraints: *Jog True *PageSize Env9
-*UIConstraints: *PageSize Env9 *Jog True
-*UIConstraints: *Jog True *PageSize EnvPersonal
-*UIConstraints: *PageSize EnvPersonal *Jog True
-*UIConstraints: *Jog True *PageSize ISOB5
-*UIConstraints: *PageSize ISOB5 *Jog True
-*UIConstraints: *Jog True *CustomPageSize True
-*UIConstraints: *CustomPageSize True *Jog True
-*UIConstraints: *Jog True *PageSize EnvC4
-*UIConstraints: *PageSize EnvC4 *Jog True
-*UIConstraints: *PageSize A6 *Jog True
-*UIConstraints: *Jog True *PageSize A6
-*UIConstraints: *PageSize Folio *Jog True
-*UIConstraints: *Jog True *PageSize Folio
-*UIConstraints: *PageSize Statement *Jog True
-*UIConstraints: *Jog True *PageSize Statement
-*UIConstraints: *PageSize P12X18 *Jog True
-*UIConstraints: *Jog True *PageSize P12X18
+*UIConstraints: *PageSize A5 *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *PageSize A5
+*UIConstraints: *Jog EndOfSet *PageSize EnvMonarch
+*UIConstraints: *PageSize EnvMonarch *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *PageSize Env10
+*UIConstraints: *PageSize Env10 *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *PageSize EnvDL
+*UIConstraints: *PageSize EnvDL *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *PageSize EnvC5
+*UIConstraints: *PageSize EnvC5 *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *PageSize Executive
+*UIConstraints: *PageSize Executive *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *PageSize B6
+*UIConstraints: *PageSize B6 *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *PageSize Env9
+*UIConstraints: *PageSize Env9 *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *PageSize EnvPersonal
+*UIConstraints: *PageSize EnvPersonal *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *PageSize ISOB5
+*UIConstraints: *PageSize ISOB5 *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *CustomPageSize True
+*UIConstraints: *CustomPageSize True *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *PageSize EnvC4
+*UIConstraints: *PageSize EnvC4 *Jog EndOfSet
+*UIConstraints: *PageSize A6 *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *PageSize A6
+*UIConstraints: *PageSize Folio *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *PageSize Folio
+*UIConstraints: *PageSize Statement *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *PageSize Statement
+*UIConstraints: *PageSize P12X18 *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *PageSize P12X18
 *UIConstraints: *KCStaple Center *PageSize EnvMonarch
 *UIConstraints: *PageSize EnvMonarch *KCStaple Center
 *UIConstraints: *KCStaple Center *PageSize Env10
@@ -706,10 +695,10 @@
 *UIConstraints: *KCFoldA Bifold *OutputBin FDStackerC
 *UIConstraints: *OutputBin FDStackerC *KCFoldA Trifold
 *UIConstraints: *KCFoldA Trifold *OutputBin FDStackerC
-*UIConstraints: *Jog True *KCFoldA Bifold
-*UIConstraints: *KCFoldA Bifold *Jog True
-*UIConstraints: *Jog True *KCFoldA Trifold
-*UIConstraints: *KCFoldA Trifold *Jog True
+*UIConstraints: *Jog EndOfSet *KCFoldA Bifold
+*UIConstraints: *KCFoldA Bifold *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *KCFoldA Trifold
+*UIConstraints: *KCFoldA Trifold *Jog EndOfSet
 *UIConstraints: *OutputBin FDStackerA *KCBooklet Left
 *UIConstraints: *KCBooklet Left *OutputBin FDStackerA
 *UIConstraints: *OutputBin FDStackerA *KCBooklet Right
@@ -722,10 +711,10 @@
 *UIConstraints: *KCBooklet Left *OutputBin FDStackerC
 *UIConstraints: *OutputBin FDStackerC *KCBooklet Right
 *UIConstraints: *KCBooklet Right *OutputBin FDStackerC
-*UIConstraints: *Jog True *KCBooklet Left
-*UIConstraints: *KCBooklet Left *Jog True
-*UIConstraints: *Jog True *KCBooklet Right
-*UIConstraints: *KCBooklet Right *Jog True
+*UIConstraints: *Jog EndOfSet *KCBooklet Left
+*UIConstraints: *KCBooklet Left *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *KCBooklet Right
+*UIConstraints: *KCBooklet Right *Jog EndOfSet
 *UIConstraints: *OutputBin LFTTRAYDWN *KCFoldA Bifold
 *UIConstraints: *KCFoldA Bifold *OutputBin LFTTRAYDWN
 *UIConstraints: *OutputBin LFTTRAYDWN *KCFoldA Trifold
@@ -1280,70 +1269,70 @@
 *UIConstraints: *KCFoldC None *KCFoldA Trifold
 *UIConstraints: *KCFoldA Trifold *KCFoldD None
 *UIConstraints: *KCFoldD None *KCFoldA Trifold
-*UIConstraints: *KCFold True *KCFoldB FPInside
-*UIConstraints: *KCFoldB FPInside *KCFold True
-*UIConstraints: *KCFold True *KCFoldB FPOutside
-*UIConstraints: *KCFoldB FPOutside *KCFold True
-*UIConstraints: *KCFold True *KCFoldC RIGHTL
-*UIConstraints: *KCFoldC RIGHTL *KCFold True
-*UIConstraints: *KCFold True *KCFoldC LEFTR
-*UIConstraints: *KCFoldC LEFTR *KCFold True
-*UIConstraints: *KCFold True *KCFoldD FLD1
-*UIConstraints: *KCFoldD FLD1 *KCFold True
-*UIConstraints: *KCFold True *KCFoldD FLD2
-*UIConstraints: *KCFoldD FLD2 *KCFold True
-*UIConstraints: *KCFold True *KCFoldD FLD3
-*UIConstraints: *KCFoldD FLD3 *KCFold True
-*UIConstraints: *KCFold True *KCFoldD FLD4
-*UIConstraints: *KCFoldD FLD4 *KCFold True
-*UIConstraints: *KCFold True *KCFoldD FLD5
-*UIConstraints: *KCFoldD FLD5 *KCFold True
-*UIConstraints: *KCRotate True *KCStaple
-*UIConstraints: *KCStaple *KCRotate True
-*UIConstraints: *KCBooklet Left *KCRotate True
-*UIConstraints: *KCRotate True *KCBooklet Left
-*UIConstraints: *KCBooklet Right *KCRotate True
-*UIConstraints: *KCRotate True *KCBooklet Right
-*UIConstraints: *KCCollate1 None *KCRotate True
-*UIConstraints: *KCRotate True *KCCollate1 None
-*UIConstraints: *KCRotate True *Jog True
-*UIConstraints: *Jog True *KCRotate True
-*UIConstraints: *KCPunch 2Hole *KCRotate True
-*UIConstraints: *KCRotate True *KCPunch 2Hole
-*UIConstraints: *KCPunch 2HoleEUR *KCRotate True
-*UIConstraints: *KCRotate True *KCPunch 2HoleEUR
-*UIConstraints: *KCPunch 3Hole *KCRotate True
-*UIConstraints: *KCRotate True *KCPunch 3Hole
-*UIConstraints: *KCPunch 4Hole *KCRotate True
-*UIConstraints: *KCRotate True *KCPunch 4Hole
-*UIConstraints: *KCRotate True *OutputBin MBDWN01
-*UIConstraints: *OutputBin MBDWN01 *KCRotate True
-*UIConstraints: *KCRotate True *OutputBin MBDWN02
-*UIConstraints: *OutputBin MBDWN02 *KCRotate True
-*UIConstraints: *KCRotate True *OutputBin MBDWN03
-*UIConstraints: *OutputBin MBDWN03 *KCRotate True
-*UIConstraints: *KCRotate True *OutputBin MBDWN04
-*UIConstraints: *OutputBin MBDWN04 *KCRotate True
-*UIConstraints: *KCRotate True *OutputBin MBDWN05
-*UIConstraints: *OutputBin MBDWN05 *KCRotate True
-*UIConstraints: *KCRotate True *OutputBin MBDWN06
-*UIConstraints: *OutputBin MBDWN06 *KCRotate True
-*UIConstraints: *KCRotate True *OutputBin MBDWN07
-*UIConstraints: *OutputBin MBDWN07 *KCRotate True
-*UIConstraints: *Jog True *OutputBin MBDWN01
-*UIConstraints: *OutputBin MBDWN01 *Jog True
-*UIConstraints: *Jog True *OutputBin MBDWN02
-*UIConstraints: *OutputBin MBDWN02 *Jog True
-*UIConstraints: *Jog True *OutputBin MBDWN03
-*UIConstraints: *OutputBin MBDWN03 *Jog True
-*UIConstraints: *Jog True *OutputBin MBDWN04
-*UIConstraints: *OutputBin MBDWN04 *Jog True
-*UIConstraints: *Jog True *OutputBin MBDWN05
-*UIConstraints: *OutputBin MBDWN05 *Jog True
-*UIConstraints: *Jog True *OutputBin MBDWN06
-*UIConstraints: *OutputBin MBDWN06 *Jog True
-*UIConstraints: *Jog True *OutputBin MBDWN07
-*UIConstraints: *OutputBin MBDWN07 *Jog True
+*UIConstraints: *KCFold On *KCFoldB FPInside
+*UIConstraints: *KCFoldB FPInside *KCFold On
+*UIConstraints: *KCFold On *KCFoldB FPOutside
+*UIConstraints: *KCFoldB FPOutside *KCFold On
+*UIConstraints: *KCFold On *KCFoldC RIGHTL
+*UIConstraints: *KCFoldC RIGHTL *KCFold On
+*UIConstraints: *KCFold On *KCFoldC LEFTR
+*UIConstraints: *KCFoldC LEFTR *KCFold On
+*UIConstraints: *KCFold On *KCFoldD FLD1
+*UIConstraints: *KCFoldD FLD1 *KCFold On
+*UIConstraints: *KCFold On *KCFoldD FLD2
+*UIConstraints: *KCFoldD FLD2 *KCFold On
+*UIConstraints: *KCFold On *KCFoldD FLD3
+*UIConstraints: *KCFoldD FLD3 *KCFold On
+*UIConstraints: *KCFold On *KCFoldD FLD4
+*UIConstraints: *KCFoldD FLD4 *KCFold On
+*UIConstraints: *KCFold On *KCFoldD FLD5
+*UIConstraints: *KCFoldD FLD5 *KCFold On
+*UIConstraints: *KCRotate On *KCStaple
+*UIConstraints: *KCStaple *KCRotate On
+*UIConstraints: *KCBooklet Left *KCRotate On
+*UIConstraints: *KCRotate On *KCBooklet Left
+*UIConstraints: *KCBooklet Right *KCRotate On
+*UIConstraints: *KCRotate On *KCBooklet Right
+*UIConstraints: *KCCollate1 None *KCRotate On
+*UIConstraints: *KCRotate On *KCCollate1 None
+*UIConstraints: *KCRotate On *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *KCRotate On
+*UIConstraints: *KCPunch 2Hole *KCRotate On
+*UIConstraints: *KCRotate On *KCPunch 2Hole
+*UIConstraints: *KCPunch 2HoleEUR *KCRotate On
+*UIConstraints: *KCRotate On *KCPunch 2HoleEUR
+*UIConstraints: *KCPunch 3Hole *KCRotate On
+*UIConstraints: *KCRotate On *KCPunch 3Hole
+*UIConstraints: *KCPunch 4Hole *KCRotate On
+*UIConstraints: *KCRotate On *KCPunch 4Hole
+*UIConstraints: *KCRotate On *OutputBin MBDWN01
+*UIConstraints: *OutputBin MBDWN01 *KCRotate On
+*UIConstraints: *KCRotate On *OutputBin MBDWN02
+*UIConstraints: *OutputBin MBDWN02 *KCRotate On
+*UIConstraints: *KCRotate On *OutputBin MBDWN03
+*UIConstraints: *OutputBin MBDWN03 *KCRotate On
+*UIConstraints: *KCRotate On *OutputBin MBDWN04
+*UIConstraints: *OutputBin MBDWN04 *KCRotate On
+*UIConstraints: *KCRotate On *OutputBin MBDWN05
+*UIConstraints: *OutputBin MBDWN05 *KCRotate On
+*UIConstraints: *KCRotate On *OutputBin MBDWN06
+*UIConstraints: *OutputBin MBDWN06 *KCRotate On
+*UIConstraints: *KCRotate On *OutputBin MBDWN07
+*UIConstraints: *OutputBin MBDWN07 *KCRotate On
+*UIConstraints: *Jog EndOfSet *OutputBin MBDWN01
+*UIConstraints: *OutputBin MBDWN01 *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *OutputBin MBDWN02
+*UIConstraints: *OutputBin MBDWN02 *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *OutputBin MBDWN03
+*UIConstraints: *OutputBin MBDWN03 *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *OutputBin MBDWN04
+*UIConstraints: *OutputBin MBDWN04 *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *OutputBin MBDWN05
+*UIConstraints: *OutputBin MBDWN05 *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *OutputBin MBDWN06
+*UIConstraints: *OutputBin MBDWN06 *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *OutputBin MBDWN07
+*UIConstraints: *OutputBin MBDWN07 *Jog EndOfSet
 *UIConstraints: *KCStaple Center *OutputBin MBDWN01
 *UIConstraints: *OutputBin MBDWN01 *KCStaple Center
 *UIConstraints: *KCStaple Center *OutputBin MBDWN02
@@ -1398,10 +1387,10 @@
 *UIConstraints: *OutputBin FDStackerC *KCStaple UpperRight
 *UIConstraints: *KCStaple Upperleft *OutputBin FDStackerC
 *UIConstraints: *OutputBin FDStackerC *KCStaple Upperleft
-*UIConstraints: *Jog True *OutputBin FDStackerB
-*UIConstraints: *OutputBin FDStackerB *Jog True
-*UIConstraints: *Jog True *OutputBin FDStackerC
-*UIConstraints: *OutputBin FDStackerC *Jog True
+*UIConstraints: *Jog EndOfSet *OutputBin FDStackerB
+*UIConstraints: *OutputBin FDStackerB *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *OutputBin FDStackerC
+*UIConstraints: *OutputBin FDStackerC *Jog EndOfSet
 *UIConstraints: *KCStaple Center *OutputBin FDTop
 *UIConstraints: *OutputBin FDTop *KCStaple Center
 *UIConstraints: *KCStaple UpperRight *OutputBin FDTop
@@ -1414,16 +1403,16 @@
 *UIConstraints: *OutputBin INNERTRAY *KCStaple UpperRight
 *UIConstraints: *KCStaple Upperleft *OutputBin INNERTRAY
 *UIConstraints: *OutputBin INNERTRAY *KCStaple Upperleft
-*UIConstraints: *KCRotate True *OutputBin SEPARATORTRAY
-*UIConstraints: *OutputBin SEPARATORTRAY *KCRotate True
-*UIConstraints: *KCRotate True *OutputBin FDStackerA
-*UIConstraints: *OutputBin FDStackerA *KCRotate True
-*UIConstraints: *KCRotate True *OutputBin FDStackerB
-*UIConstraints: *OutputBin FDStackerB *KCRotate True
-*UIConstraints: *KCRotate True *OutputBin FDStackerC
-*UIConstraints: *OutputBin FDStackerC *KCRotate True
-*UIConstraints: *KCRotate True *OutputBin SEPARATORTRAYB
-*UIConstraints: *OutputBin SEPARATORTRAYB *KCRotate True
+*UIConstraints: *KCRotate On *OutputBin SEPARATORTRAY
+*UIConstraints: *OutputBin SEPARATORTRAY *KCRotate On
+*UIConstraints: *KCRotate On *OutputBin FDStackerA
+*UIConstraints: *OutputBin FDStackerA *KCRotate On
+*UIConstraints: *KCRotate On *OutputBin FDStackerB
+*UIConstraints: *OutputBin FDStackerB *KCRotate On
+*UIConstraints: *KCRotate On *OutputBin FDStackerC
+*UIConstraints: *OutputBin FDStackerC *KCRotate On
+*UIConstraints: *KCRotate On *OutputBin SEPARATORTRAYB
+*UIConstraints: *OutputBin SEPARATORTRAYB *KCRotate On
 *UIConstraints: *Option18 None *KCCollate1 QuickCopy
 *UIConstraints: *KCCollate1 QuickCopy *Option18 None
 *UIConstraints: *Option18 None *KCCollate1 JobStorage
@@ -1458,8 +1447,8 @@
 *UIConstraints: *OutputBin SEPARATORTRAY *KCPunch 3Hole
 *UIConstraints: *KCPunch 4Hole *OutputBin SEPARATORTRAY
 *UIConstraints: *OutputBin SEPARATORTRAY *KCPunch 4Hole
-*UIConstraints: *Jog True *OutputBin SEPARATORTRAY
-*UIConstraints: *OutputBin SEPARATORTRAY *Jog True
+*UIConstraints: *Jog EndOfSet *OutputBin SEPARATORTRAY
+*UIConstraints: *OutputBin SEPARATORTRAY *Jog EndOfSet
 *UIConstraints: *KCStaple Center *OutputBin SEPARATORTRAY
 *UIConstraints: *OutputBin SEPARATORTRAY *KCStaple Center
 *UIConstraints: *KCStaple UpperRight *OutputBin SEPARATORTRAY
@@ -1474,8 +1463,8 @@
 *UIConstraints: *OutputBin SEPARATORTRAY *KCPunch 3Hole
 *UIConstraints: *KCPunch 4Hole *OutputBin SEPARATORTRAY
 *UIConstraints: *OutputBin SEPARATORTRAY *KCPunch 4Hole
-*UIConstraints: *Jog True *OutputBin SEPARATORTRAYB
-*UIConstraints: *OutputBin SEPARATORTRAYB *Jog True
+*UIConstraints: *Jog EndOfSet *OutputBin SEPARATORTRAYB
+*UIConstraints: *OutputBin SEPARATORTRAYB *Jog EndOfSet
 *UIConstraints: *KCStaple Center *OutputBin SEPARATORTRAYB
 *UIConstraints: *OutputBin SEPARATORTRAYB *KCStaple Center
 *UIConstraints: *KCStaple UpperRight *OutputBin SEPARATORTRAYB
@@ -1634,64 +1623,64 @@
 *UIConstraints: *KCBooklet Left *Option18 None
 *UIConstraints: *Option18 None *KCBooklet Right
 *UIConstraints: *KCBooklet Right *Option18 None
-*UIConstraints: *KCRotate True *PageSize A3
-*UIConstraints: *PageSize A3 *KCRotate True
-*UIConstraints: *KCRotate True *PageSize A5
-*UIConstraints: *PageSize A5 *KCRotate True
-*UIConstraints: *KCRotate True *PageSize ISOB5
-*UIConstraints: *PageSize ISOB5 *KCRotate True
-*UIConstraints: *KCRotate True *PageSize B6
-*UIConstraints: *PageSize B6 *KCRotate True
-*UIConstraints: *KCRotate True *PageSize Folio
-*UIConstraints: *PageSize Folio *KCRotate True
-*UIConstraints: *KCRotate True *PageSize OficioII
-*UIConstraints: *PageSize OficioII *KCRotate True
-*UIConstraints: *KCRotate True *PageSize Tabloid
-*UIConstraints: *PageSize Tabloid *KCRotate True
-*UIConstraints: *KCRotate True *PageSize Legal
-*UIConstraints: *PageSize Legal *KCRotate True
-*UIConstraints: *KCRotate True *PageSize Executive
-*UIConstraints: *PageSize Executive *KCRotate True
-*UIConstraints: *KCRotate True *PageSize Statement
-*UIConstraints: *PageSize Statement *KCRotate True
-*UIConstraints: *KCRotate True *PageSize P8K
-*UIConstraints: *PageSize P8K *KCRotate True
-*UIConstraints: *KCRotate True *PageSize EnvC4
-*UIConstraints: *PageSize EnvC4 *KCRotate True
-*UIConstraints: *KCRotate True *PageSize EnvC5
-*UIConstraints: *PageSize EnvC5 *KCRotate True
-*UIConstraints: *KCRotate True *PageSize Env10
-*UIConstraints: *PageSize Env10 *KCRotate True
-*UIConstraints: *KCRotate True *PageSize Env9
-*UIConstraints: *PageSize Env9 *KCRotate True
-*UIConstraints: *KCRotate True *PageSize EnvMonarch
-*UIConstraints: *PageSize EnvMonarch *KCRotate True
-*UIConstraints: *KCRotate True *PageSize EnvDL
-*UIConstraints: *PageSize EnvDL *KCRotate True
-*UIConstraints: *KCRotate True *PageSize B4
-*UIConstraints: *PageSize B4 *KCRotate True
-*UIConstraints: *KCRotate True *CustomPageSize True
-*UIConstraints: *CustomPageSize True *KCRotate True
-*UIConstraints: *KCRotate True *PageSize OficioMX
-*UIConstraints: *PageSize OficioMX *KCRotate True
-*UIConstraints: *KCRotate True *PageSize P12X18
-*UIConstraints: *PageSize P12X18 *KCRotate True
-*UIConstraints: *KCRotate True *PageSize EnvPersonal
-*UIConstraints: *PageSize EnvPersonal *KCRotate True
-*UIConstraints: *KCRotate True *PageSize A6
-*UIConstraints: *PageSize A6 *KCRotate True
+*UIConstraints: *KCRotate On *PageSize A3
+*UIConstraints: *PageSize A3 *KCRotate On
+*UIConstraints: *KCRotate On *PageSize A5
+*UIConstraints: *PageSize A5 *KCRotate On
+*UIConstraints: *KCRotate On *PageSize ISOB5
+*UIConstraints: *PageSize ISOB5 *KCRotate On
+*UIConstraints: *KCRotate On *PageSize B6
+*UIConstraints: *PageSize B6 *KCRotate On
+*UIConstraints: *KCRotate On *PageSize Folio
+*UIConstraints: *PageSize Folio *KCRotate On
+*UIConstraints: *KCRotate On *PageSize OficioII
+*UIConstraints: *PageSize OficioII *KCRotate On
+*UIConstraints: *KCRotate On *PageSize Tabloid
+*UIConstraints: *PageSize Tabloid *KCRotate On
+*UIConstraints: *KCRotate On *PageSize Legal
+*UIConstraints: *PageSize Legal *KCRotate On
+*UIConstraints: *KCRotate On *PageSize Executive
+*UIConstraints: *PageSize Executive *KCRotate On
+*UIConstraints: *KCRotate On *PageSize Statement
+*UIConstraints: *PageSize Statement *KCRotate On
+*UIConstraints: *KCRotate On *PageSize P8K
+*UIConstraints: *PageSize P8K *KCRotate On
+*UIConstraints: *KCRotate On *PageSize EnvC4
+*UIConstraints: *PageSize EnvC4 *KCRotate On
+*UIConstraints: *KCRotate On *PageSize EnvC5
+*UIConstraints: *PageSize EnvC5 *KCRotate On
+*UIConstraints: *KCRotate On *PageSize Env10
+*UIConstraints: *PageSize Env10 *KCRotate On
+*UIConstraints: *KCRotate On *PageSize Env9
+*UIConstraints: *PageSize Env9 *KCRotate On
+*UIConstraints: *KCRotate On *PageSize EnvMonarch
+*UIConstraints: *PageSize EnvMonarch *KCRotate On
+*UIConstraints: *KCRotate On *PageSize EnvDL
+*UIConstraints: *PageSize EnvDL *KCRotate On
+*UIConstraints: *KCRotate On *PageSize B4
+*UIConstraints: *PageSize B4 *KCRotate On
+*UIConstraints: *KCRotate On *CustomPageSize True
+*UIConstraints: *CustomPageSize True *KCRotate On
+*UIConstraints: *KCRotate On *PageSize OficioMX
+*UIConstraints: *PageSize OficioMX *KCRotate On
+*UIConstraints: *KCRotate On *PageSize P12X18
+*UIConstraints: *PageSize P12X18 *KCRotate On
+*UIConstraints: *KCRotate On *PageSize EnvPersonal
+*UIConstraints: *PageSize EnvPersonal *KCRotate On
+*UIConstraints: *KCRotate On *PageSize A6
+*UIConstraints: *PageSize A6 *KCRotate On
 *UIConstraints: *Duplex *CustomPageSize True
 *UIConstraints: *CustomPageSize True *Duplex
-*UIConstraints: *Jog True *OutputBin FDTop
-*UIConstraints: *OutputBin FDTop *Jog True
-*UIConstraints: *Jog True *KCStaple Upperleft
-*UIConstraints: *KCStaple Upperleft *Jog True
-*UIConstraints: *Jog True *KCStaple Center
-*UIConstraints: *KCStaple Center *Jog True
-*UIConstraints: *Jog True *KCStaple UpperRight
-*UIConstraints: *KCStaple UpperRight *Jog True
-*UIConstraints: *Jog True *KCCollate1 None
-*UIConstraints: *KCCollate1 None *Jog True
+*UIConstraints: *Jog EndOfSet *OutputBin FDTop
+*UIConstraints: *OutputBin FDTop *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *KCStaple Upperleft
+*UIConstraints: *KCStaple Upperleft *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *KCStaple Center
+*UIConstraints: *KCStaple Center *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *KCStaple UpperRight
+*UIConstraints: *KCStaple UpperRight *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *KCCollate1 None
+*UIConstraints: *KCCollate1 None *Jog EndOfSet
 *UIConstraints: *PageSize Legal *InputSlot ST11
 *UIConstraints: *InputSlot ST11 *PageSize Legal
 *UIConstraints: *PageRegion Legal *InputSlot ST11
@@ -2020,42 +2009,42 @@
 *UIConstraints: *Duplex *PageRegion EnvC4
 *UIConstraints: *PageRegion EnvC4 *Duplex DuplexTumble
 *UIConstraints: *PageRegion EnvC4 *Duplex DuplexNoTumble
-*UIConstraints: *KCFold True *PageSize EnvMonarch
-*UIConstraints: *PageSize EnvMonarch *KCFold True
-*UIConstraints: *KCFold True *PageSize Env10
-*UIConstraints: *PageSize Env10 *KCFold True
-*UIConstraints: *KCFold True *PageSize EnvDL
-*UIConstraints: *PageSize EnvDL *KCFold True
-*UIConstraints: *KCFold True *PageSize EnvC5
-*UIConstraints: *PageSize EnvC5 *KCFold True
-*UIConstraints: *KCFold True *PageSize Executive
-*UIConstraints: *PageSize Executive *KCFold True
-*UIConstraints: *KCFold True *PageSize B6
-*UIConstraints: *PageSize B6 *KCFold True
-*UIConstraints: *KCFold True *PageSize Env9
-*UIConstraints: *PageSize Env9 *KCFold True
-*UIConstraints: *KCFold True *PageSize EnvPersonal
-*UIConstraints: *PageSize EnvPersonal *KCFold True
-*UIConstraints: *KCFold True *PageSize ISOB5
-*UIConstraints: *PageSize ISOB5 *KCFold True
-*UIConstraints: *KCFold True *CustomPageSize True
-*UIConstraints: *CustomPageSize True *KCFold True
-*UIConstraints: *KCFold True *PageSize EnvC4
-*UIConstraints: *PageSize EnvC4 *KCFold True
-*UIConstraints: *KCFold True *PageSize A6
-*UIConstraints: *PageSize A6 *KCFold True
-*UIConstraints: *KCFold True *PageSize Folio
-*UIConstraints: *PageSize Folio *KCFold True
-*UIConstraints: *KCFold True *PageSize OficioMX
-*UIConstraints: *PageSize OficioMX *KCFold True
-*UIConstraints: *KCFold True *PageSize P12X18
-*UIConstraints: *PageSize P12X18 *KCFold True
-*UIConstraints: *KCFold True *Option22 False
-*UIConstraints: *Option22 False *KCFold True
-*UIConstraints: *KCFold True *KCFoldA Bifold
-*UIConstraints: *KCFoldA Bifold *KCFold True
-*UIConstraints: *KCFold True *KCFoldA Trifold
-*UIConstraints: *KCFoldA Trifold *KCFold True
+*UIConstraints: *KCFold On *PageSize EnvMonarch
+*UIConstraints: *PageSize EnvMonarch *KCFold On
+*UIConstraints: *KCFold On *PageSize Env10
+*UIConstraints: *PageSize Env10 *KCFold On
+*UIConstraints: *KCFold On *PageSize EnvDL
+*UIConstraints: *PageSize EnvDL *KCFold On
+*UIConstraints: *KCFold On *PageSize EnvC5
+*UIConstraints: *PageSize EnvC5 *KCFold On
+*UIConstraints: *KCFold On *PageSize Executive
+*UIConstraints: *PageSize Executive *KCFold On
+*UIConstraints: *KCFold On *PageSize B6
+*UIConstraints: *PageSize B6 *KCFold On
+*UIConstraints: *KCFold On *PageSize Env9
+*UIConstraints: *PageSize Env9 *KCFold On
+*UIConstraints: *KCFold On *PageSize EnvPersonal
+*UIConstraints: *PageSize EnvPersonal *KCFold On
+*UIConstraints: *KCFold On *PageSize ISOB5
+*UIConstraints: *PageSize ISOB5 *KCFold On
+*UIConstraints: *KCFold On *CustomPageSize True
+*UIConstraints: *CustomPageSize True *KCFold On
+*UIConstraints: *KCFold On *PageSize EnvC4
+*UIConstraints: *PageSize EnvC4 *KCFold On
+*UIConstraints: *KCFold On *PageSize A6
+*UIConstraints: *PageSize A6 *KCFold On
+*UIConstraints: *KCFold On *PageSize Folio
+*UIConstraints: *PageSize Folio *KCFold On
+*UIConstraints: *KCFold On *PageSize OficioMX
+*UIConstraints: *PageSize OficioMX *KCFold On
+*UIConstraints: *KCFold On *PageSize P12X18
+*UIConstraints: *PageSize P12X18 *KCFold On
+*UIConstraints: *KCFold On *Option22 False
+*UIConstraints: *Option22 False *KCFold On
+*UIConstraints: *KCFold On *KCFoldA Bifold
+*UIConstraints: *KCFoldA Bifold *KCFold On
+*UIConstraints: *KCFold On *KCFoldA Trifold
+*UIConstraints: *KCFoldA Trifold *KCFold On
 *UIConstraints: *KCBooklet Left *KCFoldA Bifold
 *UIConstraints: *KCFoldA Bifold *KCBooklet Left
 *UIConstraints: *KCBooklet Left *KCFoldA Trifold
@@ -2065,28 +2054,26 @@
 *UIConstraints: *KCBooklet Right *KCFoldA Trifold
 *UIConstraints: *KCFoldA Trifold *KCBooklet Right
 
-*OpenGroup: Imaging/Imagem
-
 *% Resolution 
 *DefaultResolution: 600dpi
 *% KCEcoprint
 *OpenUI *KCEcoprint/EcoPrint: PickOne
 *OrderDependency: 10 AnySetup *KCEcoprint
 *DefaultKCEcoprint: Off
-*KCEcoprint Off/Desactivado: "<< /EconoMode false >> setpagedevice"
-*KCEcoprint Level1/N<ED>vel de economia de toner 1: "<< /EconoMode true /EconoLevel 1 >> setpagedevice"
-*KCEcoprint Level2/N<ED>vel de economia de toner 2: "<< /EconoMode true /EconoLevel 2 >> setpagedevice"
-*KCEcoprint Level3/N<ED>vel de economia de toner 3: "<< /EconoMode true /EconoLevel 3 >> setpagedevice"
-*KCEcoprint Level4/N<ED>vel de economia de toner 4: "<< /EconoMode true /EconoLevel 4 >> setpagedevice"
-*KCEcoprint Level5/N<ED>vel de economia de toner 5: "<< /EconoMode true /EconoLevel 5 >> setpagedevice"
+*KCEcoprint Off/Off: "<< /EconoMode false >> setpagedevice"
+*KCEcoprint Level1/Toner Save Level 1: "<< /EconoMode true /EconoLevel 1 >> setpagedevice"
+*KCEcoprint Level2/Toner Save Level 2: "<< /EconoMode true /EconoLevel 2 >> setpagedevice"
+*KCEcoprint Level3/Toner Save Level 3: "<< /EconoMode true /EconoLevel 3 >> setpagedevice"
+*KCEcoprint Level4/Toner Save Level 4: "<< /EconoMode true /EconoLevel 4 >> setpagedevice"
+*KCEcoprint Level5/Toner Save Level 5: "<< /EconoMode true /EconoLevel 5 >> setpagedevice"
 *CloseUI: *KCEcoprint
 
 *% Image Refinement 
-*OpenUI *Smoothing/KIR: Boolean
+*OpenUI *Smoothing/KIR: PickOne
 *OrderDependency: 50 AnySetup *Smoothing
 *DefaultSmoothing: True
-*Smoothing True/Activado: "1 statusdict /setdoret get exec"
-*Smoothing False/Desactivado: "0 statusdict /setdoret get exec"
+*Smoothing True/On: "1 statusdict /setdoret get exec"
+*Smoothing False/Off: "0 statusdict /setdoret get exec"
 *?Smoothing: "
   save
   [(False)(True)(True)(True)]
@@ -2097,16 +2084,14 @@
 *CloseUI: *Smoothing
 
 *% CIE 
-*OpenUI *CIE/Otimiza<E7><E3>o CIE: PickOne
+*OpenUI *CIE/CIE Optimization: PickOne
 *OrderDependency: 11 AnySetup *CIE
-*DefaultCIE: PrnDef
-*CIE PrnDef/Conf. da impressora: ""
-*CIE False/Desativado: "<< /RejectionCIEcolor false >> setuserparams"
-*CIE True/Ativo: "<< /RejectionCIEcolor true >> setuserparams"
+*DefaultCIE:  PrnDef
+*CIE PrnDef/Printer settings: ""
+*CIE False/Disabled: "<< /RejectionCIEcolor false >> setuserparams"
+*CIE True/Enabled: "<< /RejectionCIEcolor true >> setuserparams"
 *End
 *CloseUI: *CIE
-
-*CloseGroup: Imaging/Imagem
 
 *% Halftone Information 
 *DefaultHalftoneType: 1
@@ -2154,9 +2139,9 @@
 *PageSize P16K/16K: "<< /Policies << /PageSize 7 >> /PageSize [558 774] /ImagingBBox null >> setpagedevice"
 *PageSize OficioMX/216 x 340 mm: "<< /Policies << /PageSize 7 >> /PageSize [612 964] /ImagingBBox null >> setpagedevice"
 *PageSize P12X18/12 x 18: "<< /Policies << /PageSize 7 >> /PageSize [864 1296] /ImagingBBox null >> setpagedevice"
-*PageSize Letter/Carta: "<< /Policies << /PageSize 7 >> /PageSize [612 792] /ImagingBBox null >> setpagedevice"
-*PageSize Legal/Oficio: "<< /Policies << /PageSize 7 >> /PageSize [612 1008] /ImagingBBox null >> setpagedevice"
-*PageSize Executive/Executivo: "<< /Policies << /PageSize 7 >> /PageSize [522 756] /ImagingBBox null >> setpagedevice"
+*PageSize Letter/Letter: "<< /Policies << /PageSize 7 >> /PageSize [612 792] /ImagingBBox null >> setpagedevice"
+*PageSize Legal/Legal: "<< /Policies << /PageSize 7 >> /PageSize [612 1008] /ImagingBBox null >> setpagedevice"
+*PageSize Executive/Executive: "<< /Policies << /PageSize 7 >> /PageSize [522 756] /ImagingBBox null >> setpagedevice"
 *PageSize Tabloid/Ledger 11x17: "<< /Policies << /PageSize 7 >> /PageSize [792 1224] /ImagingBBox null >> setpagedevice"
 *PageSize EnvPersonal/Envelope #6: "<< /Policies << /PageSize 7 >> /PageSize [261 468] /ImagingBBox null >> setpagedevice"
 *PageSize Env9/Envelope #9: "<< /Policies << /PageSize 7 >> /PageSize [279 639] /ImagingBBox null >> setpagedevice"
@@ -2217,9 +2202,9 @@
 *PageRegion B5/B5 (JIS): "<< /Policies << /PageSize 7 >> /PageSize [516 729] /ImagingBBox null >> setpagedevice"
 *PageRegion ISOB5/B5 (ISO): "<< /Policies << /PageSize 7 >> /PageSize [499 708] /ImagingBBox null >> setpagedevice"
 *PageRegion B6/B6: "<< /Policies << /PageSize 7 >> /PageSize [364 516] /ImagingBBox null >> setpagedevice"
-*PageRegion Letter/Carta: "<< /Policies << /PageSize 7 >> /PageSize [612 792] /ImagingBBox null >> setpagedevice"
-*PageRegion Legal/Oficio: "<< /Policies << /PageSize 7 >> /PageSize [612 1008] /ImagingBBox null >> setpagedevice"
-*PageRegion Executive/Executivo: "<< /Policies << /PageSize 7 >> /PageSize [522 756] /ImagingBBox null >> setpagedevice"
+*PageRegion Letter/Letter: "<< /Policies << /PageSize 7 >> /PageSize [612 792] /ImagingBBox null >> setpagedevice"
+*PageRegion Legal/Legal: "<< /Policies << /PageSize 7 >> /PageSize [612 1008] /ImagingBBox null >> setpagedevice"
+*PageRegion Executive/Executive: "<< /Policies << /PageSize 7 >> /PageSize [522 756] /ImagingBBox null >> setpagedevice"
 *PageRegion Tabloid/Ledger 11x17: "<< /Policies << /PageSize 7 >> /PageSize [792 1224] /ImagingBBox null >> setpagedevice"
 *PageRegion EnvPersonal/Envelope #6: "<< /Policies << /PageSize 7 >> /PageSize [261 468] /ImagingBBox null >> setpagedevice"
 *PageRegion Env9/Envelope #9: "<< /Policies << /PageSize 7 >> /PageSize [279 639] /ImagingBBox null >> setpagedevice"
@@ -2254,9 +2239,9 @@
 *ImageableArea P16K/16K: "12 12 547 763"
 *ImageableArea OficioMX/216 x 340 mm: "12 12 600 952"
 *ImageableArea P12X18/12 x 18: "11 36 853 1260"
-*ImageableArea Letter/Carta: "12 08 600 784"
-*ImageableArea Legal/Oficio: "12 08 600 1000"
-*ImageableArea Executive/Executivo: "12 08 510 748"
+*ImageableArea Letter/Letter: "12 08 600 784"
+*ImageableArea Legal/Legal: "12 08 600 1000"
+*ImageableArea Executive/Executive: "12 08 510 748"
 *ImageableArea Tabloid/Ledger 11x17: "12 08 780 1216"
 *ImageableArea EnvPersonal/Envelope #6: "12 08 249 460"
 *ImageableArea Env9/Envelope #9: "12 08 267 631"
@@ -2292,9 +2277,9 @@
 *PaperDimension P16K/16K: "558 774"
 *PaperDimension OficioMX/216 x 340 mm: "612 964"
 *PaperDimension P12X18/12 x 18: "864 1296"
-*PaperDimension Letter/Carta: "612 792"
-*PaperDimension Legal/Oficio: "612 1008"
-*PaperDimension Executive/Executivo: "522 756"
+*PaperDimension Letter/Letter: "612 792"
+*PaperDimension Legal/Legal: "612 1008"
+*PaperDimension Executive/Executive: "522 756"
 *PaperDimension Tabloid/Ledger 11x17: "792 1224"
 *PaperDimension EnvPersonal/Envelope #6: "261 468"
 *PaperDimension Env9/Envelope #9: "279 639"
@@ -2330,45 +2315,45 @@
 *OpenUI *InputSlot: PickOne
 *OrderDependency: 30 AnySetup *InputSlot
 *DefaultInputSlot: PF730A
-*InputSlot PF730A/Cassete 1: "<< /ManualFeed false >> setpagedevice statusdict begin 0 setpapertray end"
-*InputSlot PF730B/Cassete 2: "<< /ManualFeed false >> setpagedevice statusdict begin 1 setpapertray end"
-*InputSlot PF730C/Cassete 3: "<< /ManualFeed false >> setpagedevice statusdict begin 4 setpapertray end"
-*InputSlot PF730D/Cassete 4: "<< /ManualFeed false >> setpagedevice statusdict begin 5 setpapertray end"
-*InputSlot MF1/Bandeja bypass: "<< /ManualFeed false >> setpagedevice statusdict begin 3 setpapertray end"
-*InputSlot ST11/Prateleira lateral: "<< /ManualFeed false >> setpagedevice statusdict begin 6 setpapertray end"
+*InputSlot PF730A/Cassette 1: "<< /ManualFeed false >> setpagedevice statusdict begin 0 setpapertray end"
+*InputSlot PF730B/Cassette 2: "<< /ManualFeed false >> setpagedevice statusdict begin 1 setpapertray end"
+*InputSlot PF730C/Cassette 3: "<< /ManualFeed false >> setpagedevice statusdict begin 4 setpapertray end"
+*InputSlot PF730D/Cassette 4: "<< /ManualFeed false >> setpagedevice statusdict begin 5 setpapertray end"
+*InputSlot MF1/Bypass Tray: "<< /ManualFeed false >> setpagedevice statusdict begin 3 setpapertray end"
+*InputSlot ST11/Side Feeder: "<< /ManualFeed false >> setpagedevice statusdict begin 6 setpapertray end"
 *?InputSlot: ""
 *CloseUI: *InputSlot
 
 *% MediaType Definitions
-*OpenUI *MediaType/Tipo de m<ED>dia: PickOne
+*OpenUI *MediaType/Media type: PickOne
 *OrderDependency: 95 AnySetup *MediaType
 *DefaultMediaType: PrnDef
-*MediaType PrnDef/N<E3>o especificado: "<</ManualFeed false /MediaType (None) /DeferredMediaSelection true >> setpagedevice"
-*MediaType Auto/Sele<E7><E3>o autom<E1>tica de m<ED>dia: ""
-*MediaType Plain/Comum: "<</ManualFeed false /MediaType (Plain) /DeferredMediaSelection true >> setpagedevice"
-*MediaType Transparency/Transpar<EA>ncia: "<</ManualFeed false /MediaType (Transparency) /DeferredMediaSelection true >> setpagedevice"
-*MediaType Labels/Etiquetas: "<</ManualFeed false /MediaType (Labels) /DeferredMediaSelection true >> setpagedevice"
-*MediaType Letterhead/Timbrado: "<</ManualFeed false /MediaType (Letterhead) /DeferredMediaSelection true >> setpagedevice"
+*MediaType PrnDef/Unspecified: "<</ManualFeed false /MediaType (None) /DeferredMediaSelection true >> setpagedevice"
+*MediaType Auto/Auto media selection: ""
+*MediaType Plain/Plain: "<</ManualFeed false /MediaType (Plain) /DeferredMediaSelection true >> setpagedevice"
+*MediaType Transparency/Transparency: "<</ManualFeed false /MediaType (Transparency) /DeferredMediaSelection true >> setpagedevice"
+*MediaType Labels/Labels: "<</ManualFeed false /MediaType (Labels) /DeferredMediaSelection true >> setpagedevice"
+*MediaType Letterhead/Letterhead: "<</ManualFeed false /MediaType (Letterhead) /DeferredMediaSelection true >> setpagedevice"
 *MediaType Bond/Bond: "<</ManualFeed false /MediaType (Bond) /DeferredMediaSelection true >> setpagedevice"
-*MediaType Color/Colorido: "<</ManualFeed false /MediaType (Color) /DeferredMediaSelection true >> setpagedevice"
-*MediaType Preprinted/Pr<E9>-impresso: "<</ManualFeed false /MediaType (Preprinted) /DeferredMediaSelection true >> setpagedevice"
-*MediaType Prepunched/Perfurado: "<</ManualFeed false /MediaType (Prepunched) /DeferredMediaSelection true >> setpagedevice"
-*MediaType Recycled/Reciclado: "<</ManualFeed false /MediaType (Recycled) /DeferredMediaSelection true >> setpagedevice"
-*MediaType Cardstock/Cart<E3>o: "<</ManualFeed false /MediaType (Card Stock) /DeferredMediaSelection true >> setpagedevice"
-*MediaType Vellum/Velino: "<</ManualFeed false /MediaType (Vellum) /DeferredMediaSelection true >> setpagedevice"
+*MediaType Color/Color: "<</ManualFeed false /MediaType (Color) /DeferredMediaSelection true >> setpagedevice"
+*MediaType Preprinted/Preprinted: "<</ManualFeed false /MediaType (Preprinted) /DeferredMediaSelection true >> setpagedevice"
+*MediaType Prepunched/Prepunched: "<</ManualFeed false /MediaType (Prepunched) /DeferredMediaSelection true >> setpagedevice"
+*MediaType Recycled/Recycled: "<</ManualFeed false /MediaType (Recycled) /DeferredMediaSelection true >> setpagedevice"
+*MediaType Cardstock/Cardstock: "<</ManualFeed false /MediaType (Card Stock) /DeferredMediaSelection true >> setpagedevice"
+*MediaType Vellum/Vellum: "<</ManualFeed false /MediaType (Vellum) /DeferredMediaSelection true >> setpagedevice"
 *MediaType Envelope/Envelope: "<</ManualFeed false /MediaType (Envelope) /DeferredMediaSelection true >> setpagedevice"
-*MediaType Rough/Rugoso: "<</ManualFeed false /MediaType (Rough) /DeferredMediaSelection true >> setpagedevice"
-*MediaType Thick/Espesso: "<</ManualFeed false /MediaType (Thick) /DeferredMediaSelection true >> setpagedevice"
-*MediaType CoatedPaper/Cuch<EA>: "<</ManualFeed false /MediaType (CoatedPaper) /DeferredMediaSelection true >> setpagedevice"
-*MediaType Highqlty/Alta qualidade: "<</ManualFeed false /MediaType (Fine) /DeferredMediaSelection true >> setpagedevice"
-*MediaType User1/Tipo personalizado 1: "<</ManualFeed false /MediaType (Custom Type1) /DeferredMediaSelection true >> setpagedevice"
-*MediaType User2/Tipo personalizado 2: "<</ManualFeed false /MediaType (Custom Type2) /DeferredMediaSelection true >> setpagedevice"
-*MediaType User3/Tipo personalizado 3: "<</ManualFeed false /MediaType (Custom Type3) /DeferredMediaSelection true >> setpagedevice"
-*MediaType User4/Tipo personalizado 4: "<</ManualFeed false /MediaType (Custom Type4) /DeferredMediaSelection true >> setpagedevice"
-*MediaType User5/Tipo personalizado 5: "<</ManualFeed false /MediaType (Custom Type5) /DeferredMediaSelection true >> setpagedevice"
-*MediaType User6/Tipo personalizado 6: "<</ManualFeed false /MediaType (Custom Type6) /DeferredMediaSelection true >> setpagedevice"
-*MediaType User7/Tipo personalizado 7: "<</ManualFeed false /MediaType (Custom Type7) /DeferredMediaSelection true >> setpagedevice"
-*MediaType User8/Tipo personalizado 8: "<</ManualFeed false /MediaType (Custom Type8) /DeferredMediaSelection true >> setpagedevice"
+*MediaType Rough/Rough: "<</ManualFeed false /MediaType (Rough) /DeferredMediaSelection true >> setpagedevice"
+*MediaType Thick/Thick: "<</ManualFeed false /MediaType (Thick) /DeferredMediaSelection true >> setpagedevice"
+*MediaType CoatedPaper/Coated: "<</ManualFeed false /MediaType (CoatedPaper) /DeferredMediaSelection true >> setpagedevice"
+*MediaType Highqlty/High quality: "<</ManualFeed false /MediaType (Fine) /DeferredMediaSelection true >> setpagedevice"
+*MediaType User1/Custom type 1: "<</ManualFeed false /MediaType (Custom Type1) /DeferredMediaSelection true >> setpagedevice"
+*MediaType User2/Custom type 2: "<</ManualFeed false /MediaType (Custom Type2) /DeferredMediaSelection true >> setpagedevice"
+*MediaType User3/Custom type 3: "<</ManualFeed false /MediaType (Custom Type3) /DeferredMediaSelection true >> setpagedevice"
+*MediaType User4/Custom type 4: "<</ManualFeed false /MediaType (Custom Type4) /DeferredMediaSelection true >> setpagedevice"
+*MediaType User5/Custom type 5: "<</ManualFeed false /MediaType (Custom Type5) /DeferredMediaSelection true >> setpagedevice"
+*MediaType User6/Custom type 6: "<</ManualFeed false /MediaType (Custom Type6) /DeferredMediaSelection true >> setpagedevice"
+*MediaType User7/Custom type 7: "<</ManualFeed false /MediaType (Custom Type7) /DeferredMediaSelection true >> setpagedevice"
+*MediaType User8/Custom type 8: "<</ManualFeed false /MediaType (Custom Type8) /DeferredMediaSelection true >> setpagedevice"
 *?MediaType: "
   save
     currentpagedevice /MediaType {get} stopped
@@ -2379,80 +2364,64 @@
 
 *RequiresPageRegion All: True
 
-*OpenGroup: Output/Sa<ED>da
-
 *% Output Bin Definitions
-*OpenUI *OutputBin/Bandeja de Sa<ED>da: PickOne
+*OpenUI *OutputBin/Output Bin: PickOne
 *OrderDependency: 51 AnySetup *OutputBin
-*DefaultOutputBin: LFTTRAYDWN
-*OutputBin None/Conf. da impressora: ""
-*OutputBin INNERTRAY/Bandeja interna: "0 statusdict /setoutputtray get exec"
+*DefaultOutputBin: None
+*OutputBin None/Printer settings: ""
+*OutputBin INNERTRAY/Inner Tray: "0 statusdict /setoutputtray get exec"
 *End
-*OutputBin LFTTRAYDWN/Bandeja Esquerda do Acabador: "2 statusdict /setoutputtray get exec"
+*OutputBin LFTTRAYDWN/Finisher Left Tray: "2 statusdict /setoutputtray get exec"
 *End
-*OutputBin FDTop/Bandeja Superior do Acabador: "12 statusdict /setoutputtray get exec"
+*OutputBin FDTop/Finisher Top Tray: "12 statusdict /setoutputtray get exec"
 *End
-*OutputBin SEPARATORTRAY/Separador de trabalhos: "3 statusdict /setoutputtray get exec << /OutputFaceUp false >> setpagedevice"
+*OutputBin SEPARATORTRAY/Job Separator: "3 statusdict /setoutputtray get exec << /OutputFaceUp false >> setpagedevice"
 *End
-*OutputBin SEPARATORTRAYB/Bandeja direita (face para baixo): "11 statusdict /setoutputtray get exec << /OutputFaceUp false >> setpagedevice"
+*OutputBin SEPARATORTRAYB/Right Tray (Face-down): "11 statusdict /setoutputtray get exec << /OutputFaceUp false >> setpagedevice"
 *End
-*OutputBin FDStackerA/Bandeja A (Face para baixo): "2 statusdict /setoutputtray get exec << /OutputFaceUp false >> setpagedevice"
+*OutputBin FDStackerA/Tray A (Face-Down): "2 statusdict /setoutputtray get exec << /OutputFaceUp false >> setpagedevice"
 *End
-*OutputBin FDStackerB/Bandeja B (Face para baixo): "1 statusdict /setoutputtray get exec << /OutputFaceUp false >> setpagedevice"
+*OutputBin FDStackerB/Tray B (Face-Down): "1 statusdict /setoutputtray get exec << /OutputFaceUp false >> setpagedevice"
 *End
-*OutputBin FDStackerC/Bandeja C (Face para baixo): "12 statusdict /setoutputtray get exec << /OutputFaceUp false >> setpagedevice"
+*OutputBin FDStackerC/Tray C (Face-Down): "12 statusdict /setoutputtray get exec << /OutputFaceUp false >> setpagedevice"
 *End
-*OutputBin MBDWN01/Caixa Postal 1 (Face para baixo): "4 statusdict /setoutputtray get exec << /OutputFaceUp false >> setpagedevice"
+*OutputBin MBDWN01/Mailbox 1(Face-Down): "4 statusdict /setoutputtray get exec << /OutputFaceUp false >> setpagedevice"
 *End
-*OutputBin MBDWN02/Caixa Postal 2 (Face para baixo): "5 statusdict /setoutputtray get exec << /OutputFaceUp false >> setpagedevice"
+*OutputBin MBDWN02/Mailbox 2(Face-Down): "5 statusdict /setoutputtray get exec << /OutputFaceUp false >> setpagedevice"
 *End
-*OutputBin MBDWN03/Caixa Postal 3 (Face para baixo): "6 statusdict /setoutputtray get exec << /OutputFaceUp false >> setpagedevice"
+*OutputBin MBDWN03/Mailbox 3(Face-Down): "6 statusdict /setoutputtray get exec << /OutputFaceUp false >> setpagedevice"
 *End
-*OutputBin MBDWN04/Caixa Postal 4 (Face para baixo): "7 statusdict /setoutputtray get exec << /OutputFaceUp false >> setpagedevice"
+*OutputBin MBDWN04/Mailbox 4(Face-Down): "7 statusdict /setoutputtray get exec << /OutputFaceUp false >> setpagedevice"
 *End
-*OutputBin MBDWN05/Caixa Postal 5 (Face para baixo): "8 statusdict /setoutputtray get exec << /OutputFaceUp false >> setpagedevice"
+*OutputBin MBDWN05/Mailbox 5(Face-Down): "8 statusdict /setoutputtray get exec << /OutputFaceUp false >> setpagedevice"
 *End
-*OutputBin MBDWN06/Caixa Postal 6 (Face para baixo): "9 statusdict /setoutputtray get exec << /OutputFaceUp false >> setpagedevice"
+*OutputBin MBDWN06/Mailbox 6(Face-Down): "9 statusdict /setoutputtray get exec << /OutputFaceUp false >> setpagedevice"
 *End
-*OutputBin MBDWN07/Caixa Postal 7 (Face para baixo): "10 statusdict /setoutputtray get exec << /OutputFaceUp false >> setpagedevice"
+*OutputBin MBDWN07/Mailbox 7(Face-Down): "10 statusdict /setoutputtray get exec << /OutputFaceUp false >> setpagedevice"
 *End
 *?OutputBin: ""
 *End
 *CloseUI: *OutputBin
 
-*% Rotate Method Definitions
-*OpenUI *KCRotate/Rotacionar agrupamento: Boolean
-*OrderDependency: 15 AnySetup *KCRotate
-*DefaultKCRotate: False
-*KCRotate False/Desactivado: "false statusdict /setkcrotatedcollation get exec"
-*KCRotate True/Activado: "true statusdict /setkcrotatedcollation get exec"
-*?KCRotate: "(None) = flush"
-*End
-*CloseUI: *KCRotate
-*CloseGroup: Output/Sa<ED>da
-
-
 *% Page Stack Order
 *PageStackOrder FDTop: Normal
 
-*OpenGroup: Finishing/Acabamento
-
 *% Staple Mode Definitions
-*OpenUI *KCStaple/Grampear: PickOne
+*OpenUI *KCStaple/Staple: PickOne
 *OrderDependency: 20 AnySetup *KCStaple
 *DefaultKCStaple: None
-*KCStaple None/Desactivado: "<< /Staple 0 >> setpagedevice"
-*KCStaple Center/Centro: "
+*KCStaple None/Off: "<< /Staple 0 >> setpagedevice"
+*KCStaple Center/Center: "
   userdict /UIStapleDetails known not {userdict /UIStapleDetails 10 dict put} if
   userdict /UIStapleDetails get /StaplePosition 3 put
   << /Staple 3 /StapleDetails UIStapleDetails >> setpagedevice"
 *End
-*KCStaple UpperRight/Superior Direito: "
+*KCStaple UpperRight/Upper Right: "
   userdict /UIStapleDetails known not {userdict /UIStapleDetails 10 dict put} if
   userdict /UIStapleDetails get /StaplePosition 1 put
   << /Staple 3 /StapleDetails UIStapleDetails >> setpagedevice"
 *End
-*KCStaple Upperleft/Superior Esquerda: "
+*KCStaple Upperleft/Upper Left: "
   userdict /UIStapleDetails known not {userdict /UIStapleDetails 10 dict put} if
   userdict /UIStapleDetails get /StaplePosition 2 put
   << /Staple 3 /StapleDetails UIStapleDetails >> setpagedevice"
@@ -2473,278 +2442,288 @@
 *CloseUI: *KCStaple
 
 *% Staple Method Definitions
-*OpenUI *StapleCount/M<E9>todo de Grampemaneto: PickOne
+*OpenUI *StapleCount/Staple Method: PickOne
 *OrderDependency: 20 AnySetup *StapleCount
 *DefaultStapleCount: None
-*StapleCount None/Desactivado: ""
-*StapleCount Each2/Grampear Cada 2 Folhas: "
+*StapleCount None/Off: ""
+*StapleCount Each65/Staple Every 65 Sheets: "
   userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 2 put <</StapleDetails UIStapleDetails>> setpagedevice"
+  userdict /UIStapleDetails get /Count 65 put <</StapleDetails UIStapleDetails>> setpagedevice"
 *End
-*StapleCount Each3/Grampear Cada 3 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 3 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each4/Grampear Cada 4 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 4 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each5/Grampear Cada 5 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 5 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each6/Grampear Cada 6 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 6 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each7/Grampear Cada 7 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 7 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each8/Grampear Cada 8 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 8 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each9/Grampear Cada 9 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 9 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each10/Grampear Cada 10 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 10 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each11/Grampear Cada 11 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 11 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each12/Grampear Cada 12 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 12 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each13/Grampear Cada 13 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 13 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each14/Grampear Cada 14 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 14 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each15/Grampear Cada 15 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 15 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each16/Grampear Cada 16 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 16 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each17/Grampear Cada 17 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 17 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each18/Grampear Cada 18 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 18 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each19/Grampear Cada 19 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 19 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each20/Grampear Cada 20 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 20 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each21/Grampear Cada 21 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 21 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each22/Grampear Cada 22 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 22 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each23/Grampear Cada 23 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 23 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each24/Grampear Cada 24 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 24 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each25/Grampear Cada 25 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 25 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each26/Grampear Cada 26 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 26 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each27/Grampear Cada 27 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 27 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each28/Grampear Cada 28 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 28 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each29/Grampear Cada 29 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 29 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each30/Grampear Cada 30 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 30 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each31/Grampear Cada 31 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 31 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each32/Grampear Cada 32 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 32 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each33/Grampear Cada 33 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 33 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each34/Grampear Cada 34 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 34 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each35/Grampear Cada 35 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 35 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each36/Grampear Cada 36 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 36 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each37/Grampear Cada 37 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 37 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each38/Grampear Cada 38 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 38 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each39/Grampear Cada 39 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 39 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each40/Grampear Cada 40 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 40 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each41/Grampear Cada 41 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 41 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each42/Grampear Cada 42 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 42 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each43/Grampear Cada 43 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 43 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each44/Grampear Cada 44 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 44 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each45/Grampear Cada 45 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 45 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each46/Grampear Cada 46 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 46 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each47/Grampear Cada 47 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 47 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each48/Grampear Cada 48 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 48 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each49/Grampear Cada 49 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 49 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each50/Grampear Cada 50 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 50 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each51/Grampear Cada 51 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 51 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each52/Grampear Cada 52 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 52 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each53/Grampear Cada 53 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 53 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each54/Grampear Cada 54 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 54 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each55/Grampear Cada 55 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 55 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each56/Grampear Cada 56 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 56 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each57/Grampear Cada 57 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 57 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each58/Grampear Cada 58 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 58 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each59/Grampear Cada 59 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 59 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each60/Grampear Cada 60 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 60 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each61/Grampear Cada 61 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 61 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each62/Grampear Cada 62 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 62 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each63/Grampear Cada 63 Folhas: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 63 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
-*StapleCount Each64/Grampear Cada 64 Folhas: "
+*StapleCount Each64/Staple Every 64 Sheets: "
   userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
   userdict /UIStapleDetails get /Count 64 put <</StapleDetails UIStapleDetails>> setpagedevice"
 *End
-*StapleCount Each65/Grampear Cada 65 Folhas: "
+*StapleCount Each63/Staple Every 63 Sheets: "
   userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 65 put <</StapleDetails UIStapleDetails>> setpagedevice"
+  userdict /UIStapleDetails get /Count 63 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each62/Staple Every 62 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 62 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each61/Staple Every 61 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 61 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each60/Staple Every 60 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 60 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each59/Staple Every 59 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 59 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each58/Staple Every 58 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 58 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each57/Staple Every 57 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 57 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each56/Staple Every 56 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 56 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each55/Staple Every 55 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 55 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each54/Staple Every 54 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 54 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each53/Staple Every 53 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 53 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each52/Staple Every 52 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 52 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each51/Staple Every 51 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 51 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each50/Staple Every 50 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 50 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each49/Staple Every 49 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 49 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each48/Staple Every 48 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 48 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each47/Staple Every 47 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 47 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each46/Staple Every 46 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 46 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each45/Staple Every 45 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 45 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each44/Staple Every 44 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 44 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each43/Staple Every 43 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 43 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each42/Staple Every 42 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 42 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each41/Staple Every 41 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 41 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each40/Staple Every 40 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 40 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each39/Staple Every 39 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 39 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each38/Staple Every 38 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 38 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each37/Staple Every 37 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 37 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each36/Staple Every 36 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 36 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each35/Staple Every 35 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 35 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each34/Staple Every 34 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 34 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each33/Staple Every 33 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 33 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each32/Staple Every 32 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 32 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each31/Staple Every 31 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 31 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each30/Staple Every 30 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 30 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each29/Staple Every 29 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 29 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each28/Staple Every 28 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 28 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each27/Staple Every 27 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 27 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each26/Staple Every 26 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 26 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each25/Staple Every 25 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 25 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each24/Staple Every 24 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 24 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each23/Staple Every 23 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 23 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each22/Staple Every 22 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 22 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each21/Staple Every 21 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 21 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each20/Staple Every 20 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 20 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each19/Staple Every 19 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 19 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each18/Staple Every 18 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 18 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each17/Staple Every 17 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 17 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each16/Staple Every 16 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 16 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each15/Staple Every 15 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 15 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each14/Staple Every 14 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 14 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each13/Staple Every 13 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 13 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each12/Staple Every 12 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 12 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each11/Staple Every 11 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 11 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each10/Staple Every 10 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 10 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each9/Staple Every 9 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 9 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each8/Staple Every 8 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 8 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each7/Staple Every 7 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 7 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each6/Staple Every 6 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 6 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each5/Staple Every 5 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 5 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each4/Staple Every 4 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 4 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each3/Staple Every 3 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 3 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each2/Staple Every 2 Sheets: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 2 put <</StapleDetails UIStapleDetails>> setpagedevice"
 *End
 *?StapleCount: "save (Auto) = flush restore"
 *CloseUI: *StapleCount
 
+*% Rotate Method Definitions
+*OpenUI *KCRotate/Rotate Collate: PickOne
+*OrderDependency: 15 AnySetup *KCRotate
+*DefaultKCRotate: None
+*KCRotate None/Off: "false statusdict /setkcrotatedcollation get exec"
+*KCRotate On/On: "true statusdict /setkcrotatedcollation get exec"
+*?KCRotate: "(None) = flush"
+*End
+*CloseUI: *KCRotate
+
 *% Punch Method Definitions
-*OpenUI *KCPunch/Perfura<E7><E3>o: PickOne
+*OpenUI *KCPunch/Punch Method: PickOne
 *OrderDependency: 100 AnySetup *KCPunch
 *DefaultKCPunch: None
-*KCPunch None/Desactivado: "<< /Punch 0 >> setpagedevice"
-*KCPunch 2Hole/2 furos (US): "<< /Punch 3 /PunchDetails << /PunchMode 2 >> >> setpagedevice"
-*KCPunch 2HoleEUR/2 furos (EUR): "<< /Punch 3 /PunchDetails << /PunchMode 1 >> >> setpagedevice"
-*KCPunch 3Hole/3 furos: "<< /Punch 3 /PunchDetails << /PunchMode 1 >> >> setpagedevice"
-*KCPunch 4Hole/4 furos: "<< /Punch 3 /PunchDetails << /PunchMode 2 >> >> setpagedevice"
+*KCPunch None/Off: "<< /Punch 0 >> setpagedevice"
+*KCPunch 2Hole/2 Holes (US): "<< /Punch 3 /PunchDetails << /PunchMode 2 >> >> setpagedevice"
+*KCPunch 2HoleEUR/2 Holes (EUR): "<< /Punch 3 /PunchDetails << /PunchMode 1 >> >> setpagedevice"
+*KCPunch 3Hole/3 Holes: "<< /Punch 3 /PunchDetails << /PunchMode 1 >> >> setpagedevice"
+*KCPunch 4Hole/4 Holes: "<< /Punch 3 /PunchDetails << /PunchMode 2 >> >> setpagedevice"
 *?KCPunch: "
   save
   currentpagedevice /Punch known
@@ -2755,12 +2734,73 @@
 *End
 *CloseUI: *KCPunch
 
+*% Booklet Definitions
+*OpenUI *KCBooklet/Booklet: PickOne
+*OrderDependency: 100 AnySetup *KCBooklet
+*DefaultKCBooklet: None
+*KCBooklet None/Off: "0 statusdict /setkcbooklet get exec"
+*KCBooklet Left/Left Edge Binding: " 1 statusdict /setkcbooklet get exec statusdict begin true setduplexmode true settumble end"
+*KCBooklet Right/Right Edge Binding: " 2 statusdict /setkcbooklet get exec statusdict begin true setduplexmode true settumble end"
+*?KCBooklet: "(None) = flush"
+*End
+*CloseUI: *KCBooklet
+
+*% Fold Booklet Definitions
+*OpenUI *KCFold/Booklet Fold: PickOne
+*OrderDependency: 100 AnySetup *KCFold
+*DefaultKCFold: None
+*KCFold None/Off: ""
+*KCFold On/On: "<< /Fold 3 /FoldDetails << /FoldMode 1 >> >> setpagedevice"
+*?KCFold: "(None) = flush"
+*End
+*CloseUI: *KCFold
+
+*% Fold Definitions
+*OpenUI *KCFoldA/Folding Mode: PickOne
+*OrderDependency: 100 AnySetup *KCFoldA
+*DefaultKCFoldA: None
+*KCFoldA None/Off: ""
+*KCFoldA Bifold/Bi-Fold: "<< /Fold 1 /FoldDetails << /FoldMode 3 >> >> setpagedevice"
+*KCFoldA Trifold/Tri-Fold: "<< /Fold 1 /FoldDetails << /FoldMode 4 >> >> setpagedevice"
+*End
+*CloseUI: *KCFoldA
+
+*OpenUI *KCFoldB/Folding Side: PickOne
+*OrderDependency: 100 AnySetup *KCFoldB
+*DefaultKCFoldB: None
+*KCFoldB None/Off: ""
+*KCFoldB FPInside/First Page On Inside: "<< /FoldDetails << /BookletTwoSides 0 >> >> setpagedevice"
+*KCFoldB FPOutside/First Page On Outside: "<< /FoldDetails << /BookletTwoSides 1 >> >> setpagedevice"
+*End
+*CloseUI: *KCFoldB
+
+*OpenUI *KCFoldC/Folding Direction: PickOne
+*OrderDependency: 100 AnySetup *KCFoldC
+*DefaultKCFoldC: None
+*KCFoldC None/Off: ""
+*KCFoldC RIGHTL/Right to Left / Bottom to Top: "<< /FoldDetails << /BookletRightAndLeft 0 >> >> setpagedevice"
+*KCFoldC LEFTR/Left to Right / Top to Bottom: "<< /FoldDetails << /BookletRightAndLeft 1 >> >> setpagedevice"
+*End
+*CloseUI: *KCFoldC
+
+*OpenUI *KCFoldD/Folding Method: PickOne
+*OrderDependency: 100 AnySetup *KCFoldD
+*DefaultKCFoldD: None
+*KCFoldD None/Off: ""
+*KCFoldD FLD1/Fold every 1 sheet: "<< /FoldDetails << /BookletCount 1 >> >> setpagedevice"
+*KCFoldD FLD2/Fold every 2 sheets: "<< /FoldDetails << /BookletCount 2 >> >> setpagedevice"
+*KCFoldD FLD3/Fold every 3 sheets: "<< /FoldDetails << /BookletCount 3 >> >> setpagedevice"
+*KCFoldD FLD4/Fold every 4 sheets: "<< /FoldDetails << /BookletCount 4 >> >> setpagedevice"
+*KCFoldD FLD5/Fold every 5 sheets: "<< /FoldDetails << /BookletCount 5 >> >> setpagedevice"
+*End
+*CloseUI: *KCFoldD
+
 *% 180 Rotate Definitions
-*OpenUI *Rotate/180 Girar: Boolean
+*OpenUI *Rotate/180 Rotate: Boolean
 *OrderDependency: 45 AnySetup *Rotate
 *DefaultRotate: False
-*Rotate False/Desactivado: ""
-*Rotate True/Activado: "userdict /180rotdetail known not
+*Rotate False/Off: ""
+*Rotate True/On: "userdict /180rotdetail known not
 {
 userdict /180rotdetail true put
 1 dict begin currentpagedevice /Install get aload
@@ -2773,11 +2813,11 @@ userdict /180rotdetail true put
 *CloseUI: *Rotate
 
 *% Job Offset Definitions
-*OpenUI *Jog/Fun<E7><E3>o Offset: Boolean
+*OpenUI *Jog/Offset: PickOne
 *OrderDependency: 50 AnySetup *Jog
-*DefaultJog: False
-*Jog False/Desactivado: "<< /Jog 0 >> setpagedevice"
-*Jog True/Activado: "<< /Jog 3 >> setpagedevice"
+*DefaultJog: None
+*Jog None/Off: "<< /Jog 0 >> setpagedevice"
+*Jog EndOfSet/On: "<< /Jog 3 >> setpagedevice"
 *?Jog: "
   save
   currentpagedevice dup /Jog known {
@@ -2789,80 +2829,13 @@ userdict /180rotdetail true put
 *End
 *CloseUI: *Jog
 
-*CloseGroup: Finishing/Acabamento
-
-*OpenGroup: Booklet <2F> Folding/Booklet <2F> Folding
-
-*% Booklet Definitions
-*OpenUI *KCBooklet/Livreto: PickOne
-*OrderDependency: 100 AnySetup *KCBooklet
-*DefaultKCBooklet: None
-*KCBooklet None/Desactivado: "0 statusdict /setkcbooklet get exec"
-*KCBooklet Left/Livreto na borda esquerda: " 1 statusdict /setkcbooklet get exec statusdict begin true setduplexmode true settumble end"
-*KCBooklet Right/Livreto na borda direita: " 2 statusdict /setkcbooklet get exec statusdict begin true setduplexmode true settumble end"
-*?KCBooklet: "(None) = flush"
-*End
-*CloseUI: *KCBooklet
-
-*% Fold Booklet Definitions
-*OpenUI *KCFold/Alinhavador de folheto: Boolean
-*OrderDependency: 100 AnySetup *KCFold
-*DefaultKCFold: False
-*KCFold False/Desactivado: ""
-*KCFold True/Activado: "<< /Fold 3 /FoldDetails << /FoldMode 1 >> >> setpagedevice"
-*?KCFold: "(None) = flush"
-*End
-*CloseUI: *KCFold
-
-*% Fold Definitions
-*OpenUI *KCFoldA/Modo de Dobra: PickOne
-*OrderDependency: 100 AnySetup *KCFoldA
-*DefaultKCFoldA: None
-*KCFoldA None/Desactivado: ""
-*KCFoldA Bifold/Duas dobras: "<< /Fold 1 /FoldDetails << /FoldMode 3 >> >> setpagedevice"
-*KCFoldA Trifold/Tr<EA>s dobras: "<< /Fold 1 /FoldDetails << /FoldMode 4 >> >> setpagedevice"
-*End
-*CloseUI: *KCFoldA
-
-*OpenUI *KCFoldB/Lado da Dobra: PickOne
-*OrderDependency: 100 AnySetup *KCFoldB
-*DefaultKCFoldB: None
-*KCFoldB None/Desactivado: ""
-*KCFoldB FPInside/Primeira P<E1>gina do Lado de Dentro: "<< /FoldDetails << /BookletTwoSides 0 >> >> setpagedevice"
-*KCFoldB FPOutside/Primeira P<E1>gina do Lado de Fora: "<< /FoldDetails << /BookletTwoSides 1 >> >> setpagedevice"
-*End
-*CloseUI: *KCFoldB
-
-*OpenUI *KCFoldC/Dire<E7><E3>o da Dobra: PickOne
-*OrderDependency: 100 AnySetup *KCFoldC
-*DefaultKCFoldC: None
-*KCFoldC None/Desactivado: ""
-*KCFoldC RIGHTL/Direita para esquerda/de baixo para cima: "<< /FoldDetails << /BookletRightAndLeft 0 >> >> setpagedevice"
-*KCFoldC LEFTR/Esquerda para direita/de cima para baixo: "<< /FoldDetails << /BookletRightAndLeft 1 >> >> setpagedevice"
-*End
-*CloseUI: *KCFoldC
-
-*OpenUI *KCFoldD/M<E9>todo de Dobra: PickOne
-*OrderDependency: 100 AnySetup *KCFoldD
-*DefaultKCFoldD: None
-*KCFoldD None/Desactivado: ""
-*KCFoldD FLD1/Dobra a cada 1 folha: "<< /FoldDetails << /BookletCount 1 >> >> setpagedevice"
-*KCFoldD FLD2/Dobra a cada 2 folhas: "<< /FoldDetails << /BookletCount 2 >> >> setpagedevice"
-*KCFoldD FLD3/Dobra a cada 3 folhas: "<< /FoldDetails << /BookletCount 3 >> >> setpagedevice"
-*KCFoldD FLD4/Dobra a cada 4 folhas: "<< /FoldDetails << /BookletCount 4 >> >> setpagedevice"
-*KCFoldD FLD5/Dobra a cada 5 folhas: "<< /FoldDetails << /BookletCount 5 >> >> setpagedevice"
-*End
-*CloseUI: *KCFoldD
-
-*CloseGroup: Booklet <2F> Folding/Booklet <2F> Folding
-
 *% Duplex Definitions
-*OpenUI *Duplex/Modo Duplex: PickOne
+*OpenUI *Duplex/Duplexing: PickOne
 *OrderDependency: 50 AnySetup *Duplex
 *DefaultDuplex: DuplexNoTumble
-*Duplex None/Nenhum: "statusdict begin false setduplexmode false settumble end"
-*Duplex DuplexTumble/Vertical: "statusdict begin true setduplexmode true settumble end"
-*Duplex DuplexNoTumble/Horizontal: "statusdict begin true setduplexmode false settumble end"
+*Duplex None/None: "statusdict begin false setduplexmode false settumble end"
+*Duplex DuplexTumble/Short Edge: "statusdict begin true setduplexmode true settumble end"
+*Duplex DuplexNoTumble/Long Edge: "statusdict begin true setduplexmode false settumble end"
 *?Duplex: "
   save
   statusdict begin
@@ -2873,38 +2846,40 @@ userdict /180rotdetail true put
 *End
 *CloseUI: *Duplex
 
-*OpenGroup: Job Settings/Spool do Trabalho
-
 *% Job Spooling Definitions
-*OpenUI *KCCollate1/Spool do Trabalho: PickOne
+*OpenUI *KCCollate1/Job Settings: PickOne
 *OrderDependency: 20 AnySetup *KCCollate1
-*DefaultKCCollate1: PrnDef
-*KCCollate1 PrnDef/Conf. da impressora: ""
-*KCCollate1 On/Agrupar: "<< /Collate true >> setpagedevice"
-*KCCollate1 None/Nenhum: "<< /Collate false >> setpagedevice"
-*KCCollate1 QuickCopy/C<F3>pia r<E1>pida: "
+*DefaultKCCollate: PrnDef
+*KCCollate1 PrnDef/Printer settings: ""
+*KCCollate1 On/Collate: "<< /Collate true >> setpagedevice"
+*KCCollate1 None/None: "<< /Collate false >> setpagedevice"
+*KCCollate1 QuickCopy/Quick Copy: "
   userdict /UICollateDetails known not {userdict /UICollateDetails 10 dict put} if
   userdict /UICollateDetails get dup /Mode 0 put dup /Type 8 put /Hold 1 put <</Collate true /CollateDetails UICollateDetails>> setpagedevice"
 *End
-*KCCollate1 ProofHold/C<F3>pia com espera: "
+*KCCollate1 ProofHold/Proof and Hold: "
   userdict /UICollateDetails known not {userdict /UICollateDetails 10 dict put} if
   userdict /UICollateDetails get dup /Mode 0 put dup /Type 8 put /Hold 3 put <</Collate true /CollateDetails UICollateDetails>> setpagedevice"
 *End
-*KCCollate1 JobStorage/Armazenamento de trabalho: "
+*KCCollate1 JobStorage/Job Storage: "
   userdict /UICollateDetails known not {userdict /UICollateDetails 10 dict put} if
   userdict /UICollateDetails get dup /Mode 0 put dup /Type 8 put dup /Hold 2 put dup /HoldType 0 put /HoldKey (0000) pop pop pop <</Collate true /CollateDetails UICollateDetails>> setpagedevice"
 *End
 *CloseUI: *KCCollate1
 
-*CloseGroup: Job Settings/Spool do Trabalho
-
-*OpenGroup: Job Accounting/Controle de trabalho
+*% Collate Definitions
+*OpenUI *Collate/Collate: Boolean
+*OrderDependency: 19 AnySetup *Collate
+*DefaultCollate: True
+*Collate False/Off: "<</Collate false>> setpagedevice"
+*Collate True/On: "<</Collate true>> setpagedevice"
+*CloseUI: *Collate
 
 *% Management Code Definitions
-*OpenUI *KmManagment/Controle de trabalho: PickOne
+*OpenUI *KmManagment/Job Accounting: PickOne
 *OrderDependency: 60 AnySetup *KmManagment
 *DefaultKmManagment: Default
-*KmManagment Default/Desactivado: ""
+*KmManagment Default/Off: ""
 *KmManagment MG00000000/00000000: "(00000000) statusdict /setmanagementnumber get exec"
 *KmManagment MG00000001/00000001: "(00000001) statusdict /setmanagementnumber get exec"
 *KmManagment MG00000002/00000002: "(00000002) statusdict /setmanagementnumber get exec"
@@ -2940,145 +2915,11 @@ userdict /180rotdetail true put
 *End
 *CloseUI: *KmManagment
 
-*CloseGroup: Job Accounting/Controle de trabalho
-
-
-
-
-
-
-*OpenGroup: KMWatermark/Marca d'água
-
-*OpenUI *WatermarkRendering/Marca d'água/Carimbo: Boolean
-*OrderDependency: 19 AnySetup *WatermarkRendering
-*DefaultWatermarkRendering: False
-*WatermarkRendering False/Desactivado: "/WatermarkRendering false def"
-*WatermarkRendering True/Activado: "/WatermarkRendering true def"
-*CloseUI: *WatermarkRendering
-
-*OpenUI *WmText/Texto: PickOne
-*OrderDependency: 65 AnySetup *WmText
-*DefaultWmText: None
-*WmText None/Nenhum: ""
-*WmText Confidential/CONFIDENTIAL: "/WMTEXT (CONFIDENTIAL) def"
-*WmText Original/ORIGINAL: "/WMTEXT (ORIGINAL) def"
-*WmText Copy/COPY: "/WMTEXT (COPY) def"
-*WmText DoNotPhotoCopy/DO NOT PHOTOCOPY: "/WMTEXT (DO NOT PHOTOCOPY) def"
-*WmText Draft/DRAFT: "/WMTEXT (DRAFT) def"
-*WmText Final/FINAL: "/WMTEXT (FINAL) def"
-*WmText Proof/PROOF: "/WMTEXT (PROOF) def"
-*CloseUI: *WmText
-
-*OpenUI *WmFont/Fontes: PickOne
-*OrderDependency: 65 AnySetup *WmFont
-*DefaultWmFont: Arial-BoldMT
-*WmFont Arial-BoldMT/Arial: "/WMFONT /Arial-BoldMT def"
-*WmFont Arial-BoldItalicMT/Arial Italic: "/WMFONT /Arial-BoldItalicMT def"
-*WmFont Courier-Bold/Courier: "/WMFONT /Courier-Bold def"
-*WmFont Courier-BoldOblique/Courier Italic: "/WMFONT /Courier-BoldOblique def"
-*WmFont Helvetica-Bold/Helvetica: "/WMFONT /Helvetica-Bold def"
-*WmFont Helvetica-BoldOblique/Helvetica Italic: "/WMFONT /Helvetica-BoldOblique def"
-*WmFont Palatino-Bold/Palatino: "/WMFONT /Palatino-Bold def"
-*WmFont Palatino-BoldItalic/Palatino Italic: "/WMFONT /Palatino-BoldItalic def"
-*WmFont Times-Bold/Times: "/WMFONT /Times-Bold def"
-*WmFont Times-BoldItalic/Times Italic: "/WMFONT /Times-BoldItalic def"
-*CloseUI: *WmFont
-
-*OpenUI *WmColor/Colorido: PickOne
-*OrderDependency: 65 AnySetup *WmColor
-*DefaultWmColor: Black
-*WmColor Red/Vermelho: "/WMCOLOR {1 0 0} def"
-*WmColor Green/Verde: "/WMCOLOR {0 1 0} def"
-*WmColor Blue/Azul: "/WMCOLOR {0 0 1} def"
-*WmColor Black/Preto: "/WMCOLOR {0 0 0} def"
-*CloseUI: *WmColor
-
-*OpenUI *WmType/Preencher: PickOne
-*OrderDependency: 65 AnySetup *WmType
-*DefaultWmType: Solid
-*WmType Solid/S<F3>lido: "/WMTYPE 0 def"
-*WmType Hollow/Contorno: "/WMTYPE 1 def"
-*CloseUI: *WmType
-
-*OpenUI *WmAngle/Ângulo: PickOne
-*OrderDependency: 65 AnySetup *WmAngle
-*DefaultWmAngle: 50
-*WmAngle -180/-180<B0>: "/WMANGLE -180 def"
-*WmAngle -170/-170<B0>: "/WMANGLE -170 def"
-*WmAngle -160/-160<B0>: "/WMANGLE -160 def"
-*WmAngle -150/-150<B0>: "/WMANGLE -150 def"
-*WmAngle -140/-140<B0>: "/WMANGLE -140 def"
-*WmAngle -130/-130<B0>: "/WMANGLE -130 def"
-*WmAngle -120/-120<B0>: "/WMANGLE -120 def"
-*WmAngle -110/-110<B0>: "/WMANGLE -110 def"
-*WmAngle -100/-100<B0>: "/WMANGLE -100 def"
-*WmAngle -90/-90<B0>: "/WMANGLE -90 def"
-*WmAngle -80/-80<B0>: "/WMANGLE -80 def"
-*WmAngle -70/-70<B0>: "/WMANGLE -70 def"
-*WmAngle -60/-60<B0>: "/WMANGLE -60 def"
-*WmAngle -50/-50<B0>: "/WMANGLE -50 def"
-*WmAngle -40/-40<B0>: "/WMANGLE -40 def"
-*WmAngle -30/-30<B0>: "/WMANGLE -30 def"
-*WmAngle -20/-20<B0>: "/WMANGLE -20 def"
-*WmAngle -10/-10<B0>: "/WMANGLE -10 def"
-*WmAngle 0/0<B0>: "/WMANGLE 0 def"
-*WmAngle 10/10<B0>: "/WMANGLE 10 def"
-*WmAngle 20/20<B0>: "/WMANGLE 20 def"
-*WmAngle 30/30<B0>: "/WMANGLE 30 def"
-*WmAngle 40/40<B0>: "/WMANGLE 40 def"
-*WmAngle 50/50<B0>: "/WMANGLE 50 def"
-*WmAngle 60/60<B0>: "/WMANGLE 60 def"
-*WmAngle 70/70<B0>: "/WMANGLE 70 def"
-*WmAngle 80/80<B0>: "/WMANGLE 80 def"
-*WmAngle 90/90<B0>: "/WMANGLE 90 def"
-*WmAngle 100/100<B0>: "/WMANGLE 100 def"
-*WmAngle 110/110<B0>: "/WMANGLE 110 def"
-*WmAngle 120/120<B0>: "/WMANGLE 120 def"
-*WmAngle 130/130<B0>: "/WMANGLE 130 def"
-*WmAngle 140/140<B0>: "/WMANGLE 140 def"
-*WmAngle 150/150<B0>: "/WMANGLE 150 def"
-*WmAngle 160/160<B0>: "/WMANGLE 160 def"
-*WmAngle 170/170<B0>: "/WMANGLE 170 def"
-*WmAngle 180/180<B0>: "/WMANGLE 180 def"
-*CloseUI: *WmAngle
-
-*OpenUI *WmSize/Tamanho: PickOne
-*OrderDependency: 65 AnySetup *WmSize
-*DefaultWmSize: 72
-*WmSize 24/24 pontos: "/WMSIZE 24 def"
-*WmSize 30/30 pontos: "/WMSIZE 30 def"
-*WmSize 36/36 pontos: "/WMSIZE 36 def"
-*WmSize 42/42 pontos: "/WMSIZE 42 def"
-*WmSize 48/48 pontos: "/WMSIZE 48 def"
-*WmSize 54/54 pontos: "/WMSIZE 54 def"
-*WmSize 60/60 pontos: "/WMSIZE 60 def"
-*WmSize 66/66 pontos: "/WMSIZE 66 def"
-*WmSize 72/72 pontos: "/WMSIZE 72 def"
-*CloseUI: *WmSize
-
-*OpenUI *WmTransparent/Estilo: PickOne
-*OrderDependency: 65 AnySetup *WmTransparent
-*DefaultWmTransparent: watermark
-*WmTransparent watermark/Marca d'água: "/WMTRANSPARENT true def"
-*WmTransparent stamp/Carimbo: "/WMTRANSPARENT false def"
-*CloseUI: *WmTransparent
-
-*OpenUI *WmFlag/Repetir marca d'água: Boolean
-*OrderDependency: 65 AnySetup *WmFlag
-*DefaultWmFlag: False
-*WmFlag False/Desactivado: "/WMFLAG 1 def"
-*WmFlag True/Activado: "/WMFLAG 2 def"
-*CloseUI: *WmFlag
-
-*CloseGroup: KMWatermark
-
-*OpenGroup: About/Sobre
-
 *% PPD Version Info 
 *OpenUI *KCVersion/PPD Version: PickOne
 *OrderDependency: 25 AnySetup *KCVersion
 *DefaultKCVersion: Default
-*KCVersion Default/8.1308 [08-13-2013]: "
+*KCVersion Default/8.1301 [01-29-2013]: "
 globaldict /ct_AddStdCIDMap known {
 globaldict /ct_AddStdCIDMap get  length 7 eq
 {globaldict /ct_AddStdCIDMap get  0 get type /stringtype eq
@@ -3095,8 +2936,6 @@ put put setglobal
 } if} if} if} if} if} if} if"
 *End
 *CloseUI: *KCVersion
-
-*CloseGroup: About/Sobre
 
 *% Font Information
 *DefaultFont: Courier
@@ -3225,4 +3064,3 @@ put put setglobal
 *Source: "Option"
 
 *%  End of PPD file for Kyocera TASKalfa 5501i (English)
-*cupsProtocol: None

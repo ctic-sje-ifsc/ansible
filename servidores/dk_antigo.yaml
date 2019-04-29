@@ -115,7 +115,7 @@
   - name: Copiando arquivo /etc/cups/cupsd.conf
     copy:
       src: dk/ppd
-      dest: /etc/cups/ppd
+      dest: /etc/cups/
     when: ansible_os_family == 'Debian'
     notify:
     - restart cups 
