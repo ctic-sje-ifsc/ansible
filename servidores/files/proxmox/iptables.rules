@@ -1,0 +1,3 @@
+*filter
+-A FORWARD -i vmbr0 -o vmbr0 -j ACCEPT
+COMMIT
