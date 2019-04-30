@@ -48,6 +48,14 @@
     with_items:
       - ctic
 
+  - name: Regra que libera a comunicação entre VMs de mesma VLAN
+    iptables:
+      table: filter
+      chain: FORWARD
+      in_interface: vmbr0
+      out_interface: vmbr0
+      jump: ACCEPT
+
   - name: Valor 1 para net.bridge.bridge-nf-call-iptables (require rke)
     sysctl:
       name: net.bridge.bridge-nf-call-iptables
