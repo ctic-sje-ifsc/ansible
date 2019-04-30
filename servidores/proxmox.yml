@@ -61,3 +61,23 @@
       name: net.bridge.bridge-nf-call-iptables
       value: "1"
       sysctl_set: yes
+
+  - name: Copiando arquivo /etc/iptables.rules
+    copy:
+      src: proxmox/iptables.rules
+      dest: /etc/iptables.rules
+      owner: root
+      group: root
+      mode: 0644
+    when: ansible_os_family == 'Debian'
+
+#NAO ESQUECER DE COLOCAR NO pre-up no network interfaces DE CADA MAQUINA
+#
+# EXEMPLO:
+# 
+# auto vmbr0.900
+# iface vmbr0.900 inet static
+# 	address  172.18.119.X
+# 	netmask  255.255.255.0
+# 	gateway  172.18.119.254
+# 	pre-up iptables-restore < /etc/iptables.rules
