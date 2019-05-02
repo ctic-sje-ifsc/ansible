@@ -6,7 +6,7 @@ exec_cmd(){
       target=sj-lin-${lab}-${line}.maquinas.sj.ifsc.edu.br
       timeout 0.1 nc -z -w5 ${target} 22  > /dev/null 2>&1
       if [ ${?} = "0" ] ; then
-        ssh -q root@${target} "iptables-restore < /var/${comando4} && ip6tables-restore < /var/${comando6}"&
+        ssh -o StrictHostKeyChecking=no -q root@${target} "iptables-restore < /var/${comando4} && ip6tables-restore < /var/${comando6}"&
         echo "Máquina ${target} OK."
       elif [ ${?} = "1" ] ; then
         echo "Máquina ${target}: falhou na aplicação da regra. Computador desligado ou sem rede."
@@ -26,7 +26,7 @@ exec_cmd(){
 }
 
 ##### Ajustes do script #####
-lab=$(hostname |cut -d'-' -f3) #Especificar qual o laboratório
+lab=$(hostname |cut -d'-' -f3) #Definindo qual o laboratório
 maquinas=$(cat /var/pat |grep ${lab}|cut -d'=' -f2)
 
 # Inicio do script
@@ -36,7 +36,7 @@ tempo=60
 if [ $# -eq 0 ] || [ $# -gt 3 ] ;
     then
         echo "Sintaxe errada. Exemplo:"
-        echo ".$0 limpa (Para limpar todas as regras)"
+        echo ".$0 libera (Para limpar todas as regras)"
         echo ".$0 bloqueia (Para bloquear o acesso a internet mas liberar o servidor de licenças)"
         echo ".$0 wiki (Para permitir acesso somente a página da wiki mas liberar o servidor de licenças)"
         echo ".$0 ajuda (Abrir manual de uso desse script)"
@@ -80,7 +80,7 @@ que estiverem ligadas para o iptables aplicando assim a regra, por padrão o tem
 OBS: Para alterar a regra deve-se finalizar o script 'a força' com as teclas CTRL + C e executá-lo novamente
 
 Regras:
-libera     Apaga todas regras
+libera    Apaga todas regras
 bloqueia  Realiza o bloquear do acesso a todos os sites, se mantém liberado o servidor de licenças, o SSH e o ICMP
 wiki      Mantém o acesso somente a página da wiki, se mantém liberado o servidor de licenças, o SSH e o ICMP
 ajuda     Exibe esta ajuda.
