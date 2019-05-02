@@ -1,5 +1,16 @@
 ---
 #Linux
+- name: Adicionar repositório para instalar libssl1.0.0
+  apt_repository:
+    repo: deb http://security.debian.org/debian-security jessie/updates main
+    state: present
+    update_cache: yes
+  when: ansible_distribution == 'Debian'
+
+- name: Instalar pacotes necessarios para o warsaw
+  apt: name=libssl1.0.0 state=latest default_release=jessie
+  when: ansible_distribution == 'Debian'
+
 - name: Instalar os pacotes necessários para o warsaw
   apt: name={{ packages }} state=latest
   vars:
