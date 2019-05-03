@@ -10,6 +10,10 @@
     - cifs-utils
   when: ansible_distribution == 'Debian'
   
+- name: Instala o GDM3
+  apt: name=gdm3 state=latest
+  when: ansible_distribution == 'Debian'
+
 - name: Copiando arquivo /etc/ldap.conf
   copy:
     src: ldap.conf
@@ -120,10 +124,6 @@
     - lightdm
     - lightdm-gtk-greeter
     - lightdm-gtk-greeter-settings    
-  when: ansible_distribution == 'Debian'
-
-- name: Instala o GDM3
-  apt: name=gdm3 state=latest
   when: ansible_distribution == 'Debian'
 
 # Windows
