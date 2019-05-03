@@ -1,5 +1,9 @@
 - hosts: ledis
 #  ignore_unreachable: true
-  roles: 
+  roles:
     - role: grub
       tipo: grub_win
+
+- hosts: ledis_win
+  roles:
+    - sam
