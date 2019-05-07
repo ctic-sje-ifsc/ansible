@@ -299,6 +299,13 @@
 
 ###################### Fim do NTP do Linux
 
+################# Copiar Chave pub Marcelo
+- name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys do Marcelo - Linux
+  authorized_key:
+    user: root
+    state: present
+    key: "{{ lookup('file', 'marcelo.id_rsa.pub') }}" 
+  when: ansible_os_family == 'Debian'
 
 ###################### Inicio pasta instaladores Windows
 - name: Cria a pasta C:\instaladores\ - Windows
