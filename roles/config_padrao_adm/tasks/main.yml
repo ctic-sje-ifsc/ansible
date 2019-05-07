@@ -70,6 +70,14 @@
   when: ansible_os_family == 'Debian'
 ##################### Fim impressao hodprint
 
+################# Copiar Chave pub Marcelo
+- name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys do Marcelo - Linux
+  authorized_key:
+    user: root
+    state: present
+    key: "{{ lookup('file', 'marcelo.id_rsa.pub') }}" 
+  when: ansible_os_family == 'Debian'
+
 - include_role:
     name: openaudit
 
