@@ -304,7 +304,7 @@
   authorized_key:
     user: root
     state: present
-    key: "{{ lookup('file', 'marcelo.id_rsa.pub') }}" 
+    key: "{{ lookup('file', 'marcelo.id_rsa.pub') }}"
   when: ansible_os_family == 'Debian'
 
 ###################### Inicio pasta instaladores Windows
@@ -538,11 +538,11 @@
   when: ansible_os_family == 'Debian'
 
   #Descomentar o codigo abaixo caso o codigo acima nao funcionar
-# - name: Adicionar entrada SHELL export no /etc/security/pam_env.conf - Linux
-#   lineinfile:
-#     regexp: '^SHELL'
-#     path: /etc/security/pam_env.conf
-#     line: 'SHELL     DEFAULT=/bin/bash'
-#   when: ansible_os_family == 'Debian'
+- name: Adicionar entrada SHELL export no /etc/security/pam_env.conf - Linux
+  lineinfile:
+    regexp: '^SHELL'
+    path: /etc/security/pam_env.conf
+    line: 'SHELL     DEFAULT=/bin/bash'
+  when: ansible_os_family == 'Debian'
 
 ##################### Fim da configuracao do gdb chamado 2019032610000179
