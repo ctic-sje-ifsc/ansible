@@ -18,7 +18,6 @@
   unarchive:
     src: flash_player_npapi_linux.x86_64.tar.gz
     dest: /usr/lib/flash-player/
-    creates: /usr/lib/flash-player/libflashplayer.so
     owner: root
     group: root
     mode: 0755
