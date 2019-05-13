@@ -1,3 +1,9 @@
+- hosts: depe
+  roles:
+    - role: softwares_remotos
+      apps:
+        - asctime
+
 - hosts: sj-lin-depe-BRG311F6PN.maquinas.sj.ifsc.edu.br
   roles: 
     - role: grub
