@@ -34,6 +34,7 @@
     - nfs-common
     - libreoffice-pdfimport
     - firmware-amd-graphics
+    - firmware-misc-nonfree
   when: ansible_os_family == 'Debian'
 
 - name: Remover programas  - Linux
