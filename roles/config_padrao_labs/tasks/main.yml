@@ -307,6 +307,20 @@
     key: "{{ lookup('file', 'marcelo.id_rsa.pub') }}"
   when: ansible_os_family == 'Debian'
 
+###################### Faz hold no linux-image e linux-header
+- name: Faz hold no linux-image
+  dpkg_selections:
+    name: linux-image-4.9.0-9-amd64
+    selection: hold
+  tags:
+  - hold
+- name: Faz hold no linux-image
+  dpkg_selections:
+    name: linux-headers-4.9.0-9-amd64
+    selection: hold
+  tags:
+  - hold
+
 ###################### Inicio pasta instaladores Windows
 - name: Cria a pasta C:\instaladores\ - Windows
   win_file:
