@@ -35,6 +35,7 @@
     - libreoffice-pdfimport
     - firmware-amd-graphics
     - firmware-misc-nonfree
+    - gscan2pdf
   when: ansible_os_family == 'Debian'
 
 - name: Remover programas  - Linux
