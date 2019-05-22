@@ -314,12 +314,16 @@
     selection: hold
   tags:
   - hold
+  when: ansible_os_family == 'Debian'
+
 - name: Faz hold no linux-image
   dpkg_selections:
     name: linux-headers-4.9.0-9-amd64
     selection: hold
   tags:
   - hold
+  when: ansible_os_family == 'Debian'
+
 
 ###################### Inicio pasta instaladores Windows
 - name: Cria a pasta C:\instaladores\ - Windows
