@@ -123,6 +123,9 @@
     - gir1.2-appindicator3-0.1
     - ntpdate
     - linux-headers-{{ ansible_kernel }}
+    - avahi-daemon
+    - graphviz
+    - avahi-utils
   when: ansible_os_family == 'Debian'
 
 - name: Instalar lista de pacotes pedida pelo Roberto de Matos Chamado IFSC#2019030810001087 - Linux
