@@ -26,6 +26,7 @@
     - epoptes_server
     - ingressa_ldap
     - owncloud_client
+    - curso_lic_leone #Curso do Leone eh para ser temporario
 
 # Windows
 

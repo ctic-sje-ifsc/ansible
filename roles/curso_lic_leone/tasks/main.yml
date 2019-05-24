@@ -1,0 +1,44 @@
+## Role criado para suprir a requisicao do professor Leone
+## do chamado IFSC#2019052210001118
+
+- name: Baixa e extrai VMD
+  unarchive:
+    src: https://discovirtual.ifsc.edu.br/index.php/s/SwD5BXyfAkTx6IR/download
+    dest: /opt/
+    creates: /usr/local/vmd-1.9.3
+    remote_src: yes
+    owner: root
+    group: root
+    mode: 0755
+  when: ansible_os_family == 'Debian'
+
+- name: Criando o arquivo vmd.png - Linux Debian
+  copy:
+    src: vmd.png
+    dest: /opt/vmd-1.9.3/vmd.png
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
+- name: Criando o arquivo vmd.desktop - Linux Debian
+  copy:
+    src: vmd.desktop
+    dest: /usr/share/applications/vmd.desktop
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
+- make:
+    chdir: /opt/vmd-1.9.3/src/
+    target: install
+  become: yes
+  when: ansible_os_family == 'Debian'
+
+- name: Instalar lista de pacotes pedida pelo Leone - Linux
+  apt: name={{ packages }} state=latest
+  vars:
+    packages:
+    - gromacs
+  when: ansible_os_family == 'Debian'
