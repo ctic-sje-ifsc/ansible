@@ -8,4 +8,14 @@
     vars:
       packages:
       - idle3
+    when: ansible_os_family == 'Debian'
 
+  # Permissao para gravar na placa
+  - name: Adiciona a jeneffer no grupo dialout
+    user:
+      name: "{{item}}"
+      groups: dialout
+      append: yes
+    with_items:
+      - jeneffer
+    when: ansible_os_family == 'Debian'
