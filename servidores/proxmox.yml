@@ -2,6 +2,12 @@
   roles:
     - ../roles/docker
   tasks:
+  
+  - name: Cria usuário ctic
+    user:
+      name: ctic
+      shell: /bin/bash
+
   - name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys (Monitoramento)
     authorized_key:
       user: root
@@ -77,7 +83,6 @@
       owner: root
       group: root
       mode: 0644
-    when: ansible_os_family == 'Debian'
 
 #NAO ESQUECER DE COLOCAR NO pre-up no network interfaces DE CADA MAQUINA
 #
@@ -90,6 +95,24 @@
 # 	gateway  172.18.119.254
 # 	pre-up iptables-restore < /etc/iptables.rules
 
+  - name: Configura repositório pve-no-subscription
+    apt_repository:
+      repo: deb http://download.proxmox.com/debian/pve stretch pve-no-subscription
+      state: present
+
+  - name: Remove repositório pve-enterprise
+    apt_repository:
+      repo: deb https://enterprise.proxmox.com/debian/pve stretch pve-enterprise
+      filename: pve-enterprise
+      state: absent
+
+  - name: Upgrade all packages to the latest version
+    apt: name="*" state=latest
+    when: ansible_os_family == 'Debian'
+
+  - name: Update dist to the latest version
+    apt:
+      upgrade: dist
 
   handlers:
     - name: restart_sshd
