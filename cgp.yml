@@ -1,0 +1,7 @@
+---
+- hosts: cgp
+#  ignore_unreachable: true
+  roles:
+    - role: softwares_remotos
+      apps:
+        - pontosecullum
