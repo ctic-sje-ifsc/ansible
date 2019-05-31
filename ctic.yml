@@ -1,10 +1,11 @@
 - hosts: ctic
   roles:
-    - code
-    - teamviewer
-    - virtualbox
-    - rambox
-    - ingressa_ldap
+    # - code
+    # - teamviewer
+    # - virtualbox
+    # - rambox
+    # - ingressa_ldap
+    - rke
   tasks:
   - name: Instalar os pacotes para o Ansible do stretch-backports - Linux Debian
     apt: name=ansible state=latest default_release=stretch-backports
