@@ -5,3 +5,4 @@
     - role: softwares_remotos
       apps:
         - pontosecullum
+        - ibsispes
