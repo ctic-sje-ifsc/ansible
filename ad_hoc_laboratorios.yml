@@ -68,3 +68,5 @@
 #       debug: msg="{{ hostvars[inventory_hostname].ansible_default_ipv4.macaddress }}"
 #     - name: Salvar na maquina que esta executando o ansible os enderecos macs
 #       local_action: shell echo "{{ hostvars[inventory_hostname].ansible_default_ipv4.macaddress }}" >> /tmp/output
+
+# - win_shell: netsh interface ip add wins name=LAN addr=172.18.109.10 index=0
