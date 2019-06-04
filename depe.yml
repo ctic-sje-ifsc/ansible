@@ -1,10 +1,11 @@
 - hosts: depe
   roles:
+    - foxit
     - role: softwares_remotos
       apps:
         - asctime
 
 - hosts: sj-lin-depe-BRG311F6PN.maquinas.sj.ifsc.edu.br
-  roles: 
+  roles:
     - role: grub
       tipo: grub_lin
