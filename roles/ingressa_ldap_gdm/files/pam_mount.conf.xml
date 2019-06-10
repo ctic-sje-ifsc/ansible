@@ -58,7 +58,7 @@
 <volume user="*" uid="2000-1000000" server="dk" path="rac" mountpoint="/media/pessoal/%(USER)/rac" fstype="cifs" options="dir_mode=0711,iocharset=utf8" />
 <volume user="*" uid="2000-1000000" server="dk" path="registro" mountpoint="/media/pessoal/%(USER)/registro" fstype="cifs" options="dir_mode=0711,iocharset=utf8" />
 <volume user="*" uid="2000-1000000" server="dk" path="sebib" mountpoint="/media/pessoal/%(USER)/sebib" fstype="cifs" options="dir_mode=0711,iocharset=utf8" />
-<volume user="*" uid="2000-1000000" server="dk" path="sebib" mountpoint="/media/pessoal/%(USER)/secretaria" fstype="cifs" options="dir_mode=0711,iocharset=utf8" />
+<volume user="*" uid="2000-1000000" server="dk" path="secretaria" mountpoint="/media/pessoal/%(USER)/secretaria" fstype="cifs" options="dir_mode=0711,iocharset=utf8" />
 <volume user="*" uid="2000-1000000" server="dk" path="suporte" mountpoint="/media/pessoal/%(USER)/suporte" fstype="cifs" options="dir_mode=0711,iocharset=utf8" />
 <volume user="*" uid="2000-1000000" server="dk" path="tele" mountpoint="/media/pessoal/%(USER)/tele" fstype="cifs" options="dir_mode=0711,iocharset=utf8" />
 <umount>umount %(MNTPT)</umount>
