@@ -19,7 +19,7 @@
       key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCxZ6W+iZn1dlWBBxLI3ZHup8LRGk4YpnynlG8Fm4oLdM/2fWKupyl8SJDity0m13AVQBMgpR2k/BA1HLFnWjPpxsjsA03ORTVFG3zGN8Yqb0LRuPfpXmQTQtVtGkN7FD4JKyzFeY+G4J0K3mVjOO2F8pGLvrota6q0/8fNfMsHt0uDZpC9c34qM6Xq72ZChJhnq4JY0QT6fzu2BmVnjDz4eBDlrsbtzdgkNF+z1jLdd4xSYgqFhUIrhU8Bsf6vGQMR0CRFh8huKaDCb4/y2F0NmIX0Y5ycwNfOHwvUoIYJMgv0bWv8Ewfg1MsEQ2MxN67H/4/zmMjo9jM7c40R7nmFwhm4pMMCpH8R7DoLAm4g1cKt80GXaef+7OBuluVcV6qOzaIMhBhOxjZomBgw/fjnUSjWrwJEHXNsAE8/gQLaM6OyMVl0L53FL1f8CuhQC618yge9DhM2yDw7IBxxteyA6Mp1GNPSx0HFFqisEZD0q7ZxW3PQMaTqM3Gdf+ONTP1tGbEirPn3YB3erqaYwirRNERcOpJqh/h9ahi8A9HLmSgOB0JGwKPS39ZBDU4OplIWhHY4QT6orzbrO/IkNXv7DxKQjt9N/kytVpP7MNgB6Mrepi4FDA2OUNKYCZ31c29SFOAUWjjd6K5r4W3JTbJtxVjME4/ifd6oQQHFdNIl2w== gabriel.souza@sj-ctic-29736"
 
   - name: Instalar pacotes necessarios Samba - Linux
-    apt: name={{ packages }} state=latest
+    apt: name={{ packages }} state=present
     vars:
       packages:
       - samba
@@ -27,7 +27,6 @@
       - smbldap-tools
       - libnss-ldap
       - libpam-ldap
-      - cups
 
   - name: Copiando arquivo /etc/nsswitch.conf
     copy:
@@ -100,48 +99,7 @@
       group: root
       mode: 0600
     when: ansible_os_family == 'Debian'
-
-  - name: Copiando arquivo /etc/cups/cupsd.conf
-    copy:
-      src: dk/cupsd.conf
-      dest: /etc/cups/cupsd.conf
-      owner: root
-      group: root
-      mode: 0644
-    when: ansible_os_family == 'Debian'
-    notify:
-    - restart cups 
-
-  - name: Copiando arquivo /etc/cups/cupsd.conf
-    copy:
-      src: dk/ppd
-      dest: /etc/cups/
-    when: ansible_os_family == 'Debian'
-    notify:
-    - restart cups 
-
-  - name: Copiando arquivo /etc/cups/printers.conf
-    copy:
-      src: dk/printers.conf
-      dest: /etc/cups/printers.conf
-      owner: root
-      group: root
-      mode: 0644
-    when: ansible_os_family == 'Debian'
-    notify:
-    - restart cups 
-
-  - name: Copiando arquivo /usr/share/cups/banners/ifsc
-    copy:
-      src: dk/ifsc
-      dest: /usr/share/cups/banners/ifsc
-      owner: root
-      group: root
-      mode: 0644
-    when: ansible_os_family == 'Debian'
-    notify:
-    - restart cups 
-
+  
   - name: Copiando arquivo /etc/samba/smb.conf
     copy:
       src: dk/smb.conf
@@ -158,11 +116,7 @@
       service:
         name: samba
         state: restarted    
-    - name: restart cups
-      service:
-        name: cups
-        state: restarted 
-
+ 
 # smbpasswd -w *******
 # net getlocalsid (no dk)
 # net setlocalsid S-1-5-21-***********
