@@ -1,0 +1,5 @@
+- hosts: sj-qmc-3skdxp1.maquinas.sj.ifsc.edu.br
+#  ignore_unreachable: true
+  roles:
+    - role: grub
+      tipo: grub_win
