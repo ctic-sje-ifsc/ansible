@@ -7,7 +7,9 @@
   when: ansible_os_family == 'Debian'
 
 - name: Instalar pacotes padroes - Linux
-  apt: name={{ packages }} state=latest
+  apt: 
+    name: "{{ packages }}"
+    state: latest
   vars:
     packages:
     - apt-transport-https
@@ -40,14 +42,17 @@
   when: ansible_os_family == 'Debian'
 
 - name: Remover programas  - Linux
-  apt: name={{ packages }} state=absent
+  apt: 
+    name: "{{ packages }}"
+    state: absent
   vars:
     packages:
     - transmission
     - transmission-common
   when: ansible_os_family == 'Debian'
 
-- include_role:
+- name: Inclui role warsaw
+  include_role:
     name: warsaw
 
 # - include_role:
@@ -55,7 +60,8 @@
 
 #Windows
 - name: Instalar pacotes padroes - Windows
-  win_chocolatey: name={{ item }} # state=latest timeout=9000
+  win_chocolatey: 
+    name: "{{ item }}" # state=latest timeout=9000
   with_items:
     - googlechrome
     - jre8
@@ -88,10 +94,12 @@
 #   when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 8.1 Pro')
 
 #Windows e Linux
-- include_role:
+- name: Inclui role owncloud_client
+  include_role:
     name: owncloud_client
 
-- include_role:
+- name: Inclui role flashplayer
+  include_role:
     name: flashplayer
 
 # - include_role:
