@@ -42,3 +42,20 @@
     packages:
     - gromacs
   when: ansible_os_family == 'Debian'
+
+  ###################### Adicionar export devido a erro
+
+- name: Adicionar entrada no /etc/bash.bashrc  - Linux
+  lineinfile:
+    regexp: "^export VMDNOOSPRAY="
+    state: present
+    path: /etc/bash.bashrc
+    line: 'export VMDNOOSPRAY=1'
+  when: ansible_os_family == 'Debian'
+
+- name: Adicionar entrada export no /etc/security/pam_env.conf - Linux
+  lineinfile:
+    regexp: '^VMDNOOSPRAY'
+    path: /etc/security/pam_env.conf
+    line: 'VMDNOOSPRAY     DEFAULT=1'
+  when: ansible_os_family == 'Debian'
