@@ -5,4 +5,4 @@
     - role: softwares_remotos
       apps:
         - isaacdesktop
-
+        - sisaca
