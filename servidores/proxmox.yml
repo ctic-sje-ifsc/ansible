@@ -84,6 +84,12 @@
       group: root
       mode: 0644
 
+  - name: Valor 0 para vm.swappiness
+    sysctl:
+      name: vm.swappiness
+      value: 0
+      state: present
+      reload: yes      
 #NAO ESQUECER DE COLOCAR NO pre-up no network interfaces DE CADA MAQUINA
 #
 # EXEMPLO:
@@ -113,6 +119,17 @@
   - name: Update dist to the latest version
     apt:
       upgrade: dist
+
+  - name: Instala alguns pacotes 
+    apt:
+      name: "{{ packages }}"
+      state: latest
+    vars:
+      packages:
+      - multipath-tools
+      - vim
+      - aptitude
+    when: ansible_os_family == 'Debian'
 
   handlers:
     - name: restart_sshd
