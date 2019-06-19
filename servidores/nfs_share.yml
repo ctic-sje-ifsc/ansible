@@ -18,6 +18,12 @@
       state: present
       key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCxZ6W+iZn1dlWBBxLI3ZHup8LRGk4YpnynlG8Fm4oLdM/2fWKupyl8SJDity0m13AVQBMgpR2k/BA1HLFnWjPpxsjsA03ORTVFG3zGN8Yqb0LRuPfpXmQTQtVtGkN7FD4JKyzFeY+G4J0K3mVjOO2F8pGLvrota6q0/8fNfMsHt0uDZpC9c34qM6Xq72ZChJhnq4JY0QT6fzu2BmVnjDz4eBDlrsbtzdgkNF+z1jLdd4xSYgqFhUIrhU8Bsf6vGQMR0CRFh8huKaDCb4/y2F0NmIX0Y5ycwNfOHwvUoIYJMgv0bWv8Ewfg1MsEQ2MxN67H/4/zmMjo9jM7c40R7nmFwhm4pMMCpH8R7DoLAm4g1cKt80GXaef+7OBuluVcV6qOzaIMhBhOxjZomBgw/fjnUSjWrwJEHXNsAE8/gQLaM6OyMVl0L53FL1f8CuhQC618yge9DhM2yDw7IBxxteyA6Mp1GNPSx0HFFqisEZD0q7ZxW3PQMaTqM3Gdf+ONTP1tGbEirPn3YB3erqaYwirRNERcOpJqh/h9ahi8A9HLmSgOB0JGwKPS39ZBDU4OplIWhHY4QT6orzbrO/IkNXv7DxKQjt9N/kytVpP7MNgB6Mrepi4FDA2OUNKYCZ31c29SFOAUWjjd6K5r4W3JTbJtxVjME4/ifd6oQQHFdNIl2w== gabriel.souza@sj-ctic-29736"
 
+  - name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys (Proxmoxblade2)
+    authorized_key:
+      user: root
+      state: present
+      key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDB339N/Tuk00kHlQzJxcSKweaclRIwKThl89yDRljvyaywI77OKpC9wnIrTYZT1O2BZswNFgB45mQ2NeiPgggyEht8xxBcpyV+rGi5hutKfuRTkzyx3EmMk1j2pTv6g1EusrkzIJ2XRk90QHrSgQJU1UhU61Cfvz0n6/whS2tg6C7+s76WVWexbsYL71FdSvqxTViLQUPUJULJV3YmtithF+5y6by1qVmY2rKZbRsLpFe2a45s1ya73fCTVPo/AOKbjNTZANh4RzlWNTRZgNhWpKO0jCIsJvkplAbQVQuzBg491KwyXC/WbVGsAPYg18kN2v6GtrwZHofMI5uPB2Hn root@proxmoxblade2"
+
   - name: Instalar pacotes necessarios para o FTP - Linux
     apt: name={{ packages }} state=latest
     vars:
