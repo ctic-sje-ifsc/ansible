@@ -27,6 +27,12 @@
     - libfreerdp-plugins-standard
   when: ansible_os_family == 'Debian'
 
+- name: Faz hold no remmina
+  dpkg_selections:
+    name: remmina
+    selection: hold
+  when: ansible_os_family == 'Debian'
+
 # Cria o diretório softwares_remotos se não existe
 - file:
     path: /var/softwares_remotos
