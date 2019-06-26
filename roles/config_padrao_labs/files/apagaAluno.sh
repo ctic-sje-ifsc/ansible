@@ -5,4 +5,4 @@
 #Restaurar o usuario aluno quando manda desligar a maquina ou reiniciar.
 rm -rf /var/spool/cron/crontabs/aluno
 rm -rf /home/aluno
-tar -zxvf /home/backup/aluno.tgz -C /
+tar -zxvf /home/backup/aluno.tgz -C / --exclude=home/aluno/.ssh/known_hosts
