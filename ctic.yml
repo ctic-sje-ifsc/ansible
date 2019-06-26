@@ -42,7 +42,7 @@
     when: ansible_os_family == 'Debian'
 
 ##################  Maquina do RICARDO  ##################
-- hosts: sj-lin-ctic-744396.maquinas.sj.ifsc.edu.br
+- hosts: sj-lin-ctic-744521.maquinas.sj.ifsc.edu.br
   roles:
     - kubernetes
     - softwares_remotos
