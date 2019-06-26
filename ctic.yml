@@ -1,9 +1,9 @@
 - hosts: ctic
   roles:
-    # - code
+    - code
     # - teamviewer
     # - virtualbox
-    # - rambox
+    - rambox
     # - ingressa_ldap
     - rke
   tasks:
