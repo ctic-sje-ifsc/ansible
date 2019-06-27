@@ -27,8 +27,9 @@
     groups: dialout
     append: yes
   with_items:
-    - mayara.sousa 
+    - mayara.sousa
     - elen
+    - claudiacastro
   when: ansible_os_family == 'Debian'
 
 #Windows
