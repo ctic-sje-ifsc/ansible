@@ -43,7 +43,7 @@
     dest: /var/{{item}}
   with_items:
     - RWekajars_3.9.3-1.tar.gz
-    - RWeka_0.4-39.tar.gz
+    - RWeka_0.4-40.tar.gz
   when: ansible_os_family == 'Debian'
 
 - name: Instala Biblioteca RWeka e Rwekajars - Linux
@@ -53,7 +53,7 @@
   when: ansible_os_family == 'Debian'
   with_items:
     - RWekajars_3.9.3-1.tar.gz
-    - RWeka_0.4-39.tar.gz
+    - RWeka_0.4-40.tar.gz
 
 #Windows
 - name: Instalar o R - Windows
