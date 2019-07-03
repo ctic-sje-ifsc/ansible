@@ -11,8 +11,7 @@
   notify:
     - update apt cache
 
-- name: Remove repositorio jessie-backports - Linux
-  file:
-    path: /etc/apt/sources.list.d/ftp_debian_org_debian.list
+- apt_repository:
+    repo: deb http://debian.pop-sc.rnp.br/debian jessie-backports main contrib non-free
     state: absent
-  when: ansible_os_family == 'Debian'
+    filename: ftp_debian_org_debian
