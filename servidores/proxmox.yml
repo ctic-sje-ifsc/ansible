@@ -87,7 +87,7 @@
   - name: Valor 0 para vm.swappiness
     sysctl:
       name: vm.swappiness
-      value: 0
+      value: "0"
       state: present
       reload: yes      
 #NAO ESQUECER DE COLOCAR NO pre-up no network interfaces DE CADA MAQUINA
@@ -135,4 +135,28 @@
     - name: restart_sshd
       service:
         name: ssh
+        state: restarted 
+
+- hosts: proxmoxblade2.sj.ifsc.edu.br
+  tasks:
+  
+  - name: Instala pacotes nfs-kernel-server pro proxmox2
+    apt:
+      name: "{{ packages }}"
+      state: latest
+    vars:
+      packages:
+      - nfs-kernel-server
+
+  - name: Adicionar entrada /var/nfs-export no /etc/exports no proxmox2
+    lineinfile:
+      regexp: '^/var/nfs-export'
+      path: /etc/exports
+      line: '/var/nfs-export       191.36.8.1(rw,sync,no_subtree_check) 191.36.8.9(rw,sync,no_subtree_check) 191.36.8.11(rw,sync,no_subtree_check) 191.36.8.21(rw,sync,no_subtree_check) 191.36.8.22(rw,sync,no_subtree_check) 191.36.8.23(rw,sync,no_subtree_check) 191.36.8.25(rw,sync,no_subtree_check) 191.36.8.26(rw,sync,no_subtree_check) 191.36.8.27(rw,sync,no_subtree_check)'
+    notify: restart_nfs-server
+
+  handlers:
+    - name: restart_nfs-server
+      service:
+        name: nfs-server
         state: restarted 
