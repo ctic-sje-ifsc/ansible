@@ -126,7 +126,7 @@
       state: latest
     vars:
       packages:
-      - multipath-tools
+      # - multipath-tools
       - vim
       - aptitude
     when: ansible_os_family == 'Debian'
@@ -152,7 +152,7 @@
     lineinfile:
       regexp: '^/var/nfs-export'
       path: /etc/exports
-      line: '/var/nfs-export       191.36.8.1(rw,sync,no_subtree_check) 191.36.8.9(rw,sync,no_subtree_check) 191.36.8.11(rw,sync,no_subtree_check) 191.36.8.21(rw,sync,no_subtree_check) 191.36.8.22(rw,sync,no_subtree_check) 191.36.8.23(rw,sync,no_subtree_check) 191.36.8.25(rw,sync,no_subtree_check) 191.36.8.26(rw,sync,no_subtree_check) 191.36.8.27(rw,sync,no_subtree_check)'
+      line: '/var/nfs-export       191.36.8.1(rw,sync,no_subtree_check) 191.36.8.5(rw,sync,no_subtree_check) 191.36.8.9(rw,sync,no_subtree_check) 191.36.8.11(rw,sync,no_subtree_check) 191.36.8.21(rw,sync,no_subtree_check) 191.36.8.22(rw,sync,no_subtree_check) 191.36.8.23(rw,sync,no_subtree_check) 191.36.8.25(rw,sync,no_subtree_check) 191.36.8.26(rw,sync,no_subtree_check) 191.36.8.27(rw,sync,no_subtree_check)'
     notify: restart_nfs-server
 
   handlers:
