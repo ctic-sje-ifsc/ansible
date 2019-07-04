@@ -56,7 +56,12 @@
     - RWeka_0.4-40.tar.gz
 
 #Windows
-- name: Instalar o R - Windows
+- name: Verifica versao do R
+  win_shell: "(choco search R.Project | findstr R.Project).substring(10,5)"
+  register: versao_R
+  ignore_errors: True
+
+- name: Instalar o R versao {{ versao_R.stdout |trim}} - Windows
   win_chocolatey:
     name: "{{item}}"
   with_items:
@@ -64,12 +69,12 @@
     - r.studio
   when: ansible_os_family == 'Windows'
 
-- name: Atalho para o r-project - Windows
+- name: Atalho para o r-project versao {{ versao_R.stdout | trim}} - Windows
   win_shortcut:
     description: Atalho para o r-project
-    src: '%ProgramFiles%\R\R-3.5.2\bin\x64\Rgui.exe'
+    src: '%ProgramFiles%\R\R-{{ versao_R.stdout |trim }}\bin\x64\Rgui.exe'
     dest: '%Public%\Desktop\R.lnk'
-    icon: '%ProgramFiles%\R\R-3.5.2\bin\x64\Rgui.exe,0'
+    icon: '%ProgramFiles%\R\R-{{ versao_R.stdout |trim }}\bin\x64\Rgui.exe,0'
     args: '--cd-to-userdocs'
     state: present
   when: ansible_os_family == 'Windows'
