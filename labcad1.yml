@@ -5,15 +5,15 @@
   roles:
     - role: grub
       tipo: grub_win
-  tasks:
-  - name: Monta /dev/sda3 em /media/aluno/trabalhos fstab - Linux
-    mount:
-      path: /media/aluno/trabalhos
-      src: /dev/sda3
-      fstype: vfat
-      opts: uid=aluno,gid=aluno
-      state: present
-    when: ansible_os_family == 'Debian'
+  # tasks:
+  # - name: Monta /dev/sda5 em /media/aluno/trabalhos fstab - Linux
+  #   mount:
+  #     path: /media/aluno/trabalhos
+  #     src: /dev/sda5
+  #     fstype: vfat
+  #     opts: uid=aluno,gid=aluno
+  #     state: present
+  #   when: ansible_os_family == 'Debian'
 
 - hosts: cad1_lin:!sj-lin-cad1-37247.maquinas.sj.ifsc.edu.br
 #  ignore_unreachable: true
