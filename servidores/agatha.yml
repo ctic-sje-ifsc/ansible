@@ -33,25 +33,14 @@
   roles:
     - ../roles/docker
 
-    - role: ansiblebit.oracle-java
-      oracle_java_use_defaults: yes
-      oracle_java_apt_repository: 'deb http://ppa.launchpad.net/webupd8team/java/ubuntu bionic main'
-      oracle_java_apt_repository_key: 'EA8CACC073C3DB2A'
-      oracle_java_cache_valid_time: 3600
-      oracle_java_deb_package: 'oracle-java8-installer'
-      oracle_java_debconf_package_default: 'oracle-java8-set-default'
-      oracle_java_home: "/usr/lib/jvm/java-8-oracle"
-      oracle_java_license_version: "shared/accepted-oracle-license-v1-1"
-      oracle_java_set_as_default: yes
-      oracle_java_state: latest
-
   tasks:  
   - name: Instalar pacotes necessarios para o AGATHA - Linux
     apt: name={{ packages }} state=latest
     vars:
       packages:
-      - default-jdk
       - maven
+      - openjdk-8-jdk
+      - openjdk-8-jre
 
   - name: Adicionar repositório stretch-backports - Linux Debian
     apt_repository:
