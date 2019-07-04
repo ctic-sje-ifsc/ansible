@@ -426,23 +426,23 @@
 
 - name: Cria o atalho do LibreCad - Windows
   win_shortcut:
-    src: C:\Program Files (x86)\LibreCAD\LibreCAD.exe
-    dest: C:\Users\Public\Desktop\LibreCAD.lnk
-    icon: C:\Program Files (x86)\LibreCAD\LibreCAD.exe,0
+    src: '%ProgramFiles%\LibreCAD\LibreCAD.exe'
+    dest: %Public%\Public\Desktop\LibreCAD.lnk
+    icon: '%ProgramFiles%\LibreCAD\LibreCAD.exe,0'
   when: ansible_os_family == 'Windows'
 
 - name: Cria o atalho do CADConverter - Windows
   win_shortcut:
-    src: C:\Program Files (x86)\CoolUtils\TotalCADConverter\CADConverter.exe
-    dest: C:\Users\Public\Desktop\CADConverter.lnk
-    icon: C:\Program Files (x86)\CoolUtils\TotalCADConverter\CADConverter.exe,0
+    src: '%ProgramFiles%\CoolUtils\TotalCADConverter\CADConverter.exe'
+    dest: %Public%\Public\Desktop\CADConverter.lnk
+    icon: '%ProgramFiles%\CoolUtils\TotalCADConverter\CADConverter.exe,0'
   when: ansible_os_family == 'Windows'
 
 - name: Cria o atalho do Subtitleworkshop - Windows
   win_shortcut:
-    src: C:\Program Files (x86)\Subtitle Workshop\SubtitleWorkshop.exe
-    dest: C:\Users\Public\Desktop\SUbtitleWorkshop.lnk
-    icon: C:\Program Files (x86)\Subtitle Workshop\SubtitleWorkshop.exe,0
+    src: '%ProgramFiles%\Subtitle Workshop\SubtitleWorkshop.exe'
+    dest: %Public%\Public\Desktop\SUbtitleWorkshop.lnk
+    icon: '%ProgramFiles%\Subtitle Workshop\SubtitleWorkshop.exe,0'
   when: ansible_os_family == 'Windows'
 
 # Windows e Linux --------------------------------------------------------------------------------------------------------------
