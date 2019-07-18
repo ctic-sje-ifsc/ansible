@@ -36,7 +36,6 @@
 <volume user="*" uid="2000-1000000" server="dk" path="depx" mountpoint="/media/pessoal/%(USER)/depx" fstype="cifs" options="dir_mode=0711,iocharset=utf8" />
 <volume user="*" uid="2000-1000000" server="dk" path="direcao" mountpoint="/media/pessoal/%(USER)/direcao" fstype="cifs" options="dir_mode=0711,iocharset=utf8" />
 <volume user="*" uid="2000-1000000" server="dk" path="edfisica" mountpoint="/media/pessoal/%(USER)/edfisica" fstype="cifs" options="dir_mode=0711,iocharset=utf8" />
-<volume user="*" uid="2000-1000000" server="dk" path="engenharias" mountpoint="/media/pessoal/%(USER)/engenharias" fstype="cifs" options="dir_mode=0711,iocharset=utf8" />
 <volume user="*" uid="2000-1000000" server="dk" path="escultura" mountpoint="/media/pessoal/%(USER)/escultura" fstype="cifs" options="dir_mode=0711,iocharset=utf8" />
 <volume user="*" uid="2000-1000000" server="dk" path="estagio" mountpoint="/media/pessoal/%(USER)/estagio" fstype="cifs" options="dir_mode=0711,iocharset=utf8" />
 <volume user="*" uid="2000-1000000" server="dk" path="eventos" mountpoint="/media/pessoal/%(USER)/eventos" fstype="cifs" options="dir_mode=0711,iocharset=utf8" />
