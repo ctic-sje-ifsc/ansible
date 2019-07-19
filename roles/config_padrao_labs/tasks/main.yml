@@ -438,18 +438,27 @@
 ###################### Fim configuração VIM
 
 ##################### Inicio configuracao interfaces
-- name: Mantem o estado do arquivo /etc/network/interfaces.d/eth0 - Linux
+- name: Mantem o estado do arquivo /etc/network/interfaces - Linux
   copy:
     content: |
-      auto eth0
-      iface eth0 inet dhcp
-    dest: /etc/network/interfaces.d/eth0
+      auto lo
+      iface lo inet loopback      
+    dest: /etc/network/interfaces
     owner: root
     group: root
     mode: 0644
+  tags:
+  - rede
   when: ansible_os_family == 'Debian'
-##################### Fim configuracao interfaces
 
+- name: Remove arquivo /etc/network/interfaces.d/eth0
+  file:
+    path: /etc/network/interfaces.d/eth0
+    state: absent
+  tags:
+  - rede
+  when: ansible_distribution == 'Debian'
+##################### Fim configuracao interfaces
 
 ##################### Corrige problema no Matlab
 ## https://www.mathworks.com/matlabcentral/answers/260924-why-do-i-get-a-segmentation-fault-when-i-try-to-start-matlab-on-ubuntu-15-04-or-newer
