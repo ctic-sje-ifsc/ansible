@@ -21,9 +21,9 @@
     - 5-Servidor.bz
     - 6-Servidor.bz
     - 7-Servidor.bz
-    - 8-Servidor.bz
-    - 9-Servidor.bz
-    - 10-Servidor.bz
+    # - 8-Servidor.bz
+    # - 9-Servidor.bz
+    # - 10-Servidor.bz
   when: ansible_os_family == 'Debian'
 
 - name: Zerando pasta compartilhada entre sistemas - Linux
@@ -37,5 +37,5 @@
     state: directory
     path: /media/aluno/trabalhos/
     owner: aluno
-    group: aluno    
+    group: aluno
   when: ansible_os_family == 'Debian'
