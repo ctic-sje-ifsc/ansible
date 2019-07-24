@@ -311,7 +311,7 @@
 - name: Faz hold no linux-image
   dpkg_selections:
     name: linux-image-4.9.0-9-amd64
-    selection: hold
+    selection: install
   tags:
   - hold
   when: ansible_os_family == 'Debian'
@@ -319,7 +319,7 @@
 - name: Faz hold no linux-image
   dpkg_selections:
     name: linux-headers-4.9.0-9-amd64
-    selection: hold
+    selection: install
   tags:
   - hold
   when: ansible_os_family == 'Debian'
