@@ -1,0 +1,18 @@
+#Role para ativar ou desativar o firewall do Windows
+
+## Windows 10
+- name: Enable or Disable firewall for Domain, Public and Private profiles
+  win_firewall:
+    state: disabled
+    #state: enabled
+    profiles:
+    - Domain
+    - Private
+    - Public
+  tags: altera_firewall_win10
+
+## Windows 7
+- name: Enable or Disable firewall for Domain, Public and Private profiles
+  win_command: NetSh Advfirewall set allprofiles state off
+  # win_command: NetSh Advfirewall set allprofiles state on
+  tags: altera_firewall_win7
