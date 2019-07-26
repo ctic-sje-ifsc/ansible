@@ -1,0 +1,85 @@
+## Solicitacao do professor Roberto Matos atraves do chamado IFSC#2019070410000533
+
+- name: Baixando e extraindo os softwares da microchip - Linux Debian
+  unarchive:
+    src: https://discovirtual.ifsc.edu.br/index.php/s/jFJXF4Sk7Ou4k31/download
+    dest: /opt/
+    creates: /opt/microchip/mplabx/v5.20/mplab_platform/bin/mplab_ide
+    remote_src: yes
+    owner: aluno
+    group: 513
+  when: ansible_os_family == 'Debian'
+
+- name: Copiando arquivos .rules - Linux Debian
+  copy:
+    src: "{{ item }}"
+    dest: /etc/udev/rules.d
+    owner: root
+    group: root
+    mode: 0664
+  with_items:
+    - 99-jlink.rules
+    - z010_mchp_tools.rules
+    - z011_mchp_jlink.rules
+    - z012_mchp_efr.rules
+  when: ansible_os_family == 'Debian'
+
+# - name: Adicionar PATH  - Linux Debian
+#   lineinfile:
+#     regexp: "^export OLDPATH="
+#     state: present
+#     path: /etc/bash.bashrc
+#     line: 'export OLDPATH=/home/aluno'
+#   when: ansible_os_family == 'Debian'
+
+- name: Copiando os atalhos MPLAB - Linux Debian
+  copy:
+    src: "{{ item }}"
+    dest: /usr/share/applications/
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - mplab.desktop
+    - mplab_ipe.desktop
+  when: ansible_os_family == 'Debian'
+
+- name: Copiando figuras - Linux Debian
+  copy:
+    src: "{{ item }}"
+    dest: /usr/share/icons/
+    owner: root
+    group: root
+    mode: 0755
+  with_items:
+    - mplab_ide.png
+    - mplab_ipe.png
+  when: ansible_os_family == 'Debian'
+
+- name: Criando links simbolicos - Linux Debian
+  file:
+    src: /opt/microchip/mplabx/v5.20/mplab_platform/bin/{{ item }}
+    dest: /usr/bin/{{ item }}
+    state: link
+  with_items:
+    - mplab_ide
+    - mplab_ipe
+  when: ansible_os_family == 'Debian'
+
+# - file:
+#     src: /opt/microchip/mplabx/v5.20/mplab_platform/bin/mplab_ide
+#     dest: /usr/bin/mplab_ide
+#     state: link
+#   when: ansible_os_family == 'Debian'
+
+# - file:
+#     src: /opt/microchip/mplabx/v5.20/mplab_platform/bin/mplab_ipe
+#     dest: /usr/bin/mplab_ipe
+#     state: link
+#   when: ansible_os_family == 'Debian'
+
+- file:
+    src: /opt/microchip/mplabx/v5.20/mplab_platform/bin/mdb.sh
+    dest: /usr/bin/mdb
+    state: link
+  when: ansible_os_family == 'Debian'
