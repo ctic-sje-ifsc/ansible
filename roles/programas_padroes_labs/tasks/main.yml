@@ -304,55 +304,25 @@
   when: ansible_os_family == 'Debian'
 
 - include_role:
-    name: softwares_sdr
-
-- include_role:
-    name: octave
-
-- include_role:
-    name: cmaptools
-
-# - include_role:
-#     name: astah
-
-- include_role:
-    name: zoiper
-
-- include_role:
-    name: android-studio
-
-- include_role:
-    name: clion
-
-- include_role:
-    name: code
-
-- include_role:
-    name: idea
-
-- include_role:
-    name: pycharm
-
-- include_role:
-    name: eclipse
-
-- include_role:
-    name: mplab
-
-# - include_role:
-#     name: ingles_progs
-
-- include_role:
-    name: jetbrains-toolbox
-
-- include_role:
-    name: netbeans82
-
-- include_role:
-    name: netkit2
-
-- include_role:
-    name: packettracer
+    name: "{{ item }}"
+  with_items:
+    - softwares_sdr
+    - octave
+    - cmaptools
+    - zoiper
+    - android-studio
+    - clion
+    - code
+    - idea
+    - pycharm
+    - eclipse
+    - mplab
+    - jetbrains-toolbox
+    - netbeans82
+    - netkit2
+    - packettracer
+    # - astah
+    # - ingles_progs
 
 # Windows --------------------------------------------------------------------------------------------------------------
 - name: Instalar pacotes padroes laboratorios - Windows
@@ -399,31 +369,17 @@
 #   when: ansible_os_family == 'Windows'
 
 - include_role:
-    name: bricscad
-
-- include_role:
-    name: mmanagal
-
-- include_role:
-    name: scratch
-
-- include_role:
-    name: bipide
-
-- include_role:
-    name: sr2015
-
-- include_role:
-    name: chemdraw_12
-
-- include_role:
-    name: ltspice
-
-- include_role:
-    name: tracker
-
-# - include_role:
-#     name: progsisp
+    name: "{{ item }}"
+  with_items:
+    - bricscad
+    - mmanagal
+    - scratch
+    - bipide
+    - sr2015
+    - chemdraw_12
+    - ltspice
+    - tracker
+    # - progsisp
 
 # Windows atalhos --------------------------------------------------------------------------------------------------------------
 
@@ -451,31 +407,15 @@
 # Windows e Linux --------------------------------------------------------------------------------------------------------------
 
 - include_role:
-    name: virtualbox
-
-- include_role:
-    name: wireshark
-
-- include_role:
-    name: arduino
-
-- include_role:
-    name: flashplayer
-
-- include_role:
-    name: qgis
-
-- include_role:
-    name: rstudio
-
-# - include_role:
-#     name: atom
-
-- include_role:
-    name: geogebra
-
-- include_role:
-    name: kile
-
-- include_role:
-    name: foxit
+    name: "{{ item }}"
+  with_items:
+    - virtualbox
+    - wireshark
+    - arduino
+    - flashplayer
+    - qgis
+    - rstudio
+    - geogebra
+    - kile
+    - foxit
+    # - atom
