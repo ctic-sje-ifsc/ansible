@@ -336,6 +336,9 @@
 - include_role:
     name: eclipse
 
+- include_role:
+    name: mplab
+
 # - include_role:
 #     name: ingles_progs
 
