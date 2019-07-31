@@ -1,8 +1,10 @@
 #Linux
 
-- name: Baixar e instalar geogebra 5 - Linux
-  apt:
-    deb: http://www.geogebra.org/download/deb.php?arch=amd64
+- name: Adiciona repositório geogebra
+  apt_repository:
+    repo: deb http://www.geogebra.net/linux/ stable main
+    state: present
+    filename: geogebra
   when: ansible_os_family == 'Debian'
 
 - name: Atualizacao de pacotes geogebra - Linux
@@ -10,7 +12,6 @@
   vars:
     packages:
     - geogebra5
-    #- geogebra-classic #Geogebra 6
   when: ansible_os_family == 'Debian'
 
 #Windows
