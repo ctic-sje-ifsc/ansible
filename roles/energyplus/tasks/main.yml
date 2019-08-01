@@ -1,0 +1,21 @@
+#Windows
+## Codigo nao testado
+- name: Baixar e instalar o Energy Plus - Windows
+  win_package:
+    path: https://github.com/NREL/EnergyPlus/releases/download/v9.1.0/EnergyPlus-9.1.0-08d2e308bb-Windows-x86_64.exe
+    arguments: /S
+    product_id: '{93BC44A2-0A38-4144-A7EE-DC4AAF2B4099}_rever_codigo'
+    state: present
+  when: ansible_os_family == 'Windows'
+
+### Comando em powershell para mostrar product_id
+### get-wmiobject Win32_Product | Format-Table IdentifyingNumber, Name, LocalPackage -AutoSize
+
+- name: Atalho para o Energy Plus
+  win_shortcut:
+    description: Atalho para o Energy Plus
+    src: 'C:\EnergyPlusV9-1-0\PostProcess\EP-Compare\EP-Compare.exe'
+    dest: '%Public%\Desktop\EP-Compare.lnk'
+    icon: 'C:\EnergyPlusV9-1-0\PostProcess\EP-Compare\EP-Compare.exe,0'
+    state: present
+  when: ansible_os_family == 'Windows'
