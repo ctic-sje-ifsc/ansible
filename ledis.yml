@@ -7,3 +7,7 @@
 - hosts: ledis_win
   roles:
     - sam
+
+- hosts: sj-ledis-744515.maquinas.sj.ifsc.edu.br
+  roles:
+    - energyplus
