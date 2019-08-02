@@ -17,6 +17,8 @@
 
 ### Comando em powershell para mostrar product_id
 ### get-wmiobject Win32_Product | Format-Table IdentifyingNumber, Name, LocalPackage -AutoSize
+### Localizacao do productid 32 bits: HKLM:Software\Microsoft\Windows\CurrentVersion\Uninstall
+### Localizacao do productid 64 bits: HKLM:Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall
 
 - name: Atalho para o BIP IDE - Windows
   win_shortcut:
