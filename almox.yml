@@ -1,0 +1,7 @@
+- hosts: almox
+#  ignore_unreachable: true
+  roles:
+    - ingressa_ldap_sem_cups_client
+    - role: instala_impressora_cups
+      install: 0
+      almoxarifado: 1
