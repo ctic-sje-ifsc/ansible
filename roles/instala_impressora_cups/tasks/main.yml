@@ -285,13 +285,15 @@
     path: /etc/cups/printers.conf
     marker: "# {mark} ANSIBLE MANAGED BLOCK Almoxarifado"
     content: |
-      <Printer Deskjet-6940-series>
-      UUID urn:uuid:2b16e2f6-9468-3716-700d-c9f334ebaa71
-      Info HP Deskjet 6940 series
-      Location sj-lin-almox-756044
-      DeviceURI usb://HP/Deskjet%206940%20series?serial=MY7589R3MN04Q9
+      <Printer Deskjet_6940>
+      UUID urn:uuid:281b599f-9aa4-33f1-5de3-abeaaf1bc406
+      Info 
+      Location 
+      MakeModel HP Deskjet 6940 Series, hpcups 3.16.11
+      DeviceURI hp:/usb/Deskjet_6940_series?serial=MY7589R3MN04Q9
       State Idle
-      StateTime 1487097439
+      StateTime 1565271802
+      ConfigTime 1565271300
       Type 36892
       Accepting Yes
       Shared Yes
@@ -300,8 +302,17 @@
       PageLimit 0
       KLimit 0
       OpPolicy default
-      ErrorPolicy stop-printer
+      ErrorPolicy retry-job
       </Printer>
+  when: ( ansible_os_family == 'Debian' and  install == 1 and almoxarifado == 1 )
+
+- name: Copia os arquivos ppd Almoxarifado - Linux Debian
+  copy:
+    src: ppd/Deskjet_6940.ppd
+    dest: /etc/cups/ppd/Deskjet_6940.ppd
+    owner: root
+    group: root
+    mode: 0644
   when: ( ansible_os_family == 'Debian' and  install == 1 and almoxarifado == 1 )
 
 - name: Instala a impressora ImpBiblio - Linux
