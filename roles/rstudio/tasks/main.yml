@@ -65,6 +65,7 @@
 - name: Instalar o R versao {{ versao_R.stdout |trim}} - Windows
   win_chocolatey:
     name: "{{item}}"
+    state: latest
   with_items:
     - r.project
     - r.studio
