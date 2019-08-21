@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tc-ref version="2.2">
+    <module name="org.netbeans.modules.cnd.debugger.common2" spec="3.0.1" />
+    <tc-id id="ConsoleTopComponent" />
+    <state opened="false" />
+</tc-ref>
