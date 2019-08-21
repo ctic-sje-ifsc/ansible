@@ -92,3 +92,23 @@
     dest: /usr/bin/mdb
     state: link
   when: ansible_os_family == 'Debian'
+
+# Antes de executar os comandos abaixo, precisa reiniciar as
+# máquinas para confirmar que o /home/aluno estão limpos.
+
+- name: Copiando arquivos de configuracao de usuario
+  copy:
+    src: "{{ item }}"
+    dest: /home/aluno/{{ item }}
+    owner: aluno
+    group: aluno
+    mode: 0755
+  with_items:
+    - .mchp_packs
+    - .mplabcomm
+    - .mplab_ide
+  when: (ansible_os_family == 'Debian' and  play == 1)
+
+- name: Faz backup do último aluno.tgz e cria um novo com as novas configuracoes
+  shell: /bin/mv /home/backup/aluno.tgz /home/backup/aluno-$(date +'%d-%m-%Y').tgz ; /bin/tar -zcvf /home/backup/aluno.tgz /home/aluno
+  when: (ansible_os_family == 'Debian' and  play == 1)
