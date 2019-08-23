@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tc-ref version="2.2">
+    <module name="com.microchip.mplab.nbide.messagecenter" spec="1.0" />
+    <tc-id id="MessageCenterTopComponent" />
+    <state opened="false" />
+</tc-ref>
