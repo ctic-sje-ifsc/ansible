@@ -99,7 +99,7 @@
 - name: Copiando arquivos de configuracao de usuario
   copy:
     src: "{{ item }}"
-    dest: /home/aluno/{{ item }}
+    dest: /home/aluno/
     owner: aluno
     group: aluno
     mode: 0755
