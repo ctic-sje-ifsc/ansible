@@ -120,7 +120,7 @@
 # Windows
 
 - name: Setar servidor WINS e DNS
-  win_shell: netsh interface ip add wins name="Conexão Local" addr=191.36.8.67 index=0 ; netsh interface ip set dnsservers name="Conexão Local" source=static addr=191.36.8.67
+  win_shell: netsh interface ip set wins name="Conexão Local" source=static addr=191.36.8.67 ; netsh interface ip set dnsservers name="Conexão Local" source=static addr=191.36.8.67
   when: ansible_os_family == 'Windows'
 
 - name: Setar sufixo DNS - Windows
