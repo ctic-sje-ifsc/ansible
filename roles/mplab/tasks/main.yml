@@ -7,7 +7,7 @@
     creates: /opt/microchip/mplabx/v5.20/mplab_platform/bin/mplab_ide
     remote_src: yes
     owner: aluno
-    group: 513
+    group: aluno
   when: ansible_os_family == 'Debian'
 
 - name: Extraindo avr8 toolchain - Linux Debian
@@ -16,7 +16,7 @@
     dest: /opt/microchip
     creates: /opt/microchip/avr8-gnu-toolchain
     owner: aluno
-    group: 513
+    group: aluno
   when: ansible_os_family == 'Debian'
 
 - name: Copiando arquivos .rules - Linux Debian
