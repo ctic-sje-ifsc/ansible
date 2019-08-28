@@ -15,6 +15,12 @@
 - name: Adicionar repositório qgis - Linux Debian 9
   apt_repository:
     repo: deb http://qgis.org/debian stretch main
+    state: absent
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
+
+- name: Adicionar repositório qgis - Linux Debian 9
+  apt_repository:
+    repo: deb https://qgis.org/debian-ltr stretch main
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
 
 # Debian e Ubuntu
