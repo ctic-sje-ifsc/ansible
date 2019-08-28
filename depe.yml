@@ -4,6 +4,8 @@
     - role: softwares_remotos
       apps:
         - asctime
+        - isaacdesktop
+        - sisaca
 
 - hosts: sj-lin-depe-BRG311F6PN.maquinas.sj.ifsc.edu.br
   roles:
