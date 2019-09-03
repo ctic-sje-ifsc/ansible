@@ -41,6 +41,7 @@
     - okular
     - network-manager-gnome
     - network-manager
+    - system-config-printer
   when: ansible_os_family == 'Debian'
 
 - name: Remover programas  - Linux
