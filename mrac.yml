@@ -1,5 +1,12 @@
-- hosts: mrac
+## Both operational system
+- hosts: mrac_win
 #  ignore_unreachable: true
-  roles: 
+  roles:
+    - ingressa_ldap
+
+## Linux only
+- hosts: mrac_lin
+  roles:
+    - ingressa_ldap
     - role: grub
       tipo: grub_win
