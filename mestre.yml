@@ -9,7 +9,8 @@
     - apt_repository:
         repo: deb http://debian.pop-sc.rnp.br/debian jessie-backports main contrib non-free
         state: absent
-        filename: ftp_debian_org_debian    
+        filename: ftp_debian_org_debian
+      when: ansible_os_family == 'Debian'
     - name: Adicionar repositório qgis - Linux Debian 9
       apt_repository:
         repo: deb http://qgis.org/debian stretch main
@@ -55,7 +56,6 @@
 - import_playbook: labfisica.yml
 - import_playbook: ledis.yml
 - import_playbook: mcul.yml
-- import_playbook: mrac.yml
 - import_playbook: mtele.yml
 - import_playbook: patrim.yml
 - import_playbook: registro_academico.yml
@@ -75,6 +75,7 @@
 - import_playbook: labprogramacao.yml
 - import_playbook: labredes.yml
 - import_playbook: labsidi.yml
+- import_playbook: mrac.yml
 
 
 - hosts: all
