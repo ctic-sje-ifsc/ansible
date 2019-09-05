@@ -5,4 +5,5 @@
     - role: softwares_remotos
       apps:
         - asctime
+    - qgis
 
