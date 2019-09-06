@@ -1,0 +1,781 @@
+#! /usr/bin/perl
+#
+# CUPS filter for  Brother laser printers
+#   
+#   Copyright (C) 2016 Brother. Industries, Ltd.  All Rights Reserved
+# 
+#                                    Ver2.00
+
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; either version 2 of the License, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+# Place, Suite 330, Boston, MA  02111-1307  USA
+#
+
+
+#use Cwd 'realpath';
+
+
+$ppdcust = "";
+
+#   log functions
+
+$LOGFILE="/tmp/br_cupswrapper_ink.log";
+$LOGLEVEL=7;
+$DEBUG=0;
+$LOG_LATESTONLY=1;
+$DEVICEURILOCK=1;
+$LPD_DEBUG=0;
+
+if ( $DEBUG > 0 ){
+  $LPD_DEBUG=2;
+}
+
+$width=-1;
+$height=-1;
+
+#my $basedir = Cwd::realpath ($0);
+my $basedir = `readlink $0`;
+if ( $basedir eq '' ){
+    $basedir = `realpath $0`;
+}
+chomp($basedir);
+
+$basedir =~ s/$PRINTER\/cupswrapper\/.*$/$PRINTER\//g;
+
+
+%units = ( pt   => \&pt2dot, 
+	   mm   => \&mm2dot, 
+	   inch => \&inch2dot, 
+	   in   => \&inch2dot, 
+	   cm   => \&cm2dot,
+	   m    => \&m2dot,
+	   ft   => \&ft2dot
+	   );
+
+
+
+#$LPDCONFIGEXE="brprintconflsr3";
+$LPDCONFIGEXE="brprintconfpt1_";
+
+my $INPUT_PS   = "/tmp/br_cupswrapper_ink_input.ps";
+my $OUTPUT_PRN = "/tmp/br_cupswrapper_ink_output.prn";
+
+
+#    main
+
+logprint( 0 , "START\n");
+
+
+my $cmdoptions=$ARGV[4];
+my $PPD = $ENV{PPD};
+my $PRINTER=$basedir;
+my $CUPSINPUT='';
+if ( @ARGV >= 6 ){
+    $CUPSINPUT=$ARGV[7];
+}
+
+
+$PRINTER =~ s/^\/opt\/.*\/PTouch\///g;
+$PRINTER =~ s/\/cupswrapper//g;
+$PRINTER =~ s/\///g;
+
+for  (my $i = 0 ; $i < @ARGV ; $i ++){
+    logprint( 0 , "ARG$i      = $ARGV[$i]\n");
+}
+
+logprint( 0 , "PRINTER   = $PRINTER \n");
+logprint( 0 , "PPD       = $PPD\n");
+logprint( 0 , "BASEPATH  = $basedir\n");
+
+logprint( 0 , "export PPD=$PPD\n");  
+logprint( 0 , "$0 \"$ARGV[1]\"  \"$ARGV[2]\"  \"$ARGV[3]\"  \"$ARGV[4]\"  \"$ARGV[5]\"  \"$ARGV[6]\"\n");  
+
+
+#my $LPDFILTER   =$basedir."/lpd/filter_".$PRINTER;
+my $LPDFILTER   =$basedir."/lpd/filter_".$PRINTER;
+
+logprint( 0 , "\n");
+
+
+ %vendor_commandline = (
+  'BrPriority=BrSpeed'                  => {"opt"=>"-quality" , "val"=>"SPEED"},
+  'BrPriority=BrQuality'                => {"opt"=>"-quality" , "val"=>"QUALITY"},
+  'BrCompress=OFF'                      => {"opt"=>"-compress" , "val"=>"OFF"},
+  'BrCompress=ON'                       => {"opt"=>"-compress" , "val"=>"ON"},
+  'BrCutAtEnd=OFF'                      => {"opt"=>"-cutend" , "val"=>"OFF"},
+  'BrCutAtEnd=ON'                       => {"opt"=>"-cutend" , "val"=>"ON"},
+  'BrTrimtape=OFF'                      => {"opt"=>"-trimtape" , "val"=>"OFF"},
+  'BrTrimtape=ON'                       => {"opt"=>"-trimtape" , "val"=>"ON"},
+  'BrMirror=OFF'                        => {"opt"=>"-mirro" , "val"=>"OFF"},
+  'BrMirror=ON'                         => {"opt"=>"-mirro" , "val"=>"ON"},
+  'BrHalftonePattern=BrBinary'          => {"opt"=>"-half", "val"=>"BINARY"},
+  'BrHalftonePattern=BrDither'          => {"opt"=>"-half" , "val"=>"DITHER"},
+  'BrHalftonePattern=BrErrorDiffusion'  => {"opt"=>"-half" , "val"=>"ERROR"},
+
+  'PageSize=17x54'                  => {"opt"=>"-media" , "val"=>"17x54"},
+  'PageSize=17x87'                  => {"opt"=>"-media" , "val"=>"17x87"},
+  'PageSize=23x23'                  => {"opt"=>"-media" , "val"=>"23x23"},
+  'PageSize=29x42'                  => {"opt"=>"-media" , "val"=>"29x42"},
+  'PageSize=29x90'                  => {"opt"=>"-media" , "val"=>"29x90"},
+  'PageSize=38x90'                  => {"opt"=>"-media" , "val"=>"38x90"},
+  'PageSize=39x48'                  => {"opt"=>"-media" , "val"=>"39x48"},
+  'PageSize=52x29'                  => {"opt"=>"-media" , "val"=>"52x29"},
+  'PageSize=54x29'                  => {"opt"=>"-media" , "val"=>"54x29"},
+  'PageSize=62x29'                  => {"opt"=>"-media" , "val"=>"62x29"},
+  'PageSize=62x100'                 => {"opt"=>"-media" , "val"=>"62x100"},
+  'PageSize=60x86'                  => {"opt"=>"-media" , "val"=>"60x86"},
+  'PageSize=12Dia'                  => {"opt"=>"-media" , "val"=>"12Dia"},
+  'PageSize=24Dia'                  => {"opt"=>"-media" , "val"=>"24Dia"},
+  'PageSize=58Dia'                  => {"opt"=>"-media" , "val"=>"58Dia"},
+  'PageSize=12X1'                   => {"opt"=>"-media" , "val"=>"12X1"},
+  'PageSize=29X1'                   => {"opt"=>"-media" , "val"=>"29X1"},
+  'PageSize=38X1'                   => {"opt"=>"-media" , "val"=>"38X1"},
+  'PageSize=50X1'                   => {"opt"=>"-media" , "val"=>"50X1"},
+  'PageSize=54X1'                   => {"opt"=>"-media" , "val"=>"54X1"},
+  'PageSize=62X1'                   => {"opt"=>"-media" , "val"=>"62X1"},
+  'PageSize=12X2'                   => {"opt"=>"-media" , "val"=>"12X2"},
+  'PageSize=29X2'                   => {"opt"=>"-media" , "val"=>"29X2"},
+  'PageSize=38X2'                   => {"opt"=>"-media" , "val"=>"38X2"},
+  'PageSize=50X2'                   => {"opt"=>"-media" , "val"=>"50X2"},
+  'PageSize=54X2'                   => {"opt"=>"-media" , "val"=>"54X2"},
+  'PageSize=62X2'                   => {"opt"=>"-media" , "val"=>"62X2"},
+  'PageSize=12X3'                   => {"opt"=>"-media" , "val"=>"12X3"},
+  'PageSize=29X3'                   => {"opt"=>"-media" , "val"=>"29X3"},
+  'PageSize=38X3'                   => {"opt"=>"-media" , "val"=>"38X3"},
+  'PageSize=50X3'                   => {"opt"=>"-media" , "val"=>"50X3"},
+  'PageSize=54X3'                   => {"opt"=>"-media" , "val"=>"54X3"},
+  'PageSize=62X3'                   => {"opt"=>"-media" , "val"=>"62X3"},
+  'PageSize=12X4'                   => {"opt"=>"-media" , "val"=>"12X4"},
+  'PageSize=29X4'                   => {"opt"=>"-media" , "val"=>"29X4"},
+  'PageSize=38X4'                   => {"opt"=>"-media" , "val"=>"38X4"},
+  'PageSize=50X4'                   => {"opt"=>"-media" , "val"=>"50X4"},
+  'PageSize=54X4'                   => {"opt"=>"-media" , "val"=>"54X4"},
+  'PageSize=62X4'                   => {"opt"=>"-media" , "val"=>"62X4"},
+  'PageSize=BrL'                   => {"opt"=>"-media" , "val"=>"*"},
+
+);
+
+
+
+  %DefaultPageSize = (
+  "optionname" => 'DefaultPageSize'   , 
+  "optionlist" => {
+  '17x54'                  => {"opt"=>"-media" , "val"=>"17x54"},
+  '17x87'                  => {"opt"=>"-media" , "val"=>"17x87"},
+  '23x23'                  => {"opt"=>"-media" , "val"=>"23x23"},
+  '29x42'                  => {"opt"=>"-media" , "val"=>"29x42"},
+  '29x90'                  => {"opt"=>"-media" , "val"=>"29x90"},
+  '38x90'                  => {"opt"=>"-media" , "val"=>"38x90"},
+  '39x48'                  => {"opt"=>"-media" , "val"=>"39x48"},
+  '52x29'                  => {"opt"=>"-media" , "val"=>"52x29"},
+  '54x29'                  => {"opt"=>"-media" , "val"=>"54x29"},
+  '62x29'                  => {"opt"=>"-media" , "val"=>"62x29"},
+  '62x100'                 => {"opt"=>"-media" , "val"=>"62x100"},
+  '60x86'                  => {"opt"=>"-media" , "val"=>"60x86"},
+  '12Dia'                  => {"opt"=>"-media" , "val"=>"12Dia"},
+  '24Dia'                  => {"opt"=>"-media" , "val"=>"24Dia"},
+  '58Dia'                  => {"opt"=>"-media" , "val"=>"58Dia"},
+  '12X1'                   => {"opt"=>"-media" , "val"=>"12X1"},
+  '29X1'                   => {"opt"=>"-media" , "val"=>"29X1"},
+  '38X1'                   => {"opt"=>"-media" , "val"=>"38X1"},
+  '50X1'                   => {"opt"=>"-media" , "val"=>"50X1"},
+  '54X1'                   => {"opt"=>"-media" , "val"=>"54X1"},
+  '62X1'                   => {"opt"=>"-media" , "val"=>"62X1"},
+  '12X2'                   => {"opt"=>"-media" , "val"=>"12X2"},
+  '29X2'                   => {"opt"=>"-media" , "val"=>"29X2"},
+  '38X2'                   => {"opt"=>"-media" , "val"=>"38X2"},
+  '50X2'                   => {"opt"=>"-media" , "val"=>"50X2"},
+  '54X2'                   => {"opt"=>"-media" , "val"=>"54X2"},
+  '62X2'                   => {"opt"=>"-media" , "val"=>"62X2"},
+  '12X3'                   => {"opt"=>"-media" , "val"=>"12X3"},
+  '29X3'                   => {"opt"=>"-media" , "val"=>"29X3"},
+  '38X3'                   => {"opt"=>"-media" , "val"=>"38X3"},
+  '50X3'                   => {"opt"=>"-media" , "val"=>"50X3"},
+  '54X3'                   => {"opt"=>"-media" , "val"=>"54X3"},
+  '62X3'                   => {"opt"=>"-media" , "val"=>"62X3"},
+  '12X4'                   => {"opt"=>"-media" , "val"=>"12X4"},
+  '29X4'                   => {"opt"=>"-media" , "val"=>"29X4"},
+  '38X4'                   => {"opt"=>"-media" , "val"=>"38X4"},
+  '50X4'                   => {"opt"=>"-media" , "val"=>"50X4"},
+  '54X4'                   => {"opt"=>"-media" , "val"=>"54X4"},
+  '62X4'                   => {"opt"=>"-media" , "val"=>"62X4"},
+  'BrL'                   => {"opt"=>"-media" , "val"=>"*"},
+  }
+ ) ;
+  %DefaultBrPriority = (
+  "optionname" => 'DefaultBrPriority'   , 
+  "optionlist" => {
+     'BrSpeed'                  => {"opt"=>"-quality" , "val"=>"SPEED"},
+     'BrQuality'                => {"opt"=>"-quality" , "val"=>"QUALITY"},
+  }
+ ) ;
+  %DefaultBrCompress = (
+  "optionname" => 'DefaultBrCompress'   , 
+  "optionlist" => {
+     'OFF'                      => {"opt"=>"-compress" , "val"=>"OFF"},
+     'ON'                       => {"opt"=>"-compress" , "val"=>"ON"},
+  }
+ ) ;
+  %DefaultBrCutAtEnd = (
+  "optionname" => 'DefaultBrCutAtEnd'   , 
+  "optionlist" => {
+    'OFF'                      => {"opt"=>"-cutend" , "val"=>"OFF"},
+    'ON'                       => {"opt"=>"-cutend" , "val"=>"ON"},
+  }
+ ) ;
+  %DefaultBrTrimtape = (
+  "optionname" => 'DefaultBrTrimtape'   , 
+  "optionlist" => {
+    'OFF'                      => {"opt"=>"-trimtape" , "val"=>"OFF"},
+    'ON'                       => {"opt"=>"-trimtape" , "val"=>"ON"},
+  }
+ ) ;
+  %DefaultBrMirror = (
+  "optionname" => 'DefaultBrMirror'   , 
+  "optionlist" => {
+     'OFF'                     => {"opt"=>"-mirro" , "val"=>"OFF"},
+     'ON'                      => {"opt"=>"-mirro" , "val"=>"ON"},
+  }
+ ) ;
+  %DefaultBrHalftonePattern = (
+  "optionname" => 'DefaultBrHalftonePattern'   , 
+  "optionlist" => {
+     'BrErrorDiffusion'     => {"opt"=>"-half" , "val"=>"ERROR"},
+     'BrDither'             => {"opt"=>"-half" , "val"=>"DITHER"},
+     'BrBinary'             => {"opt"=>"-half" , "val"=>"BINARY"},
+  }
+ ) ;
+  %DefaultBrBrightness = (
+  "optionname" => 'DefaultBrBrightness'   , 
+  "optionlist" => {
+     '*'               => {"opt"=>"-brit" , "val"=>"*"},
+  }
+ ) ;
+  %DefaultBrContrast = (
+  "optionname" => 'DefaultBrContrast'   , 
+  "optionlist" => {
+     '*'               => {"opt"=>"-cont" , "val"=>"*"},
+  }
+ ) ;
+  %DefaultBrMargin = (
+  "optionname" => 'DefaultBrMargin'   , 
+  "optionlist" => {
+     '*'               => {"opt"=>"-feed" , "val"=>"*"},
+  }
+ ) ;
+  %DefaultBrCutLabel = (
+  "optionname" => 'DefaultBrCutLabel'   , 
+  "optionlist" => {
+     '*'               => {"opt"=>"-cutlabel" , "val"=>"*"},
+  }
+ ) ;
+ %numeric_option = (
+  "BrBrightness"                => {"opt"=>"-brit"  , "val"=>"*"},
+  "BrContrast"                  => {"opt"=>"-cont"  , "val"=>"*"},
+  "BrMargin"                    => {"opt"=>"-feed"   , "val"=>"*"},
+  "BrCutLabel"                  => {"opt"=>"-cutlabel" , "val"=>"*"},
+);
+ %initial_configuration = (
+   "-quality"      =>  "SPEED"    ,
+   "-compress"     =>  "OFF"   ,
+   "-cutend"       =>  "ON"   ,
+   "-media"        =>  "29x90"     ,
+   "-trimtape"     =>  "ON"  ,
+   "-mirro"        =>  "OFF"  ,
+   "-half"         =>  "BrErrorDiffusion"  ,
+   "-feed"         =>  "3"  ,
+   "-brit"         =>  "0"  ,
+   "-cont"         =>  "0"  ,
+   "-cutlabel"     =>  "1"  ,
+ );
+ %ppddefaultslist = (
+    "DefaultPageSize"                         => \%DefaultPageSize,
+    "DefaultBrPriority"                       => \%DefaultBrPriority,
+    "DefaultBrCompress"                       => \%DefaultBrCompress,
+    "DefaultBrCutAtEnd"                       => \%DefaultBrCutAtEnd,
+    "DefaultBrTrimtape"                       => \%DefaultBrTrimtape,
+    "DefaultBrMirror"                         => \%DefaultBrMirror,
+    "DefaultBrHalftonePattern"                => \%DefaultBrHalftonePattern,
+    "DefaultBrBrightness"                     => \%DefaultBrBrightness,
+    "DefaultBrContrast"                       => \%DefaultBrContrast,
+    "DefaultBrMargin"                         => \%DefaultBrMargin,
+    "DefaultBrCutLabel"                       => \%DefaultBrCutLabel,
+  );
+ %mediaoptlist = (
+    "DefaultPageSize"      => \%DefaultPageSize,
+  );
+
+
+
+my $LATESTINFO="/tmp/".$PRINTER."_latest_print_info";
+unlink $LATESTINFO;
+`touch $LATESTINFO`;
+
+
+my $TEMPRC = "/tmp/br".$PRINTER."rc_".$$;
+
+
+`cp  $basedir/inf/br${PRINTER}rc  $TEMPRC`;
+$ENV{BRPRINTERRCFILE} = $TEMPRC;
+
+logprint( 0 , "TEMPRC    = $TEMPRC\n");
+
+$LOCKFILE="/tmp/$PRINTER"."_lf_".$ENV{DEVICE_URI};
+
+if ( $DEVICEURILOCK == 1){
+   open (FILE , "+> $LOCKFILE");
+   flock(FILE , 2);
+}
+
+
+$ENV{LPD_DEBUG} = $LPD_DEBUG;
+$ENV{PS}=1;
+
+$ENV{BRPAPERWIDTH}  = $width;
+$ENV{BRPAPERHEIGHT} = $height;
+
+    my $ppddefaults1 = `grep '^*DefaultBrPrintArea' $PPD`;
+	chomp($ppddefaults1);
+	$label1 =~ s/^\*//g;
+	$label1 =~ s/: .*$//g;
+	$value1 =~ s/^.*: //g;
+	($label1,$value1) = split(/\s+/,$ppddefaults1);
+	logprint( 0 , "label1    = $label1\n");
+	logprint( 0 , "value1    = $value1\n");
+
+
+$ENV{PRTAREA1}=$value1+0;
+
+my  %lpr_options = &set_options ($PPD , $cmdoptions );
+
+&exec_lpdconfig ( $basedir ,$PRINTER , \%lpr_options );
+
+    logprint( 2, "\n");
+if ( $DEBUG == 0 ){
+    $command = "cat $CUPSINPUT |  $LPDFILTER";
+    logprint( 2 , "$command\n");
+    system("$command");
+}
+elsif ($DEBUG == 1 ){
+    $command = "cat $CUPSINPUT > $INPUT_PS && cat $INPUT_PS |".
+	       "$LPDFILTER > $OUTPUT_PRN";
+
+    logprint( 2,  "export BRPAPERWIDTH=$ENV{BRPAPERWIDTH}\n");
+    logprint( 2,  "export BRPAPERHEIGHT=$ENV{BRPAPERHEIGHT}\n");
+    logprint( 2,  "export PPD=$ENV{PPD}\n");
+    logprint( 2,  "export BRPRINTERRCFILE=$LATESTINFO\n");
+    logprint( 2,  "export LPD_DEBUG=$ENV{LPD_DEBUG}\n");
+    logprint( 2,  "export PS=$ENV{PS}\n");
+
+    logprint( 2, "cat $INPUT_PS | $LPDFILTER > $OUTPUT_PRN \n");
+    system("$command 2> /tmp/br_cupswrapper_ink_lpderr");
+    system("cat $OUTPUT_PRN");
+
+    logprint( 2, "$command\n");
+
+}
+elsif ($DEBUG > 1 ){
+    $command = "cat $CUPSINPUT > $INPUT_PS && cat $INPUT_PS |".
+	       "$LPDFILTER > $OUTPUT_PRN";
+
+    logprint( 2,  "export BRPAPERWIDTH=$ENV{BRPAPERWIDTH}\n");
+    logprint( 2,  "export BRPAPERHEIGHT=$ENV{BRPAPERHEIGHT}\n");
+    logprint( 2,  "export PPD=$ENV{PPD}\n");
+    logprint( 2,  "export BRPRINTERRCFILE=$LATESTINFO\n");
+    logprint( 2,  "export LPD_DEBUG=$ENV{LPD_DEBUG}\n");
+    logprint( 2,  "export PS=$ENV{PS}\n");
+
+    logprint( 2, "cat $INPUT_PS | $LPDFILTER > $OUTPUT_PRN \n");
+    system("$command 2> /tmp/br_cupswrapper_ink_lpderr");
+    print "\0";
+
+}
+
+
+`mv  "$TEMPRC"   "$LATESTINFO"`;
+#`echo "\n\nCUSTOM PAGE SIZE ${width}x${height}" >> $LATESTINFO`;
+#unlink  $TEMPRC;
+
+
+if ( $DEVICEURILOCK == 1 ){
+    close (FILE);
+}
+
+
+exit 0;
+
+#-----------------------------------------------------------
+
+sub logprint  {
+    ($level , $data) =  @_;
+    if ($DEBUG != 0 ){
+	if ($LOG_LATESTONLY == 1){
+	    open (LOG , '>'.$LOGFILE) or return 0;
+	    $LOG_LATESTONLY = 0;
+	}
+	else{
+	    open (LOG , '>>'.$LOGFILE) or return 0;
+	}
+	if ( $level < $LOGLEVEL){
+	    print LOG $data;
+	}
+	close (LOG);
+    }
+}
+
+
+#
+#   set options to @cmdopt table
+#
+
+
+sub set_option_table {
+    ($table_ref ,$key, $value, $lpr_options_ref) = @_;
+    my %table = %$table_ref;
+    my %lpr_opt = %$lpr_options_ref;
+
+    if ( exists ($table{$key})){
+	my $cmdref = $table{$key};
+	my $opt = $cmdref->{opt};
+	my $val = $cmdref->{val};
+        logprint( 2 ,   "$opt  <=  $lpr_options_ref->{$opt}  : ($value)\n");
+
+	if (exists($lpr_opt{$opt})){
+	    $lpr_options_ref->{$opt} = $val;
+	    logprint( 2 ,   "$opt  <=  $lpr_options_ref->{$opt}  : ($value)\n");
+
+        if ( $opt eq "-media" && $value =~ "^BrL" ){
+	 
+           $PAPERINF=$basedir."/inf/paperinf".$PRINTER;
+
+	    open (FPRCFILE , $PAPERINF); 
+	    my $paper;
+	    my $name;
+            my $line ;
+	    while($line =  <FPRCFILE>){
+		   chomp $line;
+		   ($paper,$name)=split(/:/,$line);
+		   ($paper,$name)=split(/\//,$paper);
+ #          logprint( 2 ,   "test code $name  <=>   \n");
+		    last if($line =~/^$value/);
+		#   last if($line =~/^$papersize/);
+			  
+	    }
+ #          logprint( 2 ,   "$opt  <=  $lpr_options_ref->{$opt}  : ($value)\n");
+	    
+	    close(FPRCFILE);
+		
+	    $lpr_options_ref->{$opt} = $name;
+
+
+#	     logprint( 2 ,   "$opt  <=  $lpr_options_ref->{$opt}  : ($value)\n");
+#		$ppdcust = $value;
+	    }
+        if ( $opt eq "-brit" || $opt eq "-cont" || $opt eq "-feed" || $opt eq "-cutlabel"  ){
+		$lpr_options_ref->{$opt} = $value;
+	    }
+		
+
+	}
+        if ( exists ($cmdref->{opt2})){
+	  my $opt = $cmdref->{opt2};
+	  my $val = $cmdref->{val2};
+	  if (exists($lpr_opt{$opt})){
+	      $lpr_options_ref->{$opt} = $val;
+	      logprint( 2 ,   "$opt  <=  $lpr_options_ref->{$opt}  : ($value)\n");
+
+              if ( $opt eq "-pt" && $val eq "BrL" ){
+		  $ppdcust = $value;
+	      }
+
+	  }
+        }
+
+
+
+
+
+    }
+}
+sub set_option_table_n {
+    ($table_ref ,$key, $value , $lpr_options) = @_;
+    my %table = %$table_ref;
+    if ( exists ($table{$key})){
+	($table{$key})->{val} = $value;
+	&set_option_table (\%table , $key , ""  ,$lpr_options);
+    }
+}
+
+
+#
+#   Custom paper
+#
+
+sub pt2dot{
+    (my $xi, my $yi) = @_;
+    my $xo = $xi * 600 / 72;
+    my $yo = $yi * 600 / 72;
+    return (int ($xo) , int ($yo) );
+}
+sub mm2dot{
+    (my $xi, my $yi) = @_;
+    my $xo = $xi * 6000 / 254;
+    my $yo = $yi * 6000 / 254;
+    return (int ($xo) , int ($yo) );
+}
+sub inch2dot{
+    (my $xi, my $yi) = @_;
+    my $xo = $xi * 600;
+    my $yo = $yi * 600;
+    return (int ($xo) , int ($yo) );
+}
+sub cm2dot{
+    (my $xi, my $yi) = @_;
+    my $xo = $xi * 60000 / 254;
+    my $yo = $yi * 60000 / 254;
+    return (int ($xo) , int ($yo) );
+}
+sub m2dot{
+    (my $xi, my $yi) = @_;
+    my $xo = $xi * 6000000 / 254;
+    my $yo = $yi * 6000000 / 254;
+    return (int ($xo) , int ($yo) );
+}
+sub ft2dot{
+    (my $xi, my $yi) = @_;
+    my $xo = $xi * 600 * 12;
+    my $yo = $yi * 600 * 12;
+    return (int ($xo) , int ($yo) );
+}
+
+
+
+sub check_custom_paper {
+    my $x = 0;
+    my $y = 0;
+    my $unitfunc;
+    my $unit = '';
+    my $ssize = '';
+
+    (my $PPD , my $lpr_options_ref) = @_;
+
+    if ( $lpr_options_ref->{'-pt'} eq "CUSTOM0" ){
+
+	foreach (keys %units){
+
+	    if ( $ppdcust =~ /[0-9]$_$/) {
+		logprint( 2 ,   "HIT $_\n");
+		$unit = $_;
+		$unitfunc = $units{$_};
+	    }
+	}
+	$ssize = $ppdcust;
+	$ssize =~ s/^Custom\.//g;
+	$ssize =~ s/$unit$//g;
+
+
+	my @psiz = split (/x/,$ssize);
+	($x , $y) = &$unitfunc ( $psiz[0] ,$psiz[1]);
+
+	return ($x , $y);
+    }
+    elsif ( $lpr_options_ref->{'-pt'} =~  /CUSTOM[1-9]/ ){
+
+	my $tmp = '*PaperDimension '."$lpr_options_ref->{'-pt'}";
+	my $ssize = `grep \"$tmp\" $PPD`;
+	chomp($ssize);
+	$ssize =~ s/\"$//;
+	$ssize =~ s/^.*\"//;
+	my @psiz = split (/ /,$ssize);
+	($x , $y) = &pt2dot ( $psiz[0] ,$psiz[1]);
+	return ($x , $y);
+    }
+    return ("{Undefined}" , "{Undefined}");
+}
+
+
+
+#
+#   get options from PPD and command-line arguments
+#
+sub set_options {
+    ($PPD , $cmdoptions) =  @_;
+    
+    my %cmdopt = ();
+    
+    
+    #   get command line options 
+
+    foreach(split (/ /,$cmdoptions)) {
+	my @eachcmdopt = split (/=/,$_);
+	$cmdopt{$eachcmdopt[0]} = $eachcmdopt[1] ;
+    }
+    
+    
+    #get PPD options
+
+    my @ppddefaults = `grep '^*Default' $PPD`;
+    my %ppdopt = ();
+
+    foreach(@ppddefaults){
+	chomp();
+	my $label = $_;
+	$label =~ s/^\*//g;
+	$label =~ s/: .*$//g;
+	my $value = $_;
+	$value =~ s/^.*: //g;
+	$ppdopt{$label} = $value;
+    }
+    
+
+    my  %lpr_options = %initial_configuration;
+    
+    
+    #set ppd options
+
+    logprint( 2 ,   "\nSET PPD OPTIONS\n");
+    foreach(keys %ppdopt){
+	my $option_name  =  $_ ;
+	my $option_value =  $ppdopt{$_};
+	my $ppdoptdb_ref =  $ppddefaultslist{$option_name};
+	
+	$list = $ppdoptdb_ref->{optionlist}; 
+	my @key = (keys %$list);
+
+ 	foreach(@key){
+	    my $tmp = '^'.$_.'$';
+ 	    if ( $option_value  =~  /$tmp/){
+ 		&set_option_table( $list , $_ , $option_value, \%lpr_options);
+	    }
+	    my $tmp2 = '^'.$option_value.'$';
+ 	    if ( $option_name =~  '^DefaultPageSize$'){
+ 		 if  ( $option_value =~ '^BrL' && $_ =~ '^BrL$'){
+   		    logprint( 2 ,   "\nSet PPD OPTIONS 6   $tmp $option_value\n");
+		&set_option_table( $list , $_ , $option_value, \%lpr_options);
+		}
+	    }
+
+	}
+    }
+    
+    #set Vendor options (string)
+    
+    logprint( 2 ,   "\nSET VENDOR COMMAND OPTIONS\n");
+    foreach(keys %cmdopt){
+	my $option_name_value  =  $_  . "=" .$cmdopt{$_};
+	my $option_value = $cmdopt{$_};
+
+        foreach(keys %vendor_commandline){
+            my $tmp=  '^'.$_.'$';
+	    if  ( $option_value =~ '^BrL' && $_ =~ '^PageSize=BrL'){
+		&set_option_table( \%vendor_commandline, $_ , $option_value, \%lpr_options);
+	    }
+	    if ( $option_name_value =~ /$tmp/){
+		&set_option_table( \%vendor_commandline,
+			   $_, 
+			   $option_value ,
+			   \%lpr_options);
+	    }
+        }
+    }
+    
+    logprint( 2 ,   "\nSET PPD CMD OPTIONS\n");
+    
+    foreach(keys %cmdopt){
+	my $option_name  =  "Default" . $_;
+	my $option_value =  $cmdopt{$_ };
+	my $ppdoptdb_ref =  $ppddefaultslist{$option_name};
+	
+	$list = $ppdoptdb_ref->{optionlist}; 
+
+
+	foreach(keys %$list){
+	    my $tmp=  '^'.$_.'$';
+            if ( $option_value =~ /$tmp/ ){
+	       &set_option_table( $list,
+			   $_, 
+                           $option_value,
+			   \%lpr_options);
+            }
+        }
+    }
+    
+    #set Vendor options (numeric)
+    
+#    logprint( 2 ,   "\nSET VENDOR NUMERIC COMMAND OPTIONS\n");
+
+#    foreach(keys %cmdopt){
+#	my $option_name  =  $_ ;
+#	my $n_value      =  $cmdopt{$_} ;
+#	
+#	&set_option_table_n( \%numeric_option , 
+#			     $option_name  ,
+#			     $n_value,
+#			     \%lpr_options);
+#
+#    }
+    #set MEDIA extension options    
+
+#    logprint( 2 ,   "\nSET MEDIA (STANDARD) COMMAND OPTIONS\n");
+#
+#    foreach my $option (split( /,/ , $cmdopt{media})){
+#
+#	foreach my $cur_optlist (keys %mediaoptlist){
+#	    $cur_opttbl = $cur_optlist ->{optionlist};
+#            foreach (keys %$cur_opttbl ){
+#
+#              my $tmp =  '^'.$_.'$';
+#	      if ( $option =~ /$tmp/ ){
+#		  &set_option_table( $cur_opttbl ,
+#				     $_,
+#                                     $option,
+#				     \%lpr_options);
+#	      }
+#	    }
+#        }
+#     }
+
+    
+#    ($width , $height) = check_custom_paper ($PPD,
+#					     \%lpr_options);
+#    if ( $width ne "{Undefined}" &&  $height ne "{Undefined}" ){
+#	$ENV{BRPAPERWIDTH} = ${width};
+#        $ENV{BRPAPERHEIGHT} = ${height};
+#	logprint( 0 , "\nCUSTOM PAPER x=$width y=$height\n\n");
+#    }
+
+    return     %lpr_options;
+}
+
+
+#exec lpd config
+
+sub exec_lpdconfig {
+    (my $basedir , my $PRINTER , my $lpr_options_ref) =  @_;
+
+    my $lpddir = $basedir;
+    my %lpr_options = %$lpr_options_ref;
+
+    $lpddir = $basedir."/lpd/";
+    #my $lpdconf = $lpddir.'/'.$LPDCONFIGEXE;
+	my $lpdconf = $LPDCONFIGEXE.$PRINTER;
+    
+    while(($op , $val) = each(%lpr_options)){
+        my $lpdconf_command = "$lpdconf -P $PRINTER $op $val -rcfile $TEMPRC";
+#        my $lpdconf_command = "$lpdconf $op $val -rcfile $TEMPRC";
+	logprint( 0 ,   "$lpdconf_command\n");
+	`$lpdconf_command`;
+    }
+
+}
+

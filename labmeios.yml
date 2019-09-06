@@ -5,3 +5,6 @@
     - configura_monitores
     - role: grub
       tipo: grub_soh_lin
+    - role: instala_impressora_cups
+      install: 1
+      brother: 1

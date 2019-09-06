@@ -1,6 +1,7 @@
 ---
 install: 0
 argox: 0
+brother: 0
 compras: 0
 reprografia_reserva: 1
 reprografia_principal: 1

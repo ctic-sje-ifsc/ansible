@@ -1,6 +1,6 @@
 - name:  Copia o arquivo cups-browsed.conf com a pesquisa de impressoras desativada- Linux Debian
   copy:
-    src: cups-browsed.conf 
+    src: cups-browsed.conf
     dest: /etc/cups/cups-browsed.conf
     owner: root
     group: root
@@ -36,17 +36,59 @@
 
 - name:  Copia o arquivo rastertoargox - Linux Debian
   copy:
-    src: rastertoargox 
+    src: rastertoargox
     dest: /usr/lib/cups/filter/rastertoargox
     owner: root
     group: root
     mode: 0755
   when: ( ansible_os_family == 'Debian' and  install == 1 and argox == 1 )
 
+- name: Cria diretório /usr/share/cups/model/Brother/ - Linux
+  file:
+    path: /usr/share/cups/model/Brother/
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  when: ( ansible_os_family == 'Debian' and  install == 1 and brother == 1 )
+
+- name: Copia os arquivos ppd Brother - Linux Debian
+  copy:
+    src: ppd/brother_ql700_printer_en.ppd
+    dest: /usr/share/cups/model/Brother/
+    owner: root
+    group: root
+    mode: 0644
+  when: ( ansible_os_family == 'Debian' and  install == 1 and brother == 1 )
+
+- name: Copia os drivers da brother - Linux Debian
+  copy:
+    src: brother
+    dest: /opt
+    owner: root
+    group: root
+    mode: 0644
+  when: ( ansible_os_family == 'Debian' and  install == 1 and brother == 1 )
+
+- file:
+    src: /opt/brother/PTouch/ql700/cupswrapper/brother_lpdwrapper_ql700
+    dest: /usr/lib/cups/filter/brother_lpdwrapper_ql700
+    state: link
+  when: ( ansible_os_family == 'Debian' and  install == 1 and brother == 1 )
+
+- name: Copia os arquivos ppd Brother para /etc/cups/ppd/  - Linux Debian
+  copy:
+    src: ppd/brother_ql700_printer_en.ppd
+    dest: /etc/cups/ppd/QL700.ppd
+    owner: root
+    group: lp
+    mode: 0640
+  when: ( ansible_os_family == 'Debian' and  install == 1 and brother == 1 )
+
 - name: Cria arquivo /etc/cups/printers.conf
   copy:
     src: printers.conf
-    dest: /etc/cups/printers.conf    
+    dest: /etc/cups/printers.conf
     owner: root
     group: lp
     mode: 0600
@@ -76,6 +118,31 @@
       ErrorPolicy retry-job
       </Printer>
   when: ( ansible_os_family == 'Debian' and  install == 1 and argox == 1 )
+
+- name: Instala a impressora Brother - Linux
+  blockinfile:
+    path: /etc/cups/printers.conf
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - Brother"
+    content: |
+      <Printer QL700>
+      UUID urn:uuid:ea48544f-f469-34db-7190-af2e0846fc25
+      Info QL700
+      MakeModel Brother QL-700 CUPS
+      DeviceURI usb://dev/usb/lp0
+      State Idle
+      StateTime 1567711672
+      ConfigTime 1567711672
+      Type 8392772
+      Accepting Yes
+      Shared Yes
+      JobSheets none none
+      QuotaPeriod 0
+      PageLimit 0
+      KLimit 0
+      OpPolicy default
+      ErrorPolicy retry-job
+      </Printer>
+  when: ( ansible_os_family == 'Debian' and  install == 1 and brother == 1 )
 
 - name: Instala a impressora ImpCompras - Linux
   blockinfile:
@@ -187,7 +254,7 @@
       <Printer ImpBiblioteca>
       UUID urn:uuid:fb4156cd-356d-3c05-4a36-205fe33f2293
       Info ImpBiblioteca
-      Location 
+      Location
       MakeModel HP LaserJet 1020 Foomatic/foo2zjs-z1 (recommended)
       DeviceURI hp:/usb/HP_LaserJet_1020?serial=FZ04KNA
       State Idle
@@ -207,7 +274,7 @@
       ErrorPolicy retry-job
       </Printer>
   when: ( ansible_os_family == 'Debian' and  install == 1 and biblioteca_usb == 1 )
-  
+
 - name: Instala a impressora ImpDirecao - Linux
   blockinfile:
     path: /etc/cups/printers.conf
@@ -287,8 +354,8 @@
     content: |
       <Printer Deskjet_6940>
       UUID urn:uuid:281b599f-9aa4-33f1-5de3-abeaaf1bc406
-      Info 
-      Location 
+      Info
+      Location
       MakeModel HP Deskjet 6940 Series, hpcups 3.16.11
       DeviceURI hp:/usb/Deskjet_6940_series?serial=MY7589R3MN04Q9
       State Idle
