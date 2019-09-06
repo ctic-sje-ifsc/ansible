@@ -1,0 +1,305 @@
+#! /usr/bin/perl
+
+## LPD/LPRng filter for Brother laser printer
+##   
+##   Copyright (C) 2016 Brother. Industries, Ltd.
+##
+
+use Cwd 'realpath';
+use File::Copy;
+
+my $FLAG="";
+my $offset="";
+
+
+my $HWMARGINS="yes";
+
+my $PRINTER = $0;
+my $INPUT_TEMP='';
+my $FILE_TYPE="PostScript";
+my $LOGFILE = "/tmp/br_lpdfilter_ink.log";
+
+$PRINTER =~ s/^.*filter_//;
+#$PRINTER =~ s/^.*filter_//;
+$PRINTER =~ s/\.pl$//;
+$LOG_FIRSTTIME = 1;
+$LOGLEVEL = 7;
+$DEBUG = $ENV{LPD_DEBUG};
+
+sub logprint  {
+    ($level , $data) =  @_;
+    if ($DEBUG != 0 ){
+	if ($LOG_FIRSTTIME == 1){
+	    open (LOG , '>'.$LOGFILE) or return 0;
+	    $LOG_FIRSTTIME = 0;
+	}
+	else{
+	    open (LOG , '>>'.$LOGFILE) or return 0;
+	}
+	if ( $level < $LOGLEVEL){
+	    print LOG $data."\n";
+	}
+	close (LOG);
+    }
+}
+
+
+
+my $BR_PRT_PATH = Cwd::realpath ($0);
+
+$BR_PRT_PATH =~ s/$PRINTER\/lpd\/.*$/$PRINTER\//g; 
+
+logprint(1, " BR_PRT_PATH=$BR_PRT_PATH    PRINTER=$PRINTER \n");
+
+my $RCFILE=$ENV{BRPRINTERRCFILE};
+if ( $RCFILE eq '' ){
+ $RCFILE=sprintf ("$BR_PRT_PATH/inf/br%src",$PRINTER);  
+}
+$FUNCFILE=sprintf ("$BR_PRT_PATH/inf/br%sfunc",$PRINTER);  
+$PAPERINF=sprintf ("$BR_PRT_PATH/inf/paperinf%s",$PRINTER);
+$IMAGABLE="$BR_PRT_PATH/inf/ImagingArea";
+$FLAG = `grep 'flags1='  $FUNCFILE | sed s/'flags1='//g`;
+chomp($FLAG);
+if ( $FLAG eq '' ){
+    $FLAG="0000000000000002";
+}
+
+$offset = `grep 'offset='  $FUNCFILE | sed s/'offset='//g`;
+chomp($offset);
+
+my $BRCONV="$BR_PRT_PATH/lpd/rastertobrpt1";
+#my $BRCONV=sprintf ("$BR_PRT_PATH/lpd/br%sfilter",$PRINTER);
+#my $BRCONV_OP="-rc $RCFILE -flags $FLAG -offset $offset";
+my $BRCONV_OP="-P $PRINTER -pi $PAPERINF -rc $RCFILE -out cat";
+
+logprint(1, " BRCONV=$BRCONV    PRINTER=$PRINTER \n");
+
+if ( $DEBUG eq '' ){
+    $DEBUG = '0';
+}
+
+
+if ( $ENV{PS} ne '1' ){
+    $INPUT_TEMP=`mktemp /tmp/br_input.XXXXXX`;
+    chomp($INPUT_TEMP);
+    `cat > $INPUT_TEMP`;
+    $FILE_TYPE=`file $INPUT_TEMP`;
+    $FILE_TYPE=~ s/^.*:[ ]*//;
+    $FILE_TYPE=~ s/[ ].*//;
+    if ( $DEBUG ne '0' ){
+	copy "$INPUT_TEMP"      ,   "/tmp/br_lpdfilter_ink_input.ps";
+    }
+}
+else{
+    $INPUT_TEMP='';
+    $FILE_TYPE="PostScript";
+
+    if ( $DEBUG ne '0' ){
+
+	$INPUT_TEMP=`mktemp /tmp/br_input.XXXXXX`;
+	chomp($INPUT_TEMP);
+	`cat > $INPUT_TEMP`;
+	copy "$INPUT_TEMP"     ,    "/tmp/br_lpdfilter_ink_input.ps";
+    }
+
+}
+
+
+
+
+logprint (1,  "PRINTER=$PRINTER");
+logprint (1,  "\$ENV{PS} =  $ENV{PS}" );
+logprint (1,  "\$ENV{BRPRINTERRCFILE} = $ENV{BRPRINTERRCFILE}");
+
+
+my $paper = "29x90";
+my $resolution = "300";
+
+open (FPRCFILE , $RCFILE); 
+
+my $rcline ;
+while ($rcline = <FPRCFILE>){
+    if ( $rcline =~ /MediaSize/){
+	$papertype =  $rcline;
+	$papertype =~ s/MediaSize=//;
+	chomp($papertype);
+    }
+}
+close(FPRCFILE);
+
+$width =  $ENV{BRPAPERWIDTH};
+$height = $ENV{BRPAPERHEIGHT};
+
+logprint(1, "\$ENV{BRPAPERWIDTH} = $ENV{BRPAPERWIDTH}");
+logprint(1, "\$ENV{BRPAPERHEIGHT} = $ENV{BRPAPERHEIGHT}");
+my $size_br = '';
+
+logprint(1, " PAPERINF=$PAPERINF \n");
+
+open (my $fh,"<" , $PAPERINF) or die "can't open $PAPERINF !"; 
+my $paper;
+#my $line ;
+while(my$line = readline $fh){
+    chomp $line;
+#   print $line,"\n";
+    ($paper,$width,$height)=split(/\s+/,$line);
+    last if($line =~/^$papertype/);
+#    logprint(1, " TYPE=$paper w=$width h=$height size_br=$size_br \n");
+}
+close $fh;
+
+$width=$width+0;
+$height=$height+0;
+
+logprint(1, " TYPE=$papertype  w=$width h=$height size_br=$size_br \n");
+
+
+$size_br = " -ps ${width}x${height}";
+#$BRCONV_OP .= $size_br;
+
+my $size_gs = "unknown";
+#if ( $resolution eq "600" ){
+    $size_gs = sprintf( "%dx%d", $width , $height);
+#}
+#elsif ( $resolution eq "300" ){
+#    $size_gs = sprintf( "%dx%d", $width/2 , $height/2);
+#}
+#elsif( ($resolution eq "1200")    ||
+#       ($resolution eq "1200A")   ||
+#       ($resolution eq "1200B")   ||
+#       ($resolution eq "HQ1200B")   ){
+#    $size_gs = sprintf( "%dx%d", $width*2 , $height*2);
+#    $resolution = 1200;
+#}
+#elsif( $resolution eq "600x300" ){
+#    $size_gs = sprintf( "%dx%d", $width , $height/2);
+#}
+#else{
+#    $size_gs = sprintf( "%dx%d", $width , $height);
+#}
+
+logprint(1, "size_gs = $size_gs ,size_br = $size_br \n");
+
+my $GHOST_SCRIPT=`which gs`;
+chomp($GHOST_SCRIPT);
+
+#my $OUTPUT_TYPE="bit";
+my $OUTPUT_TYPE="ppmraw";
+my $GHOST_OPT="-q -dNOPROMPT -dNOPAUSE -dSAFER -sDEVICE=$OUTPUT_TYPE -sstdout=%stderr -sOutputFile=- - -c quit";
+
+
+open (FPRCFILE , $IMAGABLE); 
+my $paper;
+my $line ;
+while($line =  <FPRCFILE>){
+   chomp $line;
+   ($paper,$left,$top,$right,$bottom)=split(/\s+/,$line);
+    last if($line =~/^$papertype/);
+#   last if($line =~/^$papersize/);
+	  
+}
+close(FPRCFILE);
+
+
+logprint(1, "[$left $top $right $bottom] \n");
+#<</ImagingBBox [$LEFT $TOP $RIGHT $BOTTOM] /PageOffset [-$LEFT $TOP]>> setpagedevice
+logprint(1,"<</ImagingBBox [$left $top $right $bottom] /PageOffset [-$left $top]>> setpagedevice\n");
+
+my $gscommand = "";
+if ( $HWMARGINS eq "yes" ){
+  $gscommand = 
+      "(echo  '<</ImagingBBox [$left $top $right $bottom] /PageOffset [-$left $top]>> setpagedevice';".
+      "cat $INPUT_TEMP)" .
+      " | $GHOST_SCRIPT -r$resolution -g$size_gs $GHOST_OPT ";
+}
+else{
+  $gscommand = 
+    "cat $INPUT_TEMP | $GHOST_SCRIPT -r$resolution -g$size_gs $GHOST_OPT";
+	logprint(1,"test 2\n");
+}
+
+my $brcommand="$BRCONV $BRCONV_OP";
+
+logprint(1,"**** $gscommand  ****\n");
+logprint(1,"**** $INPUT_TEMP  ****\n");
+logprint(1,"**** debug=$DEBUG  ****\n");
+
+if ( $DEBUG eq '1' ){
+    system("$gscommand | $brcommand");
+    logprint( 0, "$gscommand | $brcommand") ;
+}
+elsif ( $DEBUG eq '2' ){
+    `echo  '<</ImagingBBox [$left $top $right $bottom] /PageOffset [-$left $top]>> setpagedevice' > /tmp/br_lpdfilter_ink_gsout.dat`;
+
+	$FILE_TYPE=`file $INPUT_TEMP | sed -e 's/^.*:[ ]*//' -e 's/[ ].*//'`;
+
+    logprint(1, "file type = <$FILE_TYPE>\n");
+	if ( $FILE_TYPE eq "PDF\n" ){
+    	logprint(1, "/usr/bin/pdf2ps  $INPUT_TEMP $TMP_PS\n");
+		`cp $INPUT_TEMP /tmp/tmp.pdf`;		
+		$TMP_PS="/tmp/tmp.ps";		
+		`/usr/bin/pdf2ps  $INPUT_TEMP $TMP_PS`;
+		`cat $TMP_PS| sed s/'%%HiResBoundingBox:'/'%HiResBoundingBox:'/g >> /tmp/br_lpdfilter_ink_gsout.dat`;	
+    	logprint(1, " echo  '<</ImagingBBox [$left $top $right $bottom] /PageOffset [-$left $top]>> setpagedevice' > /tmp/br_lpdfilter_ink_gsout.dat\n");
+    	logprint(1, " /usr/bin/pdf2ps  $INPUT_TEMP $TMP_PS| cat $TMP_PS| sed s/'%%HiResBoundingBox:'/'%HiResBoundingBox:'/g > /tmp/br_lpdfilter_ink_gsout.dat\n");
+
+ 	}else{
+	   `cat $INPUT_TEMP      >> /tmp/br_lpdfilter_ink_gsout.dat`;
+    	logprint(1, " $gscommand ".
+	        "> /tmp/br_lpdfilter_ink_gsout.dat\n");
+	}
+    `cp  $RCFILE /tmp/br_lpdfilter_ink.rc`;
+    $brcommand="$BRCONV -P $PRINTER -pi $PAPERINF -rc /tmp/br_lpdfilter_ink.rc -out cat";
+    `cat /tmp/br_lpdfilter_ink_gsout.dat| $GHOST_SCRIPT -r$resolution -g$size_gs $GHOST_OPT | $brcommand >/tmp/br_lpdfilter_ink_out.prn`;
+    system("cat /tmp/br_lpdfilter_ink_out.prn");
+
+#my $BRCONV_OP="-rc $RCFILE -flags $FLAG -offset $offset";
+#my $BRCONV_OP="-pi $PAPERINF -rc $RCFILE";
+#     $brcommand="$BRCONV -pi $PAPERINF -rc $RCFILE ";
+#    logprint(1, " gscommand=$gscommand \n");
+#    logprint(1, " brcommand=$brcommand \n");
+
+    logprint(1, "cat /tmp/br_lpdfilter_ink_gsout.dat | $brcommand".
+                ">/tmp/br_lpdfilter_ink_out.prn\n");
+    logprint(1, "cat /tmp/br_lpdfilter_ink_out.prn ");
+    logprint(1, "file type = $FILE_TYPE\n");
+
+
+}
+else{
+#    system("$gscommand | $brcommand");
+
+	$TMP_PS1="/tmp/br_lpdfilter_ink_gsout_".$$.".dat";
+
+    logprint(1, "PRTAREA = $PRTAREA\n");
+
+     `echo  '<</ImagingBBox [$left $top $right $bottom] /PageOffset [-$left $top]>> setpagedevice' >$TMP_PS1 `;
+    $FILE_TYPE=`file $INPUT_TEMP | sed -e 's/^.*:[ ]*//' -e 's/[ ].*//'`;
+
+    if ( $FILE_TYPE eq "PDF\n" ){
+		$TMP_PS="/tmp/tmp_".$$.".ps";		
+		`/usr/bin/pdf2ps  $INPUT_TEMP $TMP_PS`;
+		`cat $TMP_PS| sed s/'%%HiResBoundingBox:'/'%HiResBoundingBox:'/g >>$TMP_PS1`;	
+    }else{
+	   `cat $INPUT_TEMP      >> $TMP_PS1`;
+    }
+
+    $brcommand="$BRCONV -P $PRINTER -pi $PAPERINF -rc $RCFILE";
+     system("cat $TMP_PS1| $GHOST_SCRIPT -r$resolution -g$size_gs $GHOST_OPT | $brcommand");
+}
+
+if ( $INPUT_TEMP ne '' ){
+    unlink $INPUT_TEMP;
+	unlink $TMP_PS;
+	unlink $TMP_PS1;
+}
+
+
+exit 0;
+
+
+
+
+
+
+
