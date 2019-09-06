@@ -1,7 +1,7 @@
 - hosts: labmeios
 #  ignore_unreachable: true
   roles:
-    - ingressa_ldap
+    - ingressa_ldap_sem_cups_client
     - configura_monitores
     - role: grub
       tipo: grub_soh_lin

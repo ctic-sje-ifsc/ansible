@@ -124,14 +124,15 @@
     path: /etc/cups/printers.conf
     marker: "# {mark} ANSIBLE MANAGED BLOCK - Brother"
     content: |
-      <Printer QL700>
-      UUID urn:uuid:ea48544f-f469-34db-7190-af2e0846fc25
-      Info QL700
+      <Printer Brother-QL-700>
+      UUID urn:uuid:542ab5f1-a2ea-3489-52f6-f7656b78c5b8
+      Info Brother QL-700
+      Location sj-lin-labmeios-744520
       MakeModel Brother QL-700 CUPS
-      DeviceURI usb://dev/usb/lp0
+      DeviceURI usb://Brother/QL-700?serial=000L4Z138068
       State Idle
-      StateTime 1567711672
-      ConfigTime 1567711672
+      StateTime 1567797965
+      ConfigTime 1567797959
       Type 8392772
       Accepting Yes
       Shared Yes
