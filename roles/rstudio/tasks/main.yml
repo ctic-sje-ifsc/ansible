@@ -9,8 +9,16 @@
     - default-jre
   when: ansible_os_family == 'Debian'
 
+- name: Adiciona apt key do r-cran
+  apt_key:
+    keyserver: keys.gnupg.net
+    id: E19F5F87128899B192B1A2C2AD5F960A256A04AF 
 
-# Debian e Ubuntu
+- name: Adicionar repositório r-cran - Linux Debian 9
+  apt_repository:
+    repo: deb https://cran-r.c3sl.ufpr.br/bin/linux/debian stretch-cran35/
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
+
 - name: Instalar os pacotes para o r-project - Linux
   apt: name={{ packages }} state=latest
   vars:
@@ -18,24 +26,24 @@
     - r-base
     - r-base-dev
     - libatlas3-base
-    - r-cran-rjava
+    # - r-cran-rjava
     - libjpeg62
   when: ansible_os_family == 'Debian'
 
 - name: Install a .deb R-Studio - Linux
   apt:
-    deb: https://download1.rstudio.org/rstudio-xenial-1.1.456-amd64.deb
+    deb: https://download1.rstudio.org/desktop/debian9/x86_64/rstudio-1.2.1335-amd64.deb
   when: ansible_os_family == 'Debian'
 
-# Bibliotecas Linux
-- name: Instalar bibliotecas para o r-studio - Linux
-  apt: name={{ packages }} state=latest
-  vars:
-    packages:
-    - r-cran-gdata
-    - r-cran-gmodels
-    - r-cran-gtools
-  when: ansible_os_family == 'Debian'
+# # Bibliotecas Linux
+# - name: Instalar bibliotecas para o r-studio - Linux
+#   apt: name={{ packages }} state=latest
+#   vars:
+#     packages:
+#     - r-cran-gdata
+#     - r-cran-gmodels
+#     - r-cran-gtools
+#   when: ansible_os_family == 'Debian'
 
 - name: Baixa Biblioteca RWeka e Rwekajars - Linux
   get_url:
