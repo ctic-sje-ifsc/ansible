@@ -25,6 +25,7 @@
     packages:
     - r-base
     - r-base-dev
+    - libxml2-dev
     - libatlas3-base
     # - r-cran-rjava
     - libjpeg62
