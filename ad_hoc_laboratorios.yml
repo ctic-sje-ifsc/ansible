@@ -84,10 +84,13 @@
 #         name: "*"
 #         state: latest
 #       when: ansible_os_family == 'Debian'
-
-#     # Reinicia no Linux para casos onde o default não é o Linux
-#     - name: reboot e iniciar no grub 0
+    
+#     - name: seleciona a entrada grub 0 para o próximo boot
 #       shell: grub-reboot 0
+#       when: ansible_os_family == 'Debian'
+
+#     - name: Unconditionally reboot the machine with all defaults
+#       reboot:
 #       when: ansible_os_family == 'Debian'
 
 #     - name: instala kernel headers atual
