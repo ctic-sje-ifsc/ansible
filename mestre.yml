@@ -5,12 +5,13 @@
     - name: Instalar o aptitude, necessario para o modulo apt
       apt: name=aptitude state=latest
       when: ansible_os_family == 'Debian'
-    # Provisiório, apagar em seguida.
-    - apt_repository:
-        repo: deb http://debian.pop-sc.rnp.br/debian jessie-backports main contrib non-free
+
+    - name: apaga /etc/apt/sources.list.d/ftp_debian_org_debian.list
+      file:
+        path: /etc/apt/sources.list.d/ftp_debian_org_debian.list
         state: absent
-        filename: ftp_debian_org_debian
       when: ansible_os_family == 'Debian'
+
     - name: Adicionar repositório qgis - Linux Debian 9
       apt_repository:
         repo: deb http://qgis.org/debian stretch main
