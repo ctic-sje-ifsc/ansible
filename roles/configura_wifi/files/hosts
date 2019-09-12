@@ -1,0 +1,10 @@
+#Este arquivo eh gerado automaticamente pelo ANSIBLE, nao adianta editar.
+
+127.0.0.1       localhost
+127.0.1.1       sj-lin-biblio-consulta1.maquinas.sj.ifsc.edu.br
+200.135.190.76  biblioteca.ifsc.edu.br
+191.36.8.5      awx.sj.ifsc.edu.br
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
