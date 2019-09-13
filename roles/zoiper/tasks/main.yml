@@ -4,7 +4,6 @@
 - name: Baixar e instalar zoiper 5.2.19 - Linux
   apt:
     deb: https://discovirtual.ifsc.edu.br/index.php/s/7yu2veCZ1AhprA1/download
-    timeout: 9000
   when: ansible_os_family == 'Debian'
 
 # Windows
