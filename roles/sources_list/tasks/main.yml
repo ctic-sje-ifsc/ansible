@@ -10,8 +10,3 @@
   when: ansible_distribution_release == 'stretch'
   notify:
     - update apt cache
-
-- apt_repository:
-    repo: deb http://debian.pop-sc.rnp.br/debian jessie-backports main contrib non-free
-    state: absent
-    filename: ftp_debian_org_debian
