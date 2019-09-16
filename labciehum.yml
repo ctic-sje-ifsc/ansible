@@ -1,0 +1,17 @@
+- hosts: ciehum
+## EM TESTE, pois: foi adicionado as tasks abaixo depois de adicionar no dominio e se fosse adicionar
+## sem esses comandos o ansible volta erro que o usuario ja existe (no caso o usuario eh do dominio e nao local)
+
+  tasks:
+    - name: instala lusermod
+      apt: name={{ packages }} state=latest
+      vars:
+        packages:
+        - libuser
+      when: ansible_distribution == 'Debian'
+    - name: Cria usuário aluno com a senha aluno
+      user:
+        name: aluno
+        password: $6$B5dpvoG43l67q0sx$r0LDKV2TgNItf/kYx/76l89ZN4LhP/ksYIxp.SSVGttHoSZXLSoB6Hkg2A6y7M7aFJ8zEuauf5kS/yA/P61kN1
+        local: yes
+      when: ansible_os_family == 'Debian'
