@@ -2,6 +2,11 @@
 - hosts: all
 #  ignore_unreachable: true
   tasks:
+    - name: Deletar linha repositório debian jessie
+      lineinfile:
+        path: /etc/apt/sources.list.d/ftp_debian_org_debian.list
+        state: absent
+        regexp: '^deb http://ftp.debian.org/debian jessie-backports '
     - name: Instalar o aptitude, necessario para o modulo apt
       apt: name=aptitude state=latest
       when: ansible_os_family == 'Debian'
