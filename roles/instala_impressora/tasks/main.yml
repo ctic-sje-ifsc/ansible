@@ -1,32 +1,83 @@
-# Referencia https://community.spiceworks.com/how_to/71708-how-to-install-printer-driver-and-add-a-network-printer-from-the-command-line
-
-- name: Copiar driver impressora X
+- name: Copy driver
   win_copy:
-    src: OEMSETUP.INF
-    dest: C:\OEMSETUP.INF
-  when: ansible_os_family == 'Windows'
+    src: files/printer_drivers.zip
+    dest: C:\Temp\
 
-#- name: Instala o driver da impressora reprografia principal
-#  win_shell: 'cscript prndrvr.vbs -a -m "Kyocera TASKalfa 5501i KX" -h "C:\" -i "OEMSETUP.INF" ; New-Item c:\gatilho_driver_reprografia_principal.txt -type file'
-#  args:
-#    chdir: C:\Windows\System32\Printing_Admin_Scripts\pt-BR\
-#    creates: c:\gatilho_driver_reprografia_principal.txt
-#  when: ansible_os_family == 'Windows'
+- name: Unzip a zip file
+  win_unzip:
+    src: C:\Temp\printer_drivers.zip
+    dest: C:\Temp
 
-#- name: Instala a porta da impressora X
-#  win_shell: cscript C:\Windows\System32\Printing_Admin_Scripts\pt-BR\prnport.vbs -a -r \\dk\reprografia_principal -h \\dk\reprografia_principal -o raw ; New-Item c:\gatilho_porta_impressoraX.txt -type file
-#  args:
-#    creates: c:\gatilho_porta_impressoraX.txt
-#  when: ansible_os_family == 'Windows'
+- name: Install printer driver reprografia_principal
+  win_shell: |
+    Set-Location -LiteralPath "C:\Temp\printer_drivers\reprografia_principal\64bit"
+    PNPUtil.exe /add-driver OEMSETUP.INF /install
 
-#- name: Instala a impressora X
-#  win_shell: cscript C:\Windows\System32\Printing_Admin_Scripts\pt-BR\prnmngr.vbs -a -p "reprografia_principal" -m "reprografia_principal" -r "\\dk\reprografia_principal" ; New-Item c:\gatilho_impressoraX.txt -type file
-#  args:
-#    creates: c:\gatilho_impressoraX.txt
-#  when: ansible_os_family == 'Windows'
+- name: Install printer driver reprografia_reserva
+  win_shell: |
+    Set-Location -LiteralPath "C:\Temp\printer_drivers\reprografia_reserva\64bit"
+    PNPUtil.exe /add-driver sr0emptg.inf /install
 
-# Como ficar montar pasta da rede via powershell
-#$password="senha" | ConvertTo-SecureString -asPLainText -Force
-#$username="CEFETSC\gabriel.souza"
-#$credential=New-Object System.Management.Automation.PSCredential($username,$password)
-#New-PSDrive -Name "S" -Root "\\dk\gabriel.souza" -Persist -PSProvider "FileSystem" -Credential $credential
+- name: Install printer driver lexmarkmx611
+  win_shell: |
+    Set-Location -LiteralPath "C:\Temp\printer_drivers\lexmarkmx611"
+    PNPUtil.exe /add-driver LMADWP40.inf /install
+
+- name: Install printer driver impdirecaocolor
+  win_shell: |
+    Set-Location -LiteralPath "C:\Temp\printer_drivers\impdirecaocolor\64bit"
+    PNPUtil.exe /add-driver st0emptg.inf /install
+
+- name: cria porta IPP 
+  win_regedit:
+    path: HKLM:\SYSTEM\CurrentControlSet\Control\Print\Providers\Internet Print Provider\Ports\http://cups:631/printers/{{ item }}
+  loop: "{{ impressoras }}"
+
+- name: cria porta IPP - Authentication
+  win_regedit:
+    path: HKLM:\SYSTEM\CurrentControlSet\Control\Print\Providers\Internet Print Provider\Ports\http://cups:631/printers/{{ item }}
+    name: Authentication
+    data: 0
+    type: dword
+  loop: "{{ impressoras }}"
+
+- name: cria porta IPP - Password
+  win_regedit:
+    path: HKLM:\SYSTEM\CurrentControlSet\Control\Print\Providers\Internet Print Provider\Ports\http://cups:631/printers/{{ item }}
+    name: Password
+    data: 0
+    type: binary
+  loop: "{{ impressoras }}"
+
+- name: cria porta IPP - UserName
+  win_regedit:
+    path: HKLM:\SYSTEM\CurrentControlSet\Control\Print\Providers\Internet Print Provider\Ports\http://cups:631/printers/{{ item }}
+    name: UserName
+    data: 0
+    type: binary
+  loop: "{{ impressoras }}"
+
+- name: Restart spooler service
+  win_service:
+    name: spooler
+    state: restarted
+
+- name: Create printer reprografia_principal
+  win_shell: |
+    Add-PrinterDriver -Name "Kyocera TASKalfa 5501i KX"
+    Add-Printer -Name "reprografia_principal" -DriverName "Kyocera TASKalfa 5501i KX" -Port "http://cups:631/printers/reprografia_principal"
+  
+- name: Create printer reprografia_reserva
+  win_shell: |
+    Add-PrinterDriver -Name "SHARP MX-M363N PCL6"
+    Add-Printer -Name "reprografia_reserva" -DriverName "SHARP MX-M363N PCL6" -Port "http://cups:631/printers/reprografia_reserva"
+
+- name: Create printer ImpDirecaoColor
+  win_shell: |
+    Add-PrinterDriver -Name "SHARP MX-C301 PCL6"
+    Add-Printer -Name "ImpDirecaoColor" -DriverName "SHARP MX-C301 PCL6" -Port "http://cups:631/printers/impdirecaocolor"
+
+- name: Create printer ImpSecretaria
+  win_shell: |
+    Add-PrinterDriver -Name "Lexmark MX610 Series XL"
+    Add-Printer -Name "ImpSecretaria" -DriverName "Lexmark MX610 Series XL" -Port "http://cups:631/printers/impsecretaria"
