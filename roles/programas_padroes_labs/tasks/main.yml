@@ -5,6 +5,11 @@
     deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
   when: ansible_os_family == 'Debian'
 
+- name: Install a .deb GBStudio - Linux Debian
+  apt:
+    deb: https://github.com/chrismaltby/gb-studio/releases/download/v1.1.0/gb-studio_1.1.0_amd64.deb
+  when: ansible_os_family == 'Debian'
+
 - name: Instalar pacotes GUI ou "conhecidos" padroes de laboratorios - Linux
   apt: name={{ packages }} state=latest
   vars:
