@@ -1,12 +1,12 @@
 ---
 - hosts: all
-#  ignore_unreachable: true
   tasks:
     - name: Deletar linha repositório debian jessie
       lineinfile:
         path: /etc/apt/sources.list.d/ftp_debian_org_debian.list
         state: absent
         regexp: '^deb http://ftp.debian.org/debian jessie-backports '
+      when: ansible_os_family == 'Debian'
     - name: Instalar o aptitude, necessario para o modulo apt
       apt: name=aptitude state=latest
       when: ansible_os_family == 'Debian'
@@ -22,14 +22,9 @@
     - name: Upgrade all packages to the latest version
       apt: name="*" state=latest
       when: ansible_os_family == 'Debian'
-    # - name: Install linux-headers necessario virtualbox
-    #   apt: name="linux-headers-{{ ansible_kernel }}" state=latest
-    #   when: ansible_os_family == 'Debian'
     - name: Instalar o apt-transport-https
       apt: name=apt-transport-https state=latest
       when: ansible_os_family == 'Debian'
-    - meta: clear_host_errors
-
 
 # Administrativos
 - import_playbook: auditorios_vconf.yml
@@ -54,7 +49,6 @@
 - import_playbook: registro_academico.yml
 - import_playbook: secretaria.yml
 - import_playbook: almox.yml
-# - import_playbook: testes.yml
 
 # Laboratorios
 - import_playbook: comum_laboratorios.yml
@@ -69,9 +63,3 @@
 - import_playbook: labredes.yml
 - import_playbook: labsidi.yml
 - import_playbook: mrac.yml
-
-
-- hosts: all
-  gather_facts: false
-  tasks:
-    - meta: clear_host_errors
