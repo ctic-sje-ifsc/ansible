@@ -1,0 +1,56 @@
+
+# - name: Baixando e extraindo o Quartus18
+#   unarchive:
+#     src: http://nfs.sj.ifsc.edu.br/intelFPGA.tar
+#     dest: /opt/
+#     creates: /opt/intelFPGA
+#     remote_src: yes
+#     owner: root
+#     group: root
+#     mode: 0755
+#   when: ansible_os_family == 'Debian'
+
+- name: Modifica o arquivo vco para contornar BUG
+  replace:
+    path: /opt/intelFPGA/18.1/modelsim_ae/vco
+    regexp: 'linux_rh60'
+    replace: 'linux'
+    backup: yes
+  when: ansible_os_family == 'Debian'
+
+- name: Baixando e extraindo o arquivo de lib32
+  unarchive:
+    src: https://dl.dries007.net/lib32-freetype2-2.5.0.1.tar.xz
+    dest: /opt/intelFPGA/18.1/modelsim_ae/
+    creates: /opt/intelFPGA/18.1/modelsim_ae/lib32
+    remote_src: yes
+    owner: root
+    group: root
+    mode: 0755
+  when: ansible_os_family == 'Debian'
+
+- name: Modifica o arquivo vco para contornar BUG de lib32
+  lineinfile:
+    path: /opt/intelFPGA/18.1/modelsim_ae/vco
+    regexp: '^export LD_LIBRARY_PATH='
+    insertafter: '^dir=`dirname '
+    line: export LD_LIBRARY_PATH=/opt/intelFPGA/18.1/modelsim_ae/lib32/
+  when: ansible_os_family == 'Debian'
+
+- name: Define o /usr/share/applications/quartus18.1.desktop
+  copy:
+    src: quartus18.1.desktop
+    dest: /usr/share/applications/quartus18.1.desktop
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
+- name: Define o /usr/share/applications/modelsim10.5d.desktop
+  copy:
+    src: modelsim10.5b.desktop
+    dest: /usr/share/applications/modelsim10.5d.desktop
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
