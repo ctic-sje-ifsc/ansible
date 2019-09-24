@@ -11,7 +11,7 @@
 - name: Copia run_savpdf - Linux
   copy:
     src: run_savpdf
-    dest: /etc/profile.d/run_savpdf
+    dest: /etc/X11/Xsession.d/99run_savpdf
     owner: root
     group: root
     mode: 0755
