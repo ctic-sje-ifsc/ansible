@@ -2,6 +2,7 @@
   roles:
     - role: grub
       tipo: grub_soh_lin
+    - quartus18  
 
 - hosts: programacao:!sj-lin-prog-744523.maquinas.sj.ifsc.edu.br
   roles:
