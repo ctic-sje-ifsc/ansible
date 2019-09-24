@@ -1,6 +1,7 @@
 ---
 - hosts: all
   tasks:
+    - meta: clear_host_errors
     - name: Deletar linha repositório debian jessie
       lineinfile:
         path: /etc/apt/sources.list.d/ftp_debian_org_debian.list
@@ -63,8 +64,3 @@
 - import_playbook: labredes.yml
 - import_playbook: labsidi.yml
 - import_playbook: mrac.yml
-
-- hosts: all
-  gather_facts: false
-  tasks:
-    - meta: clear_host_errors
