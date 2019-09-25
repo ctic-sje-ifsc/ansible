@@ -1,7 +1,6 @@
 ---
 - hosts: all
   tasks:
-    - meta: clear_host_errors
     - name: Deletar linha repositório debian jessie
       lineinfile:
         path: /etc/apt/sources.list.d/ftp_debian_org_debian.list
