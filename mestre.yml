@@ -64,3 +64,8 @@
 - import_playbook: labredes.yml
 - import_playbook: labsidi.yml
 - import_playbook: mrac.yml
+
+- hosts: all
+  gather_facts: false
+  tasks:
+    - meta: clear_host_errors
