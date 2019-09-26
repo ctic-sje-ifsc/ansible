@@ -7,7 +7,7 @@
   when: ansible_os_family == 'Debian'
 
 - name: Instalar pacotes padroes - Linux
-  apt: 
+  apt:
     name: "{{ packages }}"
     state: latest
   vars:
@@ -42,10 +42,11 @@
     - network-manager-gnome
     - network-manager
     - system-config-printer
+    - pdfshuffler
   when: ansible_os_family == 'Debian'
 
 - name: Remover programas  - Linux
-  apt: 
+  apt:
     name: "{{ packages }}"
     state: absent
   vars:
@@ -63,7 +64,7 @@
 
 #Windows
 - name: Instalar pacotes padroes - Windows
-  win_chocolatey: 
+  win_chocolatey:
     name: "{{ item }}" # state=latest timeout=9000
   with_items:
     - googlechrome
