@@ -17,6 +17,7 @@
     - tex4ht
     - texlive-xetex
     - zip
+    - texlive-fonts-extra
   when: ansible_os_family == 'Debian'
 
 - name: Instalar o kile - Linux Debian
