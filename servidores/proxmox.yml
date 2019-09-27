@@ -111,24 +111,18 @@
 # 	gateway  172.18.119.254
 # 	pre-up iptables-restore < /etc/iptables.rules
 
+  - name: Apaga arquivo pve-enterprise.list
+    file:
+      path: /etc/apt/sources.list.d/pve-enterprise.list
+      state: absent
+
   - name: Configura repositório pve-no-subscription
     apt_repository:
       repo: deb http://download.proxmox.com/debian/pve stretch pve-no-subscription
       state: present
 
-  - name: Remove repositório pve-enterprise
-    apt_repository:
-      repo: deb https://enterprise.proxmox.com/debian/pve stretch pve-enterprise
-      filename: pve-enterprise
-      state: absent
-
-  - name: Upgrade all packages to the latest version
-    apt: name="*" state=latest
-    when: ansible_os_family == 'Debian'
-
-  - name: Update dist to the latest version
-    apt:
-      upgrade: dist
+  - name: update apt cache
+    apt: update_cache=yes
 
   - name: Instala alguns pacotes 
     apt:
@@ -138,7 +132,16 @@
       packages:
       - vim
       - aptitude
+      - python-apt
     when: ansible_os_family == 'Debian'
+
+  - name: Upgrade all packages to the latest version
+    apt: name="*" state=latest
+    when: ansible_os_family == 'Debian'
+
+  - name: Update dist to the latest version
+    apt:
+      upgrade: dist
 
   handlers:
     - name: restart_sshd
@@ -146,26 +149,209 @@
         name: ssh
         state: restarted 
 
-- hosts: proxmoxblade2.sj.ifsc.edu.br
+# - hosts: proxmoxblade2.sj.ifsc.edu.br
+#   tasks:
+  
+#   - name: Instala pacotes nfs-kernel-server pro proxmox2
+#     apt:
+#       name: "{{ packages }}"
+#       state: latest
+#     vars:
+#       packages:
+#       - nfs-kernel-server
+
+#   - name: Adicionar entrada /var/nfs-export no /etc/exports no proxmox2
+#     lineinfile:
+#       regexp: '^/var/nfs-export'
+#       path: /etc/exports
+#       line: '/var/nfs-export 191.36.8.64/27(rw,sync,no_subtree_check) 191.36.8.1(rw,sync,no_subtree_check) 191.36.8.5(rw,sync,no_subtree_check) 191.36.8.9(rw,sync,no_subtree_check) 191.36.8.11(rw,sync,no_subtree_check) 191.36.8.21(rw,sync,no_subtree_check) 191.36.8.22(rw,sync,no_subtree_check) 191.36.8.23(rw,sync,no_subtree_check) 191.36.8.25(rw,sync,no_subtree_check) 191.36.8.26(rw,sync,no_subtree_check) 191.36.8.27(rw,sync,no_subtree_check)'
+#     notify: restart_nfs-server
+
+  # handlers:
+  #   - name: restart_nfs-server
+  #     service:
+  #       name: nfs-server
+  #       state: restarted 
+
+- hosts: proxmoxhp1.sj.ifsc.edu.br
+  tasks:
+
+  - name: Configura o interfaces
+    copy:
+      content: |
+        auto lo
+        iface lo inet loopback
+
+        iface enp2s0f0 inet manual
+
+        iface enp2s0f1 inet manual
+
+        iface ens1 inet manual
+
+        auto bond0
+        iface bond0 inet manual
+              slaves enp2s0f0 enp2s0f1
+              bond_miimon 100
+              bond_mode 802.3ad
+              bond_xmit_hash_policy layer2+3
+
+        auto vmbr0
+        iface vmbr0 inet manual
+          bridge_ports bond0
+          bridge_stp off
+          bridge_fd 0
+          bridge_vlan_aware yes
+          pre-up ip link set bond0 mtu 9000
+
+        auto vmbr0.110
+        iface vmbr0.110 inet static
+          address 191.36.8.77
+          netmask 255.255.255.224
+          gateway 191.36.8.94
+        #server
+
+        auto vmbr0.35
+        iface vmbr0.35 inet static
+          address  10.10.10.6
+          netmask  255.255.255.0
+        #CephNetwork
+
+        auto vmbr0.31
+        iface vmbr0.31 inet static
+          address  172.18.31.101
+          netmask  255.255.255.0
+        #SAN
+
+        auto ens2
+        iface ens2 inet static
+          address  10.0.0.6
+          netmask  255.255.255.0
+          pre-up ip link set ens2 mtu 9000
+        #ClusterNetwork
+      dest: /etc/network/interfaces
+      owner: root
+      group: root
+      mode: 0644
+    notify: restart_networking
+
+  handlers:
+  - name: restart_networking
+    service:
+      name: networking
+      state: restarted
+
+- hosts: proxmoxblade9.sj.ifsc.edu.br
   tasks:
   
-  - name: Instala pacotes nfs-kernel-server pro proxmox2
+  - name: Instala pacotes multipath-tools
     apt:
       name: "{{ packages }}"
       state: latest
     vars:
       packages:
-      - nfs-kernel-server
+      - multipath-tools
 
-  - name: Adicionar entrada /var/nfs-export no /etc/exports no proxmox2
-    lineinfile:
-      regexp: '^/var/nfs-export'
-      path: /etc/exports
-      line: '/var/nfs-export       191.36.8.1(rw,sync,no_subtree_check) 191.36.8.5(rw,sync,no_subtree_check) 191.36.8.9(rw,sync,no_subtree_check) 191.36.8.11(rw,sync,no_subtree_check) 191.36.8.21(rw,sync,no_subtree_check) 191.36.8.22(rw,sync,no_subtree_check) 191.36.8.23(rw,sync,no_subtree_check) 191.36.8.25(rw,sync,no_subtree_check) 191.36.8.26(rw,sync,no_subtree_check) 191.36.8.27(rw,sync,no_subtree_check)'
-    notify: restart_nfs-server
+  - name: Configura o interfaces
+    copy:
+      content: |
+        auto lo
+        iface lo inet loopback
+
+        iface eno1 inet manual
+
+        iface eno2 inet manual
+
+        iface enp4s0f2 inet manual
+
+        iface enp4s0f3 inet manual
+
+        auto vmbr0
+        iface vmbr0 inet manual
+          bridge_ports eno1
+          bridge_stp off
+          bridge_fd 0
+          bridge_vlan_aware yes
+          pre-up ip link set eno1 mtu 9000
+
+        auto vmbr0.110
+        iface vmbr0.110 inet static
+          address 191.36.8.78
+          netmask 255.255.255.224
+          gateway 191.36.8.94
+        #VMNetwork
+
+        auto vmbr0.31
+        iface vmbr0.31 inet static
+          address  172.18.31.109
+          netmask  255.255.255.0
+        #SAN
+
+        auto vmbr1
+        iface vmbr1 inet static
+          address  10.0.0.3
+          netmask  255.255.255.0
+          bridge-ports eno2
+          bridge-stp off
+          bridge-fd 0
+          pre-up ip link set eno2 mtu 9000
+        #ClusterNetwork
+
+        auto vmbr2
+        iface vmbr2 inet static
+          address  10.10.10.3
+          netmask  255.255.255.0
+          bridge-ports enp4s0f2
+          bridge-stp off
+          bridge-fd 0
+          pre-up ip link set enp4s0f2 mtu 9000
+        #CephNetwork
+      dest: /etc/network/interfaces
+      owner: root
+      group: root
+      mode: 0644
+    notify: restart_networking
+
+  - name: Configura o multipath.conf
+    copy:
+      content: |
+        blacklist_exceptions {
+                devnode "dm-*"
+                devnode "sd*"
+                device {
+                        vendor "DGC"
+                }
+        }
+        defaults {  
+                user_friendly_names yes
+                find_multipaths yes
+        }  
+        devices {  
+                device {  
+                        vendor			"DGC"
+                        product			"*"
+                        prio			"emc"
+                        path_grouping_policy	"group_by_prio"
+                        features		"1 queue_if_no_path"
+                        failback 		immediate
+                        hardware_handler	"1 alua"
+          }  
+        }
+        blacklist {
+                devnode "sda*"
+        }
+      dest: /etc/multipath.conf
+      owner: root
+      group: root
+      mode: 0644
+    notify: restart_multipath-tools
 
   handlers:
-    - name: restart_nfs-server
+    - name: restart_multipath-tools
       service:
-        name: nfs-server
-        state: restarted 
+        name: multipath-tools
+        state: restarted
+
+    - name: restart_networking
+      service:
+        name: networking
+        state: restarted
