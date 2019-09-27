@@ -31,12 +31,6 @@
     - virtualbox-guest-x11
   when: ansible_distribution == 'Ubuntu'
 
-- name: Carrega o modulo vboxdrv - Linux
-  modprobe:
-    name: vboxdrv
-    state: present
-  when: ansible_os_family == 'Debian'
-
 #Windows
 # - name: Instalar o Virtualbox - Windows
 #   win_chocolatey:
