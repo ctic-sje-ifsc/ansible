@@ -51,6 +51,7 @@
     url: https://cran.r-project.org/src/contrib/{{item}}
     dest: /var/{{item}}
   with_items:
+    - rJava_0.9-11.tar.gz
     - RWekajars_3.9.3-1.tar.gz
     - RWeka_0.4-40.tar.gz
   when: ansible_os_family == 'Debian'
@@ -61,6 +62,7 @@
     creates: /usr/local/lib/R/site-library/RWeka
   when: ansible_os_family == 'Debian'
   with_items:
+    - rJava_0.9-11.tar.gz
     - RWekajars_3.9.3-1.tar.gz
     - RWeka_0.4-40.tar.gz
 
