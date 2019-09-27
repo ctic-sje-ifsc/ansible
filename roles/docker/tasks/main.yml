@@ -2,7 +2,7 @@
 #Linux
 
 # Debian stretch
-- name: Instalar pacotes do necessários Docker
+- name: Instalar pacotes necessários do Docker
   apt: name={{ packages }} state=latest
   vars:
     packages:
@@ -13,20 +13,20 @@
     - software-properties-common
   when: (ansible_os_family == 'Debian')
 
-- name: Adicionar a chave do repositório do docker
+- name: Adicionar a chave do repositório do docker no stretch
   apt_key:
     url: https://download.docker.com/linux/debian/gpg
     state: present
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
 
-- name: Adicionar repositório do docker
+- name: Adicionar repositório do docker no stretch
   apt_repository:
     repo: deb [arch=amd64] https://download.docker.com/linux/debian stretch stable
     state: present
     update_cache: yes
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
 
-- name: Instalar o docker
+- name: Instalar o docker no stretch
   apt: name={{ packages }} state=latest
   vars:
     packages:
@@ -34,3 +34,25 @@
     - docker-ce-cli
     - containerd.io
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
+
+- name: Adicionar a chave do repositório do docker no buster
+  apt_key:
+    url: https://download.docker.com/linux/debian/gpg
+    state: present
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
+
+- name: Adicionar repositório do docker no buster
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/debian buster stable
+    state: present
+    update_cache: yes
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
+
+- name: Instalar o docker no buster
+  apt: name={{ packages }} state=latest
+  vars:
+    packages:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
