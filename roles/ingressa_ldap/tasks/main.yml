@@ -121,7 +121,7 @@
 
 - name: Setar servidor WINS e DNS - Windows 7
   win_shell: netsh interface ip set wins name="Conexão Local" source=static addr=191.36.8.67 ; netsh interface ip set dnsservers name="Conexão Local" source=static addr=191.36.8.67
-  when: ansible_os_family == 'Windows 7'
+  when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 7 Professional')
 
 - name: Setar servidor WINS e DNS - Windows 10
   win_shell: netsh interface ip set wins name="Ethernet 2" source=static addr=191.36.8.67 ; netsh interface ip set dnsservers name="Ethernet 2" source=static addr=191.36.8.67
