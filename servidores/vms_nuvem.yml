@@ -1,0 +1,28 @@
+- hosts: vms_nuvem
+  roles:
+    - ../roles/docker
+  
+  tasks:
+
+  - name: update apt cache
+    apt: update_cache=yes
+
+  - name: Instala alguns pacotes 
+    apt:
+      name: "{{ packages }}"
+      state: latest
+    vars:
+      packages:
+      - aptitude
+      - vim      
+      - python-apt
+      - bash-completion
+    when: ansible_os_family == 'Debian'
+
+  - name: Upgrade all packages to the latest version
+    apt: name="*" state=latest
+    when: ansible_os_family == 'Debian'
+
+  - name: Update dist to the latest version
+    apt:
+      upgrade: dist
