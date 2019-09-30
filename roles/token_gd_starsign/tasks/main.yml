@@ -4,7 +4,17 @@
 
 - name: Adicionar repositório wheezy provisorio - Linux
   apt_repository:
-    repo: deb http://ftp.de.debian.org/debian wheezy main  
+    repo: deb http://ftp.de.debian.org/debian wheezy main
+  when: ansible_os_family == 'Debian'
+
+- name: Instala libwxgtk2.8-0 necessario para o safesignidentityclient
+  apt:
+    deb: libwxgtk2.8-0_2.8.12.1+dfsg2-dmo4_amd64.deb
+  when: ansible_os_family == 'Debian'
+
+- name: Instala libwxbase2 necessario para o safesignidentityclient
+  apt:
+    deb: libwxbase2.8-0_2.8.12.1+dfsg2-dmo4_amd64.deb
   when: ansible_os_family == 'Debian'
 
 - name: Install a .deb package from the internet.
