@@ -72,3 +72,13 @@
       owner: root
       group: root
       mode: 0644
+
+  - name: update-alternatives iptables
+    alternatives:
+      name: iptables
+      path: /usr/sbin/iptables-legacy
+
+  - name: update-alternatives ip6tables
+    alternatives:
+      name: ip6tables
+      path: /usr/sbin/ip6tables-legacy
