@@ -82,3 +82,17 @@
     alternatives:
       name: ip6tables
       path: /usr/sbin/ip6tables-legacy
+
+  - name: Carrega o modulo rbd
+    modprobe:
+      name: rbd
+      state: present
+
+  - name: Carrega o modulo rbd automaticamente no boot
+    copy:
+      content: |
+        rbd
+      dest: /etc/modules-load.d/rbd.conf
+      owner: root
+      group: root
+      mode: 0644
