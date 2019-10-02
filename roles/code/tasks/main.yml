@@ -28,6 +28,14 @@
     state: absent
   when: ansible_os_family == 'Debian'
 
+# - name: Extraindo extensões para o vscode para lab- Linux Debian
+#   unarchive:
+#     src: vscode.bz
+#     dest: /opt
+#     owner: aluno
+#     group: aluno
+#     mode: 0755
+#   when: ( ansible_os_family == 'Debian' and  lab == 1 )
 
 #Windows
 # - name: Instalar o Visual Studio Code - Windows
