@@ -3,11 +3,13 @@
 # Chamado da aluna Jeneffer Farias Bora IFSC#2019042510000446
 - hosts: labic
   tasks:
-  - name: Instala pacote idle3
+  - name: Instala pacotes labic
     apt: name={{ packages }} state=latest
     vars:
       packages:
       - idle3
+      - python-flask
+      - python3-flask
     when: ansible_os_family == 'Debian'
 
   # Permissao para gravar na placa
