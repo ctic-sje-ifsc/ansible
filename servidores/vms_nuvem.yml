@@ -18,6 +18,7 @@
       - python-apt
       - bash-completion
       - open-iscsi
+      - nfs-common
     when: ansible_os_family == 'Debian'
 
   - name: Upgrade all packages to the latest version
