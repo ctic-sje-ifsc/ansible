@@ -1,0 +1,70 @@
+---
+# Linux
+
+- name: Cria diretorio para o sinal
+  file:
+    path: /root/ansible
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+    recurse: yes
+  when: ansible_os_family == 'Debian'
+
+- name: Copiando arquivo de configuração do Ansible
+  copy:
+    src: ansible.cfg
+    dest: /etc/ansible/ansible.cfg
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
+- name: Copiando playbook do Wake On Lan
+  copy:
+    src: wol.yml
+    dest: /root/ansible/wol.yml
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
+- name: Cron ligar maquina ricardo1
+  cron:
+    name: "Maquina Ricardo"
+    weekday: 1,3,4,5
+    minute: "15"
+    hour: "8"
+    job: "/usr/sbin/etherwake -i eth0 78:24:af:9a:89:b8 -b"
+
+- name: Cron ligar maquina ricardo2
+  cron:
+    name: "Maquina Ricardo2"
+    weekday: 2
+    minute: "30"
+    hour: "12"
+    job: "/usr/sbin/etherwake -i eth0 78:24:af:9a:89:b8 -b"
+
+- name: Cron ligar maquina Gabriel
+  cron:
+    name: "Maquina Gabriel"
+    weekday: 1-5
+    minute: "50"
+    hour: "6"
+    job: "/usr/sbin/etherwake -i eth0 fc:aa:14:fc:66:09 -b"
+
+- name: Cron ligar maquina Humberto
+  cron:
+    name: "Maquina Humberto"
+    weekday: 1-5
+    minute: "50"
+    hour: "6"
+    job: "/usr/sbin/etherwake -i eth0 f0:4d:a2:e6:c5:39 -b"
+
+- name: Cron ligar maquina Odilson
+  cron:
+    name: "Maquina Odilson"
+    weekday: 1-5
+    minute: "20"
+    hour: "7"
+    job: "/usr/sbin/etherwake -i eth10 f0:4d:a2:e4:1b:05 -b"
