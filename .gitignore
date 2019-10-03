@@ -1,2 +1,4 @@
+.gitignore
 *.retry
 testes.*
+ad_hoc_laboratorios.yml
