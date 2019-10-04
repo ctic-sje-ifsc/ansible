@@ -80,9 +80,9 @@ que estiverem ligadas para o iptables aplicando assim a regra, por padrão o tem
 OBS: Para alterar a regra deve-se finalizar o script 'a força' com as teclas CTRL + C e executá-lo novamente
 
 Regras:
-libera    Apaga todas regras
-bloqueia  Realiza o bloquear do acesso a todos os sites, se mantém liberado o servidor de licenças, o SSH e o ICMP
-wiki      Mantém o acesso somente a página da wiki, se mantém liberado o servidor de licenças, o SSH e o ICMP
+libera    Apaga todas regras;
+bloqueia  Realiza o bloquear do acesso a todos os sites, só mantém liberado o servidor de licenças, o SSH e o ICMP (ping);
+wiki      Mantém o acesso somente a página da wiki, www, sigaa, tele.sj.ifsc.edu.br, o servidor de licenças, o SSH e o ICMP (ping);
 ajuda     Exibe esta ajuda.
 
 Repetição: (Essa opção é opcional, se não for especificado será adotado 'true')
