@@ -6,6 +6,7 @@
                     mac: "{{ hostvars[inventory_hostname].ansible_default_ipv4.macaddress }}"
                     broadcast: 191.36.13.63
             delegate_to: localhost
+
 - hosts: sidi_lin
   gather_facts: no
   tasks:
@@ -50,3 +51,9 @@
             wakeonlan:
                    broadcast: 191.36.9.255
                    mac: "{{ hostvars[inventory_hostname].ansible_default_ipv4.macaddress }}"
+- hosts: all
+  tasks:
+          - name: Esperando os computadores ligarem...
+            wait_for_connection:
+                    delay: 60
+                    timeout: 120

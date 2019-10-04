@@ -18,7 +18,6 @@
     owner: root
     group: root
     mode: 0644
-  when: ansible_os_family == 'Debian'
 
 - name: Copiando playbook do Wake On Lan
   copy:
@@ -27,7 +26,26 @@
     owner: root
     group: root
     mode: 0644
-  when: ansible_os_family == 'Debian'
+
+- name: Copiando playbook para pegar os facts
+  copy:
+    src: get_facts.yml
+    dest: /root/ansible/get_facts.yml
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Cron rodar playbook get_facts
+  cron:
+    name: "Pegar facts das maquinas de laboratorio"
+    minute: "10"
+    job: "/usr/bin/ansible-playbook -i /root/inventory_ansible/laboratorios/host /root/ansible/get_facts.yml > /tmp/facts_lab.log"
+
+  - name: Cron rodar playbook get_facts
+  cron:
+    name: "Pegar facts das maquinas administrativas"
+    minute: "10"
+    job: "/usr/bin/ansible-playbook -i /root/inventory_ansible/administrativo/host /root/ansible/get_facts.yml > /tmp/facts_adm.log"
 
 - name: Cron ligar maquina ricardo1
   cron:

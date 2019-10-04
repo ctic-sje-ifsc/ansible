@@ -1,0 +1,6 @@
+- hosts: all
+  #ignore_unreachable: true
+  #ignore_errors: true
+  tasks:
+  - setup:
+    when: ansible_os_family == 'Debian'
