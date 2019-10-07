@@ -26,6 +26,14 @@
     - libvirt-daemon
   when: ansible_os_family == 'Debian'
 
+- file:
+    path: /home/aluno
+    state: directory
+    mode: 0755
+    owner: aluno
+    group: 1001
+  when: ansible_os_family == 'Debian'
+
 #Cria diretórios onde ficará os arquivos que ficariam na pasta do usuário -  Linux
 - file:
     path: /opt/android-studio
