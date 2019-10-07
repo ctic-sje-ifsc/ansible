@@ -17,7 +17,7 @@
     - virtualbox-ext-pack
     - virtualbox-guest-utils
     - virtualbox-guest-x11
-  when: ansible_distribution == 'Debian'
+  when: ( ansible_distribution == 'Debian' and ansible_hostname is not search("^sj-lin-mtele-577558") ) #PC da Mayara, tem virtualbox instalado na mão, mais novo.
 
 # Ubuntu
 - name: Instalar os pacotes para o Virtualbox do ubuntu - Linux Ubuntu
