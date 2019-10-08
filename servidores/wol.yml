@@ -125,3 +125,27 @@
       minute: "20"
       hour: "7"
       job: "/usr/sbin/etherwake -i eth10 f0:4d:a2:e4:1b:05 -b"
+
+  - name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys (Monitoramento)
+    authorized_key:
+      user: root
+      state: present
+      key: "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAgEArgRS9p4JBq6CGuugYkf8PW7lejJpcJzDdjntND8wKhGUibkZRXcrxI40ClDEp7xLPzIzx6YSyV77AA16ers6AZs83FVSQY/sVO/qTXReyjHKJ1UhB3NQWsMI6XO+mcHFef50WLJ4rHd6b3A8swwF4XK4UtF8K6cDtJnJ1w4DmGwf3uAec0dUWF7UF4nP9VkTbH4bWETHPO7VXy5AcXx3rkzFF6+krtvrUHvC6QlzcUT0ofqb3mLBbWstaznE/lqXRFqHVwkkSLTy476qYM5286+UOTfTcwjsVCiohpoihPGWp4UE8ROKSmP8wLdYGHEJrB9k5FJGkZ5RjLhQ9ZIW9Dn/cgqFjOpvICe+26Zc7qaKTDp9vTCVkrZ94RV1e8gWlwbWcdNavuvpKcIxaNVmsxZ3RUiI5yewdGR3PCEbRkBiKq49E9cmitgbYWnn1jTQz9XXFSXL2MxRA4df6khmPZtKukvdjljt4jfbR40CZ5Q6VtJLO4yN7oYUWE+z3+YJtalT2VYO+L12phVAwjLlwn7JXijzXckBt6mCtTmQFCLBek/Y3EGdYpKnGLCfwvenpebxUOrhZFX8RJiHH8RQqUVv9LYtCdt88RdzAG15FlHufYQQHC+t2nZDrtW+XHpLBPgLFmbfDf03OIfIg/hxPwCDSPKqWgnpWJukdmuVze8= root@monitoramento"
+
+  - name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys (Humberto)
+    authorized_key:
+      user: root
+      state: present
+      key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCYymPFCq/EpbDr9Y5az6z6s3EO1WiiHboeyB94dKSplOG6GSddtwSu4WTr+QSPNks7farRQtAsQUi4j93fVD+T6Nt8k6nWLpbtUx2DLp17rsqi67RO1QixdywwcZwdYCaBztmaZlfPHVVC/rBXeonj8uz51AgpYrQCvnOXrCNWt6m7OpYn3b+AdUC3A3gu8b2KW7cmS1pLZMctfvAbMcFd93a4qO6J8J5dX/ZGG2o/l8Tt82GLGam+3x5Jyi6qa61RxHAbjibdo0WoSrQdGh0bU8twvaTi9bbdeOqa0UVdxDWfpAZY/HBxfRnb9FSVCb+BB9sDB3eyS0CC7KajFqe5 humbertos@sj-ctic-37246"
+
+  - name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys (Gabriel)
+    authorized_key:
+      user: root
+      state: present
+      key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCxZ6W+iZn1dlWBBxLI3ZHup8LRGk4YpnynlG8Fm4oLdM/2fWKupyl8SJDity0m13AVQBMgpR2k/BA1HLFnWjPpxsjsA03ORTVFG3zGN8Yqb0LRuPfpXmQTQtVtGkN7FD4JKyzFeY+G4J0K3mVjOO2F8pGLvrota6q0/8fNfMsHt0uDZpC9c34qM6Xq72ZChJhnq4JY0QT6fzu2BmVnjDz4eBDlrsbtzdgkNF+z1jLdd4xSYgqFhUIrhU8Bsf6vGQMR0CRFh8huKaDCb4/y2F0NmIX0Y5ycwNfOHwvUoIYJMgv0bWv8Ewfg1MsEQ2MxN67H/4/zmMjo9jM7c40R7nmFwhm4pMMCpH8R7DoLAm4g1cKt80GXaef+7OBuluVcV6qOzaIMhBhOxjZomBgw/fjnUSjWrwJEHXNsAE8/gQLaM6OyMVl0L53FL1f8CuhQC618yge9DhM2yDw7IBxxteyA6Mp1GNPSx0HFFqisEZD0q7ZxW3PQMaTqM3Gdf+ONTP1tGbEirPn3YB3erqaYwirRNERcOpJqh/h9ahi8A9HLmSgOB0JGwKPS39ZBDU4OplIWhHY4QT6orzbrO/IkNXv7DxKQjt9N/kytVpP7MNgB6Mrepi4FDA2OUNKYCZ31c29SFOAUWjjd6K5r4W3JTbJtxVjME4/ifd6oQQHFdNIl2w== gabriel.souza@sj-ctic-29736"
+
+  - name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys (Ricardo)
+    authorized_key:
+      user: root
+      state: present
+      key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDHGABNL4VckVVEjgNJWrfFg6LqsypziY18hzVx12F/MA/q6RSJY7Wg/X5HRG7MKEdUezKCz7b6eSaTDP982Di1KD3YFLOnl8IJOf4fwxkwX7y7MX0xozDuJlhtMlJD8/g/n+hfybzsbQQkT0FC3onfOni7V8UfiNYq4wYNj6Vp0uj5eKNXUYeMe5yKLkCQa5r3pIH/4mTj/TF0pWMBjntTjxlstG7Z0a0r77UzMjFZAdGjfNfW3uSm3icyo1StIJ88I7WatJnhPDK3K7S/l8Ls+HU5tFh7AuPTVqPuiLtLEQ11XhcBKdIjewiGD6wfvyFVwCC94mWJnhS7rltIMYIFVZORgB5UuEUvZNevztyWhMb4Ho2Wi4jxSuU2If5huVRSmskeQe750E6FFWl1hB7XRDKGKbWHhG0BOCuB9h8wnpvn9s+7x1vvTdbnEx516JNyRGELtoElG20MYADou1N66yzusN/tdSeBO9BfvD6Sts/5HX8j0NNogF8swJ7DQEj0bbFoqBIeyfnJrQt+YJ85RuN/rexzYPYHEO6K7YR+u2cz4s5AJT9VCSVzVhG6ibj6RcBNCFTdok3qvAnwv5arvIuALeTZLVe+FFu5AKlJ2kQ+dtYqcXyeP5KyoHI2h5WzrxqTl/iOkoSFeTk+jt54DRGwP4kjBgGFdGeeNyzKmQ== rmartins@sj-lin-744396"
