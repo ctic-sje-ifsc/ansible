@@ -1,6 +1,6 @@
 ### É necessário que a chave rsa pública e privada do monitoramento esteja em /root/.ssh
 ### Necessário executar esse comando na mão: git clone git@gitlab.com:ctic-sje-ifsc/inventory_ansible.git
-- hosts: sj-lin-deb10-123.maquinas.sj.ifsc.edu.br
+- hosts: wol.sj.ifsc.edu.br
   tasks:
   - name: Instalar os pacotes para o Ansible - Linux Debian
     apt: name=ansible state=latest
@@ -22,7 +22,7 @@
       - etherwake
       - python-apt
 
-- hosts: sj-lin-deb10-123.maquinas.sj.ifsc.edu.br
+- hosts: wol.sj.ifsc.edu.br
   roles:
   - role: ../roles/grub
     tipo: grub_soh_lin
