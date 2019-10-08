@@ -1,7 +1,7 @@
 ---
 # Linux
 
-- name: Cria diretorio para o sinal
+- name: Cria diretorio para o Ansible
   file:
     path: /root/ansible
     state: directory
@@ -35,17 +35,31 @@
     group: root
     mode: 0644
 
-- name: Cron rodar playbook get_facts
+- name: Copiando arquivo de configuracao do ssh
+  copy:
+    src: ssh_config
+    dest: /etc/ssh/ssh_config
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Cron rodar playbook get_facts - laboratorios
   cron:
     name: "Pegar facts das maquinas de laboratorio"
     minute: "10"
     job: "/usr/bin/ansible-playbook -i /root/inventory_ansible/laboratorios/host /root/ansible/get_facts.yml > /tmp/facts_lab.log"
 
-  - name: Cron rodar playbook get_facts
+- name: Cron rodar playbook get_facts - administrativos
   cron:
     name: "Pegar facts das maquinas administrativas"
     minute: "10"
     job: "/usr/bin/ansible-playbook -i /root/inventory_ansible/administrativo/host /root/ansible/get_facts.yml > /tmp/facts_adm.log"
+
+- name: Cron rodar git pull
+  cron:
+    name: "Atualizar inventory_ansible"
+    minute: "10"
+    job: "/usr/bin/git -C /root/inventory_ansible/ pull git@gitlab.com:ctic-sje-ifsc/inventory_ansible.git > /tmp/git_pull.log"
 
 - name: Cron ligar maquina ricardo1
   cron:
