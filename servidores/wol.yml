@@ -60,6 +60,14 @@
       group: root
       mode: 0644
 
+  - name: Copiando playbook para pegar os macs
+    copy:
+      src: wol/get_mac.yml
+      dest: /root/ansible/get_mac.yml
+      owner: root
+      group: root
+      mode: 0644
+
   - name: Copiando arquivo de configuracao do ssh
     copy:
       src: wol/ssh_config
