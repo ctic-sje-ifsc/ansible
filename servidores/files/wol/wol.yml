@@ -1,59 +1,69 @@
 - hosts: redes
   gather_facts: no
   tasks:
-          - name: Laboratorio de Redes de Computadores
-            wakeonlan:
-                    mac: "{{ hostvars[inventory_hostname].ansible_default_ipv4.macaddress }}"
-                    broadcast: 191.36.13.63
-            delegate_to: localhost
+    - name: Laboratorio de Redes de Computadores
+      wakeonlan:
+        mac: "{{ hostvars[inventory_hostname].ansible_default_ipv4.macaddress }}"
+        broadcast: 191.36.13.63
+      delegate_to: localhost
 
 - hosts: sidi_lin
   gather_facts: no
   tasks:
-          - name: Laboratorio de Sistemas Digitais
-            wakeonlan:
-                    broadcast: 191.36.13.127
-                    mac: "{{ hostvars[inventory_hostname].ansible_default_ipv4.macaddress }}"
-            delegate_to: localhost
+    - name: Laboratorio de Sistemas Digitais
+      wakeonlan:
+        broadcast: 191.36.13.127
+        mac: "{{ hostvars[inventory_hostname].ansible_default_ipv4.macaddress }}"
+      delegate_to: localhost
+
 - hosts: programacao
   gather_facts: no
   tasks:
-          - name: Laboratorio de Programacao
-            wakeonlan:
-                   broadcast: 191.36.13.191
-                   mac: "{{ hostvars[inventory_hostname].ansible_default_ipv4.macaddress }}"
-            delegate_to: localhost
+    - name: Laboratorio de Programacao
+      wakeonlan:
+        broadcast: 191.36.13.191
+        mac: "{{ hostvars[inventory_hostname].ansible_default_ipv4.macaddress }}"
+      delegate_to: localhost
+
 - hosts: cad1
   gather_facts: no
   tasks:
-          - name: Cad1
-            wakeonlan:
-                   broadcast: 191.36.14.31
-                   mac: "{{ hostvars[inventory_hostname].ansible_default_ipv4.macaddress }}"
+    - name: Cad1
+      wakeonlan:
+        broadcast: 191.36.14.31
+        mac: "{{ hostvars[inventory_hostname].ansible_default_ipv4.macaddress }}"
+      delegate_to: localhost
+
 - hosts: cad2
   gather_facts: no
   tasks:
-          - name: Cad2
-            wakeonlan:
-                   broadcast: 191.36.14.63
-                   mac: "{{ hostvars[inventory_hostname].ansible_default_ipv4.macaddress }}"
+    - name: Cad2
+      wakeonlan:
+        broadcast: 191.36.14.63
+        mac: "{{ hostvars[inventory_hostname].ansible_default_ipv4.macaddress }}"
+      delegate_to: localhost
+
 - hosts: cad3
   gather_facts: no
   tasks:
-          - name: Cad3
-            wakeonlan:
-                   broadcast: 191.36.14.95
-                   mac: "{{ hostvars[inventory_hostname].ansible_default_ipv4.macaddress }}"
-- hosts: administrativo
+    - name: Cad3
+      wakeonlan:
+        broadcast: 191.36.14.95
+        mac: "{{ hostvars[inventory_hostname].ansible_default_ipv4.macaddress }}"
+      delegate_to: localhost
+
+- hosts: administrativos_lin
   gather_facts: no
   tasks:
-          - name: Administrativo
-            wakeonlan:
-                   broadcast: 191.36.9.255
-                   mac: "{{ hostvars[inventory_hostname].ansible_default_ipv4.macaddress }}"
+    - name: Administrativo
+      wakeonlan:
+        broadcast: 191.36.9.255
+        mac: "{{ hostvars[inventory_hostname].ansible_default_ipv4.macaddress }}"
+      delegate_to: localhost
+
 - hosts: all
   tasks:
-          - name: Esperando os computadores ligarem...
-            wait_for_connection:
-                    delay: 60
-                    timeout: 120
+    - name: Esperando os computadores ligarem...
+      wait_for_connection:
+        delay: 60
+        timeout: 120
