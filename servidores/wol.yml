@@ -21,6 +21,9 @@
       - ipcalc
       - etherwake
       - python-apt
+      - python-pip
+  - pip:
+      name: pywinrm
 
 - hosts: wol.sj.ifsc.edu.br
   roles:
@@ -67,6 +70,14 @@
       owner: root
       group: root
       mode: 0644
+
+  # - name: 'Configurando arquivo  ssh_config'
+  #   replace:
+  #     path: '/etc/ssh/ssh_config'
+  #     regex: "{{ item.regex }}"
+  #     replace: "{{ item.value }}"
+  #   with_items:
+  #     - { regex: '#   StrictHostKeyChecking no', value: '   StrictHostKeyChecking no'}
 
   - name: Copiando arquivo de configuracao do ssh
     copy:
