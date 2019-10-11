@@ -25,30 +25,30 @@
         mac: "{{ hostvars[inventory_hostname].ansible_default_ipv4.macaddress }}"
       delegate_to: localhost
 
-- hosts: cad1
+- hosts: cad1_lin
   gather_facts: no
   tasks:
-    - name: Cad1
-      wakeonlan:
-        broadcast: 191.36.14.31
-        mac: "{{ hostvars[inventory_hostname].ansible_default_ipv4.macaddress }}"
-      delegate_to: localhost
-
-- hosts: cad2
-  gather_facts: no
-  tasks:
-    - name: Cad2
+    - name: Laboratorio de Cad 1
       wakeonlan:
         broadcast: 191.36.14.63
         mac: "{{ hostvars[inventory_hostname].ansible_default_ipv4.macaddress }}"
       delegate_to: localhost
 
-- hosts: cad3
+- hosts: cad2_lin
   gather_facts: no
   tasks:
-    - name: Cad3
+    - name: Laboratorio de Cad 2
       wakeonlan:
         broadcast: 191.36.14.95
+        mac: "{{ hostvars[inventory_hostname].ansible_default_ipv4.macaddress }}"
+      delegate_to: localhost
+
+- hosts: cad3_lin
+  gather_facts: no
+  tasks:
+    - name: Laboratorio de Cad 3
+      wakeonlan:
+        broadcast: 191.36.14.127
         mac: "{{ hostvars[inventory_hostname].ansible_default_ipv4.macaddress }}"
       delegate_to: localhost
 
