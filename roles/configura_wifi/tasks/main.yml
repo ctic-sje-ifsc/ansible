@@ -7,15 +7,6 @@
     - wpasupplicant
   when: ansible_os_family == 'Debian'
 
-- name: Copiando arquivo hosts - Linux
-  copy:
-    src: hosts
-    dest: /etc/hosts
-    owner: root
-    group: root
-    mode: 0644
-  when: ansible_os_family == 'Debian'
-
 - name: Copiando arquivo interfaces - Linux
   copy:
     src: interfaces
@@ -32,11 +23,4 @@
     owner: root
     group: root
     mode: 0600
-  when: ansible_os_family == 'Debian'
-
-- name: Cron para apagar o resolv.conf
-  cron:
-    name: "apaga dns"
-    minute: "2"
-    job: '/bin/echo "" > /etc/resolv.conf'
   when: ansible_os_family == 'Debian'
