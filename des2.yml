@@ -25,4 +25,4 @@
   # - name: Install a .deb Mendeley Desktop - Linux Debian
   #   apt:
   #     deb: https://www.mendeley.com/repositories/ubuntu/stable/amd64/mendeleydesktop-latest
-  #   when: ansible_os_family == 'Debian'
+    when: ansible_os_family == 'Debian'
