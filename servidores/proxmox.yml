@@ -1,76 +1,3 @@
-- hosts: proxmox_nuvem
-  roles:
-    - ../roles/docker
-  
-  tasks:
-  
-  - name: Cria usuário ctic
-    user:
-      name: ctic
-      shell: /bin/bash
-
-  - name: Adicionar entrada da chave pública no /home/ctic/.ssh/authorized_keys (Monitoramento)
-    authorized_key:
-      user: ctic
-      state: present
-      key: "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAgEArgRS9p4JBq6CGuugYkf8PW7lejJpcJzDdjntND8wKhGUibkZRXcrxI40ClDEp7xLPzIzx6YSyV77AA16ers6AZs83FVSQY/sVO/qTXReyjHKJ1UhB3NQWsMI6XO+mcHFef50WLJ4rHd6b3A8swwF4XK4UtF8K6cDtJnJ1w4DmGwf3uAec0dUWF7UF4nP9VkTbH4bWETHPO7VXy5AcXx3rkzFF6+krtvrUHvC6QlzcUT0ofqb3mLBbWstaznE/lqXRFqHVwkkSLTy476qYM5286+UOTfTcwjsVCiohpoihPGWp4UE8ROKSmP8wLdYGHEJrB9k5FJGkZ5RjLhQ9ZIW9Dn/cgqFjOpvICe+26Zc7qaKTDp9vTCVkrZ94RV1e8gWlwbWcdNavuvpKcIxaNVmsxZ3RUiI5yewdGR3PCEbRkBiKq49E9cmitgbYWnn1jTQz9XXFSXL2MxRA4df6khmPZtKukvdjljt4jfbR40CZ5Q6VtJLO4yN7oYUWE+z3+YJtalT2VYO+L12phVAwjLlwn7JXijzXckBt6mCtTmQFCLBek/Y3EGdYpKnGLCfwvenpebxUOrhZFX8RJiHH8RQqUVv9LYtCdt88RdzAG15FlHufYQQHC+t2nZDrtW+XHpLBPgLFmbfDf03OIfIg/hxPwCDSPKqWgnpWJukdmuVze8= root@monitoramento"
-
-  - name: Adicionar entrada da chave pública no /home/ctic/.ssh/authorized_keys (Humberto)
-    authorized_key:
-      user: ctic
-      state: present
-      key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCYymPFCq/EpbDr9Y5az6z6s3EO1WiiHboeyB94dKSplOG6GSddtwSu4WTr+QSPNks7farRQtAsQUi4j93fVD+T6Nt8k6nWLpbtUx2DLp17rsqi67RO1QixdywwcZwdYCaBztmaZlfPHVVC/rBXeonj8uz51AgpYrQCvnOXrCNWt6m7OpYn3b+AdUC3A3gu8b2KW7cmS1pLZMctfvAbMcFd93a4qO6J8J5dX/ZGG2o/l8Tt82GLGam+3x5Jyi6qa61RxHAbjibdo0WoSrQdGh0bU8twvaTi9bbdeOqa0UVdxDWfpAZY/HBxfRnb9FSVCb+BB9sDB3eyS0CC7KajFqe5 humbertos@sj-ctic-37246"
-
-  - name: Adicionar entrada da chave pública no /home/ctic/.ssh/authorized_keys (Gabriel)
-    authorized_key:
-      user: ctic
-      state: present
-      key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCxZ6W+iZn1dlWBBxLI3ZHup8LRGk4YpnynlG8Fm4oLdM/2fWKupyl8SJDity0m13AVQBMgpR2k/BA1HLFnWjPpxsjsA03ORTVFG3zGN8Yqb0LRuPfpXmQTQtVtGkN7FD4JKyzFeY+G4J0K3mVjOO2F8pGLvrota6q0/8fNfMsHt0uDZpC9c34qM6Xq72ZChJhnq4JY0QT6fzu2BmVnjDz4eBDlrsbtzdgkNF+z1jLdd4xSYgqFhUIrhU8Bsf6vGQMR0CRFh8huKaDCb4/y2F0NmIX0Y5ycwNfOHwvUoIYJMgv0bWv8Ewfg1MsEQ2MxN67H/4/zmMjo9jM7c40R7nmFwhm4pMMCpH8R7DoLAm4g1cKt80GXaef+7OBuluVcV6qOzaIMhBhOxjZomBgw/fjnUSjWrwJEHXNsAE8/gQLaM6OyMVl0L53FL1f8CuhQC618yge9DhM2yDw7IBxxteyA6Mp1GNPSx0HFFqisEZD0q7ZxW3PQMaTqM3Gdf+ONTP1tGbEirPn3YB3erqaYwirRNERcOpJqh/h9ahi8A9HLmSgOB0JGwKPS39ZBDU4OplIWhHY4QT6orzbrO/IkNXv7DxKQjt9N/kytVpP7MNgB6Mrepi4FDA2OUNKYCZ31c29SFOAUWjjd6K5r4W3JTbJtxVjME4/ifd6oQQHFdNIl2w== gabriel.souza@sj-ctic-29736"
-
-  - name: Adiciona no grupo docker
-    user:
-      name: "{{item}}"
-      groups: docker
-      append: yes
-    with_items:
-      - ctic
-
-  - name: Regra que libera a comunicação entre VMs de mesma VLAN
-    iptables:
-      table: filter
-      chain: FORWARD
-      in_interface: vmbr0
-      out_interface: vmbr0
-      jump: ACCEPT
-
-  - name: Valor 1 para net.bridge.bridge-nf-call-iptables (require rke)
-    sysctl:
-      name: net.bridge.bridge-nf-call-iptables
-      value: "1"
-      sysctl_set: yes
-
-  - name: Copiando arquivo /etc/iptables.rules
-    copy:
-      src: proxmox/iptables.rules
-      dest: /etc/iptables.rules
-      owner: root
-      group: root
-      mode: 0644
-
-  - name: Carrega o modulo rbd
-    modprobe:
-      name: rbd
-      state: present
-
-  - name: Carrega o modulo rbd automaticamente no boot
-    copy:
-      content: |
-        rbd
-      dest: /etc/modules-load.d/rbd.conf
-      owner: root
-      group: root
-      mode: 0644
-
 - hosts: proxmox
   tasks:
   
@@ -142,6 +69,14 @@
   - name: Update dist to the latest version
     apt:
       upgrade: dist
+  
+  - name: sysctl disable autoconf vmbr0
+    sysctl:
+      name: net.ipv6.conf.vmbr0.autoconf
+      value: '0'
+      sysctl_set: yes
+      reload: yes
+    tags: sysctl
 
   handlers:
     - name: restart_sshd
@@ -173,73 +108,6 @@
   #       name: nfs-server
   #       state: restarted 
 
-- hosts: proxmoxhp1.sj.ifsc.edu.br
-  tasks:
-
-  - name: Configura o interfaces
-    copy:
-      content: |
-        auto lo
-        iface lo inet loopback
-
-        iface enp2s0f0 inet manual
-
-        iface enp2s0f1 inet manual
-
-        iface ens1 inet manual
-
-        auto bond0
-        iface bond0 inet manual
-              slaves enp2s0f0 enp2s0f1
-              bond_miimon 100
-              bond_mode 802.3ad
-              bond_xmit_hash_policy layer2+3
-
-        auto vmbr0
-        iface vmbr0 inet manual
-          bridge_ports bond0
-          bridge_stp off
-          bridge_fd 0
-          bridge_vlan_aware yes
-          pre-up ip link set bond0 mtu 9000
-
-        auto vmbr0.110
-        iface vmbr0.110 inet static
-          address 191.36.8.77
-          netmask 255.255.255.224
-          gateway 191.36.8.94
-        #server
-
-        auto vmbr0.35
-        iface vmbr0.35 inet static
-          address  10.10.10.6
-          netmask  255.255.255.0
-        #CephNetwork
-
-        auto vmbr0.31
-        iface vmbr0.31 inet static
-          address  172.18.31.101
-          netmask  255.255.255.0
-        #SAN
-
-        auto ens2
-        iface ens2 inet static
-          address  10.0.0.6
-          netmask  255.255.255.0
-          pre-up ip link set ens2 mtu 9000
-        #ClusterNetwork
-      dest: /etc/network/interfaces
-      owner: root
-      group: root
-      mode: 0644
-    notify: restart_networking
-
-  handlers:
-  - name: restart_networking
-    service:
-      name: networking
-      state: restarted
-
 - hosts: proxmoxblade9.sj.ifsc.edu.br
   tasks:
   
@@ -250,66 +118,6 @@
     vars:
       packages:
       - multipath-tools
-
-  - name: Configura o interfaces
-    copy:
-      content: |
-        auto lo
-        iface lo inet loopback
-
-        iface eno1 inet manual
-
-        iface eno2 inet manual
-
-        iface enp4s0f2 inet manual
-
-        iface enp4s0f3 inet manual
-
-        auto vmbr0
-        iface vmbr0 inet manual
-          bridge_ports eno1
-          bridge_stp off
-          bridge_fd 0
-          bridge_vlan_aware yes
-          pre-up ip link set eno1 mtu 9000
-
-        auto vmbr0.110
-        iface vmbr0.110 inet static
-          address 191.36.8.78
-          netmask 255.255.255.224
-          gateway 191.36.8.94
-        #VMNetwork
-
-        auto vmbr0.31
-        iface vmbr0.31 inet static
-          address  172.18.31.109
-          netmask  255.255.255.0
-        #SAN
-
-        auto vmbr1
-        iface vmbr1 inet static
-          address  10.0.0.3
-          netmask  255.255.255.0
-          bridge-ports eno2
-          bridge-stp off
-          bridge-fd 0
-          pre-up ip link set eno2 mtu 9000
-        #ClusterNetwork
-
-        auto vmbr2
-        iface vmbr2 inet static
-          address  10.10.10.3
-          netmask  255.255.255.0
-          bridge-ports enp4s0f2
-          bridge-stp off
-          bridge-fd 0
-          pre-up ip link set enp4s0f2 mtu 9000
-        #CephNetwork
-      dest: /etc/network/interfaces
-      owner: root
-      group: root
-      mode: 0644
-    notify: restart_networking
 
   - name: Configura o multipath.conf
     copy:
@@ -349,9 +157,4 @@
     - name: restart_multipath-tools
       service:
         name: multipath-tools
-        state: restarted
-
-    - name: restart_networking
-      service:
-        name: networking
         state: restarted
