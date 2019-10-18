@@ -1,5 +1,5 @@
 ---
-- hosts: all:!wol
+- hosts: all
   tasks:
     - name: Deletar linha repositório debian jessie
       lineinfile:
@@ -7,6 +7,9 @@
         state: absent
         regexp: '^deb http://ftp.debian.org/debian jessie-backports '
       when: ansible_os_family == 'Debian'
+
+- hosts: all:!wol
+  tasks:
     - name: Instalar o aptitude, necessario para o modulo apt
       apt: name=aptitude state=latest
       when: ansible_os_family == 'Debian'
