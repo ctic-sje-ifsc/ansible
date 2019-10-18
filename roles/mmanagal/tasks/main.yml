@@ -27,3 +27,4 @@
     rights: FullControl
     type: allow
     state: present
+  when: ansible_os_family == 'Windows'
