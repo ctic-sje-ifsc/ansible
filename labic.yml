@@ -2,6 +2,7 @@
 
 # Chamado da aluna Jeneffer Farias Bora IFSC#2019042510000446
 - hosts: labic
+  any_errors_fatal: true
   tasks:
   - name: Instala pacotes labic
     apt: name={{ packages }} state=latest

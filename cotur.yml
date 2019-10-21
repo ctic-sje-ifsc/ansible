@@ -1,5 +1,5 @@
 - hosts: cotur_sinal
-#  ignore_unreachable: true
+  any_errors_fatal: true
   roles:
     - sinal
 

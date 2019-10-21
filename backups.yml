@@ -1,6 +1,6 @@
 # Linux
 - hosts: backup_lin
-#  ignore_unreachable: true
+  any_errors_fatal: true
   roles:
     - role: grub
       tipo: grub_lin
@@ -14,12 +14,12 @@
     when: ansible_os_family == 'Debian'
 
 - hosts: sj-lin-bkp-aluno.maquinas.sj.ifsc.edu.br
-#  ignore_unreachable: true
+  any_errors_fatal: true
   roles:
     - epoptes_client
 
 - hosts: sj-lin-bkp-prof.maquinas.sj.ifsc.edu.br
-#  ignore_unreachable: true
+  any_errors_fatal: true
   roles:
     - epoptes_server
     - ingressa_ldap
@@ -29,6 +29,6 @@
 
 ################ Windows ################
 - hosts: sj-bkp-prof.maquinas.sj.ifsc.edu.br #Maquina do professor
-#  ignore_unreachable: true
+  any_errors_fatal: true
   roles:
     - ingressa_ldap

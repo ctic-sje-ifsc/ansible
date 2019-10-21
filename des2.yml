@@ -1,18 +1,18 @@
 # - hosts: des2
-# #  ignore_unreachable: true
+#   any_errors_fatal: true
 #   roles:
 #     - packettracer
 #     - kile
 #     - programas_padroes_labs
 
 # - hosts: des2
-# #  ignore_unreachable: true
+#   any_errors_fatal: true
 #   roles:
 #     - role: grub
 #       tipo: grub_lin
 
 - hosts: sj-lin-des2-744927.maquinas.sj.ifsc.edu.br,sj-lin-des2-744928.maquinas.sj.ifsc.edu.br #Diego e Deise
-#  ignore_unreachable: true
+  any_errors_fatal: true
   roles:
     - ingressa_ldap_gdm
   tasks:

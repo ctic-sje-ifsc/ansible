@@ -1,5 +1,5 @@
 - hosts: cotel
-#  ignore_unreachable: true
+  any_errors_fatal: true
   roles:
     - packettracer
     - kile

@@ -1,17 +1,17 @@
 #Linux
 - hosts: aplicada
-#  ignore_unreachable: true
+  any_errors_fatal: true
   roles:
     - role: grub
       tipo: grub_lin
 
 - hosts: aplicada
-#  ignore_unreachable: true
+  any_errors_fatal: true
   roles:
     - ingressa_ldap
 
 # Windows
 - hosts: aplicada_win
-#  ignore_unreachable: true
+  any_errors_fatal: true
   roles:
     - ingressa_ldap
