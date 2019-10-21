@@ -1,6 +1,8 @@
 - hosts: ctic
+  any_errors_fatal: true
   roles:
     - code
+    - docker
     # - teamviewer
     # - virtualbox
     - rambox
@@ -13,7 +15,6 @@
     apt: name={{ packages }} state=latest
     vars:
       packages:
-      - docker
       - keepassx
       - konsole
       - nfs-common
@@ -43,6 +44,7 @@
 
 ##################  Maquina do RICARDO  ##################
 - hosts: sj-lin-ctic-744521.maquinas.sj.ifsc.edu.br
+  any_errors_fatal: true
   roles:
     - kubernetes
     - softwares_remotos
