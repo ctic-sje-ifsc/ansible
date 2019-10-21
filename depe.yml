@@ -1,4 +1,5 @@
 - hosts: depe
+  any_errors_fatal: true
   roles:
     - foxit
     - role: softwares_remotos

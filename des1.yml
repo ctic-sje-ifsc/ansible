@@ -1,5 +1,5 @@
 - hosts: des1
-#  ignore_unreachable: true
+  any_errors_fatal: true
   roles:
     - packettracer
     - kile

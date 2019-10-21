@@ -1,12 +1,12 @@
 - hosts: mtele
-#  ignore_unreachable: true
+  any_errors_fatal: true
   roles:
     - packettracer
     - kile
     - programas_padroes_labs
 
 - hosts: sj-lin-mtele-577558.maquinas.sj.ifsc.edu.br
-#  ignore_unreachable: true
+  any_errors_fatal: true
   roles:
     - zoiper
     - code

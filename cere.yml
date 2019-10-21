@@ -1,5 +1,5 @@
 - hosts: cere
-#  ignore_unreachable: true
+  any_errors_fatal: true
   tasks:
   - name: Pacotes especiais
     apt: name={{ packages }} state=latest

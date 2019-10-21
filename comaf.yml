@@ -1,5 +1,5 @@
 - hosts: sj-lin-comaf-37250.maquinas.sj.ifsc.edu.br
-#  ignore_unreachable: true
+  any_errors_fatal: true
   roles:
     - ingressa_ldap_sem_cups_client
     - savpdf
@@ -10,7 +10,7 @@
       pdf: 1
 
 - hosts: sj-lin-comaf-744525.maquinas.sj.ifsc.edu.br
-#  ignore_unreachable: true
+  any_errors_fatal: true
   roles:
     - ingressa_ldap_sem_cups_client
     - savpdf

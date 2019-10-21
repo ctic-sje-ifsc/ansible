@@ -1,14 +1,17 @@
 - hosts: programacao
+  any_errors_fatal: true
   roles:
     - role: grub
       tipo: grub_soh_lin
     - quartus18  
 
 - hosts: programacao:!sj-lin-prog-744523.maquinas.sj.ifsc.edu.br
+  any_errors_fatal: true
   roles:
     - epoptes_client
 
 - hosts: sj-lin-prog-744523.maquinas.sj.ifsc.edu.br #Maquina do professor
+  any_errors_fatal: true
   roles:
     - epoptes_server
     - ingressa_ldap

@@ -1,6 +1,6 @@
 ## Both operational system
 - hosts: mrac_win
-#  ignore_unreachable: true
+  any_errors_fatal: true
   roles:
     - ingressa_ldap
 
