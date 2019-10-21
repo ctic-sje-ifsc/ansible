@@ -12,7 +12,8 @@
 - name: Adiciona apt key do r-cran
   apt_key:
     keyserver: keys.gnupg.net
-    id: E19F5F87128899B192B1A2C2AD5F960A256A04AF 
+    id: E19F5F87128899B192B1A2C2AD5F960A256A04AF
+  when: ansible_os_family == 'Debian'
 
 - name: Adicionar repositório r-cran - Linux Debian 9
   apt_repository:
