@@ -1,4 +1,5 @@
 ---
+## Atualização demora aproximadamente 50 minutos para apenas uma maquina
 - hosts: all
   tasks:
     - name: Atualiza todos os pacotes para a ultima versao
