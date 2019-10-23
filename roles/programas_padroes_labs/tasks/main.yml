@@ -110,6 +110,7 @@
     - avahi-utils
     - wireless-tools
     - pcaputils
+    - rfkill
   when: ansible_os_family == 'Debian'
 
 - name: Instalar lista de pacotes pedida pelo Roberto de Matos Chamado IFSC#2019030810001087 - Linux
