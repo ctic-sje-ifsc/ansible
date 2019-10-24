@@ -6,7 +6,7 @@
     dest: /opt/
     creates: /opt/microchip/mplabx/v5.20/mplab_platform/bin/mplab_ide
     remote_src: yes
-    owner: aluno
+    owner: root
     group: root
   when: ansible_os_family == 'Debian'
 
@@ -15,7 +15,7 @@
     src: avr8-toolchain.bz
     dest: /opt/microchip
     creates: /opt/microchip/avr8-gnu-toolchain
-    owner: aluno
+    owner: root
     group: root
   when: ansible_os_family == 'Debian'
 
@@ -63,6 +63,15 @@
   with_items:
     - mplab_ide.png
     - mplab_ipe.png
+  when: ansible_os_family == 'Debian'
+
+- name: Copiando arquivo m328pdef.inc - Linux Debian
+  copy:
+    src: m328pdef.inc
+    dest: /opt/microchip/xc8/v2.05/dfp/avrasm/inc/
+    owner: root
+    group: root
+    mode: 0755
   when: ansible_os_family == 'Debian'
 
 - name: Criando links simbolicos - Linux Debian
