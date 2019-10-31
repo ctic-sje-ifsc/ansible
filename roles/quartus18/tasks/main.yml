@@ -1,14 +1,14 @@
 
-# - name: Baixando e extraindo o Quartus18
-#   unarchive:
-#     src: http://nfs.sj.ifsc.edu.br/intelFPGA.tar
-#     dest: /opt/
-#     creates: /opt/intelFPGA
-#     remote_src: yes
-#     owner: root
-#     group: root
-#     mode: 0755
-#   when: ansible_os_family == 'Debian'
+- name: Baixando e extraindo o Quartus18
+  unarchive:
+    src: http://nfs.sj.ifsc.edu.br/intelFPGA.tar
+    dest: /opt/
+    creates: /opt/intelFPGA
+    remote_src: yes
+    owner: root
+    group: root
+    mode: 0755
+  when: ansible_os_family == 'Debian'
 
 - name: Modifica o arquivo vco para contornar BUG
   replace:
@@ -53,4 +53,14 @@
     owner: root
     group: root
     mode: 0644
+  when: ansible_os_family == 'Debian'
+
+- name: Inserir linha para arrumar eclipse
+  blockinfile:
+    path: /opt/intelFPGA/18.1/nios2eds/bin/eclipse_nios2/eclipse.ini
+    insertbefore: --launcher.appendVmargs
+    block: |
+      --launcher.GTK_version
+      2
+    state: present
   when: ansible_os_family == 'Debian'
