@@ -64,3 +64,15 @@
       2
     state: present
   when: ansible_os_family == 'Debian'
+
+- name: Adiciona LOCALE en_US.UTF-8
+  lineinfile:
+    path: /etc/locale.gen
+    insertafter: "# en_US.UTF-8 UTF-8"
+    line: en_US.UTF-8 UTF-8
+    state: present
+  when: ansible_os_family == 'Debian'
+
+- name: Atualizar o LOCALES
+  shell: dpkg-reconfigure -f -y locales
+  when: ansible_os_family == 'Debian'
