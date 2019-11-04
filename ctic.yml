@@ -9,8 +9,8 @@
     # - ingressa_ldap
     - rke
   tasks:
-  - name: Instalar os pacotes para o Ansible do stretch-backports - Linux Debian
-    apt: name=ansible state=latest default_release=stretch-backports
+  - name: Instalar os pacotes para o Ansible #do buster-backports - Linux Debian
+    apt: name=ansible state=latest #default_release=buster-backports
   - name: Pacotes padroes da CTIC
     apt: name={{ packages }} state=latest
     vars:
@@ -47,7 +47,7 @@
   any_errors_fatal: true
   roles:
     - kubernetes
-    - softwares_remotos
+    # - softwares_remotos # ruim no buster
     - role: geerlingguy.nfs
       nfs_exports: [ "/dados *(rw,sync,no_root_squash)" ]
     # - role: bertvv.samba
@@ -74,13 +74,14 @@
       - keychain
       - dcfldd
       - lm-sensors
-      - nautilus-dropbox
+      # - nautilus-dropbox # ruim no buster
       - unzip
       - vlan
       - python3-pip
+      - python-pip
       - python3-tk
       - gir1.2-appindicator3-0.1
-      - python-appindicator
+      # - python-appindicator # ruim no buster
       - virtualenv
   - pip:
       name: pywinrm
