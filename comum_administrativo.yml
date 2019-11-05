@@ -18,7 +18,7 @@
     - auto_desligamento
 
 # Ingressa LDAP. Exclui da lista as máquinas com impressora local
-- hosts: administrativos_lin:!sj-lin-des2-744927.maquinas.sj.ifsc.edu.br:!sj-lin-des2-744928.maquinas.sj.ifsc.edu.br:!patrim:!biblio:!sj-lin-comaf-37250.maquinas.sj.ifsc.edu.br:!sj-lin-almox-756044.maquinas.sj.ifsc.edu.br:!sj-lin-comaf-744525.maquinas.sj.ifsc.edu.br
+- hosts: administrativos_lin:!sj-lin-des2-744927.maquinas.sj.ifsc.edu.br:!sj-lin-des2-744928.maquinas.sj.ifsc.edu.br:!patrim:!biblio:!sj-lin-comaf-37250.maquinas.sj.ifsc.edu.br:!sj-lin-almox-756044.maquinas.sj.ifsc.edu.br:!sj-lin-comaf-744525.maquinas.sj.ifsc.edu.br:!sj-lin-ctic-744521.maquinas.sj.ifsc.edu.br
   any_errors_fatal: true
   roles:
     - ingressa_ldap
