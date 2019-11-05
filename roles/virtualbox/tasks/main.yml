@@ -1,12 +1,12 @@
 #Linux
 
-# Debian
+# Debian 9
 - name: Adicionar repositório stretch-backports para Virtualbox - Linux Debian
   apt_repository:
     repo: deb http://ftp.debian.org/debian stretch-backports main contrib non-free
     state: present
     update_cache: yes
-  when: ansible_distribution == 'Debian'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
 
 - name: Instalar os pacotes para o Virtualbox do stretch-backports - Linux Debian
   apt: name={{ packages }} state=latest default_release=stretch-backports
@@ -17,7 +17,35 @@
     - virtualbox-ext-pack
     - virtualbox-guest-utils
     - virtualbox-guest-x11
-  when: ( ansible_distribution == 'Debian' and ansible_hostname is not search("^sj-lin-mtele-577558") ) #PC da Mayara, tem virtualbox instalado na mão, mais novo.
+  when: ( ansible_distribution == 'Debian' and ansible_distribution_release == 'stretch' and ansible_hostname is not search("^sj-lin-mtele-577558") ) #PC da Mayara, tem virtualbox instalado na mão, mais novo.
+
+# Debian 10
+- name: Adiciona uma chave para o virtualbox
+  apt_key:
+    url: https://www.virtualbox.org/download/oracle_vbox.asc
+    state: present
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
+
+- name: Adiciona outra chave para o virtualbox
+  apt_key:
+    url: https://www.virtualbox.org/download/oracle_vbox_2016.asc
+    state: present
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
+
+- name: Adicionar repositório para Virtualbox - Linux Debian
+  apt_repository:
+    repo: deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian bionic contrib
+    state: present
+    filename: virtualbox.list
+    update_cache: yes
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
+
+- name: Instalar os pacotes para o Virtualbox do buster-backports - Linux Debian
+  apt: name={{ packages }} state=latest default_release=buster-backports
+  vars:
+    packages:
+    - virtualbox-6.0
+  when: ( ansible_distribution == 'Debian' and ansible_distribution_release == 'buster')
 
 # Ubuntu
 - name: Instalar os pacotes para o Virtualbox do ubuntu - Linux Ubuntu
