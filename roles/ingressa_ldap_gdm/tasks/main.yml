@@ -9,10 +9,14 @@
     - libpam-mount
     - cifs-utils
   when: ansible_distribution == 'Debian'
-  
+
 - name: Instala o GDM3
   apt: name=gdm3 state=latest
   when: ansible_distribution == 'Debian'
+
+- name: Instala o Gnome
+  apt: name=gnome state=latest
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
 
 - name: Copiando arquivo /etc/ldap.conf
   copy:
@@ -116,14 +120,14 @@
     group: root
     mode: 0644
   when: ansible_os_family == 'Debian'
-  
+
 - name: Remove lightdm
   apt: name={{ packages }} state=absent purge=yes
   vars:
     packages:
     - lightdm
     - lightdm-gtk-greeter
-    - lightdm-gtk-greeter-settings    
+    - lightdm-gtk-greeter-settings
   when: ansible_distribution == 'Debian'
 
 # Windows
@@ -155,4 +159,3 @@
 
 - win_reboot:
   when: (ansible_os_family == 'Windows' and ansible_windows_domain_member == 'false' and domain_state.reboot_required)
-
