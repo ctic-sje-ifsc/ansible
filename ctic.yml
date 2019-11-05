@@ -47,6 +47,7 @@
   any_errors_fatal: true
   roles:
     - kubernetes
+    - ingressa_ldap_gdm
     # - softwares_remotos # ruim no buster
     - role: geerlingguy.nfs
       nfs_exports: [ "/dados *(rw,sync,no_root_squash)" ]
