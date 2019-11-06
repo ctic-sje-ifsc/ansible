@@ -1,0 +1,54 @@
+#Windows
+
+- name: Baixar e instalar o Pack Calculation PRO - Windows
+  win_package:
+    path: https://www.ipu.dk/wp-content/uploads/2018/09/packcalculationpro-v444.exe
+    arguments:
+    - /VERYSILENT
+    - /SUPRESSMSGBOXES
+    - /NORESTART
+    - /SP-
+    product_id: 'Pack Calculation Pro_is1'
+    state: present
+  when: ansible_os_family == 'Windows'
+
+- name: Baixar e instalar o CoolPack - Windows
+  win_package:
+    path: https://www.ipu.dk/wp-content/uploads/2018/10/coolpack-v150.exe
+    arguments:
+    - /VERYSILENT
+    - /SUPRESSMSGBOXES
+    - /NORESTART
+    - /SP-
+    product_id: 'CoolPack_is1'
+    state: present
+  when: ansible_os_family == 'Windows'
+
+- name: Baixar e instalar o SecCool - Windows
+  win_package:
+    path: https://www.ipu.dk/wp-content/uploads/2018/10/seccool-v133.exe
+    arguments:
+    - /VERYSILENT
+    - /SUPRESSMSGBOXES
+    - /NORESTART
+    - /SP-
+    product_id: 'SecCool_is1'
+    state: present
+  when: ansible_os_family == 'Windows'
+
+- name: Baixar e instalar o Simple one-stage CO2 - Windows
+  win_package:
+    path: https://www.ipu.dk/wp-content/uploads/2018/10/simpleonestage-v240.exe
+    arguments:
+    - /VERYSILENT
+    - /SUPRESSMSGBOXES
+    - /NORESTART
+    - /SP-
+    product_id: 'Simple One Stage CO2 Cycle_is1'
+    state: present
+  when: ansible_os_family == 'Windows'
+
+### Comando em powershell para mostrar product_id
+### get-wmiobject Win32_Product | Format-Table IdentifyingNumber, Name, LocalPackage -AutoSize
+### Localizacao do productid 32 bits: HKLM:Software\Microsoft\Windows\CurrentVersion\Uninstall
+### Localizacao do productid 64 bits: HKLM:Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall
