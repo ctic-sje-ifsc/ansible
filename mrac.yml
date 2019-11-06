@@ -3,6 +3,7 @@
   any_errors_fatal: true
   roles:
     - ingressa_ldap
+    - ipu_softwares
 
 ## Linux only
 - hosts: mrac_lin
