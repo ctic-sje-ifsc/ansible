@@ -91,12 +91,12 @@
     - transmission-common
   when: ansible_os_family == 'Debian'
 
-- name: Inclui role warsaw
+- name: Inclusão de roles - Linux
   include_role:
-    name: warsaw
-
-# - include_role:
-#     name: foxit
+    name: "{{ item }}"
+  with_items:
+    - warsaw
+    - foxit
 
 #Windows
 - name: Instalar pacotes padroes - Windows
@@ -134,13 +134,9 @@
 #   when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 8.1 Pro')
 
 #Windows e Linux
-- name: Inclui role owncloud_client
+- name: Inclusão de roles - Linux e Windows
   include_role:
-    name: owncloud_client
-
-- name: Inclui role flashplayer
-  include_role:
-    name: flashplayer
-
-# - include_role:
-#     name: auto_desligamento
+    name: "{{ item }}"
+  with_items:
+    - owncloud_client
+    - flashplayer
