@@ -19,10 +19,11 @@
     state: present
   when: ansible_os_family == 'Debian'
 
-- name: Add the user 'johnd' with a specific uid and a primary group of 'admin'
+- name: Adiciona os usuário que tem token no grupo scard
   user:
     name: "{{ item }}"
-    group: scard
+    groups: scard
+    append: yes
   with_items:
       - michael.silva
       - odilane
@@ -30,11 +31,22 @@
       - sabrinamc
   when: ansible_os_family == 'Debian'
 
-- name: Instalar pacotes necessários - Linux
+- name: Instalar pacotes necessários - Linux Debian Stretch
+  apt:
+    pkg:
+      - libp11-2
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
+
+- name: Instalar pacotes necessários - Linux Debian Buster
+  apt:
+    pkg:
+      - libp11-3
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
+
+- name: Instalar outros pacotes - Linux
   apt:
     pkg:
     - libengine-pkcs11-openssl
-    - libp11-3
     - libpcsc-perl
     - libccid
     - libpcsclite1
