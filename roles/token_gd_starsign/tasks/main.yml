@@ -1,23 +1,62 @@
-- name: Instalar o pacote pcscd - Linux
-  apt: name=pcscd state=latest
-  when: ansible_os_family == 'Debian'
-
-- name: Adicionar repositório wheezy provisorio - Linux
+- name: Adicionar repositório para instalar libssl1.0.0
   apt_repository:
-    repo: deb http://ftp.de.debian.org/debian wheezy main
+    repo: deb http://security.debian.org/debian-security jessie/updates main
+    state: present
+    update_cache: yes
+  when: (ansible_os_family == 'Debian')
+
+- name: Instalar pacotes necessarios para o warsaw
+  apt:
+    state: latest
+    default_release: jessie
+    pkg:
+      - libssl1.0.0
+  when: (ansible_os_family == 'Debian')
+
+- name: Cria o grupo scard
+  group:
+    name: scard
+    state: present
   when: ansible_os_family == 'Debian'
 
-- name: Instala libwxgtk2.8-0 necessario para o safesignidentityclient
-  apt:
-    deb: libwxgtk2.8-0_2.8.12.1+dfsg2-dmo4_amd64.deb
+- name: Add the user 'johnd' with a specific uid and a primary group of 'admin'
+  user:
+    name: "{{ item }}"
+    group: scard
+  with_items:
+      - michael.silva
+      - odilane
+      - judite
+      - sabrinamc
   when: ansible_os_family == 'Debian'
 
-- name: Instala libwxbase2 necessario para o safesignidentityclient
+- name: Instalar pacotes necessários - Linux
   apt:
-    deb: libwxbase2.8-0_2.8.12.1+dfsg2-dmo4_amd64.deb
+    pkg:
+    - libengine-pkcs11-openssl
+    - libp11-3
+    - libpcsc-perl
+    - libccid
+    - libpcsclite1
+    - libasedrive-usb
+    - opensc
+    - openssl
+    - libopensc-openssl
+    - pcscd
+    - pcsc-tools
   when: ansible_os_family == 'Debian'
 
-- name: Install a .deb package from the internet.
+- name: Instala pacotes obsoletos necessário para o token
   apt:
-    deb: safesignidentityclient_3.0.77-Ubuntu_amd64.deb
+    deb: "https://github.com/ctic-sje-ifsc/ansible/raw/master/roles/token_gd_starsign/files/{{ item }}"
+    force: yes
+    allow_unauthenticated: yes
+    state: present
+  with_items:
+    - libpng12-0_1.2.49-1+deb7u2_amd64.deb
+    - libjpeg62-turbo_1.5.1-2_amd64.deb
+    - libwxgtk2.8-0_2.8.12.1+dfsg2-dmo4_amd64.deb
+    - libgdbm3_1.8.3-14_amd64.deb
+    - libwxbase2.8-0_2.8.12.1+dfsg2-dmo4_amd64.deb
+    - safesignidentityclient_3.0.77-Ubuntu_amd64.deb
   when: ansible_os_family == 'Debian'
