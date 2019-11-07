@@ -48,6 +48,7 @@
 - import_playbook: labfisica.yml
 - import_playbook: ledis.yml
 - import_playbook: mcul.yml
+- import_playbook: manut.yml
 - import_playbook: mtele.yml
 - import_playbook: patrim.yml
 - import_playbook: registro_academico.yml
