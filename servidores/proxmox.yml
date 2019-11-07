@@ -27,17 +27,6 @@
       line: 'PasswordAuthentication no'
     notify: restart_sshd
 
-#NAO ESQUECER DE COLOCAR NO pre-up no network interfaces DE CADA MAQUINA
-#
-# EXEMPLO:
-# 
-# auto vmbr0.900
-# iface vmbr0.900 inet static
-# 	address  172.18.119.X
-# 	netmask  255.255.255.0
-# 	gateway  172.18.119.254
-# 	pre-up iptables-restore < /etc/iptables.rules
-
   - name: Apaga arquivo pve-enterprise.list
     file:
       path: /etc/apt/sources.list.d/pve-enterprise.list
@@ -73,6 +62,14 @@
   - name: sysctl disable autoconf vmbr0
     sysctl:
       name: net.ipv6.conf.vmbr0.autoconf
+      value: '0'
+      sysctl_set: yes
+      reload: yes
+    tags: sysctl
+
+  - name: sysctl disable accept_ra vmbr0
+    sysctl:
+      name: net.ipv6.conf.vmbr0.accept_ra
       value: '0'
       sysctl_set: yes
       reload: yes
