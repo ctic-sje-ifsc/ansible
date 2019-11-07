@@ -22,11 +22,5 @@
 - name: Instalar o .deb warsaw - Linux Debian
   apt:
     deb: https://cloud.gastecnologia.com.br/bb/downloads/ws/warsaw_setup64.deb
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'buster')
+  when: ansible_os_family == 'Debian'
 
-
-#### Debian Buster
-- name: Instalar o .deb warsaw - Linux Debian
-  apt:
-    deb: https://cloud.gastecnologia.com.br/bb/downloads/ws/warsaw_setup64.deb
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
