@@ -81,9 +81,15 @@
       - python3-pip
       - python-pip
       - python3-tk
+      - python3-setuptools
       - gir1.2-appindicator3-0.1
       # - python-appindicator # ruim no buster
+      - vinagre
       - virtualenv
   - pip:
-      name: pywinrm
+      name:
+        - pywinrm
+        - paramiko
+        - cryptography==2.4.2
+      executable: pip3
 ##########################################################
