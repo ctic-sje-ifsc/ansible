@@ -343,7 +343,7 @@
 
 - name: Setar timezone no Windows
   win_timezone:
-    timezone: E. South America Standard Time
+    timezone: E. South America Standard Time_dstoff
   when: ansible_os_family == 'Windows'
 ###################### Fim do NTP Windows
 
