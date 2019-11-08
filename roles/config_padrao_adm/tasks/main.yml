@@ -27,7 +27,7 @@
   copy:
     content: |
       auto lo
-      iface lo inet loopback      
+      iface lo inet loopback
     dest: /etc/network/interfaces
     owner: root
     group: root
@@ -106,7 +106,7 @@
   authorized_key:
     user: root
     state: present
-    key: "{{ lookup('file', 'marcelo.id_rsa.pub') }}" 
+    key: "{{ lookup('file', 'marcelo.id_rsa.pub') }}"
   when: ansible_os_family == 'Debian'
 
 - include_role:
@@ -136,7 +136,8 @@
     type: dword
   when: ansible_os_family == 'Windows'
 
+## OBS: _dst_off eh para desabilitar o horario de verao
 - name: Setar timezone no Windows
   win_timezone:
-    timezone: E. South America Standard Time
+    timezone: "E. South America Standard Time_dst_off"
   when: ansible_os_family == 'Windows'
