@@ -139,5 +139,5 @@
 ## OBS: _dst_off eh para desabilitar o horario de verao
 - name: Setar timezone no Windows
   win_timezone:
-    timezone: "E. South America Standard Time_dst_off"
+    timezone: "E. South America Standard Time_dstoff"
   when: ansible_os_family == 'Windows'
