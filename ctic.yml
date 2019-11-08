@@ -5,9 +5,9 @@
     - docker
     # - teamviewer
     # - virtualbox
-    - rambox
+    # - rambox
     # - ingressa_ldap
-    - rke
+    # - rke
   tasks:
   - name: Instalar os pacotes para o Ansible #do buster-backports - Linux Debian
     apt: name=ansible state=latest #default_release=buster-backports
@@ -29,6 +29,14 @@
       - sshfs
       - net-tools
       - dnsutils
+      - python3-pip
+      - python-pip
+  - pip:
+    name:
+      - pywinrm
+      - paramiko
+      - cryptography==2.4.2
+    executable: pip3
   - name: Adiciona no grupo docker
     user:
       name: "{{item}}"
@@ -78,18 +86,10 @@
       # - nautilus-dropbox # ruim no buster
       - unzip
       - vlan
-      - python3-pip
-      - python-pip
       - python3-tk
       - python3-setuptools
       - gir1.2-appindicator3-0.1
       # - python-appindicator # ruim no buster
       - vinagre
       - virtualenv
-  - pip:
-      name:
-        - pywinrm
-        - paramiko
-        - cryptography==2.4.2
-      executable: pip3
 ##########################################################
