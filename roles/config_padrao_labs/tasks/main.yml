@@ -340,6 +340,12 @@
     name: 2
     data: a.st1.ntp.br
   when: ansible_os_family == 'Windows'
+
+## OBS: _dst_off eh para desabilitar o horario de verao
+- name: Setar timezone no Windows
+  win_timezone:
+    timezone: "E. South America Standard Time_dst_off"
+  when: ansible_os_family == 'Windows'
 ###################### Fim do NTP Windows
 
 ###################### Início da configuracao do UTC Windows
