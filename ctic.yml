@@ -16,27 +16,19 @@
     vars:
       packages:
       - keepassx
-      - konsole
-      - nfs-common
-      - curl
-      - ethtool
       - git
       - gparted
       - vinagre
-      - samba
       - tcpdump
-      - usbutils
-      - sshfs
-      - net-tools
       - dnsutils
       - python3-pip
       - python-pip
   - pip:
-    name:
-      - pywinrm
-      - paramiko
-      - cryptography==2.4.2
-    executable: pip3
+      name:
+        - pywinrm
+        - paramiko
+        - cryptography==2.4.2
+      executable: pip3
   - name: Adiciona no grupo docker
     user:
       name: "{{item}}"
@@ -49,6 +41,12 @@
       - marcelo.alejandro
       - etorresini
     when: ansible_os_family == 'Debian'
+
+##################  Maquina do 1berto  ##################
+- hosts: sj-lin-ctic-37247.maquinas.sj.ifsc.edu.br
+  any_errors_fatal: true
+  roles:
+    - ingressa_ldap_gdm
 
 ##################  Maquina do RICARDO  ##################
 - hosts: sj-lin-ctic-744521.maquinas.sj.ifsc.edu.br
@@ -92,4 +90,12 @@
       # - python-appindicator # ruim no buster
       - vinagre
       - virtualenv
+      - konsole
+      - nfs-common
+      - curl
+      - ethtool
+      - samba
+      - usbutils
+      - sshfs
+      - net-tools
 ##########################################################
