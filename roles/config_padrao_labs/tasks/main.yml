@@ -344,6 +344,7 @@
 - name: Setar timezone no Windows
   win_shell: |
     tzutil /s "E. South America Standard Time_dstoff"
+  when: ansible_os_family == 'Windows'
 #   win_timezone:
 #     timezone: E. South America Standard Time_dstoff
 #   when: ansible_os_family == 'Windows'
