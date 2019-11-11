@@ -6,6 +6,34 @@
 #   roles:
 #     - final_semestre
 
+- hosts: laboratorios_win
+  tasks:
+    - name: enable TLSv1.2 support
+      win_regedit:
+        path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\{{ item.type }}
+        name: '{{ item.property }}'
+        data: '{{ item.value }}'
+        type: dword
+        state: present
+      register: enable_tls12
+      loop:
+      - type: Server
+        property: Enabled
+        value: 1
+      - type: Server
+        property: DisabledByDefault
+        value: 0
+      - type: Client
+        property: Enabled
+        value: 1
+      - type: Client
+        property: DisabledByDefault
+        value: 0
+
+    - name: reboot if TLS config was applied
+      win_reboot:
+      when: enable_tls12 is changed
+
 # # LIMPA TEMP WINDOWS
 # - hosts: laboratorios_win
 #   roles:
@@ -84,7 +112,7 @@
 #         name: "*"
 #         state: latest
 #       when: ansible_os_family == 'Debian'
-    
+
 #     - name: seleciona a entrada grub 0 para o próximo boot
 #       shell: grub-reboot 0
 #       when: ansible_os_family == 'Debian'
