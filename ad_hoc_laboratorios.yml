@@ -6,7 +6,7 @@
 #   roles:
 #     - final_semestre
 
-- hosts: imagens_adm_win
+- hosts: laboratorios_win
   tasks:
     - name: enable TLSv1.2 support
       win_regedit:
