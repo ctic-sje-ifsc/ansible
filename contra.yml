@@ -1,0 +1,10 @@
+- hosts: sj-lin-contra-710813.maquinas.sj.ifsc.edu.br
+  any_errors_fatal: true
+  roles:
+    - ingressa_ldap_sem_cups_client
+    - savpdf
+    - role: instala_impressora_cups
+      install: 0
+      financeiro: 1
+      cgp: 1
+      pdf: 1

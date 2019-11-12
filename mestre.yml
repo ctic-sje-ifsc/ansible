@@ -37,6 +37,7 @@
 - import_playbook: cgp.yml
 - import_playbook: coger.yml
 - import_playbook: comaf.yml
+- import_playbook: contra.yml
 - import_playbook: computadores_interativos.yml
 - import_playbook: comum_administrativo.yml
 - import_playbook: cotel.yml
