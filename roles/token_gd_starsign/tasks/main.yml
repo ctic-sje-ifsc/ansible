@@ -5,7 +5,7 @@
     update_cache: yes
   when: (ansible_os_family == 'Debian')
 
-- name: Instalar pacotes necessarios para o warsaw
+- name: Instalar pacotes libssl1.0.0
   apt:
     state: latest
     default_release: jessie
