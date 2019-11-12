@@ -97,6 +97,8 @@
   with_items:
     - warsaw
     - foxit
+    - cadeia_certificados
+  when: ansible_os_family == 'Debian'
 
 #Windows
 - name: Instalar pacotes padroes - Windows
@@ -138,5 +140,5 @@
   include_role:
     name: "{{ item }}"
   with_items:
-    - owncloud_client
+    # - owncloud_client
     - flashplayer
