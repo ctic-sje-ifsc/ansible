@@ -2,7 +2,8 @@
 - name: Verifica versao do rambox
   shell: GET https://api.github.com/repos/ramboxapp/community-edition/tags |grep name |cut -d'"' -f4 -s
   register: versao_rambox
-  ignore_errors: True
+  changed_when: False
+  when: ansible_os_family == 'Debian'
   ## Exemplo de outro jeito curl -Ls -o /dev/null -w %{url_effective} "https://github.com/rambox/community-edition/releases/latest" | grep -oE "[^/]+$"
 
 - name: Install a .deb Rambox {{ versao_rambox.stdout }} - Linux
