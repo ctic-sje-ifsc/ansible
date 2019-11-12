@@ -32,7 +32,7 @@
 
 - name: Criando o link do menu de propriedades do Flash Player - Linux Debian
   file:
-    src: /usr/lib/flash-player/usr/bin/flash-player-properties 
+    src: /usr/lib/flash-player/usr/bin/flash-player-properties
     dest: /usr/bin/flash-player-properties
     state: link
   when: ansible_os_family == 'Debian'
