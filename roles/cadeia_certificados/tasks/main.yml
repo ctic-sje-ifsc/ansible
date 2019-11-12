@@ -1,17 +1,37 @@
-# Cria o diretório /usr/local/share/ca-certificates/extra
-- file:
-    path: /usr/local/share/ca-certificates/extra
+- name: Cria o diretório /home/certificados
+  file:
+    path: /home/certificados
     state: directory
   when: ansible_os_family == 'Debian'
 
-- name: Copiando arquivo ICP-Brasilv5.crt
-  copy:
-    src: ICP-Brasilv5.crt
-    dest: /usr/local/share/ca-certificates/extra/ICP-Brasilv5.crt
+- name: Cria o diretório /home/certificados/{firefox;chrome}
+  file:
+    path: /home/certificados/{{ item }}
+    state: directory
+  loop:
+    - firefox
+    - chrome
   when: ansible_os_family == 'Debian'
 
-- name: Update cert index
-  shell: /usr/sbin/update-ca-certificates ; touch /var/update-ca-certificates
-  args:
-    creates: /var/update-ca-certificates
+- name: Copiando arquivos ICP Brasil Firefox
+  copy:
+    src: "{{ item }}"
+    dest: /home/certificados/firefox/{{ item }}
+  loop:
+    - v1_ff.der
+    - v2_ff.der
+    - v5_ff.der
+    - v8_ff.der
+    - v9_ff.der
+  when: ansible_os_family == 'Debian'
+
+- name: Copiando arquivos ICP Brasil Chrome / Chomium
+  copy:
+    src: "{{ item }}"
+    dest: /home/certificados/chrome/{{ item }}
+  loop:
+    - ICP-Brasilv2.crt
+    - ICP-Brasilv5.crt
+    - ICP-Brasilv8.crt
+    - ICP-Brasilv9.crt    
   when: ansible_os_family == 'Debian'
