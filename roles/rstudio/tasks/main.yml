@@ -1,13 +1,13 @@
 #Linux
 
 # Necessário para testes, depois vai ficar no programas_padroes_labs
-- name: Instalar os pacotes default Java openjdk - Linux
-  apt: name={{ packages }} state=latest
-  vars:
-    packages:
-    - default-jdk
-    - default-jre
-  when: ansible_os_family == 'Debian'
+# - name: Instalar os pacotes default Java openjdk - Linux
+#   apt:
+#     state: latest
+#     pkg:
+#     - default-jdk
+#     - default-jre
+#   when: ansible_os_family == 'Debian'
 
 - name: Adiciona apt key do r-cran
   apt_key:
@@ -17,13 +17,14 @@
 
 - name: Adicionar repositório r-cran - Linux Debian 9
   apt_repository:
-    repo: deb https://cran-r.c3sl.ufpr.br/bin/linux/debian stretch-cran35/
+    repo: deb http://cran-r.c3sl.ufpr.br/bin/linux/debian stretch-cran35/
+    filename: cran-r
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
 
 - name: Instalar os pacotes para o r-project - Linux
-  apt: name={{ packages }} state=latest
-  vars:
-    packages:
+  apt:
+    state: latest
+    pkg:
     - r-base
     - r-base-dev
     - libxml2-dev
@@ -39,33 +40,51 @@
 
 # # Bibliotecas Linux
 # - name: Instalar bibliotecas para o r-studio - Linux
-#   apt: name={{ packages }} state=latest
-#   vars:
-#     packages:
+#   apt:
+#   state: latest
+#     pkg:
 #     - r-cran-gdata
 #     - r-cran-gmodels
 #     - r-cran-gtools
 #   when: ansible_os_family == 'Debian'
+
+- name: Verifica versao do RWeka
+  shell: GET https://cran.r-project.org/src/contrib |grep RWeka| cut -d'"' -f8| cut -d'"' -f1| head -n 1
+  register: versao_rweka
+  changed_when: False
+  when: ansible_os_family == 'Debian'
+
+- name: Verifica versao do RWekajars
+  shell: GET https://cran.r-project.org/src/contrib |grep RWekajars| cut -d'"' -f8| cut -d'"' -f1| head -n 1
+  register: versao_rwekajars
+  changed_when: False
+  when: ansible_os_family == 'Debian'
+
+- name: Verifica versao do rJava
+  shell: GET https://cran.r-project.org/src/contrib |grep rJava| cut -d'"' -f8| cut -d'"' -f1| head -n 1
+  register: versao_rjava
+  changed_when: False
+  when: ansible_os_family == 'Debian'
 
 - name: Baixa Biblioteca RWeka e Rwekajars - Linux
   get_url:
     url: https://cran.r-project.org/src/contrib/{{item}}
     dest: /var/{{item}}
   with_items:
-    - rJava_0.9-11.tar.gz
-    - RWekajars_3.9.3-1.tar.gz
-    - RWeka_0.4-40.tar.gz
+    - "{{ versao_rjava.stdout }}"
+    - "{{ versao_rwekajars.stdout }}"
+    - "{{ versao_rweka.stdout }}"
   when: ansible_os_family == 'Debian'
 
 - name: Instala Biblioteca RWeka e Rwekajars - Linux
   command: /usr/bin/R CMD INSTALL /var/{{item}}
   args:
     creates: /usr/local/lib/R/site-library/RWeka
-  when: ansible_os_family == 'Debian'
   with_items:
-    - rJava_0.9-11.tar.gz
-    - RWekajars_3.9.3-1.tar.gz
-    - RWeka_0.4-40.tar.gz
+    - "{{ versao_rjava.stdout }}"
+    - "{{ versao_rwekajars.stdout }}"
+    - "{{ versao_rweka.stdout }}"
+  when: ansible_os_family == 'Debian'
 
 #Windows
 - name: Verifica versao do R
