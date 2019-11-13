@@ -51,6 +51,7 @@
 
 - name: Altera parâmetro para que o dhclient não morra depois de pegar IPv6 e fique sem IPv4
   shell: nmcli connection modify Wired\ connection\ 1 ipv4.may-fail no
+  changed_when: False
   tags:
   - rede
   when: ansible_os_family == 'Debian'
