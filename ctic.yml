@@ -27,7 +27,7 @@
       name:
         - pywinrm
         - paramiko
-        - cryptography==2.4.2
+        - cryptography # ==2.4.2 #Não eh mais necessario essa versao
       executable: pip3
   - name: Adiciona no grupo docker
     user:
