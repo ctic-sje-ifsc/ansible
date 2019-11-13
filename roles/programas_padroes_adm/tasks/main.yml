@@ -8,10 +8,8 @@
 
 - name: Instalar pacotes padroes - Linux (Ubuntu e Debian 9)
   apt:
-    name: "{{ packages }}"
     state: latest
-  vars:
-    packages:
+    pkg:
     - apt-transport-https
     - aptitude
     - vim
@@ -47,14 +45,13 @@
 
 - name: Instalar pacotes padroes - Linux (Debian 10)
   apt:
-    name: "{{ packages }}"
     state: latest
-  vars:
-    packages:
+    pkg:
     - apt-transport-https
     - aptitude
     - vim
     - firmware-linux-free
+    - firmware-linux-nonfree
     - vlc
     - unrar-free
     - dkms
@@ -83,10 +80,8 @@
 
 - name: Remover programas  - Linux
   apt:
-    name: "{{ packages }}"
     state: absent
-  vars:
-    packages:
+    pkg:
     - transmission
     - transmission-common
   when: ansible_os_family == 'Debian'
