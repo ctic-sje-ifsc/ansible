@@ -29,7 +29,7 @@
 
 # Windows
 
-# - hosts: sj-cad1-879491.maquinas.sj.ifsc.edu.br #Maquina do professor
-#   any_errors_fatal: true
-#   roles:
-#     - ingressa_ldap
+- hosts: sj-cad1-879491.maquinas.sj.ifsc.edu.br #Maquina do professor
+  any_errors_fatal: true
+  roles:
+    - ingressa_ldap
