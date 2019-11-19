@@ -30,19 +30,40 @@
     - cad1-37247
     - cad2-38841
     - cad3-744528
-  when: ( ansible_os_family == 'Debian' and  ansible_hostname is search("^sj-lin-{{ item }}") )
+  when: ( ansible_os_family == 'Debian' and ansible_hostname is search("^sj-lin-{{ item }}") )
 
-- name: Copia regras para todas as maquinas - Linux
+- name: Copia regras ipv6 de bloqueio para todas as maquinas - Linux
   copy:
-    src: "{{ item }}"
-    dest: /var
+    src: block6
+    dest: /var/block6
     owner: root
     group: root
     mode: 0755
-  with_items:
-    - block4
-    - block6
-    - wiki4
-    - wiki6
-    - libera
+  when: ansible_os_family == 'Debian'
+
+- name: Copia regras ipv6 da wiki para todas as maquinas - Linux
+  copy:
+    src: wiki6
+    dest: /var/wiki6
+    owner: root
+    group: root
+    mode: 0755
+  when: ansible_os_family == 'Debian'
+
+- name: Copia regras de libera para todas as maquinas - Linux
+  template:
+    src: 'templates/libera.j2'
+    dest: /var/libera
+  when: ansible_os_family == 'Debian'
+
+- name: Copia regras ipv4 de bloqueio para todas as maquinas - Linux
+  template:
+    src: 'templates/block4.j2'
+    dest: /var/block4
+  when: ansible_os_family == 'Debian'
+
+- name: Copia regras ipv4 da wiki para todas as maquinas - Linux
+  template:
+    src: 'templates/wiki4.j2'
+    dest: /var/wiki4
   when: ansible_os_family == 'Debian'
