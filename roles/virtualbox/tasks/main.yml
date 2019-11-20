@@ -34,30 +34,32 @@
 
 - name: Adicionar repositório para Virtualbox - Linux Debian
   apt_repository:
-    repo: deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian bionic contrib
+    repo: deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian buster contrib
     state: present
     filename: virtualbox.list
     update_cache: yes
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
 
-- name: Instalar os pacotes para o Virtualbox do buster-backports - Linux Debian
-  apt: name={{ packages }} state=latest default_release=buster-backports
+- name: Instalar os pacotes para o Virtualbox do buster - Linux Debian
+  apt: 
+    name: '{{ packages }}'
+    state: latest
   vars:
     packages:
     - virtualbox-6.0
   when: ( ansible_distribution == 'Debian' and ansible_distribution_release == 'buster')
 
-# Ubuntu
-- name: Instalar os pacotes para o Virtualbox do ubuntu - Linux Ubuntu
-  apt: name={{ packages }} state=latest
-  vars:
-    packages:
-    - virtualbox
-    - virtualbox-dkms
-    - virtualbox-ext-pack
-    - virtualbox-guest-utils
-    - virtualbox-guest-x11
-  when: ansible_distribution == 'Ubuntu'
+# # Ubuntu
+# - name: Instalar os pacotes para o Virtualbox do ubuntu - Linux Ubuntu
+#   apt: name={{ packages }} state=latest
+#   vars:
+#     packages:
+#     - virtualbox
+#     - virtualbox-dkms
+#     - virtualbox-ext-pack
+#     - virtualbox-guest-utils
+#     - virtualbox-guest-x11
+#   when: ansible_distribution == 'Ubuntu'
 
 #Windows
 # - name: Instalar o Virtualbox - Windows
