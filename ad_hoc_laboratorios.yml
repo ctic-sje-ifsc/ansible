@@ -3,6 +3,26 @@
 #     - final_semestre
 
 # - hosts: laboratorios_win
+#   tasks:
+#     - name: Atualização do Windows
+#       win_updates:
+#         category_names:
+#           - Application
+#           - Connectors
+#           - CriticalUpdates
+#           - DefinitionUpdates
+#           - Developer Kits
+#           - FeaturePacks
+#           - Guidance
+#           - SecurityUpdates
+#           - ServicePacks
+#           - Tools
+#           - UpdateRollups
+#           - Updates
+#         reboot: yes
+#         reboot_timeout: 240
+
+# - hosts: laboratorios_win
 #   roles:
 #     - final_semestre
 
