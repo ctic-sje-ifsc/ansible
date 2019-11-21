@@ -91,6 +91,7 @@
   win_shell: "(choco search R.Project | findstr R.Project).substring(10,5)"
   register: versao_R
   ignore_errors: True
+  changed_when: False
   when: ansible_os_family == 'Windows'
 
 - name: Instalar o R versao {{ versao_R.stdout |trim}} - Windows
