@@ -14,15 +14,17 @@
 # Permissao para gravar na placa
 - name: Adiciona no grupo dialout
   user:
-    name: "{{item}}"
+    name: "{{ add_dialout }}"
     groups: dialout
     append: yes
-  with_items:
+  loop:
     - aluno
     - mayara.sousa
     - arliones.hoeller
     - roberto.matos
     - elen
+  loop_control:
+    loop_var: add_dialout
   when: ansible_os_family == 'Debian'
 
 ###################### Fim Adiciona no grupo dialout
@@ -31,11 +33,13 @@
 
 - name: Adiciona no grupo plugdev
   user:
-    name: "{{item}}"
+    name: "{{ grupo_plugdev }}"
     groups: plugdev
     append: yes
-  with_items:
+  loop:
     - aluno
+  loop_control:
+    loop_var: grupo_plugdev
   when: ansible_os_family == 'Debian'
 
 ###################### Fim Solicitado pelo Mello no chamado
@@ -351,7 +355,7 @@
     data: 1
     type: dword
   when: ansible_os_family == 'Windows'
-  
+
 #OBS: _dstoff desativa o horario de verao
 - name: Setar timezone no Windows
   win_shell: |
@@ -365,23 +369,18 @@
 
 ###################### Inicio dos Includes
 
-- include_role:
-    name: sshd_config
-
-- include_role:
-    name: auto_desligamento
-
-- include_role:
-    name: openaudit
-
-- include_role:
-    name: protege_win
-
-- include_role:
-    name: chaves_ssh
-
-- include_role:
-    name: firewall_labs
+- name: Inclusão de roles config_padrao_labs
+  include_role:
+    name: "{{ roles_labs }}"
+  loop:
+    - sshd_config
+    - auto_desligamento
+    - openaudit
+    - protege_win
+    - chaves_ssh
+    - firewall_labs
+  loop_control:
+    loop_var: roles_labs
 
 ###################### Fim dos Includes
 
@@ -454,6 +453,7 @@
 
 - name: Altera parâmetro para que o dhclient não morra depois de pegar IPv6 e fique sem IPv4
   shell: nmcli connection modify Wired\ connection\ 1 ipv4.may-fail no
+  changed_when: False
   tags:
   - rede
   when: ansible_os_family == 'Debian'

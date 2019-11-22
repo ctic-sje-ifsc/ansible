@@ -68,22 +68,26 @@
 
 - name: Baixa Biblioteca RWeka e Rwekajars - Linux
   get_url:
-    url: https://cran.r-project.org/src/contrib/{{item}}
-    dest: /var/{{item}}
-  with_items:
+    url: https://cran.r-project.org/src/contrib/{{ baixaweka }}
+    dest: /var/{{ baixaweka }}
+  loop:
     - "{{ versao_rjava.stdout }}"
     - "{{ versao_rwekajars.stdout }}"
     - "{{ versao_rweka.stdout }}"
+  loop_control:
+    loop_var: baixaweka
   when: ansible_os_family == 'Debian'
 
 - name: Instala Biblioteca RWeka e Rwekajars - Linux
-  command: /usr/bin/R CMD INSTALL /var/{{item}}
+  command: /usr/bin/R CMD INSTALL /var/{{ instalaweka }}
   args:
     creates: /usr/local/lib/R/site-library/RWeka
-  with_items:
+  loop:
     - "{{ versao_rjava.stdout }}"
     - "{{ versao_rwekajars.stdout }}"
     - "{{ versao_rweka.stdout }}"
+  loop_control:
+    loop_var: instalaweka
   when: ansible_os_family == 'Debian'
 
 #Windows
@@ -96,11 +100,13 @@
 
 - name: Instalar o R versao {{ versao_R.stdout |trim}} - Windows
   win_chocolatey:
-    name: "{{item}}"
+    name: "{{ instala_r }}"
     state: latest
-  with_items:
+  loop:
     - r.project
     - r.studio
+  loop_control:
+    loop_var: instala_r
   when: ansible_os_family == 'Windows'
 
 - name: Atalho para o r-project versao {{ versao_R.stdout | trim}} - Windows

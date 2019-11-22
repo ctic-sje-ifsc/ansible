@@ -268,9 +268,10 @@
     - transmission-common
   when: ansible_os_family == 'Debian'
 
-- include_role:
-    name: "{{ item }}"
-  with_items:
+- name: Inclusão de roles
+  include_role:
+    name: "{{ nomedosroles }}"
+  loop:
     - softwares_sdr
     - octave
     - cmaptools
@@ -288,11 +289,13 @@
     - packettracer
     # - astah
     # - ingles_progs
+  loop_control:
+    loop_var: nomedosroles
 
 # Windows --------------------------------------------------------------------------------------------------------------
 - name: Instalar pacotes padroes laboratorios - Windows
-  win_chocolatey: name={{ item }} # state=latest timeout=9000
-  with_items:
+  win_chocolatey: name={{ pkgs_win }} # state=latest timeout=9000
+  loop:
   - googlechrome
   - jre8
   - firefox
@@ -305,6 +308,8 @@
   - librecad
   - cadconverter
   - subtitleworkshop
+  loop_control:
+    loop_var: pkgs_win
   when: ansible_os_family == 'Windows'
 
 - name: Instalar o microsoftsecurityessentials - Windows 7
@@ -334,8 +339,8 @@
 #   when: ansible_os_family == 'Windows'
 
 - include_role:
-    name: "{{ item }}"
-  with_items:
+    name: "{{ role_win }}"
+  loop:
     - bricscad
     - mmanagal
     - scratch
@@ -345,6 +350,8 @@
     - ltspice
     - tracker
     # - progsisp
+  loop_control:
+    loop_var: role_win
 
 # Windows atalhos --------------------------------------------------------------------------------------------------------------
 
@@ -372,8 +379,8 @@
 # Windows e Linux --------------------------------------------------------------------------------------------------------------
 
 - include_role:
-    name: "{{ item }}"
-  with_items:
+    name: "{{ role_dual }}"
+  loop:
     - virtualbox
     - wireshark
     - arduino
@@ -384,3 +391,5 @@
     - kile
     - foxit
     # - atom
+  loop_control:
+    loop_var: role_dual
