@@ -31,7 +31,7 @@
     state: directory
     mode: 0755
     owner: aluno
-    group: 1001
+    group: '1001'
   when: ansible_os_family == 'Debian'
 
 #Cria diretórios onde ficará os arquivos que ficariam na pasta do usuário -  Linux
