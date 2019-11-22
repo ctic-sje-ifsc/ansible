@@ -23,13 +23,15 @@
 # Permissao para gravar na placa
 - name: Adiciona no grupo dialout
   user:
-    name: "{{item}}"
+    name: "{{ grupodialout }}"
     groups: dialout
     append: yes
-  with_items:
+  loop:
     - mayara.sousa
     - elen
     - claudiacastro
+  loop_control:
+    loop_var: grupodialout
   when: ansible_os_family == 'Debian'
 
 #Windows

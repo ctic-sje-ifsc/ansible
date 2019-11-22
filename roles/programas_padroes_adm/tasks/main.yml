@@ -88,18 +88,20 @@
 
 - name: Inclusão de roles - Linux
   include_role:
-    name: "{{ item }}"
-  with_items:
+    name: "{{ roles_adm }}"
+  loop:
     - warsaw
     - foxit
     - cadeia_certificados
+  loop_control:
+    loop_var: roles_adm
   when: ansible_os_family == 'Debian'
 
 #Windows
 - name: Instalar pacotes padroes - Windows
   win_chocolatey:
-    name: "{{ item }}" # state=latest timeout=9000
-  with_items:
+    name: "{{ chocolatey_pkg }}" # state=latest timeout=9000
+  loop:
     - googlechrome
     - jre8
     - firefoxesr
@@ -108,6 +110,8 @@
     - pdfsam
     - cutepdf
     - adobereader
+  loop_control:
+    loop_var: chocolatey_pkg
   when: ansible_os_family == 'Windows'
 
 - name: Instalar o LibreOffice Still 6.0.7 - Windows
@@ -133,7 +137,9 @@
 #Windows e Linux
 - name: Inclusão de roles - Linux e Windows
   include_role:
-    name: "{{ item }}"
-  with_items:
+    name: "{{ roles_dual_adm }}"
+  loop:
     # - owncloud_client
     - flashplayer
+  loop_control:
+    loop_var: roles_dual_adm
