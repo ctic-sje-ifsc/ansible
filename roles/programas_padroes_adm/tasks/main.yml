@@ -46,6 +46,7 @@
 - name: Instalar pacotes padroes - Linux (Debian 10)
   apt:
     state: latest
+    update_cache: yes #Para garantir que o sourcelist esteja atualizado
     pkg:
     - apt-transport-https
     - aptitude
