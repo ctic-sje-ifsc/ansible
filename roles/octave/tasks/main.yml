@@ -6,11 +6,11 @@
 
 # Debian e Ubuntu
 - name: Instalar os pacotes para o octave - Linux
-  apt: name={{ packages }} state=latest
-  vars:
-    packages:
+  apt:
+    state: latest
+    pkg:
     - octave
     - octave-communications
     - octave-control
-    - octave-signal    
+    - octave-signal
   when: ansible_os_family == 'Debian'

@@ -3,8 +3,8 @@
 # Antes de atualizar o MAC, precisa reiniciar as máquinas para confirmar que o /home/aluno estão limpos.
 
   - name: Atualiza o MAC das VMs
-    shell: "/bin/su -c '/usr/bin/VBoxManage modifyvm {{ item }} --macaddress1 auto --macaddress2 auto' aluno"
-    with_items:
+    shell: "/bin/su -c '/usr/bin/VBoxManage modifyvm {{ vms }} --macaddress1 auto --macaddress2 auto' aluno"
+    loop:
       - 1-Grafico
       - 2-Grafico
       - 3-Grafico
@@ -21,6 +21,8 @@
       # - 8-Servidor
       # - 9-Servidor
       # - 10-Servidor
+    loop_control:
+      loop_var: vms
     when: (ansible_os_family == 'Debian' and  play == 1)
 
   - name: Faz backup do último aluno.tgz e cria um novo com o MAC atualizado

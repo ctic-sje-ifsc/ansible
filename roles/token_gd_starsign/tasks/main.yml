@@ -21,14 +21,16 @@
 
 - name: Adiciona os usuário que tem token no grupo scard
   user:
-    name: "{{ item }}"
+    name: "{{ token_users }}"
     groups: scard
     append: yes
-  with_items:
-      - michael.silva
-      - odilane
-      - judite
-      - sabrinamc
+  loop:
+    - michael.silva
+    - odilane
+    - judite
+    - sabrinamc
+  loop_control:
+    loop_var: token_users
   when: ansible_os_family == 'Debian'
 
 - name: Instalar pacotes necessários - Linux Debian Stretch
@@ -60,15 +62,17 @@
 
 - name: Instala pacotes obsoletos necessário para o token
   apt:
-    deb: "https://github.com/ctic-sje-ifsc/ansible/raw/master/roles/token_gd_starsign/files/{{ item }}"
+    deb: "https://github.com/ctic-sje-ifsc/ansible/raw/master/roles/token_gd_starsign/files/{{ pkg_obsoleto }}"
     force: yes
     allow_unauthenticated: yes
     state: present
-  with_items:
+  loop:
     - libpng12-0_1.2.49-1+deb7u2_amd64.deb
     - libjpeg62-turbo_1.5.1-2_amd64.deb
     - libwxgtk2.8-0_2.8.12.1+dfsg2-dmo4_amd64.deb
     - libgdbm3_1.8.3-14_amd64.deb
     - libwxbase2.8-0_2.8.12.1+dfsg2-dmo4_amd64.deb
     - safesignidentityclient_3.0.77-Ubuntu_amd64.deb
+  loop_control:
+    loop_var: pkg_obsoleto
   when: ansible_os_family == 'Debian'

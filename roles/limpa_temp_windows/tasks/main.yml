@@ -6,10 +6,12 @@
 
 - name: Clean chocolatey/nuget cache Windows
   win_file:
-    path: '{{ item }}'
+    path: '{{ cache_win }}'
     state: absent
-  with_items:
+  loop:
   - '%UserProfile%\AppData\Local\Temp\chocolatey\'
   - '%UserProfile%\AppData\Local\Temp\nuget\'
   - '%UserProfile%\AppData\Local\NuGet\Cache\'
+  loop_control:
+    loop_var: cache_win
   when: ( ansible_os_family == 'Windows' and  play == 1 )

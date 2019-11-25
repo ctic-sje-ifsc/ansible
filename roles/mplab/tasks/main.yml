@@ -21,16 +21,18 @@
 
 - name: Copiando arquivos .rules - Linux Debian
   copy:
-    src: "{{ item }}"
+    src: "{{ rules_mplab }}"
     dest: /etc/udev/rules.d
     owner: root
     group: root
     mode: 0664
-  with_items:
+  loop:
     - 99-jlink.rules
     - z010_mchp_tools.rules
     - z011_mchp_jlink.rules
     - z012_mchp_efr.rules
+  loop_control:
+    loop_var: rules_mplab
   when: ansible_os_family == 'Debian'
 
 # - name: Adicionar PATH  - Linux Debian
@@ -43,26 +45,30 @@
 
 - name: Copiando os atalhos MPLAB - Linux Debian
   copy:
-    src: "{{ item }}"
+    src: "{{ mplab_desktop }}"
     dest: /usr/share/applications/
     owner: root
     group: root
     mode: 0644
-  with_items:
+  loop:
     - mplab.desktop
     - mplab_ipe.desktop
+  loop_control:
+    loop_var: mplab_desktop
   when: ansible_os_family == 'Debian'
 
 - name: Copiando figuras - Linux Debian
   copy:
-    src: "{{ item }}"
+    src: "{{ mplab_figs }}"
     dest: /usr/share/icons/
     owner: root
     group: root
     mode: 0755
-  with_items:
+  loop:
     - mplab_ide.png
     - mplab_ipe.png
+  loop_control:
+    loop_var: mplab_figs
   when: ansible_os_family == 'Debian'
 
 - name: Copiando arquivo m328pdef.inc - Linux Debian
@@ -76,14 +82,16 @@
 
 - name: Criando links simbolicos - Linux Debian
   file:
-    src: /opt/microchip/mplabx/v5.20/mplab_platform/bin/{{ item }}
-    dest: /usr/bin/{{ item }}
+    src: /opt/microchip/mplabx/v5.20/mplab_platform/bin/{{ mplab_link }}
+    dest: /usr/bin/{{ mplab_link }}
     state: link
-  with_items:
+  loop:
     - mplab_ide
     - mplab_ipe
+  loop_control:
+    loop_var: mplab_link
   when: ansible_os_family == 'Debian'
-
+  
 # - file:
 #     src: /opt/microchip/mplabx/v5.20/mplab_platform/bin/mplab_ide
 #     dest: /usr/bin/mplab_ide
@@ -107,15 +115,17 @@
 
 - name: Copiando arquivos de configuracao de usuario
   copy:
-    src: "{{ item }}"
+    src: "{{ mplab_config }}"
     dest: /home/aluno/
     owner: aluno
     group: root
     mode: 0755
-  with_items:
+  loop:
     - .mchp_packs
     - .mplabcomm
     - .mplab_ide
+  loop_control:
+    loop_var: mplab_config
   when: (ansible_os_family == 'Debian' and  play == 1)
 
 - name: Faz backup do último aluno.tgz e cria um novo com as novas configuracoes

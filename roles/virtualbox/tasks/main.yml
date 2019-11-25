@@ -9,9 +9,10 @@
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
 
 - name: Instalar os pacotes para o Virtualbox do stretch-backports - Linux Debian
-  apt: name={{ packages }} state=latest default_release=stretch-backports
-  vars:
-    packages:
+  apt:
+    state: latest
+    default_release: stretch-backports
+    pkg:
     - virtualbox
     - virtualbox-dkms
     - virtualbox-ext-pack
@@ -41,19 +42,18 @@
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
 
 - name: Instalar os pacotes para o Virtualbox do buster - Linux Debian
-  apt: 
+  apt:
     name: '{{ packages }}'
     state: latest
-  vars:
-    packages:
+    pkg:
     - virtualbox-6.0
   when: ( ansible_distribution == 'Debian' and ansible_distribution_release == 'buster')
 
 # # Ubuntu
 # - name: Instalar os pacotes para o Virtualbox do ubuntu - Linux Ubuntu
-#   apt: name={{ packages }} state=latest
-#   vars:
-#     packages:
+#   apt:
+#     state: latest
+#     pkg:
 #     - virtualbox
 #     - virtualbox-dkms
 #     - virtualbox-ext-pack
@@ -64,11 +64,13 @@
 #Windows
 # - name: Instalar o Virtualbox - Windows
 #   win_chocolatey:
-#     name: '{{ item }}'
+#     name: '{{ pkg_vb }}'
 # #     version: 'latest'
 #     skip_scripts: yes
 #     force: yes
-#   with_items:
+#   loop:
 #   - vboxguestadditions.install
 #   - virtualbox
+#   loop_control:
+#     loop_var: pkg_vb
 #   when: ansible_os_family == 'Windows'

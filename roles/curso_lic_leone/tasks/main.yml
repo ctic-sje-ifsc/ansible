@@ -37,9 +37,9 @@
   when: ansible_os_family == 'Debian'
 
 - name: Instalar lista de pacotes pedida pelo Leone - Linux
-  apt: name={{ packages }} state=latest
-  vars:
-    packages:
+  apt:
+    state: latest
+    pkg:
     - gromacs
   when: ansible_os_family == 'Debian'
 

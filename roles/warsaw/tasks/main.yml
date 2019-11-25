@@ -12,9 +12,9 @@
   when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'buster')
 
 - name: Instalar os pacotes necessários para o warsaw
-  apt: name={{ packages }} state=latest
-  vars:
-    packages:
+  apt:
+    state: latest
+    pkg:
     - libnss3-tools
     - libcurl3
   when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'buster')
@@ -23,4 +23,3 @@
   apt:
     deb: https://cloud.gastecnologia.com.br/bb/downloads/ws/warsaw_setup64.deb
   when: ansible_os_family == 'Debian'
-

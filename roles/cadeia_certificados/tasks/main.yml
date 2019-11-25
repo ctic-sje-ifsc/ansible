@@ -15,23 +15,27 @@
 
 - name: Copiando arquivos ICP Brasil Firefox
   copy:
-    src: "{{ item }}"
-    dest: /home/certificados/firefox/{{ item }}
+    src: "{{ icp_firefox }}"
+    dest: /home/certificados/firefox/{{ icp_firefox }}
   loop:
     - v1_ff.der
     - v2_ff.der
     - v5_ff.der
     - v8_ff.der
     - v9_ff.der
+  loop_control:
+    loop_var: icp_firefox
   when: ansible_os_family == 'Debian'
 
 - name: Copiando arquivos ICP Brasil Chrome / Chomium
   copy:
-    src: "{{ item }}"
-    dest: /home/certificados/chrome/{{ item }}
+    src: "{{ icp_chrome }}"
+    dest: /home/certificados/chrome/{{ icp_chrome }}
   loop:
     - ICP-Brasilv2.crt
     - ICP-Brasilv5.crt
     - ICP-Brasilv8.crt
-    - ICP-Brasilv9.crt    
+    - ICP-Brasilv9.crt
+  loop_control:
+    loop_var: icp_chrome
   when: ansible_os_family == 'Debian'

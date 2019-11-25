@@ -11,16 +11,15 @@
 
 # #pode ser removido depois que aplicar a todos os computadores.
 # - name: Reverte versão do libssh-4 para stable
-#   apt: name={{ packages }} state=present force=yes
-#   vars:
-#     packages:      
-#       - libssh-4=0.7.3-2+deb9u1
+#   apt: name=libssh-4=0.7.3-2+deb9u1 state=present force=yes
 
-# Debian e Ubuntu    
+# Debian e Ubuntu
 - name: Instalar pacotes necessarios para o remmina
-  apt: name={{ packages }} state=present default_release=jessie force=yes
-  vars:
-    packages:
+  apt:
+    state: present
+    default_release: jessie
+    force: yes
+    pkg:
     - remmina=1.1.1-2
     - remmina-common=1.1.1-2
     - remmina-plugin-rdp=1.1.1-2
@@ -67,4 +66,3 @@
     src: icon/
     dest: /var/softwares_remotos/
   when: ansible_os_family == 'Debian'
-

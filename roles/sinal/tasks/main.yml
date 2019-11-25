@@ -1,9 +1,9 @@
 ---
 # Linux
 - name: Instalar pacotes para o pc do sinal - Linux Debian
-  apt: name={{ packages  }} state=latest
-  vars:
-    packages:
+  apt:
+    state: latest
+    pkg:
     - gcc
     - vim
     - curl

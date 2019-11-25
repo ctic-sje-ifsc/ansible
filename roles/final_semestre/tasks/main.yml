@@ -4,10 +4,10 @@
 # Debian e Ubuntu
 - name: Extrair as máquinas virtuais - Linux
   unarchive:
-    src: /home/backup/{{ item }}
+    src: /home/backup/{{ vms_bz }}
     dest: /
     remote_src: yes
-  with_items:
+  loop:
     - 1-Grafico.bz
     - 2-Grafico.bz
     - 3-Grafico.bz
@@ -24,6 +24,8 @@
     # - 8-Servidor.bz
     # - 9-Servidor.bz
     # - 10-Servidor.bz
+  loop_control:
+    loop_var: vms_bz
   when: ansible_os_family == 'Debian'
 
 - name: Zerando pasta compartilhada entre sistemas - Linux
