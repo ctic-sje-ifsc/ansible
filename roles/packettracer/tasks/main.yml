@@ -2,7 +2,7 @@
 #Linux
 - name: Adicionar repositório para instalar libssl1.0.0
   apt_repository:
-    repo: deb http://security.debian.org/debian-security jessie/updates main 
+    repo: deb http://security.debian.org/debian-security jessie/updates main
     state: present
     update_cache: yes
   when: ansible_distribution == 'Debian'
@@ -12,9 +12,9 @@
   when: ansible_distribution == 'Debian'
 
 - name: Instalar pacotes necessarios para o packettracer - Linux
-  apt: name={{ packages }} state=latest
-  vars:
-    packages:
+  apt:
+    state: latest
+    pkg:
     - libqt5webkit5
     - libqt5webkit5-dev
     - libqt5multimedia5

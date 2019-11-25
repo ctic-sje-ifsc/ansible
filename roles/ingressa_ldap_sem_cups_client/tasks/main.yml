@@ -1,23 +1,14 @@
 # Linux
 - name: Instalar pacotes necessarios para autenticação LDAP
-  apt: name={{ packages }} state=latest
-  vars:
-    packages:
+  apt:
+    state: latest
+    pkg:
     - libnss-ldap
     - libpam-ldap
     - ldap-utils
     - libpam-mount
     - cifs-utils
   when: ansible_distribution == 'Debian'
-  
-- name: Copiando arquivo /etc/ldap.conf
-  copy:
-    src: ldap.conf
-    dest: /etc/ldap.conf
-    owner: root
-    group: root
-    mode: 0644
-  when: ansible_os_family == 'Debian'
 
 - name: Copiando arquivo /etc/ldap/ldap.conf
   copy:
@@ -28,40 +19,19 @@
     mode: 0644
   when: ansible_os_family == 'Debian'
 
-- name: Copiando arquivo /etc/libnss-ldap.conf
+- name: Copiando arquivo /etc/{{ ldap_conf }}
   copy:
     src: ldap.conf
-    dest: /etc/libnss-ldap.conf
+    dest: /etc/{{ ldap_conf }}
     owner: root
     group: root
     mode: 0644
-  when: ansible_os_family == 'Debian'
-
-- name: Copiando arquivo /etc/pam_ldap.conf
-  copy:
-    src: ldap.conf
-    dest: /etc/pam_ldap.conf
-    owner: root
-    group: root
-    mode: 0644
-  when: ansible_os_family == 'Debian'
-
-- name: Copiando arquivo /etc/pam.d/common-auth
-  copy:
-    src: common-auth
-    dest: /etc/pam.d/common-auth
-    owner: root
-    group: root
-    mode: 0644
-  when: ansible_os_family == 'Debian'
-
-- name: Copiando arquivo /etc/pam.d/common-session
-  copy:
-    src: common-session
-    dest: /etc/pam.d/common-session
-    owner: root
-    group: root
-    mode: 0644
+  loop:
+    - ldap.conf
+    - libnss-ldap.conf
+    - pam_ldap.conf
+  loop_control:
+    loop_var: ldap_conf
   when: ansible_os_family == 'Debian'
 
 - name: Copiando arquivo /etc/nsswitch.conf
@@ -71,6 +41,20 @@
     owner: root
     group: root
     mode: 0644
+  when: ansible_os_family == 'Debian'
+
+- name: Copiando arquivo /etc/{{ config_ldap }}
+  copy:
+    src: "{{ config_ldap }}"
+    dest: /etc/{{ config_ldap }}
+    owner: root
+    group: root
+    mode: 0644
+  loop:
+    - common-auth
+    - common-session
+  loop_control:
+    loop_var: config_ldap
   when: ansible_os_family == 'Debian'
 
 - name: Copiando arquivo /etc/security/pam_mount.conf.xml
@@ -100,14 +84,14 @@
     path: /etc/cups/client.conf
     state: absent
   when: ansible_os_family == 'Debian'
-  
+
 - name: Instala o lightdm
-  apt: name={{ packages }} state=latest
-  vars:
-    packages:
+  apt:
+    state: latest
+    pkg:
     - lightdm
     - lightdm-gtk-greeter
-    - lightdm-gtk-greeter-settings    
+    - lightdm-gtk-greeter-settings
   when: ansible_distribution == 'Debian'
 
 - name: Remove GDM3
@@ -143,4 +127,3 @@
 
 - win_reboot:
   when: (ansible_os_family == 'Windows' and ansible_windows_domain_member == false and domain_state.reboot_required)
-

@@ -3,9 +3,9 @@
 
 # Debian stretch
 - name: Instalar pacotes necessários do Docker
-  apt: name={{ packages }} state=latest
-  vars:
-    packages:
+  apt:
+    state: latest
+    pkg:
     - apt-transport-https
     - ca-certificates
     - curl
@@ -27,13 +27,13 @@
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
 
 - name: Instalar o docker no stretch
-  apt: name={{ packages }} state=latest
-  vars:
-    packages:
+  apt:
+    state: latest
+    pkg:
     - docker-ce
     - docker-ce-cli
     - containerd.io
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
+  when: ansible_os_family == 'Debian'
 
 - name: Adicionar a chave do repositório do docker no buster
   apt_key:
@@ -46,13 +46,4 @@
     repo: deb [arch=amd64] https://download.docker.com/linux/debian buster stable
     state: present
     update_cache: yes
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
-
-- name: Instalar o docker no buster
-  apt: name={{ packages }} state=latest
-  vars:
-    packages:
-    - docker-ce
-    - docker-ce-cli
-    - containerd.io
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')

@@ -21,9 +21,9 @@
   when: ansible_os_family == 'Debian'
 
 - name: Instalar pacotes para o x2goserver - Linux
-  apt: name={{ packages }} state=latest
-  vars:
-    packages:
+  apt:
+    state: latest
+    pkg:
     - x2goserver
     - x2goserver-xsession
   when: ansible_os_family == 'Debian'

@@ -1,8 +1,5 @@
 - name: Instalar pacote gnome-subtitles - Linux
-  apt: name={{ packages }} state=latest
-  vars:
-    packages:
-    - gnome-subtitles
+  apt: name=gnome-subtitles state=latest
   when: ansible_os_family == 'Debian'
 
 - name: Cria diretório /opt/antconc
@@ -22,7 +19,7 @@
     creates: /opt/antconc/AntConc_64bit
     remote_src: yes
     owner: root
-    group: root   
+    group: root
   when: ansible_os_family == 'Debian'
 
 - name: Criando o arquivo antconc.desktop - Linux

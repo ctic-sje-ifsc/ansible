@@ -1,9 +1,9 @@
 # Somente Linux
 
 - name: Instala o pacotes necessarios para o netkit2 - Linux
-  apt: name={{ packages }} state=latest
-  vars:
-    packages:
+  apt:
+    state: latest
+    pkg:
     - graphviz
     - python-vte
     - bridge-utils
@@ -31,7 +31,7 @@
     group: root
     mode: 01777
   when: ansible_os_family == 'Debian'
-  
+
 - name: Criando o arquivo netkit2.desktop - Linux
   copy:
     src: netkit2.desktop

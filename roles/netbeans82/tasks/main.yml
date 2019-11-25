@@ -31,12 +31,12 @@
   when: ansible_os_family == 'Debian'
 
 - name: Instalar pacotes necessários - Linux
-  apt: name={{ packages }} state=latest
-  vars:
-    packages:
+  apt:
+    state: latest
+    pkg:
     - openjdk-8-jdk
     - build-essential
     - cmake
-    - cpp    
-    - gdb    
+    - cpp
+    - gdb
   when: ansible_os_family == 'Debian'

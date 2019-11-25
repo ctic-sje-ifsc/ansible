@@ -1,10 +1,7 @@
 #Antes de atualizar, verificar se o Ansible já gerencia snap
 
 - name: Instala snapd - Linux
-  apt: name={{ packages }} state=latest
-  vars:
-    packages:
-    - snapd
+  apt: name=snapd state=latest
   when: ansible_os_family == 'Debian'
 
 - name: Instala IDEA Ultimate via SNAP
@@ -36,14 +33,14 @@
 #     group: 513
 #   when: ansible_os_family == 'Debian'
 
-# # - name: Criando o arquivo jetbrains-idea.desktop - Linux Debian
-# #   copy:
-# #     src: jetbrains-idea.desktop
-# #     dest: /usr/share/applications/jetbrains-idea.desktop
-# #     owner: root
-# #     group: root
-# #     mode: 0644
-# #   when: ansible_os_family == 'Debian'
+# - name: Criando o arquivo jetbrains-idea.desktop - Linux Debian
+#   copy:
+#     src: jetbrains-idea.desktop
+#     dest: /usr/share/applications/jetbrains-idea.desktop
+#     owner: root
+#     group: root
+#     mode: 0644
+#   when: ansible_os_family == 'Debian'
 
 # - file:
 #     path: /usr/share/applications/jetbrains-idea.desktop

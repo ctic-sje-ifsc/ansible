@@ -1,9 +1,9 @@
 ---
 #Linux
 - name: Instala wpasupplicant - Linux
-  apt: name={{ packages }} state=latest
-  vars:
-    packages:
+  apt:
+    state: latest
+    pkg:
     - wpasupplicant
   when: ansible_os_family == 'Debian'
 

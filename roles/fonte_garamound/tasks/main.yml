@@ -2,13 +2,15 @@
 #Linux
 - name: Copiando as fontes Garamound
   copy:
-    src: "{{ item }}"
-    dest: /usr/share/fonts/{{ item }}
+    src: "{{ fonts }}"
+    dest: /usr/share/fonts/{{ fonts }}
     owner: root
     group: root
     mode: 0644
-  loop: 
+  loop:
     - GARA.TTF
     - GARABD.TTF
     - GARAIT.TTF
+  loop_control:
+    loop_var: fonts
   when: ansible_os_family == 'Debian'
