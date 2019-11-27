@@ -111,6 +111,10 @@
   win_shell: netsh interface ip set wins name="Ethernet" source=static addr=191.36.8.67 ; netsh interface ip add wins name="Ethernet" addr=191.36.8.68 index=2 ; netsh interface ip set dnsservers name="Ethernet" source=static addr=191.36.8.67 ; netsh interface ip add dns name="Ethernet" addr=191.36.8.68 index=2
   when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 10 Pro')
 
+- name: Setar servidor WINS e DNS - Windows 10
+  win_shell: netsh interface ip set wins name="Ethernet 3" source=static addr=191.36.8.67 ; netsh interface ip add wins name="Ethernet 3" addr=191.36.8.68 index=2 ; netsh interface ip set dnsservers name="Ethernet 3" source=static addr=191.36.8.67 ; netsh interface ip add dns name="Ethernet 3" addr=191.36.8.68 index=2
+  when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 10 Pro')
+
 - name: Setar sufixo DNS - Windows
   win_regedit:
     path: HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters
