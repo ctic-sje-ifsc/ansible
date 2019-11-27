@@ -3,14 +3,14 @@
 - name: Baixar o instalador do BIP IDE - Windows
   win_get_url:
     url: 'https://sourceforge.net/projects/bipide/files/latest/download'
-    dest: 'C:\instaladores\bipide.msi'
+    dest: 'C:\instaladores\setup_v3.msi'
     force: no
     timeout: 300 # 5 minutos
   when: ansible_os_family == 'Windows'
 
 - name: Instalar o BIP IDE - Windows
   win_package:
-    path: 'C:\instaladores\bipide.msi'
+    path: 'C:\instaladores\setup_v3.msi'
     product_id: '{833F7C2A-28F1-4D9B-8D79-3C296B257B0B}'
     state: present
   when: ansible_os_family == 'Windows'
