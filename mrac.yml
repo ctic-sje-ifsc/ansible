@@ -1,13 +1,12 @@
-## Both operational system
+## Windows
 - hosts: mrac_win
   any_errors_fatal: true
   roles:
-    - ingressa_ldap
+    - programas_padroes_labs
     - ipu_softwares
 
 ## Linux only
 - hosts: mrac_lin
   roles:
-    - ingressa_ldap
     - role: grub
       tipo: grub_win
