@@ -11,6 +11,11 @@
     deb: https://github.com/ramboxapp/community-edition/releases/download/{{ versao_rambox.stdout }}/Rambox-{{ versao_rambox.stdout }}-linux-amd64.deb
   when: ansible_os_family == 'Debian'
 
+- name: Altera permissão de um arquivo
+  file:
+    path: /opt/Rambox/chrome-sandbox
+    mode: 04755
+
 #Windows
 #- name: Instalar o Rambox - Windows
 #  win_chocolatey:
