@@ -51,10 +51,10 @@
     mode: 0644
   when: ansible_os_family == 'Debian'
 
-- name: Copiando arquivo /etc/{{ config_ldap }}
+- name: Copiando arquivo /etc/pam.d/{{ config_ldap }}
   copy:
     src: "{{ config_ldap }}"
-    dest: /etc/{{ config_ldap }}
+    dest: /etc/pam.d/{{ config_ldap }}
     owner: root
     group: root
     mode: 0644
