@@ -116,7 +116,7 @@
   - name: Cron ligar maquina ricardo2
     cron:
       name: "Maquina Ricardo2"
-      weekday: 2
+      weekday: "2"
       minute: "30"
       hour: "12"
       job: "/usr/sbin/etherwake -i eth0 78:24:af:9a:89:b8 -b"
