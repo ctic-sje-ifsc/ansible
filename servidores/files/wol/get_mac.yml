@@ -1,4 +1,5 @@
 - hosts: all
+  gather_facts: yes
   tasks:
   - debug:
           msg: "{{ hostvars[inventory_hostname].ansible_default_ipv4.macaddress }}"
