@@ -4,9 +4,9 @@
 
   tasks:
     - name: instala lusermod
-      apt: name={{ packages }} state=latest
-      vars:
-        packages:
+      apt:
+        state: latest
+        pkg:
         - libuser
       when: ansible_distribution == 'Debian'
     - name: Cria usuário aluno com a senha aluno

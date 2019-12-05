@@ -2,7 +2,7 @@
   any_errors_fatal: true
   tasks:
   - name: Pacotes especiais
-    apt: name={{ packages }} state=latest
-    vars:
-      packages:
+    apt:
+      state: latest
+      pkg:
       - nautilus-dropbox

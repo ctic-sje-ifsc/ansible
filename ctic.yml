@@ -9,12 +9,13 @@
     # - ingressa_ldap
     # - rke
   tasks:
-  - name: Instalar os pacotes para o Ansible #do buster-backports - Linux Debian
-    apt: name=ansible state=latest #default_release=buster-backports
+  # - name: Instalar os pacotes para o Ansible #do buster-backports - Linux Debian
+  #   apt: name=ansible state=latest #default_release=buster-backports
   - name: Pacotes padroes da CTIC
-    apt: name={{ packages }} state=latest
-    vars:
-      packages:
+    apt:
+      state: latest
+      pkg:
+      - ansible
       - keepassx
       - git
       - gparted
@@ -74,9 +75,9 @@
     #       password: PASSWORD
   tasks:
   - name: Pacotes do Ricardo
-    apt: name={{ packages }} state=latest
-    vars:
-      packages:
+    apt:
+      state: latest
+      pkg:
       - k3b
       - keychain
       - dcfldd

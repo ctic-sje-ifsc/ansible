@@ -2,11 +2,10 @@
   any_errors_fatal: true
   tasks:
     - name: Instalar o Java a pedido do Diego Chamado IFSC#2019060310000073
-      apt: name={{ packages }} state=latest
-      vars:
-        packages:
+      apt:
+        state: latest
+        pkg:
           - openjdk-8-jdk
           - openjdk-8-jre
   roles:
     - apaga_wifi_salvo
-
