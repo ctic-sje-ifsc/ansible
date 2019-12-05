@@ -17,11 +17,11 @@
     - ingressa_ldap_gdm
   tasks:
   - name: Pacotes do Diego
-    apt: name={{ packages }} state=latest
-    vars:
-      packages:
+    apt:
+      state: latest
+      pkg:
       - nautilus-dropbox
-  # Comentado pois apos instalar ele cria um repositorio e mantem atualizado.    
+  # Comentado pois apos instalar ele cria um repositorio e mantem atualizado.
   # - name: Install a .deb Mendeley Desktop - Linux Debian
   #   apt:
   #     deb: https://www.mendeley.com/repositories/ubuntu/stable/amd64/mendeleydesktop-latest

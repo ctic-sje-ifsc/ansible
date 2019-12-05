@@ -2,8 +2,7 @@
 - hosts: coger
   any_errors_fatal: true
   roles:
+    - qgis
     - role: softwares_remotos
       apps:
         - asctime
-    - qgis
-

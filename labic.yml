@@ -5,9 +5,9 @@
   any_errors_fatal: true
   tasks:
   - name: Instala pacotes labic
-    apt: name={{ packages }} state=latest
-    vars:
-      packages:
+    apt:
+      state: latest
+      pkg:
       - idle3
       - python-flask
       - python3-flask
@@ -16,9 +16,11 @@
   # Permissao para gravar na placa
   - name: Adiciona a jeneffer no grupo dialout
     user:
-      name: "{{item}}"
+      name: "{{ user_labic }}"
       groups: dialout
       append: yes
-    with_items:
+    loop:
       - jeneffer
+    loop_control:
+      loop_var: user_labic
     when: ansible_os_family == 'Debian'
