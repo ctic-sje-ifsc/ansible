@@ -1,7 +1,0 @@
-- hosts: all
-  gather_facts: yes
-  #ignore_unreachable: true
-  #ignore_errors: true
-  tasks:
-  - setup:
-    when: ansible_os_family == 'Debian'
