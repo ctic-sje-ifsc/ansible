@@ -41,6 +41,7 @@
     - network-manager
     - system-config-printer
     - pdfshuffler
+    - gnome-terminal
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
 
 - name: Instalar pacotes padroes - Linux (Debian 10)
@@ -77,6 +78,7 @@
     - network-manager
     - system-config-printer
     - pdfshuffler
+    - gnome-terminal
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
 
 - name: Remover programas  - Linux
