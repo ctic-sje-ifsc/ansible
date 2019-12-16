@@ -9,7 +9,7 @@
       when: ansible_os_family == 'Debian'
 
 - hosts: all:!wol
-  any_errors_fatal: true
+  # any_errors_fatal: true
   tasks:
     - name: Instalar o aptitude, necessario para o modulo apt
       apt: name=aptitude state=latest
