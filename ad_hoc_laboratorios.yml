@@ -49,6 +49,7 @@
       - type: Client
         property: DisabledByDefault
         value: 0
+        when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 7 Professional')
 
     - name: reboot if TLS config was applied
       win_reboot:
