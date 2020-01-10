@@ -1,11 +1,12 @@
-- hosts: programacao
+---
+# Linux
+- hosts: programacao_lin
   any_errors_fatal: true
   roles:
     - role: grub
       tipo: grub_soh_lin
-    - quartus18  
 
-- hosts: programacao:!sj-lin-prog-744523.maquinas.sj.ifsc.edu.br
+- hosts: programacao_lin:!sj-lin-prog-744523.maquinas.sj.ifsc.edu.br
   any_errors_fatal: true
   roles:
     - epoptes_client
@@ -17,3 +18,9 @@
     - ingressa_ldap
     - configura_monitores
     - owncloud_client
+
+# Windows
+- hosts: sj-prog-744523.maquinas.sj.ifsc.edu.br #Maquina do professor
+  any_errors_fatal: true
+  roles:
+    - ingressa_ldap
