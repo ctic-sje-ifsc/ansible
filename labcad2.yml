@@ -6,10 +6,10 @@
     - role: grub
       tipo: grub_win
   tasks:
-  - name: Monta /dev/sda3 em /media/aluno/trabalhos fstab - Linux
+  - name: Monta /dev/sda5 em /media/aluno/trabalhos fstab - Linux
     mount:
       path: /media/aluno/trabalhos
-      src: /dev/sda3
+      src: /dev/sda5
       fstype: vfat
       opts: uid=aluno,gid=aluno
       state: present
