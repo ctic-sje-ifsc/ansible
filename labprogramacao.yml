@@ -4,7 +4,7 @@
   any_errors_fatal: true
   roles:
     - role: grub
-      tipo: grub_soh_lin
+      tipo: grub_lin
 
 - hosts: programacao_lin:!sj-lin-prog-744523.maquinas.sj.ifsc.edu.br
   any_errors_fatal: true
