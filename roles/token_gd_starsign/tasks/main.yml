@@ -76,3 +76,9 @@
   loop_control:
     loop_var: pkg_obsoleto
   when: ansible_os_family == 'Debian'
+
+- name: Faz hold no libpng12-0
+  dpkg_selections:
+    name: libpng12-0
+    selection: hold
+  when: ansible_os_family == 'Debian'
