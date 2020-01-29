@@ -102,6 +102,15 @@
   when: ansible_os_family == 'Debian'
 ##################### Fim impressao hodprint
 
+##################### Desativa módulo
+
+- name: Blacklist the pcspkr driver module
+  kernel_blacklist:
+    name: pcspkr
+    state: present    
+
+##################### Desativa módulo
+
 ################# Copiar Chave pub Marcelo
 - name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys do Marcelo - Linux
   authorized_key:
