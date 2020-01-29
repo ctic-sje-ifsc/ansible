@@ -21,6 +21,5 @@
 
 - name: Instalar o .deb warsaw - Linux Debian
   apt:
-    # deb: https://cloud.gastecnologia.com.br/bb/downloads/ws/warsaw_setup64.deb
-    deb: https://cloud.gastecnologia.com.br/cef/warsaw/install/GBPCEFwr64.deb
+    deb: https://cloud.gastecnologia.com.br/bb/downloads/ws/warsaw_setup64.deb
   when: ansible_os_family == 'Debian'
