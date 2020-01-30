@@ -8,6 +8,7 @@
       cgp: 1
       biblioteca: 1
       financeiro: 1
+      secretaria: 1
       reprografia_principal: 1
       pdf: 1
     - role: softwares_remotos
@@ -24,6 +25,7 @@
       cgp: 1
       biblioteca_usb: 1
       financeiro: 1
+      secretaria: 1
     - role: softwares_remotos
       apps:
         - sophiaslade
