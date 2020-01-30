@@ -53,6 +53,26 @@
     mode: 0644  
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
 
+- name: Cria atalho do Java Web Start na lista de aplicativos
+  copy:
+    content: |
+      [Desktop Entry]
+      Name=Java Web Start
+      Exec=/usr/bin/javaws
+      GenericName=Java Web Start
+      Type=Application
+      StartupNotify=true
+      Categories=Settings;
+      Icon=/usr/lib/jvm/jre1.8.0_241/lib/desktop/icons/hicolor/48x48/apps/sun-java.png
+      Comment=Oracle Java Web Start
+      Terminal=false
+      MimeType=application/x-java-jnlp-file;
+    dest: /usr/share/applications/javaws.desktop
+    owner: root
+    group: root
+    mode: 0644  
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
+
 - name: Remove OpenJDK11 e icedtea
   apt:
     state: absent
