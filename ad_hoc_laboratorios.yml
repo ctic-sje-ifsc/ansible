@@ -1,6 +1,6 @@
-- hosts: sj-lin-ctic-deb10.maquinas.sj.ifsc.edu.br
-  roles:
-    - java8-oracle
+# - hosts: sj-lin-ctic-deb10.maquinas.sj.ifsc.edu.br
+#   roles:
+#     - config_padrao_adm
 
 # - hosts: laboratorios_win
 #   tasks:
