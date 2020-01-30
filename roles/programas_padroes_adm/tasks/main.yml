@@ -94,6 +94,7 @@
     - warsaw
     - foxit
     - cadeia_certificados
+    - java8-oracle
   loop_control:
     loop_var: roles_adm
   when: ansible_os_family == 'Debian'
