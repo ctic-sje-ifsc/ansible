@@ -102,6 +102,48 @@
   when: ansible_os_family == 'Debian'
 ##################### Fim impressao hodprint
 
+##################### Arquivos de configuração do HOD
+
+- name: Cria diretório /home/hodfiles
+  file:
+    path: /home/hodfiles
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  when: ansible_os_family == 'Debian'
+
+- name: Copia arquivos de configuração
+  copy:
+    src: "{{ hodfiles }}"
+    dest: /home/hodfiles/{{ hodfiles }}
+    owner: root
+    group: root
+    mode: 0644
+  loop:
+    - cfg0.df
+    - cfg1.df
+    - cfg2.df
+    - cfg3.df
+  loop_control:
+    loop_var: hodfiles
+  when: ansible_os_family == 'Debian'
+
+- name: Cria o Leiame.txt
+  copy:
+    content: |
+      # Nesta pasta tem os arquivos de configuraçao do HOD com a Console configurado
+      e com a impressora de 132 colunas configurada para usar o hodprint
+      # Instalação
+      Basta copiar os arquvos de configuração (*.df) para a pasta /home/{USER}/HODData/hodcivws/
+    dest: /home/hodfiles/Leiame.txt
+    owner: root
+    group: root
+    mode: 0644  
+  when: ansible_os_family == 'Debian'
+
+##################### Fim Arquivos de configuração do HOD
+
 ##################### Desativa módulo
 
 - name: Blacklist the pcspkr driver module
