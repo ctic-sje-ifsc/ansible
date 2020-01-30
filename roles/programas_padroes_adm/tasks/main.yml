@@ -66,9 +66,7 @@
     - kdenlive
     - kde-l10n-ptbr
     - chromium
-    - chromium-l10n
-    - openjdk-11-jre
-    - icedtea-netx
+    - chromium-l10n  
     - google-chrome-stable
     - nfs-common
     - libreoffice-pdfimport
