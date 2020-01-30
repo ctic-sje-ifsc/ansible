@@ -60,7 +60,6 @@
     - ntp
     - libcurl4
     - ssh
-    - pdfsam
     - dia
     - kolourpaint4
     - kdenlive
