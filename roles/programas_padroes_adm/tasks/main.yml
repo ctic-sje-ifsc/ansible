@@ -65,7 +65,7 @@
     - kdenlive
     - kde-l10n-ptbr
     - chromium
-    - chromium-l10n  
+    - chromium-l10n
     - google-chrome-stable
     - nfs-common
     - libreoffice-pdfimport
@@ -115,9 +115,9 @@
     loop_var: chocolatey_pkg
   when: ansible_os_family == 'Windows'
 
-- name: Instalar o LibreOffice Still 6.0.7 - Windows
+- name: Instalar o LibreOffice Fresh 6.3.4 - Windows
   win_chocolatey:
-    name: libreoffice-still
+    name: libreoffice-fresh
     # version: latest
     # force: yes
   when: ansible_os_family == 'Windows'
