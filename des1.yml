@@ -3,7 +3,7 @@
   roles:
     - packettracer
     - kile
-    - programas_padroes_labs
+    # - programas_padroes_labs
 
 - hosts: sj-lin-des1-744935.maquinas.sj.ifsc.edu.br #Claudia
   tasks:
@@ -12,3 +12,9 @@
         state: latest
         pkg:
         - nautilus-dropbox
+
+- hosts: sj-lin-des1-744932.maquinas.sj.ifsc.edu.br
+  any_errors_fatal: true
+  roles:
+    - role: grub
+      tipo: grub_lin
