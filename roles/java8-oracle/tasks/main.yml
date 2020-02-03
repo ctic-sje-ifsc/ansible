@@ -13,8 +13,7 @@
   unarchive:
     src: jre-8u241-linux-x64.tar.gz
     dest: /usr/lib/jvm
-    creates: /usr/lib/jvm/jre1.8.0_241
-    remote_src: yes
+    creates: /usr/lib/jvm/jre1.8.0_241    
     owner: root
     group: root
     mode: '0755'
