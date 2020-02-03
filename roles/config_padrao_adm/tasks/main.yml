@@ -139,7 +139,7 @@
     dest: /home/hodfiles/Leiame.txt
     owner: root
     group: root
-    mode: 0644  
+    mode: 0644
   when: ansible_os_family == 'Debian'
 
 ##################### Fim Arquivos de configuração do HOD
@@ -149,7 +149,8 @@
 - name: Blacklist the pcspkr driver module
   kernel_blacklist:
     name: pcspkr
-    state: present    
+    state: present
+  when: ansible_os_family == 'Debian'
 
 ##################### Desativa módulo
 
