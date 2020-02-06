@@ -1,9 +1,9 @@
-- hosts: des1
+- hosts: des1,!sj-lin-des1-744932.maquinas.sj.ifsc.edu.br
   any_errors_fatal: true
   roles:
     - packettracer
     - kile
-    # - programas_padroes_labs
+    - programas_padroes_labs
 
 - hosts: sj-lin-des1-744935.maquinas.sj.ifsc.edu.br #Claudia
   tasks:
@@ -13,8 +13,10 @@
         pkg:
         - nautilus-dropbox
 
-- hosts: sj-lin-des1-744932.maquinas.sj.ifsc.edu.br
+- hosts: sj-lin-des1-744932.maquinas.sj.ifsc.edu.br,sj-des1-744932.maquinas.sj.ifsc.edu.br #Saul
   any_errors_fatal: true
   roles:
+    - owncloud_client
+    - dropbox_client
     - role: grub
       tipo: grub_lin
