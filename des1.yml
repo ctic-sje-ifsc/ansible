@@ -20,3 +20,7 @@
     - dropbox_client
     - role: grub
       tipo: grub_lin
+
+- hosts: sj-lin-des1-703868.maquinas.sj.ifsc.edu.br #Eraldo
+  roles:
+  - dropbox_client
