@@ -1,0 +1,9 @@
+---
+#Linux
+- name: Instala SafeNet
+  apt:
+  deb: "https://github.com/ctic-sje-ifsc/ansible/raw/master/roles/token_gd_starsign/files/{{ pkg_obsoleto }}"
+  force: yes
+  allow_unauthenticated: yes
+  state: present
+  when: ansible_os_family == 'Debian'
