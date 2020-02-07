@@ -1,9 +1,19 @@
 ---
 #Linux
+
+- name: Arquivo de instalacao do safenet
+  copy:
+    src: SafeNetAuthenticationClient-9.0_Linux_Ubuntu-RedHat.deb
+    dest: /var
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_distribution_release == 'buster'
+
 - name: Instala SafeNet
   apt:
-  deb: "https://github.com/ctic-sje-ifsc/ansible/raw/master/roles/token_gd_starsign/files/{{ pkg_obsoleto }}"
-  force: yes
-  allow_unauthenticated: yes
-  state: present
+    deb: /var/SafeNetAuthenticationClient-9.0_Linux_Ubuntu-RedHat.deb
+    force: yes
+    allow_unauthenticated: yes
+    state: present
   when: ansible_os_family == 'Debian'
