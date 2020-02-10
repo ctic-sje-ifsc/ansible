@@ -24,7 +24,7 @@
     - epoptes_server
     - ingressa_ldap
     # - configura_monitores
-    - owncloud_client
+    # - owncloud_client
 
 
 ################ Windows ################

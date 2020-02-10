@@ -17,7 +17,7 @@
     - epoptes_server
     - ingressa_ldap
     - configura_monitores
-    - owncloud_client
+    # - owncloud_client
 
 # Windows
 - hosts: sj-prog-744523.maquinas.sj.ifsc.edu.br #Maquina do professor
