@@ -18,6 +18,7 @@
   roles:
     - owncloud_client
     - dropbox_client
+    - bricscad
     - role: grub
       tipo: grub_lin
 
