@@ -1,5 +1,11 @@
 [HostPrintTerminal]
+useAdobePDF=true
+printDestination=false
+useWindowsPrinter=false
+linesPerInch=8
 sessionID=B
+charsPerInch=17
+printFileName=/tmp/hodprint.* | hodprint $<
 
 [Icon]
 frameXpos=745
