@@ -559,12 +559,16 @@
   loop_control:
     loop_var: files_arduino
   when: ansible_os_family == 'Windows'
+  tags: 
+  - proteus
 
 - name: Copia arquivo para a biblioteca do proteus - Windows
   win_copy:
     src: ARDUINO.LML
     dest: C:\ProgramData\Labcenter Electronics\Proteus 8 Professional\MODELS\
   when: ansible_os_family == 'Windows'
+  tags: 
+  - proteus
 
 ###################### Início da configuracao do UTC Windows
 - name: Configuracao no registro necessaria para UTC - Windows
