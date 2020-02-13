@@ -311,79 +311,6 @@
     key: "{{ lookup('file', 'marcelo.id_rsa.pub') }}"
   when: ansible_os_family == 'Debian'
 
-###################### Inicio pasta instaladores Windows
-- name: Cria a pasta C:\instaladores\ - Windows
-  win_file:
-    path: C:\instaladores\
-    state: directory
-  when: ansible_os_family == 'Windows'
-###################### Fim pasta instaladores Windows
-
-###################### Inicio criacao de atalhos Windows
-- name: Atalho para o D - Windows
-  win_shortcut:
-    description: Atalho para trabalhos
-    src: 'D:\'
-    dest: '%Public%\Desktop\SALVE SEUS TRABALHOS AQUI.lnk'
-    icon: 'C:\Windows\system32\imageres.dll,24'
-    state: present
-  when: ansible_os_family == 'Windows'
-  ###################### Fim criacao de atalhos Windows
-
-###################### Início do NTP Windows
-- name: Configura servidor NTP para o Windows 1
-  win_regedit:
-    path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DateTime\Servers
-    name: 1
-    data: gps.ntp.br
-  when: ansible_os_family == 'Windows'
-
-- name: Configura servidor NTP para o Windows 2
-  win_regedit:
-    path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DateTime\Servers
-    name: 2
-    data: a.st1.ntp.br
-  when: ansible_os_family == 'Windows'
-
-###################### Fim do NTP Windows
-
-###################### Início da configuracao do UTC Windows
-- name: Configuracao no registro necessaria para UTC - Windows
-  win_regedit:
-    path: HKLM:\System\CurrentControlSet\Control\TimeZoneInformation
-    name: RealTimeIsUniversal
-    data: 1
-    type: dword
-  when: ansible_os_family == 'Windows'
-
-#OBS: _dstoff desativa o horario de verao
-- name: Setar timezone no Windows
-  win_shell: |
-    tzutil /s "E. South America Standard Time_dstoff"
-  when: ansible_os_family == 'Windows'
-#OBS2: na linha abaixo nao consegui adicionar o _dstoff
-#   win_timezone:
-#     timezone: E. South America Standard Time
-#   when: ansible_os_family == 'Windows'
-###################### Fim da configuracao do UTC Windows
-
-###################### Inicio dos Includes
-
-- name: Inclusão de roles config_padrao_labs
-  include_role:
-    name: "{{ roles_labs }}"
-  loop:
-    - sshd_config
-    - auto_desligamento
-    - openaudit
-    - protege_win
-    - chaves_ssh
-    - firewall_labs
-  loop_control:
-    loop_var: roles_labs
-
-###################### Fim dos Includes
-
 ###################### Inicio configuração SP1
 - name: Cria o arquivo /etc/X11/Xsession.d/99SP1 - Linux
   copy:
@@ -580,3 +507,98 @@
   when: ansible_os_family == 'Debian'
 
 ##################### Fim da configuracao do gdb chamado 2019032610000179
+
+### WINDOWS ###
+
+###################### Inicio pasta instaladores Windows
+- name: Cria a pasta C:\instaladores\ - Windows
+  win_file:
+    path: C:\instaladores\
+    state: directory
+  when: ansible_os_family == 'Windows'
+###################### Fim pasta instaladores Windows
+
+###################### Inicio criacao de atalhos Windows
+- name: Atalho para o D - Windows
+  win_shortcut:
+    description: Atalho para trabalhos
+    src: 'D:\'
+    dest: '%Public%\Desktop\SALVE SEUS TRABALHOS AQUI.lnk'
+    icon: 'C:\Windows\system32\imageres.dll,24'
+    state: present
+  when: ansible_os_family == 'Windows'
+  ###################### Fim criacao de atalhos Windows
+
+###################### Início do NTP Windows
+- name: Configura servidor NTP para o Windows 1
+  win_regedit:
+    path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DateTime\Servers
+    name: 1
+    data: gps.ntp.br
+  when: ansible_os_family == 'Windows'
+
+- name: Configura servidor NTP para o Windows 2
+  win_regedit:
+    path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DateTime\Servers
+    name: 2
+    data: a.st1.ntp.br
+  when: ansible_os_family == 'Windows'
+
+###################### Fim do NTP Windows
+
+###################### Configuracao biblioteca do proteus, chamado IFSC#2020021310000059
+- name: Copia os arquivos solicitados para o proteus - Windows
+  win_copy:
+    src: "{{ files_arduino }}"
+    dest: C:\ProgramData\Labcenter Electronics\Proteus 8 Professional\LIBRARY\
+  loop:
+    - ARDUINO.IDX
+    - ARDUINO.LIB
+    - ArduinoTEP.IDX
+    - ArduinoTEP.LIB
+  loop_control:
+    loop_var: files_arduino
+  when: ansible_os_family == 'Windows'
+
+- name: Copia arquivo para a biblioteca do proteus - Windows
+  win_copy:
+    src: ARDUINO.LML
+    dest: C:\ProgramData\Labcenter Electronics\Proteus 8 Professional\MODELS\
+  when: ansible_os_family == 'Windows'
+
+###################### Início da configuracao do UTC Windows
+- name: Configuracao no registro necessaria para UTC - Windows
+  win_regedit:
+    path: HKLM:\System\CurrentControlSet\Control\TimeZoneInformation
+    name: RealTimeIsUniversal
+    data: 1
+    type: dword
+  when: ansible_os_family == 'Windows'
+
+#OBS: _dstoff desativa o horario de verao
+- name: Setar timezone no Windows
+  win_shell: |
+    tzutil /s "E. South America Standard Time_dstoff"
+  when: ansible_os_family == 'Windows'
+#OBS2: na linha abaixo nao consegui adicionar o _dstoff
+#   win_timezone:
+#     timezone: E. South America Standard Time
+#   when: ansible_os_family == 'Windows'
+###################### Fim da configuracao do UTC Windows
+
+###################### Inicio dos Includes
+
+- name: Inclusão de roles config_padrao_labs
+  include_role:
+    name: "{{ roles_labs }}"
+  loop:
+    - sshd_config
+    - auto_desligamento
+    - openaudit
+    - protege_win
+    - chaves_ssh
+    - firewall_labs
+  loop_control:
+    loop_var: roles_labs
+
+###################### Fim dos Includes
