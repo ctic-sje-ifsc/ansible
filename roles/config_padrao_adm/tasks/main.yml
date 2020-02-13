@@ -162,6 +162,16 @@
     key: "{{ lookup('file', 'marcelo.id_rsa.pub') }}"
   when: ansible_os_family == 'Debian'
 
+
+- name: Atualiza PATH no profile - Linux Debian 10 buster
+  replace:
+    path: /etc/profile
+    regexp: '/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games'
+    replace: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
+
+### INCLUDES
+
 - include_role:
     name: openaudit
 
@@ -198,10 +208,3 @@
 #   win_timezone:
 #     timezone: E. South America Standard Time
 #   when: ansible_os_family == 'Windows'
-
-- name: Atualiza PATH no profile - Linux Debian 10 buster
-  replace:
-    path: /etc/profile
-    regexp: '/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games'
-    replace: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
