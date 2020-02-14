@@ -113,7 +113,7 @@
     mode: '0755'
   when: ansible_os_family == 'Debian'
 
-- name: Copia arquivos de configuração
+- name: Copia arquivos de configuração do HOD
   copy:
     src: "{{ hodfiles }}"
     dest: /home/hodfiles/{{ hodfiles }}
