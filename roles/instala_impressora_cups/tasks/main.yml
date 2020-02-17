@@ -410,11 +410,17 @@
       </Printer>
   when: ( ansible_os_family == 'Debian' and  install == 1 and biblioteca == 1 )
 
-- name: Instalar o cups-pdf - Linux
+- name: Instalar o cups-pdf - Linux Ubuntu e Debian menos buster
   apt:
     name: cups-pdf
     state: latest
-  when: ( ansible_os_family == 'Debian' and  install == 1 and pdf == 1 )
+  when: ( ansible_os_family == 'Debian' and ansible_distribution_release != 'buster' and install == 1 and pdf == 1 )
+
+- name: Instalar o cups-pdf - Debian buster
+  apt:
+    name: printer-driver-cups-pdf
+    state: latest
+  when: ( ansible_os_family == 'Debian' and ansible_distribution_release == 'buster' and  install == 1 and pdf == 1 )
 
 - name: Instala a impressora PDF - Linux
   blockinfile:
