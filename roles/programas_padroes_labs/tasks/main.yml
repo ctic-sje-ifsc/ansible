@@ -11,9 +11,9 @@
   when: ansible_os_family == 'Debian'
 
 - name: Instalar pacotes GUI ou "conhecidos" padroes de laboratorios - Linux
-  apt: name={{ packages }} state=latest
-  vars:
-    packages:
+  apt:
+    state: latest
+    pkg:
     - apt-transport-https
     - geany
     - unrar
@@ -48,9 +48,9 @@
   when: ansible_os_family == 'Debian'
 
 - name: Instalar pacotes de ferramentas "conhecidas" padroes de laboratorios - Linux
-  apt: name={{ packages }} state=latest
-  vars:
-    packages:
+  apt:
+    state: latest
+    pkg:
     - xterm
     - ethtool
     - minicom
@@ -104,19 +104,21 @@
     - python3-tk
     - gir1.2-appindicator3-0.1
     - ntpdate
-    # - linux-headers-{{ ansible_kernel }}
+    - linux-headers-{{ ansible_kernel }}
     - avahi-daemon
     - graphviz
     - avahi-utils
     - wireless-tools
     - pcaputils
     - rfkill
+    - strace
+    - ltrace
   when: ansible_os_family == 'Debian'
 
 - name: Instalar lista de pacotes pedida pelo Roberto de Matos Chamado IFSC#2019030810001087 - Linux
-  apt: name={{ packages }} state=latest
-  vars:
-    packages:
+  apt:
+    state: latest
+    pkg:
     - binutils-avr
     - gcc-avr
     - gdb-avr
@@ -127,9 +129,9 @@
   when: ansible_os_family == 'Debian'
 
 - name: Instalar lista de pacotes pedida pelo Emerson Mello - Linux
-  apt: name={{ packages }} state=latest
-  vars:
-    packages:
+  apt:
+    state: latest
+    pkg:
     - gradle
     - sqlite3
     - sqlitebrowser
@@ -153,9 +155,9 @@
 
 # # java
 - name: Instalar os pacotes  Java openjdk - Linux
-  apt: name={{ packages }} state=latest
-  vars:
-    packages:
+  apt:
+    state: latest
+    pkg:
     - openjdk-11-doc
     - openjdk-11-jdk
     - openjdk-11-jre
@@ -204,19 +206,19 @@
 #   when: ansible_os_family == 'Debian'
 
 - name: Instala flask com python pip  - Linux
-  pip: name={{ packages }}
-  vars:
-    packages:
-    - flask
-    - flask-httpauth
+  pip:
+    state: latest
+    name:
+      - flask
+      - flask-httpauth
   when: ansible_os_family == 'Debian'
 
 ### Inicio pacotes necessarios para o Quartus
 
 - name: Instalar lista de pacotes necessarios para o quartus no Debian - Linux
-  apt: name={{ packages }} state=latest
-  vars:
-    packages:
+  apt:
+    state: latest
+    pkg:
     - libbz2-1.0:i386
     - libsm6:i386
     - libc6:i386
@@ -243,9 +245,9 @@
   when: ansible_os_family == 'Debian'
 
 - name: Instalar lista de pacotes necessarios para o Matlab no Debian - Linux
-  apt: name={{ packages }} state=latest
-  vars:
-    packages:
+  apt:
+    state: latest
+    pkg:
     - libglu1-mesa
     - libasound2
     - libgl1-mesa-dri
@@ -254,16 +256,17 @@
 ### Fim pacotes necessarios para o Quartus
 
 - name: Instalar pacotes do cmake atualizado do stretch-backports
-  apt: name={{ packages }} state=latest default_release=stretch-backports
-  vars:
-    packages:
+  apt:
+    default_release: stretch-backports  
+    state: latest
+    pkg:
     - cmake
   when: ansible_os_family == 'Debian'
 
 - name: Remover programas  - Linux
-  apt: name={{ packages }} state=absent
-  vars:
-    packages:
+  apt:
+    state: absent
+    pkg:
     - transmission
     - transmission-common
   when: ansible_os_family == 'Debian'
@@ -338,7 +341,8 @@
 #     name: freecad
 #   when: ansible_os_family == 'Windows'
 
-- include_role:
+- name: Inclui algumas roles
+  include_role:
     name: "{{ role_win }}"
   loop:
     - bricscad
