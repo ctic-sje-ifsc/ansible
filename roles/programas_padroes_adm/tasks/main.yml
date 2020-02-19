@@ -109,10 +109,15 @@
     - 7zip
     - vlc
     - pdfsam
-    - cutepdf
     - adobereader
   loop_control:
     loop_var: chocolatey_pkg
+  when: ansible_os_family == 'Windows'
+
+- name: Instalar pacotes padroes com problema no checksum - Windows
+  win_chocolatey:
+    name: cutepdf
+    ignore_checksums: yes
   when: ansible_os_family == 'Windows'
 
 - name: Instalar o LibreOffice Fresh 6.3.4 - Windows
