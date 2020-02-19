@@ -23,18 +23,18 @@
   when: ansible_os_family == 'Debian'
 
 ##################### Inicio configuracao interfaces
-- name: Mantem o estado do arquivo /etc/network/interfaces - Linux
-  copy:
-    content: |
-      auto lo
-      iface lo inet loopback
-    dest: /etc/network/interfaces
-    owner: root
-    group: root
-    mode: 0644
-  tags:
-  - rede
-  when: ansible_os_family == 'Debian'
+# - name: Mantem o estado do arquivo /etc/network/interfaces - Linux
+#   copy:
+#     content: |
+#       auto lo
+#       iface lo inet loopback
+#     dest: /etc/network/interfaces
+#     owner: root
+#     group: root
+#     mode: 0644
+#   tags:
+#   - rede
+#   when: ansible_os_family == 'Debian'
 
 - name: Define o backend do cliente dhcp - Linux
   copy:
@@ -56,13 +56,13 @@
   - rede
   when: ansible_os_family == 'Debian'
 
-- name: Remove arquivo /etc/network/interfaces.d/eth0
-  file:
-    path: /etc/network/interfaces.d/eth0
-    state: absent
-  tags:
-  - rede
-  when: ansible_distribution == 'Debian'
+# - name: Remove arquivo /etc/network/interfaces.d/eth0
+#   file:
+#     path: /etc/network/interfaces.d/eth0
+#     state: absent
+#   tags:
+#   - rede
+#   when: ansible_distribution == 'Debian'
 ##################### Fim configuracao interfaces
 
 ##################### Copia script para procurar termos em arquivo odt
