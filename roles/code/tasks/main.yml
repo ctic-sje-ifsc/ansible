@@ -42,34 +42,3 @@
   win_chocolatey:
     name: vscode
   when: ansible_os_family == 'Windows'
-
-# - name: Copia as extensoes do code - Windows
-#   win_copy:
-#     src: "{{ vcode_files }}"
-#     dest: C:\instaladores\
-#   loop:
-#     - platformio-platformio.zip
-#     - vscode-cpptools.zip
-#     - platformio.zip
-#   loop_control:
-#     loop_var: vcode_files
-#   when: ansible_os_family == 'Windows'
-
-# - name: Extraindo extensão platformio e c++ para o vscode - Windows
-#   win_unzip:
-#     src: C:\instaladores\{{ vcode_extensions }}
-#     dest: C:\Users\aluno\.vscode\extensions
-#     creates: C:\Users\aluno\.vscode\extensions\platformio.platformio-ide-1.10.0
-#   loop:
-#     - vscode-cpptools.zip
-#     - platformio-platformio.zip
-#   loop_control:
-#     loop_var: vcode_extensions
-#   when: ansible_os_family == 'Windows'
-
-# - name: Extraindo configuração platformio para o vscode - Windows
-#   win_unzip:
-#     src: C:\instaladores\platformio.zip
-#     dest: C:\Users\aluno\
-#     creates: C:\Users\aluno\.platformio
-#   when: ansible_os_family == 'Windows'
