@@ -17,3 +17,8 @@
         groups: sudo
         append: yes
       when: ansible_os_family == 'Debian'
+
+- hosts: sj-lin-mtele-703868.maquinas.sj.ifsc.edu.br
+  roles:
+    - role: grub
+      tipo: grub_lin
