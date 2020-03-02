@@ -1,26 +1,27 @@
 ---
 #Linux
 
-- name: Extraindo o irpf.tgz
+
+- name: Extraindo o irpf2020.bz
   unarchive:
-    src: irpf19.tgz
+    src: irpf2020.bz
     dest: /usr/local/
-    creates: /usr/local/IRPF2019
+    creates: /usr/local/IRPF2020
   when: ansible_os_family == 'Debian'
 
 - name: Definindo as permissões corretas do IRPF
   file:
-    path: /usr/local/IRPF2019
+    path: /usr/local/IRPF2020
     owner: root
     group: root
     mode: 0777
     recurse: yes
   when: ansible_os_family == 'Debian'
 
-- name: Criando o arquivo IRPF2019-desktop.desktop
+- name: Criando o arquivo IRPF2020-desktop.desktop
   copy:
-    src: IRPF2019-desktop.desktop
-    dest: /usr/share/applications/IRPF2019-desktop.desktop
+    src: IRPF2020-desktop.desktop
+    dest: /usr/share/applications/IRPF2020-desktop.desktop
     owner: root
     group: root
     mode: 0644
@@ -28,9 +29,9 @@
 
 #Windows
 
-- name: Instala o IRPF 2018 v1.5 - Windows
+- name: Instala o IRPF 2020 v1.2 - Windows
   win_package:
-    path: http://downloadirpf.receita.fazenda.gov.br/irpf/2019/irpf/arquivos/IRPF2019Win32v1.0.exe
+    path: http://downloadirpf.receita.fazenda.gov.br/irpf/2020/irpf/arquivos/IRPF2020Win32v1.2.exe
     arguments: /mode silent
-    product_id: IRPF2019
+    product_id: IRPF2020
   when: ansible_os_family == 'Windows'
