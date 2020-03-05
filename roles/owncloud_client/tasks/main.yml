@@ -10,10 +10,10 @@
 #     autoclean: yes
 #     default_release: Debian_9.0
 #     pkg:
-#       - ocqt5125-libsqlite0-dev
-#       - owncloud-client
-#       - owncloud-client-l10n
-#   when: ansible_os_family == 'Debian'
+#     - ocqt5125-libsqlite0-dev
+#     - owncloud-client
+#     - owncloud-client-l10n
+#   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
 
 - name: remove a chave do repositório do owncloud-client - Linux Debian
   apt_key:
@@ -28,13 +28,22 @@
     update_cache: yes
   when: ansible_os_family == 'Debian'
 
-- name: Instala o Owncloud Client - Linux Debian
+- name: Instala o Owncloud Client - Linux Debian Stretch
   apt:
     state: present
+    default_release: stretch-backports
     pkg:
     - owncloud-client
     - owncloud-client-l10n
-  when: ansible_os_family == 'Debian'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
+
+- name: Instala o Owncloud Client - Linux Debian Buster
+  apt:
+    state: present  
+    pkg:
+    - owncloud-client
+    - owncloud-client-l10n
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
 
 #Windows
 - name: Install owncloud-client - Windows
