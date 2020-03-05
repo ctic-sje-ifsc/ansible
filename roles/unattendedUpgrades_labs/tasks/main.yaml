@@ -1,0 +1,77 @@
+### configura o Unattended Upgrades
+# https://wiki.debian.org/UnattendedUpgrades
+# http://man7.org/linux/man-pages/man7/systemd.time.7.html
+
+- name: instala unattended-upgrades
+  apt:
+    pkg:
+    - unattended-upgrades
+
+- name: Define arquivo /etc/apt/apt.conf.d/50unattended-upgrades
+  copy:
+      content: |
+        Unattended-Upgrade::Origins-Pattern {
+          "origin=Debian,codename=${distro_codename},label=Debian-Security";
+        };
+        Unattended-Upgrade::Remove-Unused-Dependencies "true";
+      dest: /etc/apt/apt.conf.d/50unattended-upgrades
+      owner: 'root'
+      group: 'root'
+      mode: '0644'
+  when: ansible_os_family == 'Debian'
+
+- name: Define arquivo /etc/apt/apt.conf.d/20auto-upgrades
+  copy:
+      content: |
+        APT::Periodic::Update-Package-Lists "1";
+        APT::Periodic::Unattended-Upgrade "1";
+      dest: /etc/apt/apt.conf.d/20auto-upgrades
+      owner: 'root'
+      group: 'root'
+      mode: '0644'
+  when: ansible_os_family == 'Debian'
+
+- name: Define download das atualizações - /lib/systemd/system/apt-daily.timer
+  copy:
+      content: |
+        [Unit]
+        Description=Daily apt download activities
+
+        [Timer]
+        OnCalendar=*-*-* 8,14,19:00
+        RandomizedDelaySec=1h
+        Persistent=true
+
+        [Install]
+        WantedBy=timers.target
+      dest: /lib/systemd/system/apt-daily.timer
+      owner: 'root'
+      group: 'root'
+      mode: '0644'
+  when: ansible_os_family == 'Debian'
+
+
+- name: Define instalação das atualizações - /lib/systemd/system/apt-daily-upgrade.timer
+  copy:
+      content: |
+        [Unit]
+        Description=Daily apt upgrade and clean activities
+        After=apt-daily.timer
+
+        [Timer]
+        OnCalendar=*-*-* 10,16,21:00
+        RandomizedDelaySec=1h
+        Persistent=true
+
+        [Install]
+        WantedBy=timers.target
+      dest: /lib/systemd/system/apt-daily-upgrade.timer
+      owner: 'root'
+      group: 'root'
+      mode: '0644'
+  when: ansible_os_family == 'Debian'
+
+- name: just force systemd to reread configs
+  systemd:
+    daemon_reload: yes
+  when: ansible_os_family == 'Debian'
