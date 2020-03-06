@@ -11,7 +11,7 @@
   copy:
       content: |
         Unattended-Upgrade::Origins-Pattern {
-          "origin=Debian,codename=${distro_codename},label=Debian-Security";
+          "o=Debian,n=${distro_codename},l=Debian-Security";
         };
         Unattended-Upgrade::Remove-Unused-Dependencies "true";
       dest: /etc/apt/apt.conf.d/50unattended-upgrades
