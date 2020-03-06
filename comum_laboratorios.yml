@@ -1,4 +1,5 @@
 ---
+  ## Inclusao de roles apenas para LINUX
 - hosts: laboratorios_lin
   any_errors_fatal: true
   roles:
@@ -6,8 +7,34 @@
     - programas_padroes_labs
     - config_padrao_labs
     - papel_de_parede_e_icones_lab
+    - softwares_sdr
+    - octave
+    - cmaptools
+    - android-studio
+    - clion
+    - code
+    - idea
+    - pycharm
+    - eclipse
+    - mplab
+    - jetbrains-toolbox
+    - netbeans82
+    - netkit2
+    - packettracer
+    - virtualbox
+    - wireshark
+    - arduino
+    - flashplayer
+    - qgis
+    - rstudio
+    - geogebra
+    - kile
+    - foxit
+    # - zoiper
+    # - astah
+    # - ingles_progs
 
-
+  ## Inclusao de roles apenas para WINDOWS
 - hosts: laboratorios_win
   any_errors_fatal: true
   roles:
@@ -15,3 +42,21 @@
     - config_padrao_labs
     - papel_de_parede_e_icones_lab
     - windows_update
+    - bricscad
+    - mmanagal
+    - scratch
+    - bipide
+    - sr2015
+    - chemdraw_12
+    - ltspice
+    - tracker
+    - foxit
+    - arduino
+    - flashplayer
+    - qgis
+    - rstudio
+    - geogebra
+    # - virtualbox
+    # - wireshark
+    # - kile
+    # - progsisp

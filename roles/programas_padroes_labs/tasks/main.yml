@@ -113,6 +113,7 @@
     - rfkill
     - strace
     - ltrace
+    - twinkle
   when: ansible_os_family == 'Debian'
 
 - name: Instalar lista de pacotes pedida pelo Roberto de Matos Chamado IFSC#2019030810001087 - Linux
@@ -257,7 +258,7 @@
 
 - name: Instalar pacotes do cmake atualizado do stretch-backports
   apt:
-    default_release: stretch-backports  
+    default_release: stretch-backports
     state: latest
     pkg:
     - cmake
@@ -269,31 +270,8 @@
     pkg:
     - transmission
     - transmission-common
+    - zoiper5
   when: ansible_os_family == 'Debian'
-
-- name: Inclusão de roles
-  include_role:
-    name: "{{ nomedosroles }}"
-  loop:
-    - softwares_sdr
-    - octave
-    - cmaptools
-    - zoiper
-    - android-studio
-    - clion
-    - code
-    - idea
-    - pycharm
-    - eclipse
-    - mplab
-    - jetbrains-toolbox
-    - netbeans82
-    - netkit2
-    - packettracer
-    # - astah
-    # - ingles_progs
-  loop_control:
-    loop_var: nomedosroles
 
 # Windows --------------------------------------------------------------------------------------------------------------
 - name: Instalar pacotes padroes laboratorios - Windows
@@ -341,22 +319,6 @@
 #     name: freecad
 #   when: ansible_os_family == 'Windows'
 
-- name: Inclui algumas roles
-  include_role:
-    name: "{{ role_win }}"
-  loop:
-    - bricscad
-    - mmanagal
-    - scratch
-    - bipide
-    - sr2015
-    - chemdraw_12
-    - ltspice
-    - tracker
-    # - progsisp
-  loop_control:
-    loop_var: role_win
-
 # Windows atalhos --------------------------------------------------------------------------------------------------------------
 
 - name: Cria o atalho do LibreCad - Windows
@@ -379,21 +341,3 @@
     dest: '%Public%\Desktop\SUbtitleWorkshop.lnk'
     icon: '%ProgramFiles(x86)%\Subtitle Workshop\SubtitleWorkshop.exe,0'
   when: ansible_os_family == 'Windows'
-
-# Windows e Linux --------------------------------------------------------------------------------------------------------------
-
-- include_role:
-    name: "{{ role_dual }}"
-  loop:
-    - virtualbox
-    - wireshark
-    - arduino
-    - flashplayer
-    - qgis
-    - rstudio
-    - geogebra
-    - kile
-    - foxit
-    # - atom
-  loop_control:
-    loop_var: role_dual
