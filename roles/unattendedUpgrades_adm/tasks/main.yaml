@@ -10,10 +10,12 @@
 - name: Define arquivo /etc/apt/apt.conf.d/50unattended-upgrades
   copy:
       content: |
-        Unattended-Upgrade::Origins-Pattern {        
-          "o=Debian,a=stable";
-          "o=Debian,a=stable-updates";          
-          "origin=Debian,codename=${distro_codename},label=Debian-Security";
+        Unattended-Upgrade::Origins-Pattern {
+          "o=Debian,n=${distro_codename}";
+          "o=Debian,n=${distro_codename}-updates";
+          "o=Debian,n=${distro_codename}-proposed-updates";
+          "o=Debian,n=${distro_codename},l=Debian-Security";
+          "o=Google LLC,a=stable,l=Google";
         };
         Unattended-Upgrade::Remove-Unused-Dependencies "true";
       dest: /etc/apt/apt.conf.d/50unattended-upgrades
