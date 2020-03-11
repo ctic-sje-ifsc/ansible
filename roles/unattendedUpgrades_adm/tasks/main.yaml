@@ -11,11 +11,7 @@
   copy:
       content: |
         Unattended-Upgrade::Origins-Pattern {
-          "o=Debian,n=${distro_codename}";
-          "o=Debian,n=${distro_codename}-updates";
-          "o=Debian,n=${distro_codename}-proposed-updates";
-          "o=Debian,n=${distro_codename},l=Debian-Security";
-          "o=Google LLC,a=stable,l=Google";
+          "o=*";          
         };
         Unattended-Upgrade::Remove-Unused-Dependencies "true";
       dest: /etc/apt/apt.conf.d/50unattended-upgrades
