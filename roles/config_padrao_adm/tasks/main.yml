@@ -170,11 +170,6 @@
     replace: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
 
-### INCLUDES
-
-- include_role:
-    name: openaudit
-
 #Windows
 
 - name: Configura servidor NTP para o Windows 1
