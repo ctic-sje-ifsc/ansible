@@ -3,12 +3,15 @@
   any_errors_fatal: true
   roles:
     - sources_list
+    - openaudit
     - programas_padroes_adm
     - config_padrao_adm
     - acesso_remoto
     - fonte_garamound
     - papel_de_parede_e_icones_adm
     - irpf
+    - unattendedUpgrades_adm
+
 
 # Chamado do Jorge casagrande pedindo para desativar o desligamento na máquina dele IFSC#2019090410000968
 # Chamado do Diego Medeiros pedindo para desativar o desligamento na máquina dele IFSC#2018112810000143
