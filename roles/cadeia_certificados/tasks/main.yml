@@ -36,6 +36,8 @@
     - ICP-Brasilv5.crt
     - ICP-Brasilv8.crt
     - ICP-Brasilv9.crt
+    - acserprorfbv3.cer
+    - ACSERPRORFB.crt
   loop_control:
     loop_var: icp_chrome
   when: ansible_os_family == 'Debian'
