@@ -8,3 +8,8 @@
       financeiro: 1
       cgp: 1
       pdf: 1
+
+- hosts: sj-lin-contra-559824.maquinas.sj.ifsc.edu.br
+  any_errors_fatal: true
+  roles:
+    - irpf
