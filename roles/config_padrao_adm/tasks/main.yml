@@ -142,13 +142,6 @@
     mode: 0644
   when: ansible_os_family == 'Debian'
 
-- name: Atualiza PATH no profile - Linux Debian bullseye
-  replace:
-    path: /etc/profile
-    regexp: '/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games'
-    replace: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games:/snap/bin'
-  when: ansible_os_family == 'Debian'
-
 - name: Change /etc/bash.bashrc
   blockinfile:
     path: /etc/bash.bashrc
