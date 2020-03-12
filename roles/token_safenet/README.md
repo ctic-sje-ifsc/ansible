@@ -31,6 +31,12 @@ O Libreoffice pode ser utulizado para assinar documentos. A versão atual do rep
 
 O Libreoffice utiliza o mesmo módulo do dispositivo de segurança do Firefox, porém é necessário realizar a seguinte configuração:
 
+###Utilizar a configuração do Firefox
 Ferramentas > Opções > LibreOffice > Segurança > Certificado... e selecionar o Perfil firefox:default-esr.
+
+###Utilizar a configuração do Chrome ou Chromium
+Ferramentas > Opções > LibreOffice > Segurança > Certificado... Selecionar caminho do NSS... e selecionar o diretório ~/.pki/nssdb
+
+Dentro dos dois diretórios o arquivo pkcs11.txt aponta para a biblioteca correta.
 
 Obs: Ao apagar o outro perfil não foi mais possível selecionar o certificado para assinar.
