@@ -6,3 +6,8 @@
       apps:
         - pontosecullum
         - ibsispes
+
+- hosts: sj-lin-cgp-613018.maquinas.sj.ifsc.edu.br
+  any_errors_fatal: true
+  roles:
+    - irpf
