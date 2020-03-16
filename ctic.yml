@@ -15,6 +15,7 @@
     apt:
       state: latest
       pkg:
+      - ipcalc
       - ansible
       - keepassx
       - git
