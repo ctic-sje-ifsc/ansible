@@ -256,6 +256,14 @@
 
 ### Fim pacotes necessarios para o Quartus
 
+- name: Instalar dependência para cmake atualizado do stretch-backports
+  apt:
+    default_release: stretch-backports-sloppy
+    state: latest
+    pkg:
+    - libarchive13
+  when: ansible_os_family == 'Debian'
+
 - name: Instalar pacotes do cmake atualizado do stretch-backports
   apt:
     default_release: stretch-backports
