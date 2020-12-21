@@ -1,0 +1,56 @@
+## Role criado para suprir a requisicao dos professores de TELE
+## do chamado IFSC#2020121710000078
+
+- name: Instalar pacotes necessarios - Linux
+  apt:
+    state: latest
+    pkg:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - gnupg2
+    - software-properties-common
+    - openvswitch-switch
+    - xterm
+    - imagemagick
+    - tk
+    - tcllib
+    - util-linux
+    - make
+    #- docker # precisa do docker
+    #- wireshark # wireshark tb
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'jessie')
+
+- name: Baixa repositorio no git do IMUNES
+  git:
+    repo: 'https://github.com/imunes/imunes.git'
+    dest: /opt/imunes
+    clone: yes
+    update: no
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'jessie')
+
+- make:
+    chdir: /opt/imunes/
+    target: install
+  become: yes
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'jessie')
+
+- name: Criando o arquivo vmd.desktop - Linux Debian
+  copy:
+    src: imunes.desktop
+    dest: /usr/share/applications/imunes.desktop
+    owner: root
+    group: root
+    mode: 0644
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'jessie')
+
+
+  ###################### Habilitar overlayfs para kernel >3.18 caso necessário. Tem que arrumar
+
+# - name: Adicionar entrada no /etc/default/docker  - Linux
+#   lineinfile:
+#     regexp: "^export"
+#     state: present
+#     path: /etc/default/docker
+#     line: 'DOCKER_OPTS="-s overlay"'
+#   when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'jessie')
