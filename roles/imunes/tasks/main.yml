@@ -29,7 +29,8 @@
     update: no
   when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'jessie')
 
-- make:
+- name: Executa o make install
+  make:
     chdir: /opt/imunes/
     target: install
   become: yes
