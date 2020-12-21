@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=IMUNES
+Comment=Integrated Multiprotocol Network Emulator/Simulator
+Exec=/usr/local/bin/imunes
+Icon=/opt/imunes/icons/imunes_logo128.png
+Terminal=false
+Type=Application
+Categories=Utility
