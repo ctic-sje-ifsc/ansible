@@ -66,7 +66,7 @@
     path: /etc/sudoers
     state: present
     regexp: '^aluno '
-    line: 'aluno ALL=(ALL) NOPASSWD: SETENV: /sbin/ethtool,/usr/local/netkit2/bin/tap.py,/sbin/ifconfig,/usr/sbin/iptraf,/usr/sbin/tcpdump,/sbin/route,/usr/local/netkit/bin/vclean,/usr/bin/minicom,/usr/sbin/brctl,/usr/sbin/traceroute,/usr/local/netkit/bin/manage_tuntap,/usr/bin/wireshark,/sbin/iwconfig,/sbin/iwlist,/sbin/iw,/etc/init.d/firewall.sh,/usr/bin/usb-creator-gtk,/sbin/dhclient,/usr/bin/MercurioIV_Linux_1.1.0.run, /etc/init.d/isc-dhcp-server,/etc/init.d/udev,/usr/bin/rpcgen,/sbin/rpcbind,/usr/sbin/rfkill'
+    line: 'aluno ALL=(ALL) NOPASSWD: SETENV: /sbin/ethtool,/usr/local/netkit2/bin/tap.py,/sbin/ifconfig,/usr/sbin/iptraf,/usr/sbin/tcpdump,/sbin/route,/usr/local/netkit/bin/vclean,/usr/bin/minicom,/usr/sbin/brctl,/usr/sbin/traceroute,/usr/local/netkit/bin/manage_tuntap,/usr/bin/wireshark,/sbin/iwconfig,/sbin/iwlist,/sbin/iw,/etc/init.d/firewall.sh,/usr/bin/usb-creator-gtk,/sbin/dhclient,/usr/bin/MercurioIV_Linux_1.1.0.run,/etc/init.d/isc-dhcp-server,/etc/init.d/udev,/usr/bin/rpcgen,/sbin/rpcbind,/usr/sbin/rfkill,/usr/local/bin/imunes,/usr/local/bin/hcp'
     validate: '/usr/sbin/visudo -cf %s'
   when: ansible_os_family == 'Debian'
 
@@ -115,7 +115,8 @@
   when: ansible_os_family == 'Debian' and result_i386_check.rc == 1
 
 - name: Ensure apt cache is up to date
-  apt: update_cache=yes
+  apt:
+    update_cache: yes
   when: ansible_os_family == 'Debian' and result_i386_check.rc == 1
 
 ##################### Fim adiciona arquitetura i386
@@ -125,7 +126,7 @@
 - name: Cria usuário aluno com a senha aluno
   user:
     name: aluno
-    groups: vboxusers
+    groups: [vboxusers]
     password: $6$B5dpvoG43l67q0sx$r0LDKV2TgNItf/kYx/76l89ZN4LhP/ksYIxp.SSVGttHoSZXLSoB6Hkg2A6y7M7aFJ8zEuauf5kS/yA/P61kN1
     append: yes
   when: ansible_os_family == 'Debian'
@@ -166,7 +167,7 @@
   lineinfile:
     regexp: '^MGLS_LICENSE_FILE'
     path: /etc/security/pam_env.conf
-    line: 'MGLS_LICENSE_FILE   DEFAULT=1800@vm-lan2.sj.ifsc.edu.br'
+    line: 'MGLS_LICENSE_FILE   DEFAULT=1800@license-server.sj.ifsc.edu.br'
   when: ansible_os_family == 'Debian'
 
 - name: Adicionar entrada LD_LIBRARY_PATH export no /etc/security/pam_env.conf - Linux
@@ -180,7 +181,7 @@
   lineinfile:
     regexp: '^LM_LICENSE_FILE'
     path: /etc/security/pam_env.conf
-    line: 'LM_LICENSE_FILE     DEFAULT=1800@vm-lan2.sj.ifsc.edu.br'
+    line: 'LM_LICENSE_FILE     DEFAULT=1800@license-server.sj.ifsc.edu.br'
   when: ansible_os_family == 'Debian'
 
 ## Feito para resolver o chamado IFSC#2017062710000273 do Moecke:
@@ -449,8 +450,8 @@
     src: /swapfile
     fstype: swap
     opts: sw
-    passno: 0
-    dump: 0
+    passno: "0"
+    dump: "0"
     state: present
   when: ( ansible_distribution == 'Debian' and ansible_swaptotal_mb < 1 )
 
@@ -533,14 +534,14 @@
 - name: Configura servidor NTP para o Windows 1
   win_regedit:
     path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DateTime\Servers
-    name: 1
+    name: "1"
     data: gps.ntp.br
   when: ansible_os_family == 'Windows'
 
 - name: Configura servidor NTP para o Windows 2
   win_regedit:
     path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DateTime\Servers
-    name: 2
+    name: "2"
     data: a.st1.ntp.br
   when: ansible_os_family == 'Windows'
 
@@ -575,7 +576,7 @@
   win_regedit:
     path: HKLM:\System\CurrentControlSet\Control\TimeZoneInformation
     name: RealTimeIsUniversal
-    data: 1
+    data: "1"
     type: dword
   when: ansible_os_family == 'Windows'
 
