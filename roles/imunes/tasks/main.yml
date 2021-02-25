@@ -1,6 +1,3 @@
-## Role criado para suprir a requisicao dos professores de TELE
-## do chamado IFSC#2020121710000078
-
 - name: Instalar pacotes necessarios - Linux
   apt:
     state: latest
@@ -17,8 +14,7 @@
     - tcllib
     - util-linux
     - make
-    #- docker # precisa do docker
-    #- wireshark # wireshark tb
+    - socat
   when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'jessie')
 
 - name: Baixa repositorio no git do IMUNES
@@ -45,13 +41,73 @@
     mode: 0644
   when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'jessie')
 
+- name: Adiciona pacotes extras dentro da imagem do IMUNES
+  shell: "apt-get_imunes install firefox-esr socat -y"
+  args:
+    executable: /bin/bash
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'jessie')
 
-  ###################### Habilitar overlayfs para kernel >3.18 caso necessário. Tem que arrumar
+- name: Criar arquivo /home/.Xresources que personaliza Xterm
+  copy:
+    content: |
+        ! Use a nice truetype font and size by default... 
+        xterm*faceName: DejaVu Sans Mono Book
+        xterm*faceSize: 11
 
-# - name: Adicionar entrada no /etc/default/docker  - Linux
-#   lineinfile:
-#     regexp: "^export"
-#     state: present
-#     path: /etc/default/docker
-#     line: 'DOCKER_OPTS="-s overlay"'
-#   when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'jessie')
+        ! Every shell is a login shell by default (for inclusion of all necessary environment variables)
+        xterm*loginshell: true
+
+        ! I like a LOT of scrollback...
+        xterm*savelines: 16384
+
+        ! double-click to select whole URLs :D
+        xterm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
+
+        ! DOS-box colours...
+        xterm*foreground: rgb:00/00/00
+        xterm*background: rgb:FC/F7/DD
+        xterm*color0: rgb:00/00/00
+        xterm*color1: rgb:a8/00/00
+        xterm*color2: rgb:00/a8/00
+        xterm*color3: rgb:a8/54/00
+        xterm*color4: rgb:00/00/a8
+        xterm*color5: rgb:a8/00/a8
+        xterm*color6: rgb:00/a8/a8
+        xterm*color7: rgb:a8/a8/a8
+        xterm*color8: rgb:54/54/54
+        xterm*color9: rgb:fc/54/54
+        xterm*color10: rgb:54/fc/54
+        xterm*color11: rgb:fc/fc/54
+        xterm*color12: rgb:54/54/fc
+        xterm*color13: rgb:fc/54/fc
+        xterm*color14: rgb:54/fc/fc
+        xterm*color15: rgb:fc/fc/fc
+
+        ! right hand side scrollbar...
+        xterm*rightScrollBar: true
+        xterm*ScrollBar: true
+
+        ! stop output to terminal from jumping down to bottom of scroll again
+        xterm*scrollTtyOutput: false
+    dest: /home/.Xresources
+    owner: root
+    group: root
+    mode: 0644
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'jessie')
+
+- name: Criar arquivo /etc/xdg/autostart/xrdb-autostart.desktop para caregar automaticamente a personalizalização do Xterm
+  copy:
+    content: |
+        [Desktop Entry]
+        Type=Application
+        Name=Load config using xrdb
+        Exec=xrdb -merge /home/.Xresources
+        NoDisplay=true
+        X-GNOME-AutoRestart=true
+        #X-GNOME-Autostart-Phase=Initialization
+        OnlyShowIn=GNOME;MATE;Unity;Cinnamon;
+    dest: /etc/xdg/autostart/xrdb-autostart.desktop
+    owner: root
+    group: root
+    mode: 0644
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'jessie')
