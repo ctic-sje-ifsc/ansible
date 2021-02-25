@@ -47,3 +47,10 @@
     state: present
     update_cache: yes
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
+
+- name: Adiciona ao  usuário aluno o grupo docker
+  user:
+    name: aluno
+    groups: docker
+    append: yes
+  when: ansible_os_family == 'Debian'
