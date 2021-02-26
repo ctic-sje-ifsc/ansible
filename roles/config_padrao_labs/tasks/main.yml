@@ -15,7 +15,7 @@
 - name: Adiciona no grupo dialout
   user:
     name: "{{ add_dialout }}"
-    groups: dialout
+    groups: [dialout]
     append: yes
   loop:
     - aluno
@@ -34,7 +34,7 @@
 - name: Adiciona no grupo plugdev
   user:
     name: "{{ grupo_plugdev }}"
-    groups: plugdev
+    groups: [plugdev]
     append: yes
   loop:
     - aluno
