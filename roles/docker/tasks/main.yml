@@ -51,6 +51,6 @@
 - name: Adiciona ao  usuário aluno o grupo docker
   user:
     name: aluno
-    groups: docker
+    groups: [docker]
     append: yes
   when: ansible_os_family == 'Debian'
