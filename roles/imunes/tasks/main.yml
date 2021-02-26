@@ -1,3 +1,6 @@
+## Para esse role funcionar corretamente ele precisa dos seguintes roles:
+# config_padrao_labs (permissão para o aluno executar sudo imunes e sudo hcp)
+# docker (instalação do docker)
 - name: Instalar pacotes necessarios - Linux
   apt:
     state: latest
