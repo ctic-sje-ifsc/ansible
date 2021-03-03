@@ -89,7 +89,9 @@
 
 ##################### Impressao hodprint
 - name: Instala gtklp
-  apt: name=gtklp state=latest
+  apt: 
+    name: gtklp
+    state: latest
   when: ansible_os_family == 'Debian'
 
 - name: Copia hodprint - Linux
@@ -190,14 +192,14 @@
 - name: Configura servidor NTP para o Windows 1
   win_regedit:
     path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DateTime\Servers
-    name: 1
+    name: "1"
     data: gps.ntp.br
   when: ansible_os_family == 'Windows'
 
 - name: Configura servidor NTP para o Windows 2
   win_regedit:
     path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DateTime\Servers
-    name: 2
+    name: "2"
     data: a.st1.ntp.br
   when: ansible_os_family == 'Windows'
 
@@ -205,7 +207,7 @@
   win_regedit:
     path: HKLM:\System\CurrentControlSet\Control\TimeZoneInformation
     name: RealTimeIsUniversal
-    data: 1
+    data: "1"
     type: dword
   when: ansible_os_family == 'Windows'
 
