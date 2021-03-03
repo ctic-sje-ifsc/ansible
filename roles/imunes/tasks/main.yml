@@ -1,5 +1,4 @@
 ## Para esse role funcionar corretamente ele precisa dos seguintes roles:
-# config_padrao_labs (permissão para o aluno executar sudo imunes e sudo hcp)
 # docker (instalação do docker)
 - name: Instalar pacotes necessarios - Linux
   apt:
@@ -113,4 +112,43 @@
     owner: root
     group: root
     mode: 0644
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'jessie')
+
+- name: Adiciona porgramas para serem executados pelo sudo sem senha
+  copy:
+    content: |
+      ALL   ALL=(ALL) NOPASSWD: SETENV: /usr/local/bin/imunes,/usr/local/bin/hcp,/usr/local/bin/himage,\
+      /usr/local/bin/vlink,/usr/local/bin/cleanupAll,/opt/imunes-examples/ipsec/start64.sh,\
+      /opt/imunes-examples/ipsec/start44.sh,/opt/imunes-examples/ipsec/start46.sh,\
+      /opt/imunes-examples/ipsec/nat-ipsec/start_ipsec.sh,/opt/imunes-examples/ipsec/nat-ipsec/start_nat.sh,\
+      /opt/imunes-examples/ipsec/start66.sh,/opt/imunes-examples/DHCP/start_dhcp,\
+      /opt/imunes-examples/DMZ+DNS+Mail+WEB/start_dns,/opt/imunes-examples/DMZ+DNS+Mail+WEB/start_fw,\
+      /opt/imunes-examples/DMZ+DNS+Mail+WEB/start_http,/opt/imunes-examples/DMZ+DNS+Mail+WEB/start_all,\
+      /opt/imunes-examples/DMZ+DNS+Mail+WEB/start_mail,/opt/imunes-examples/DHCP6+RSOL/start_dhcpd6,\
+      /opt/imunes-examples/DHCP6+RSOL/start_stateless,/opt/imunes-examples/DNS+Mail+WEB/start_dns,\
+      /opt/imunes-examples/DNS+Mail+WEB/start_http,/opt/imunes-examples/DNS+Mail+WEB/start_mail,\
+      /opt/imunes-examples/gif/start_gif.sh,/opt/imunes-security/service/shellshock/start_http,\
+      /opt/imunes-security/service/heartbleed/start_https,/opt/imunes-security/infrastructure/start_ipfw.sh,\
+      /opt/imunes-security/ddos/smurf.sh,/opt/imunes-security/ddos/ntp_amp.sh,/opt/imunes-security/ddos/ntp.sh,\
+      /opt/imunes-security/service/shellshock/www.host/form.sh,/opt/imunes-security/service/shellshock/shellshock.sh,\
+      /opt/imunes-security/service/heartbleed/www.host/form.sh,/opt/imunes-security/service/heartbleed/heartbleed.sh,\
+      /opt/imunes-security/helper_scripts/bootstrap.sh,/opt/imunes-security/dnsspoof/dnsspoof.sh,\
+      /opt/imunes-security/dnsspoof/prepare.sh,/opt/imunes-security/divertsocket/deploy.sh,\
+      /opt/imunes-security/mitm/mitm.sh
+    dest: /etc/sudoers.d/imunes
+    owner: root
+    group: root
+    mode: 0440
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'jessie')
+
+- name: Clona repositorio no git do IMUNES-EXAMPLES
+  git:
+    repo: 'https://github.com/imunes/imunes-examples.git'
+    dest: /opt/imunes-examples
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'jessie')
+
+- name: Clona repositorio no git do IMUNES-SECURITY
+  git:
+    repo: 'https://github.com/imunes/imunes-security.git'
+    dest: /opt/imunes-security
   when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'jessie')
