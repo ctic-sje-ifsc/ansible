@@ -66,7 +66,7 @@
     path: /etc/sudoers
     state: present
     regexp: '^aluno '
-    line: 'aluno ALL=(ALL) NOPASSWD: SETENV: /sbin/ethtool,/usr/local/netkit2/bin/tap.py,/sbin/ifconfig,/usr/sbin/iptraf,/usr/sbin/tcpdump,/sbin/route,/usr/local/netkit/bin/vclean,/usr/bin/minicom,/usr/sbin/brctl,/usr/sbin/traceroute,/usr/local/netkit/bin/manage_tuntap,/usr/bin/wireshark,/sbin/iwconfig,/sbin/iwlist,/sbin/iw,/etc/init.d/firewall.sh,/usr/bin/usb-creator-gtk,/sbin/dhclient,/usr/bin/MercurioIV_Linux_1.1.0.run,/etc/init.d/isc-dhcp-server,/etc/init.d/udev,/usr/bin/rpcgen,/sbin/rpcbind,/usr/sbin/rfkill,/usr/local/bin/imunes,/usr/local/bin/hcp'
+    line: 'aluno ALL=(ALL) NOPASSWD: SETENV: /sbin/ethtool,/usr/local/netkit2/bin/tap.py,/sbin/ifconfig,/usr/sbin/iptraf,/usr/sbin/tcpdump,/sbin/route,/usr/local/netkit/bin/vclean,/usr/bin/minicom,/usr/sbin/brctl,/usr/sbin/traceroute,/usr/local/netkit/bin/manage_tuntap,/usr/bin/wireshark,/sbin/iwconfig,/sbin/iwlist,/sbin/iw,/etc/init.d/firewall.sh,/usr/bin/usb-creator-gtk,/sbin/dhclient,/usr/bin/MercurioIV_Linux_1.1.0.run,/etc/init.d/isc-dhcp-server,/etc/init.d/udev,/usr/bin/rpcgen,/sbin/rpcbind,/usr/sbin/rfkill'
     validate: '/usr/sbin/visudo -cf %s'
   when: ansible_os_family == 'Debian'
 
