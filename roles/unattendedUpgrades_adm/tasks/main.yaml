@@ -6,6 +6,7 @@
   apt:
     pkg:
     - unattended-upgrades
+  when: ansible_os_family == 'Debian'
 
 - name: Define arquivo /etc/apt/apt.conf.d/50unattended-upgrades
   copy:
@@ -49,7 +50,6 @@
       group: 'root'
       mode: '0644'
   when: ansible_os_family == 'Debian'
-
 
 - name: Define instalação das atualizações - /lib/systemd/system/apt-daily-upgrade.timer
   copy:
