@@ -36,7 +36,16 @@
 
 - name: Criando o arquivo vmd.desktop - Linux Debian
   copy:
-    src: imunes.desktop
+    content: |
+        [Desktop Entry]
+        Encoding=UTF-8
+        Name=IMUNES
+        Comment=Integrated Multiprotocol Network Emulator/Simulator
+        Exec=sudo /usr/local/bin/imunes
+        Icon=/opt/imunes/icons/imunes_logo128.png
+        Terminal=false
+        Type=Application
+        Categories=Utility
     dest: /usr/share/applications/imunes.desktop
     owner: root
     group: root
@@ -152,3 +161,25 @@
     repo: 'https://github.com/imunes/imunes-security.git'
     dest: /opt/imunes-security
   when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'jessie')
+
+- name: Instala o Wireshark
+  apt:
+    state: latest
+    pkg:
+    - wireshark
+    - wireshark-doc
+  when: ansible_os_family == 'Debian'
+
+- name: Set CAP_NET_RAW+eip on /usr/bin/dumpcap for Wireshark
+  capabilities:
+    path: /usr/bin/dumpcap
+    capability: CAP_NET_RAW+eip
+    state: present
+  when: ansible_os_family == 'Debian'
+
+- name: Set CAP_NET_ADMIN+eip on /usr/bin/dumpcap for Wireshark
+  capabilities:
+    path: /usr/bin/dumpcap
+    capability: CAP_NET_ADMIN+eip
+    state: present
+  when: ansible_os_family == 'Debian'
