@@ -1,0 +1,4 @@
+- name: Baixar e instalar AnyDesk - Linux
+  apt:
+    deb: https://download.anydesk.com/linux/anydesk_6.1.0-1_amd64.deb
+  when: ansible_os_family == 'Debian'
