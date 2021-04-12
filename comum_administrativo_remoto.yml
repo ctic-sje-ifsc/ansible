@@ -1,0 +1,122 @@
+- hosts: sj-lin-deb10remoto-12345.maquinas.sj.ifsc.edu.br
+### Pacotes
+  roles:
+    - sources_list
+    - openaudit
+    - papel_de_parede_e_icones_adm
+    - unattendedUpgrades_adm
+    - teamviewer
+    - anydesk
+    - savpdf
+    - warsaw
+    - foxit
+    - token_safenet
+    # - cadeia_certificados
+  tasks:
+    - name: Install a .deb Google Chrome - Linux Debian
+      apt:
+        deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+      when: ansible_os_family == 'Debian'
+    
+    - name: Instalar pacotes padroes - Linux (Debian 10)
+      apt:
+        state: latest
+        pkg:
+        - apt-transport-https
+        - aptitude
+        - vim
+        - bash-completion
+        - firmware-linux-free
+        - firmware-linux-nonfree
+        - vlc
+        - unrar-free
+        - dkms
+        - ntp
+        - ssh
+        - kolourpaint4
+        - kde-l10n-ptbr        
+        - google-chrome-stable        
+        - libreoffice-pdfimport
+        - gscan2pdf
+        - okular
+        - network-manager-gnome
+        - network-manager
+        - network-manager-pptp
+        - network-manager-pptp-gnome
+        - system-config-printer
+        - pdfshuffler
+        - gnome-terminal
+        - default-jre
+        - icedtea-netx
+      when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
+
+    - name: Remover programas  - Linux
+      apt:
+        state: absent
+        pkg:
+        - transmission
+        - transmission-common
+      when: ansible_os_family == 'Debian'
+
+### Configurações
+
+    - name: Blacklist the pcspkr driver module
+      kernel_blacklist:
+        name: pcspkr
+        state: present
+      when: ansible_os_family == 'Debian'
+
+      ##################### Impressao hodprint
+    - name: Instala gtklp
+      apt: 
+        name: gtklp
+        state: latest
+      when: ansible_os_family == 'Debian'
+
+    - name: Copia hodprint - Linux
+      copy:
+        src: roles/config_padrao_adm/files/hodprint
+        dest: /usr/bin/hodprint
+        owner: root
+        group: root
+        mode: 0755
+      when: ansible_os_family == 'Debian'
+
+    - name: Cria diretório /home/hodfiles
+      file:
+        path: /home/hodfiles
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+      when: ansible_os_family == 'Debian'
+
+    - name: Copia arquivos de configuração do HOD
+      copy:
+        src: roles/config_padrao_adm/files/{{ hodfiles }}
+        dest: /home/hodfiles/{{ hodfiles }}
+        # remote_src: yes
+        owner: root
+        group: root
+        mode: 0644
+      loop:
+        - cfg0.df
+        - cfg1.df
+        - cfg2.df
+        - cfg3.df
+      loop_control:
+        loop_var: hodfiles
+      when: ansible_os_family == 'Debian'
+
+    - name: Cria o Leiame.txt
+      copy:
+        content: |
+          # Nesta pasta tem os arquivos de configuraçao do HOD com a Console configurado
+          e com a impressora de 132 colunas configurada para usar o hodprint
+          # Instalação
+          Basta copiar os arquvos de configuração (*.df) para a pasta /home/{USER}/HODData/hodcivws/
+        dest: /home/hodfiles/Leiame.txt
+        owner: root
+        group: root
+        mode: 0644
+      when: ansible_os_family == 'Debian'
