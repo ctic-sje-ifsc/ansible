@@ -3,7 +3,7 @@
 
 - name: Copy install file
   copy:
-    src: SafenetAuthenticationClient-9.1.7-0_amd64.deb
+    src: SafenetAuthenticationClient-BR-10.0.37-0_amd64.deb
     dest: /tmp
     owner: root
     group: root
@@ -12,30 +12,5 @@
 
 - name: Install SafeNet
   apt:
-    deb: /tmp/SafenetAuthenticationClient-9.1.7-0_amd64.deb
-    force: yes
-    allow_unauthenticated: yes
-    state: present
-  when: ansible_distribution_release == 'buster'
-
-- name: Create a symbolic link
-  file:
-    src: /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1
-    dest: /usr/lib/libcrypto.so.6
-    owner: root
-    group: root
-    state: link
-  when: ansible_distribution_release == 'buster'
-
-- name: Fix safenet installation
-  shell: apt-get install --fix-broken --yes
-  args:
-    executable: /bin/bash
-  when: ansible_distribution_release == 'buster'
-
-- name: Update libreoffice from buster-backports
-  apt:
-    name: libreoffice
-    state: latest
-    default_release: buster-backports    
+    deb: /tmp/SafenetAuthenticationClient-BR-10.0.37-0_amd64.deb
   when: ansible_distribution_release == 'buster'
