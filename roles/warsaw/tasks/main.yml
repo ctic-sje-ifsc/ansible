@@ -1,24 +1,5 @@
 ---
-#Linux
-- name: Adicionar repositório para instalar libssl1.0.0
-  apt_repository:
-    repo: deb http://security.debian.org/debian-security jessie/updates main
-    state: present
-    update_cache: yes
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'buster')
-
-- name: Instalar pacotes necessarios para o warsaw
-  apt: name=libssl1.0.0 state=latest default_release=jessie
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'buster')
-
-- name: Instalar os pacotes necessários para o warsaw
-  apt:
-    state: latest
-    pkg:
-    - libnss3-tools
-    - libcurl3
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'buster')
-
+# #Linux
 - name: Instalar o .deb warsaw - Linux Debian
   apt:
     deb: https://cloud.gastecnologia.com.br/bb/downloads/ws/warsaw_setup64.deb
