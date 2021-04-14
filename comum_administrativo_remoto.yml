@@ -3,15 +3,15 @@
   roles:
     - sources_list
     - openaudit
-    - papel_de_parede_e_icones_adm
     - unattendedUpgrades_adm
     - teamviewer
     - anydesk
-    - savpdf
+    # - savpdf
     - warsaw
     - foxit
     - token_safenet
-    # - cadeia_certificados
+    - cadeia_certificados
+  
   tasks:
     - name: Install a .deb Google Chrome - Linux Debian
       apt:
@@ -48,6 +48,7 @@
         - gnome-terminal
         - default-jre
         - icedtea-netx
+        - printer-driver-cups-pdf
       when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
 
     - name: Remover programas  - Linux
@@ -56,6 +57,7 @@
         pkg:
         - transmission
         - transmission-common
+        - gnome-games
       when: ansible_os_family == 'Debian'
 
 ### Configurações
@@ -65,6 +67,15 @@
         name: pcspkr
         state: present
       when: ansible_os_family == 'Debian'
+
+    - name: Ativa lista de usuários no lightdm
+      replace:
+        path: /etc/lightdm/lightdm.conf
+        backup: yes
+        regexp: '#greeter-hide-users=false'
+        replace: 'greeter-hide-users=false'
+      when: ansible_os_family == 'Debian'
+      tags: lightdm
 
       ##################### Impressao hodprint
     - name: Instala gtklp
@@ -119,4 +130,10 @@
         owner: root
         group: root
         mode: 0644
+      when: ansible_os_family == 'Debian'
+
+    - name: Cria usuário ifsc
+      user:
+        name: ifsc
+        shell: /bin/bash
       when: ansible_os_family == 'Debian'
