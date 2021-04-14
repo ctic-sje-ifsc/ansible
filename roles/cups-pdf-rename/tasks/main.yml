@@ -1,0 +1,13 @@
+# https://www.debianadmin.com/howto-install-and-customize-cups-pdf-in-debian.html
+# Script que faz um salvar como para os documentos impressos pela impressora PDF do cups.
+
+- name: instala cups-pdf
+  apt:
+    state: latest
+    pkg:
+    - printer-driver-cups-pdf
+
+# - name: script para renomear arquivos impressos
+
+# - name: configura /etc/cups/cups-pdf.conf
+
