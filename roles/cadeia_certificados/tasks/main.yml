@@ -1,3 +1,7 @@
+### Site onde baixar.
+# https://www.gov.br/iti/pt-br/assuntos/navegadores/
+# https://www.gov.br/iti/pt-br/assuntos/repositorio/repositorio-ac-raiz
+
 - name: Cria o diretório /home/certificados
   file:
     path: /home/certificados
