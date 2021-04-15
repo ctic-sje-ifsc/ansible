@@ -6,7 +6,7 @@
     - unattendedUpgrades_adm
     - teamviewer
     - anydesk
-    # - savpdf
+    - cups-pdf-rename
     - warsaw
     - foxit
     - token_safenet
@@ -77,7 +77,7 @@
       when: ansible_os_family == 'Debian'
       tags: lightdm
 
-      ##################### Impressao hodprint
+### Impressao hodprint
     - name: Instala gtklp
       apt: 
         name: gtklp
@@ -106,7 +106,6 @@
       copy:
         src: roles/config_padrao_adm/files/{{ hodfiles }}
         dest: /home/hodfiles/{{ hodfiles }}
-        # remote_src: yes
         owner: root
         group: root
         mode: 0644
@@ -135,5 +134,6 @@
     - name: Cria usuário ifsc
       user:
         name: ifsc
+        skeleton: /etc/skel
         shell: /bin/bash
       when: ansible_os_family == 'Debian'
