@@ -33,6 +33,7 @@
     regexp: '#PostProcessing'
     replace: 'PostProcessing /usr/local/bin/cups-pdf-rename'
   when: ansible_os_family == 'Debian'
+  notify: restart_cups
 
 - name: Permissão para o script ser executado
   lineinfile:
@@ -41,3 +42,4 @@
     line: '  /usr/local/bin/cups-pdf-rename uxr,'
     backup: yes
   when: ansible_os_family == 'Debian'
+  notify: restart_apparmor
