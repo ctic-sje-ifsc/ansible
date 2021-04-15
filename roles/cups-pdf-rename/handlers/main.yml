@@ -1,0 +1,9 @@
+- name: restart_cups
+  service:
+    name: cups
+    state: restarted
+
+- name: restart_apparmor
+  service:
+    name: apparmor
+    state: restarted
