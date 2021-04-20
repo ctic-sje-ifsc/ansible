@@ -1,4 +1,16 @@
-- name: Baixar e instalar AnyDesk - Linux
+- name: Adicionar a chave do repositório do AnyDesk
+  apt_key:
+    url: https://keys.anydesk.com/repos/DEB-GPG-KEY
+    state: present
+  when: ansible_os_family == 'Debian'
+
+- name: Adicionar repositório AnyDesk
+  apt_repository:
+    repo: deb http://deb.anydesk.com/ all main
+  when: ansible_os_family == 'Debian'
+
+- name: Instala AnyDesk
   apt:
-    deb: https://download.anydesk.com/linux/anydesk_6.1.0-1_amd64.deb
+    pkg:
+    - anydesk
   when: ansible_os_family == 'Debian'
