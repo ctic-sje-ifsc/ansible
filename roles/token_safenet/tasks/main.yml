@@ -14,3 +14,52 @@
   apt:
     deb: /tmp/SafenetAuthenticationClient-BR-10.0.37-0_amd64.deb
   when: ansible_distribution_release == 'buster'
+
+- name: Create a symbolic link
+  file:
+    src: /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1
+    dest: /usr/lib/libcrypto.so.6
+    owner: root
+    group: root
+    state: link
+  when: ansible_distribution_release == 'buster'
+
+- name: Script para habilitar módulo no navegador
+  copy:
+    content: |
+      #!/bin/bash
+
+      # Enconta onde está o arquivo db
+      PERFIL=$(dirname $(find ~/.mozilla -name "cert9.db"))
+      if [[ -z "$PERFIL" ]]; then 
+          echo "Nenhum perfil encontrado para este usuario."
+          exit
+      fi
+
+      # Ativa modulo do Safesign
+      modutil -add "SafeSign PKCS #11 Library" -libfile /usr/lib/libeTPkcs11.so -dbdir $PERFIL -force >/dev/null 2>&1
+      echo "Cadeias e modulo SafeSign instalados no Mozilla Firefox do usuario $USER."
+      modutil -add "SafeSign PKCS #11 Library" -libfile /usr/lib/libeTPkcs11.so -dbdir sql:.pki/nssdb/ -force >/dev/null 2>&1
+      echo "Cadeias e modulo SafeSign instalados no Google Chrome do usuario $USER."
+
+      echo "Pressione <ENTER> para sair"
+      read input
+
+    dest: /usr/local/bin/habilita_token_safenet.sh
+    mode: 0755
+  when: ansible_distribution_release == 'buster'
+
+- name: Cria lançador do script para habilitar módulo no navegador
+  copy:
+    content: |
+      [Desktop Entry]
+      Version=1.0
+      Name= Habilita módulo Safenet nos navegadores
+      Comment= Habilita módulo Safenet nos navegadores Mozilla Firefox e Google Chrome
+      Exec=bash -c '/usr/local/bin/habilita_token_safenet.sh && exit'
+      Icon=utilities-terminal
+      Terminal=true 
+      Type=Application
+      Categories=Application;
+    dest: /usr/share/applications/habilita_token_safenet.desktop
+  when: ansible_os_family == 'Debian'
