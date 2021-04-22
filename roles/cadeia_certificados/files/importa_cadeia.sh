@@ -32,3 +32,6 @@ for CERTDIR in $PERFIS; do
 done
 
 rm -f $CADEIASCSV
+
+echo "Pressione <ENTER> para sair"
+read input
