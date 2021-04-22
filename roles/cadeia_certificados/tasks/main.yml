@@ -14,9 +14,30 @@
     dest: /home/certificados
   when: ansible_os_family == 'Debian'
 
-- name: Copia script para instalar certificados
+- name: Instala libnss3-tools
+  apt:
+    pkg:
+    - libnss3-tools
+  when: ansible_os_family == 'Debian'
+
+- name: Copia script para importar certificados
   copy:
-    src: instala_cadeia.sh
+    src: importa_cadeia.sh
     dest: /usr/local/bin
     mode: 0755
+  when: ansible_os_family == 'Debian'
+
+- name: Cria lançador do script para importar certificados
+  copy:
+    content: |
+      [Desktop Entry]
+      Version=1.0
+      Name= Importa cadeia ICP Brasil
+      Comment=Importa cadeia de certificados da ICP Brasil para os navegadores do usuário
+      Exec=bash -c '/usr/local/bin/importa_cadeia.sh && exit'
+      Icon=utilities-terminal
+      Terminal=true 
+      Type=Application
+      Categories=Application;
+    dest: /usr/share/applications/importa_cadeia.desktop
   when: ansible_os_family == 'Debian'
