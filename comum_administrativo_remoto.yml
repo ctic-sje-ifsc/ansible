@@ -133,4 +133,13 @@
         name: ifsc
         skeleton: /etc/skel
         shell: /bin/bash
+        password: "$6$nx.emX0FWw3$fk8M/6/LxU173DvRtHSYdjHoxpF2Gj8XF1xff7CBG6h4MPFbbmca7t73PS9nmDLCXCNsSCfzTkkHOTsKDDvQP1"
+      when: ansible_os_family == 'Debian'
+
+    - name: Cria usuário para acesso remoto
+      user:
+        name: remoto
+        skeleton: /etc/skel
+        shell: /bin/bash
+        password: "$6$4wXKnwI5yQaSWAPU$0py5Y/Nqn4gOlT4UsAyQOd6rURdyo1rPuIcqsR6IiTnHTZr/ggGp2snz1juXoYxyv8RoL/sftbQfYYqgbt4go1"
       when: ansible_os_family == 'Debian'
