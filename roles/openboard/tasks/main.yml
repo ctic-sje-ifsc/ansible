@@ -1,0 +1,41 @@
+---
+#Linux
+- name: Adicionar uma chave do repositório do ubuntu xenial - Linux
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 40976EAF437D05B5
+  when: ansible_os_family == 'Debian'
+
+- name: Adicionar outra chave do repositório do ubuntu xenial - Linux
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 3B4FE6ACC0B21F32
+  when: ansible_os_family == 'Debian'
+
+- name: Adicionar repositório para dependecia libavformat-ffmpeg56 - Linux
+  copy:
+    content: |
+      deb http://ubuntu.c3sl.ufpr.br/ubuntu/ xenial main
+      deb http://ubuntu.c3sl.ufpr.br/ubuntu/ xenial universe
+      deb http://ubuntu.c3sl.ufpr.br/ubuntu/ xenial-updates universe
+    dest: /etc/apt/sources.list.d/ubuntu-xenial.list
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
+- name: Apt-cache update - Linux
+  apt:
+    update_cache: yes
+  when: ansible_os_family == 'Debian'
+
+- name: Instalar pacotes necessários openboard - Linux
+  apt:
+    name: libavformat-ffmpeg56
+    default_release: xenial
+  when: ansible_os_family == 'Debian'
+
+- name: Baixando e instalando o Openboard - Linux Debian
+  apt:
+    deb: https://github.com/OpenBoard-org/OpenBoard/releases/download/v1.5.4/openboard_ubuntu_16.04_1.5.4_amd64.deb
+  when: ansible_os_family == 'Debian'
