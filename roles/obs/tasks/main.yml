@@ -1,0 +1,7 @@
+- name: Instala o pacotes necessarios para o OBS - Linux
+  apt:
+    state: latest
+    pkg:
+    - ffmpeg
+    - obs-studio
+  when: ansible_distribution == 'Debian'

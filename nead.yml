@@ -1,0 +1,6 @@
+- hosts: nead
+  any_errors_fatal: true
+  roles:
+    - obs
+    - openboard
+    - shotcut
