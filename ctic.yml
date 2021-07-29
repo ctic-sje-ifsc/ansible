@@ -1,5 +1,9 @@
+---
 - hosts: ctic
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
   any_errors_fatal: true
+  gather_facts: true
   roles:
     - code
     - docker
