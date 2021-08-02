@@ -28,7 +28,7 @@
       - tcpdump
       - dnsutils
       - python3-pip
-      - python-pip
+      # - python-pip # Ruim no bullseye
   - pip:
       name:
         - pywinrm
