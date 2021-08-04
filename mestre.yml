@@ -51,6 +51,7 @@
 - import_playbook: mcul.yml
 - import_playbook: manut.yml
 - import_playbook: mtele.yml
+- import_playbook: nead.yml
 - import_playbook: patrim.yml
 - import_playbook: registro_academico.yml
 - import_playbook: secretaria.yml
