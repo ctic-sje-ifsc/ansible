@@ -1,4 +1,10 @@
 # Debian e Ubuntu
+
+- name: Add an apt key by id from a keyserver Qgis
+  ansible.builtin.apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 46B5721DBBD2996A
+
 - name: Adicionar a chave do repositório do qgis
   apt_key:
     url: https://qgis.org/downloads/qgis-2019.gpg.key
