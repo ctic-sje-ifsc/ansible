@@ -36,7 +36,7 @@
     pkg:
     - openjdk-8-jdk
     - build-essential
-    - cmake
+    #- cmake Incompatibilidade com o cmake mais antigo instalado no programas_padroes_labs
     - cpp
     - gdb
   when: ansible_os_family == 'Debian'
