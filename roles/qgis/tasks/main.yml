@@ -4,6 +4,7 @@
   ansible.builtin.apt_key:
     keyserver: keyserver.ubuntu.com
     id: 46B5721DBBD2996A
+  when: ansible_os_family == 'Debian'
 
 - name: Adicionar a chave do repositório do qgis
   apt_key:
