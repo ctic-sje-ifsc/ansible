@@ -33,7 +33,7 @@
     owner: root
     group: root
     mode: 0400
-  when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-cad2-38841")
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-cad2-905476")
 
 ## CAD3
 - name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys do CAD3 - Linux
@@ -84,7 +84,7 @@
     owner: root
     group: root
     mode: 0400
-  when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-redes-744530")
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-redes-906284")
 
 ## PROG
 - name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys do PROG - Linux

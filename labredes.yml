@@ -4,15 +4,22 @@
     - role: grub
       tipo: grub_soh_lin
 
-- hosts: redes:!sj-lin-redes-744530.maquinas.sj.ifsc.edu.br
+- hosts: redes:!sj-lin-redes-906284.maquinas.sj.ifsc.edu.br
   any_errors_fatal: true
   roles:
     - epoptes_client
 
-- hosts: sj-lin-redes-744530.maquinas.sj.ifsc.edu.br #Maquina do professor
+- hosts: sj-lin-redes-906284.maquinas.sj.ifsc.edu.br #Maquina do professor
   any_errors_fatal: true
   roles:
     - epoptes_server
     - ingressa_ldap
     - configura_monitores
     # - owncloud_client
+
+# Windows
+
+- hosts: sj-redes-906284.maquinas.sj.ifsc.edu.br #Maquina do professor
+  any_errors_fatal: true
+  roles:
+    - ingressa_ldap
