@@ -1,5 +1,9 @@
 ## Para esse role funcionar corretamente ele precisa dos seguintes roles:
 # docker (instalação do docker)
+
+- include_role:
+    name: docker
+
 - name: Instalar pacotes necessarios - Linux
   apt:
     state: latest
