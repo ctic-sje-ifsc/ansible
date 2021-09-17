@@ -1,5 +1,5 @@
 - hosts: biblio:!sj-lin-biblio-g36hqn1.maquinas.sj.ifsc.edu.br
-  any_errors_fatal: true
+  #any_errors_fatal: true
   roles:
     - ingressa_ldap_sem_cups_client
     - role: instala_impressora_cups
@@ -16,7 +16,7 @@
         - sophiaslade
 
 - hosts: sj-lin-biblio-g36hqn1.maquinas.sj.ifsc.edu.br
-  any_errors_fatal: true
+  #any_errors_fatal: true
   roles:
     - ingressa_ldap_sem_cups_client
     - role: instala_impressora_cups

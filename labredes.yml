@@ -1,16 +1,16 @@
 - hosts: redes_lin
-  any_errors_fatal: true
+  ##any_errors_fatal: true
   roles:
     - role: grub
-      tipo: grub_soh_lin
+      tipo: grub_lin
 
 - hosts: redes_lin:!sj-lin-redes-906284.maquinas.sj.ifsc.edu.br
-  any_errors_fatal: true
+  ##any_errors_fatal: true
   roles:
     - epoptes_client
 
 - hosts: sj-lin-redes-906284.maquinas.sj.ifsc.edu.br #Maquina do professor
-  any_errors_fatal: true
+  ##any_errors_fatal: true
   roles:
     - epoptes_server
     - ingressa_ldap
@@ -20,6 +20,6 @@
 # Windows
 
 - hosts: sj-redes-906284.maquinas.sj.ifsc.edu.br #Maquina do professor
-  any_errors_fatal: true
+  ##any_errors_fatal: true
   roles:
     - ingressa_ldap

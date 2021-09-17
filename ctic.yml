@@ -2,7 +2,7 @@
 - hosts: ctic
   vars:
     ansible_python_interpreter: /usr/bin/python3
-  any_errors_fatal: true
+  #any_errors_fatal: true
   gather_facts: true
   roles:
     - code
@@ -50,13 +50,13 @@
 
 ##################  Maquina do 1berto  ##################
 - hosts: sj-lin-ctic-37247.maquinas.sj.ifsc.edu.br
-  any_errors_fatal: true
+  #any_errors_fatal: true
   roles:
     - ingressa_ldap_gdm
 
 ##################  Maquina do RICARDO  ##################
 - hosts: sj-lin-ctic-744521.maquinas.sj.ifsc.edu.br
-  any_errors_fatal: true
+  #any_errors_fatal: true
   roles:
     - kubernetes
     - ingressa_ldap_gdm

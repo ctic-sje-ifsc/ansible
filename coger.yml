@@ -1,6 +1,6 @@
 ---
 - hosts: coger
-  any_errors_fatal: true
+  #any_errors_fatal: true
   roles:
     - qgis
     - role: softwares_remotos

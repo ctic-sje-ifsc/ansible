@@ -1,6 +1,6 @@
 ## Windows
 - hosts: mrac_win
-  any_errors_fatal: true
+  #any_errors_fatal: true
   roles:
     - programas_padroes_labs
     - ipu_softwares
