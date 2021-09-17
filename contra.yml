@@ -1,5 +1,5 @@
 - hosts: sj-lin-contra-710813.maquinas.sj.ifsc.edu.br
-  any_errors_fatal: true
+  #any_errors_fatal: true
   roles:
     - ingressa_ldap_sem_cups_client
     - savpdf

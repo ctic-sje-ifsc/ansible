@@ -1,11 +1,11 @@
 - hosts: csfio_lin
-  any_errors_fatal: true
+  #any_errors_fatal: true
   roles:
     - ingressa_ldap
     - role: grub
       tipo: grub_lin
 
 - hosts: csfio_win
-  any_errors_fatal: true
+  #any_errors_fatal: true
   roles:
     - ingressa_ldap

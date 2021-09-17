@@ -1,7 +1,7 @@
 ---
   ## Inclusao de roles apenas para LINUX
 - hosts: laboratorios_lin
-  any_errors_fatal: true
+  #any_errors_fatal: true
   roles:
     - sources_list
     - programas_padroes_labs
@@ -38,7 +38,7 @@
 
   ## Inclusao de roles apenas para WINDOWS
 - hosts: laboratorios_win
-  any_errors_fatal: true
+  #any_errors_fatal: true
   roles:
     - programas_padroes_labs
     - config_padrao_labs

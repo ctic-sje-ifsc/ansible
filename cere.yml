@@ -1,5 +1,5 @@
 - hosts: cere
-  any_errors_fatal: true
+  #any_errors_fatal: true
   tasks:
   - name: Pacotes especiais
     apt:

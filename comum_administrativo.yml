@@ -1,6 +1,6 @@
 ---
 - hosts: administrativos_lin
-  any_errors_fatal: true
+  #any_errors_fatal: true
   roles:
     - sources_list
     - openaudit
@@ -16,25 +16,25 @@
 # Chamado do Jorge casagrande pedindo para desativar o desligamento na máquina dele IFSC#2019090410000968
 # Chamado do Diego Medeiros pedindo para desativar o desligamento na máquina dele IFSC#2018112810000143
 - hosts: administrativos_lin:!sj-lin-des2-744402.maquinas.sj.ifsc.edu.br:!sj-lin-des2-744927.maquinas.sj.ifsc.edu.br:!sj-lin-des2-744928.maquinas.sj.ifsc.edu.br:!sj-lin-dire-37243.maquinas.sj.ifsc.edu.br
-  any_errors_fatal: true
+  #any_errors_fatal: true
   roles:
     - auto_desligamento
 
 # Ingressa LDAP. Exclui da lista as máquinas com impressora local
 - hosts: administrativos_lin:!sj-lin-des2-744927.maquinas.sj.ifsc.edu.br:!sj-lin-des2-744928.maquinas.sj.ifsc.edu.br:!patrim:!biblio:!sj-lin-comaf-37250.maquinas.sj.ifsc.edu.br:!sj-lin-almox-756044.maquinas.sj.ifsc.edu.br:!sj-lin-comaf-744525.maquinas.sj.ifsc.edu.br:!sj-lin-ctic-744521.maquinas.sj.ifsc.edu.br:!sj-lin-contra-710813.maquinas.sj.ifsc.edu.br
-  any_errors_fatal: true
+  #any_errors_fatal: true
   roles:
     - ingressa_ldap
 
 #Colocar os grupos que possuem mais de uma distribuicao instalada e criar o playbook para o grupo
 - hosts: administrativos_lin:!labfisica:!maud:!aud:!vconf:!ledis:!mcul:!des2:!sj-lin-depe-BRG311F6PN.maquinas.sj.ifsc.edu.br:!mrac_lin:!sj-lin-manut-866467.maquinas.sj.ifsc.edu.br:!sj-lin-mtele-703868.maquinas.sj.ifsc.edu.br
-  any_errors_fatal: true
+  #any_errors_fatal: true
   roles:
     - role: grub
       tipo: grub_soh_lin
 
 - hosts: administrativos_win
-  any_errors_fatal: true
+  #any_errors_fatal: true
   roles:
     - programas_padroes_adm
     - config_padrao_adm

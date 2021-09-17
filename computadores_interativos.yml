@@ -1,5 +1,5 @@
 - hosts: pcinterativo
-  any_errors_fatal: true
+  #any_errors_fatal: true
   tasks:
     - name: Instalar o Java a pedido do Diego Chamado IFSC#2019060310000073
       apt:

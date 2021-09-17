@@ -1,6 +1,6 @@
 ---
 - hosts: cgp
-  any_errors_fatal: true
+  #any_errors_fatal: true
   roles:
     - role: softwares_remotos
       apps:
@@ -8,6 +8,6 @@
         - ibsispes
 
 - hosts: sj-lin-cgp-613018.maquinas.sj.ifsc.edu.br
-  any_errors_fatal: true
+  #any_errors_fatal: true
   roles:
     - irpf
