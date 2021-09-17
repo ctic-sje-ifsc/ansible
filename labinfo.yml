@@ -1,15 +1,15 @@
-- hosts: redes_lin
+- hosts: info_lin
   any_errors_fatal: true
   roles:
     - role: grub
       tipo: grub_soh_lin
 
-- hosts: redes_lin:!sj-lin-redes-906284.maquinas.sj.ifsc.edu.br
+- hosts: info_lin:!sj-lin-info-895203.maquinas.sj.ifsc.edu.br
   any_errors_fatal: true
   roles:
     - epoptes_client
 
-- hosts: sj-lin-redes-906284.maquinas.sj.ifsc.edu.br #Maquina do professor
+- hosts: sj-lin-info-895203.maquinas.sj.ifsc.edu.br #Maquina do professor
   any_errors_fatal: true
   roles:
     - epoptes_server
@@ -19,7 +19,7 @@
 
 # Windows
 
-- hosts: sj-redes-906284.maquinas.sj.ifsc.edu.br #Maquina do professor
+- hosts: sj-info-895203.maquinas.sj.ifsc.edu.br #Maquina do professor
   any_errors_fatal: true
   roles:
     - ingressa_ldap
