@@ -1,0 +1,23 @@
+#Windows
+
+- name: Copy o preparador de instalação do Revit - Windows
+  win_copy:
+    src: Revit_2021_network.exe
+    dest: C:\Revit_2021_network.exe
+
+
+- name: Preparar o instalador do Revit - Windows
+  win_package:
+    path: 'C:\Revit_2021_network.exe'
+    creates_path: 'C:/Autodesk\{F013374E-3637-4B9D-9390-38D9443A7471}\image\Installer.exe' 
+    product_id: '{F013374E-3637-4B9D-9390-38D9443A7471}'
+    state: present
+  when: ansible_os_family == 'Windows'
+
+- name: Instalar o Revit - Windows
+  win_package:
+    path: 'C:/Autodesk\{F013374E-3637-4B9D-9390-38D9443A7471}\image\Installer.exe'
+    arguments: '-i deploy --offline_mode -q -o "C:/Autodesk\{F013374E-3637-4B9D-9390-38D9443A7471}\image\Collection.xml" --installer_version "1.23.0.14"'
+    product_id: '{F013374E-3637-4B9D-9390-38D9443A7471}'
+    state: present
+  when: ansible_os_family == 'Windows'
