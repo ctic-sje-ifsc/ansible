@@ -1,0 +1,27 @@
+# - name: Instalar o Autocad 2021 - Windows
+#   win_package:
+#     # chdir: 'C:/Autodesk{F013374E-3637-4B9D-9390-38D9443A7471}\image'
+#     path: '\\dk\deployments\Autocad2021\Img\Setup.exe'
+#     # product_id: '{F013374E-3637-4B9D-9390-38D9443A7471}'
+#     state: present
+#     arguments: '/qb /I \\dk\deployments\Autocad2021\Img\Autocad_2021.ini /Trial /language en-US'  
+#   when: ansible_os_family == 'Windows'
+
+# - name: Create mapped drive with credentials that do not persist on the next logon
+#   win_mapped_drive:
+#     letter: M
+#     path: \\dk\deployments
+#     state: present
+#     username: 'ctic'
+#     password: ''
+
+- name: Uninstall Autocad 2016
+  ansible.windows.win_package:
+    product_id: '{5783F2D7-F001-0000-0102-0060B0CE6BBA}'
+    arguments: /qb
+    state: absent
+
+- name: Remove link Autocad 2016
+  ansible.windows.win_file:
+    path: 'C:\Users\Public\Desktop\Autocad 2016 - English.lnk'
+    state: absent
