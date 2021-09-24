@@ -2,6 +2,7 @@
 - hosts: sidi_lin
   any_errors_fatal: true
   roles:
+    - pinta
     - role: grub
       tipo: grub_lin
   tasks:

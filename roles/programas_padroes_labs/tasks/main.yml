@@ -31,7 +31,7 @@
     - konsole
     - gedit
     - okular
-    - pinta
+    # - pinta ######################################################
     - mcu8051ide
     - vlc
     - x2goclient
@@ -104,7 +104,7 @@
     - python3-tk
     - gir1.2-appindicator3-0.1
     - ntpdate
-    - linux-headers-{{ ansible_kernel }}
+    # - linux-headers-{{ ansible_kernel }}
     - avahi-daemon
     - graphviz
     - avahi-utils
