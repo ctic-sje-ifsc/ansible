@@ -2,22 +2,21 @@
 
 - name: Copy o preparador de instalação do Revit - Windows
   win_copy:
-    src: Revit_2021_network.exe
-    dest: C:\Revit_2021_network.exe
-
+    src: Revit_2021.exe
+    dest: C:\Revit_2021.exe
 
 - name: Preparar o instalador do Revit - Windows
   win_package:
-    path: 'C:\Revit_2021_network.exe'
-    creates_path: 'C:/Autodesk\{F013374E-3637-4B9D-9390-38D9443A7471}\image\Installer.exe' 
-    product_id: '{F013374E-3637-4B9D-9390-38D9443A7471}'
+    path: 'C:\Revit_2021.exe'
+    creates_path: 'C:/Autodesk\{7357F4C2-BA44-4FD9-88E4-96A55D0BBA59}\image\Installer.exe'
+    product_id: '{7357F4C2-BA44-4FD9-88E4-96A55D0BBA59}'
     state: present
   when: ansible_os_family == 'Windows'
 
-- name: Instalar o Revit - Windows
-  win_package:
-    path: 'C:/Autodesk\{F013374E-3637-4B9D-9390-38D9443A7471}\image\Installer.exe'
-    arguments: '-i deploy --offline_mode -q -o "C:/Autodesk\{F013374E-3637-4B9D-9390-38D9443A7471}\image\Collection.xml" --installer_version "1.23.0.14"'
-    product_id: '{F013374E-3637-4B9D-9390-38D9443A7471}'
-    state: present
-  when: ansible_os_family == 'Windows'
+# Caso dê algum problema no procedimento acima, é necessário apagar a pasta abaixo e tentar novamente
+# o processo de preparação.
+
+# - name: Remove pasta do Revit
+#   ansible.windows.win_file:
+#     path: 'C:\Autodesk\{7357F4C2-BA44-4FD9-88E4-96A55D0BBA59}'
+#     state: absent
