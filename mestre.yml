@@ -15,7 +15,7 @@
       when: ansible_os_family == 'Debian'      
 
 - hosts: all:!wol
-  # any_errors_fatal: true
+  # #any_errors_fatal: true
   tasks:
     - name: Instalar o aptitude, necessario para o modulo apt
       apt: name=aptitude state=latest
@@ -74,10 +74,14 @@
 - import_playbook: labmeios.yml
 - import_playbook: labprogramacao.yml
 - import_playbook: labredes.yml
+- import_playbook: labinfo.yml
 - import_playbook: labsidi.yml
 - import_playbook: mrac.yml
 
-- hosts: all
-  gather_facts: false
-  tasks:
-    - meta: clear_host_errors
+#Comentei porque isso faz mais dentido quando usa com o ansible AWX, na mão é melhor que não seja executado.
+
+# - hosts: all
+#   gather_facts: false
+#   tasks:
+#     - meta: clear_host_errors
+

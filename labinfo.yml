@@ -1,0 +1,25 @@
+- hosts: info_lin
+  #any_errors_fatal: true
+  roles:
+    - role: grub
+      tipo: grub_soh_lin
+
+- hosts: info_lin:!sj-lin-info-895203.maquinas.sj.ifsc.edu.br
+  #any_errors_fatal: true
+  roles:
+    - epoptes_client
+
+- hosts: sj-lin-info-895203.maquinas.sj.ifsc.edu.br #Maquina do professor
+  #any_errors_fatal: true
+  roles:
+    - epoptes_server
+    - ingressa_ldap
+    - configura_monitores
+    # - owncloud_client
+
+# Windows
+
+- hosts: sj-info-895203.maquinas.sj.ifsc.edu.br #Maquina do professor
+  #any_errors_fatal: true
+  roles:
+    - ingressa_ldap

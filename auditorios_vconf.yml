@@ -1,5 +1,5 @@
 - hosts: maud,aud,vconf
-  any_errors_fatal: true
+  #any_errors_fatal: true
   roles: 
     - role: grub
       tipo: grub_lin
