@@ -1,6 +1,7 @@
 - hosts: info_lin
   #any_errors_fatal: true
   roles:
+    - kernel_backports
     - role: grub
       tipo: grub_soh_lin
 
