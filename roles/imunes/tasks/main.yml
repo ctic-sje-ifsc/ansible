@@ -65,7 +65,7 @@
 - name: Criar arquivo /home/.Xresources que personaliza Xterm
   copy:
     content: |
-        ! Use a nice truetype font and size by default... 
+        ! Use a nice truetype font and size by default...
         xterm*faceName: DejaVu Sans Mono Book
         xterm*faceSize: 11
 

@@ -1,5 +1,5 @@
 - hosts: sj-lin-manut-866467.maquinas.sj.ifsc.edu.br
-  any_errors_fatal: true
+  #any_errors_fatal: true
   roles:
     - role: grub
       tipo: grub_win

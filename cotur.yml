@@ -1,5 +1,5 @@
 - hosts: cotur_sinal
-  any_errors_fatal: true
+  #any_errors_fatal: true
   roles:
     - sinal
 

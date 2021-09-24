@@ -1,5 +1,5 @@
 - hosts: patrim
-  any_errors_fatal: true
+  #any_errors_fatal: true
   roles:
     - spotify
     - ingressa_ldap_sem_cups_client
