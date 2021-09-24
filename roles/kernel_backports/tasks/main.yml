@@ -1,0 +1,9 @@
+---
+
+- name: Instalar Kernel 4.19 do backports no stretch para resolver o problema de resolucao de tela
+  apt:
+    name: linux-image-4.19-amd64
+    state: latest
+    default_release: stretch-backports
+    update_cache: yes
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch' and (ansible_system_vendor == 'Positivo Tecnologia SA' or ansible_system_vendor == 'LENOVO') )
