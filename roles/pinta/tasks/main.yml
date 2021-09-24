@@ -1,0 +1,15 @@
+---
+
+# Debian 10
+- name: Adicionar repositório Pinta - Linux Debian 10
+  apt_repository:
+    repo: ppa:pinta-maintainers/pinta-stable
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
+
+# Debian 10
+- name: Instalar os pacotes para o pinta - Debian 10
+  apt:
+    state: latest
+    pkg:
+    - pinta
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
