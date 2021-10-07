@@ -104,6 +104,12 @@
 
         ! stop output to terminal from jumping down to bottom of scroll again
         xterm*scrollTtyOutput: false
+
+        !Copy and Paste
+        xterm*VT100.Translations: #override \
+                         Ctrl Shift <Key>V:    insert-selection(CLIPBOARD) \n\
+                         Ctrl Shift <Key>C:    copy-selection(CLIPBOARD)
+
     dest: /home/.Xresources
     owner: root
     group: root
