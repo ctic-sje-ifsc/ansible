@@ -47,3 +47,10 @@
     path: /etc/default/epoptes-client
     line: 'SERVER=sj-lin-cad3-744528.maquinas.sj.ifsc.edu.br'
   when: ansible_hostname is search("^sj-lin-cad3")
+
+- name: Adicionar entrada no /etc/default/epoptes-client sobre quem é o server do informatica - Linux
+  lineinfile:
+    regexp: '^SERVER'
+    path: /etc/default/epoptes-client
+    line: 'SERVER=sj-lin-info-895203.maquinas.sj.ifsc.edu.br'
+  when: ansible_hostname is search("^sj-lin-info")
