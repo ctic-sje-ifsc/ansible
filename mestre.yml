@@ -12,7 +12,7 @@
       ansible.builtin.apt_key:
         keyserver: keyserver.ubuntu.com
         id: 46B5721DBBD2996A
-      when: ansible_os_family == 'Debian'      
+      when: ansible_os_family == 'Debian'
 
 - hosts: all:!wol
   # #any_errors_fatal: true
@@ -77,6 +77,7 @@
 - import_playbook: labinfo.yml
 - import_playbook: labsidi.yml
 - import_playbook: mrac.yml
+- import_playbook: note.yml
 
 #Comentei porque isso faz mais dentido quando usa com o ansible AWX, na mão é melhor que não seja executado.
 
@@ -84,4 +85,3 @@
 #   gather_facts: false
 #   tasks:
 #     - meta: clear_host_errors
-
