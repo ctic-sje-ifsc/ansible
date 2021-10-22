@@ -13,8 +13,8 @@
 # - name: Reverte versão do libssh-4 para stable
 #   apt: name=libssh-4=0.7.3-2+deb9u1 state=present force=yes
 
-# Debian 9 e Ubuntu
-- name: Instalar pacotes necessarios para o remmina
+# Debian 9
+- name: Instalar pacotes necessarios para o remmina - Debian 9 e Ubuntu
   apt:
     state: present
     default_release: jessie
@@ -24,10 +24,10 @@
     - remmina-common=1.1.1-2
     - remmina-plugin-rdp=1.1.1-2
     - libfreerdp-plugins-standard
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'buster')
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'jessie')
 
-# Debian 10
-- name: Instalar pacotes necessarios para o remmina
+# Debian 10 e 11
+- name: Instalar pacotes necessarios para o remmina - Debian 10 e 11
   apt:
     state: present
     pkg:
@@ -35,7 +35,7 @@
     - remmina-common
     - remmina-plugin-rdp
     # - libfreerdp-plugins-standard
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
+  when: (ansible_os_family == 'Debian' and (ansible_distribution_release != 'buster' or ansible_distribution_release != 'bullseye'))
 
 - name: Faz hold no remmina
   dpkg_selections:
