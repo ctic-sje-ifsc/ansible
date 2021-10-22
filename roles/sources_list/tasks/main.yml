@@ -22,3 +22,15 @@
   when: ansible_distribution_release == 'buster'
   notify:
     - update apt cache
+
+#Linux Debian 11
+- name: Arquivo do source list - Debian bullseye
+  copy:
+    src: sources.bullseye.list
+    dest: /etc/apt/sources.list
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_distribution_release == 'bullseye'
+  notify:
+    - update apt cache
