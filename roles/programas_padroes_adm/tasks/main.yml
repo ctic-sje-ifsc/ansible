@@ -44,7 +44,7 @@
     - gnome-terminal
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
 
-- name: Instalar pacotes padroes - Linux (Debian 10)
+- name: Instalar pacotes padroes - Linux (Debian 10 e 11)
   apt:
     state: latest
     update_cache: yes #Para garantir que o sourcelist esteja atualizado
@@ -63,12 +63,10 @@
     - dia
     - kolourpaint4
     - kdenlive
-    - kde-l10n-ptbr
     - chromium
     - chromium-l10n
     - google-chrome-stable
     - nfs-common
-    - libreoffice-pdfimport
     - gscan2pdf
     - okular
     - network-manager-gnome
@@ -76,7 +74,17 @@
     - system-config-printer
     - pdfshuffler
     - gnome-terminal
+  when: (ansible_os_family == 'Debian' and (ansible_distribution_release == 'buster' or ansible_distribution_release == 'bullseye'))
+
+- name: Instalar pacotes padroes - Linux (Debian 10)
+  apt:
+    state: latest
+    update_cache: yes #Para garantir que o sourcelist esteja atualizado
+    pkg:
+    - kde-l10n-ptbr
+    - libreoffice-pdfimport
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
+
 
 - name: Remover programas  - Linux
   apt:

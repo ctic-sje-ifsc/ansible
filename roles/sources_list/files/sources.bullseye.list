@@ -1,0 +1,14 @@
+# Ansible managed
+
+# Original APT package sources gathered by Ansible
+deb http://debian.c3sl.ufpr.br/debian bullseye main contrib non-free
+deb http://debian.c3sl.ufpr.br/debian bullseye-updates main contrib non-free
+deb http://debian.c3sl.ufpr.br/debian bullseye-backports main contrib non-free
+
+# Official Debian repositories
+deb http://deb.debian.org/debian bullseye main contrib non-free
+deb http://deb.debian.org/debian bullseye-updates main contrib non-free
+deb http://deb.debian.org/debian bullseye-backports main contrib non-free
+
+# Debian Security repository
+deb http://security.debian.org/debian-security bullseye-security main contrib non-free
