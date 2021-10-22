@@ -9,7 +9,7 @@
     - acesso_remoto
     - fonte_garamound
     - papel_de_parede_e_icones_adm
-    - irpf
+    # - irpf # Novo diretor nao autorizou a instalacao do programa
     - unattendedUpgrades_adm
 
 
