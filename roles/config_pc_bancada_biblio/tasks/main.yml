@@ -1,0 +1,8 @@
+---
+
+- name: Cria usuário biblioteca com a senha dos pcs da bancada
+  user:
+    name: biblioteca
+    password: $y$j9T$DWg7BsUCA1uRQAY/p1FFB.$9Vxj4ZboUJv6D8qrWr8HyiiH4gKiyzcWakLf8JYYr./
+    append: yes
+  when: ansible_os_family == 'Debian'
