@@ -126,7 +126,7 @@
 - name: Cria usuário aluno com a senha aluno
   user:
     name: aluno
-    groups: [vboxusers]
+    # groups: [vboxusers] #Nao tem o grupo ainda
     password: $6$B5dpvoG43l67q0sx$r0LDKV2TgNItf/kYx/76l89ZN4LhP/ksYIxp.SSVGttHoSZXLSoB6Hkg2A6y7M7aFJ8zEuauf5kS/yA/P61kN1
     append: yes
   when: ansible_os_family == 'Debian'
@@ -194,52 +194,52 @@
     mode: 0644
   when: ansible_os_family == 'Debian'
 
-- name: Mantem o estado do arquivo /usr/share/applications/modelsim.png - Linux
-  copy:
-    src: modelsim.png
-    dest: /opt/altera/13.0sp1/modelsim_ae/modelsim.png
-    owner: root
-    group: root
-    mode: 0644
-  when: ansible_os_family == 'Debian'
+# - name: Mantem o estado do arquivo /usr/share/applications/modelsim.png - Linux
+#   copy:
+#     src: modelsim.png
+#     dest: /opt/altera/13.0sp1/modelsim_ae/modelsim.png
+#     owner: root
+#     group: root
+#     mode: 0644
+#   when: ansible_os_family == 'Debian'
 
-- name: Mantem o estado do arquivo /opt/altera/13.0sp1/modelsim_ae/vco - Linux
-  copy:
-    src: vco
-    dest: /opt/altera/13.0sp1/modelsim_ae/vco
-    owner: root
-    group: root
-    mode: 0555
-  when: ansible_os_family == 'Debian'
+# - name: Mantem o estado do arquivo /opt/altera/13.0sp1/modelsim_ae/vco - Linux
+#   copy:
+#     src: vco
+#     dest: /opt/altera/13.0sp1/modelsim_ae/vco
+#     owner: root
+#     group: root
+#     mode: 0555
+#   when: ansible_os_family == 'Debian'
 
-- name: Cria um link do /opt/altera/13.0sp1/modelsim_ae/bin/vsim para ../vco - Linux
-  file:
-    src: /opt/altera/13.0sp1/modelsim_ae/vco
-    dest: /opt/altera/13.0sp1/modelsim_ae/bin/vsim
-    force: yes
-    state: link
-  when: ansible_os_family == 'Debian'
+# - name: Cria um link do /opt/altera/13.0sp1/modelsim_ae/bin/vsim para ../vco - Linux
+#   file:
+#     src: /opt/altera/13.0sp1/modelsim_ae/vco
+#     dest: /opt/altera/13.0sp1/modelsim_ae/bin/vsim
+#     force: yes
+#     state: link
+#   when: ansible_os_family == 'Debian'
 
-- name: Cria um link do vsim no /usr/local/bin - Linux
-  file:
-    src: /opt/altera/13.0sp1/modelsim_ae/bin/vsim
-    dest: /usr/local/bin/vsim
-    state: link
-  when: ansible_os_family == 'Debian'
+# - name: Cria um link do vsim no /usr/local/bin - Linux
+#   file:
+#     src: /opt/altera/13.0sp1/modelsim_ae/bin/vsim
+#     dest: /usr/local/bin/vsim
+#     state: link
+#   when: ansible_os_family == 'Debian'
 
-- name: Cria um link do matlab15 no /usr/local/bin - Linux
-  file:
-    src: /opt/matlab/R2015a/bin/matlab
-    dest: /usr/local/bin/matlab15
-    state: link
-  when: ansible_os_family == 'Debian'
+# - name: Cria um link do matlab15 no /usr/local/bin - Linux
+#   file:
+#     src: /opt/matlab/R2015a/bin/matlab
+#     dest: /usr/local/bin/matlab15
+#     state: link
+#   when: ansible_os_family == 'Debian'
 
-- name: Cria um link do matlab12 no /usr/local/bin - Linux
-  file:
-    src: /opt/matlab/R2012b/bin/matlab
-    dest: /usr/local/bin/matlab12
-    state: link
-  when: ansible_os_family == 'Debian'
+# - name: Cria um link do matlab12 no /usr/local/bin - Linux
+#   file:
+#     src: /opt/matlab/R2012b/bin/matlab
+#     dest: /usr/local/bin/matlab12
+#     state: link
+#   when: ansible_os_family == 'Debian'
 
 # - name: Cria um link do salve seus trabalhos aqui no home do aluno - Linux
 #   file:
@@ -405,17 +405,17 @@
 ##################### Fim do corrige problema no Matlab
 
 ##################### Definir versao do java e javac padroes
-- name: Definir versão java padrão - Linux
-  alternatives:
-    name: java
-    path: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
-  when: ansible_distribution == 'Debian'
+# - name: Definir versão java padrão - Linux
+#   alternatives:
+#     name: java
+#     path: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+#   when: ansible_distribution == 'Debian'
 
-- name: Definir versão javac padrão - Linux
-  alternatives:
-    name: javac
-    path: /usr/lib/jvm/java-8-openjdk-amd64/bin/javac
-  when: ansible_distribution == 'Debian'
+# - name: Definir versão javac padrão - Linux
+#   alternatives:
+#     name: javac
+#     path: /usr/lib/jvm/java-8-openjdk-amd64/bin/javac
+#   when: ansible_distribution == 'Debian'
 ##################### Fim do Definir versao do java e javac padroes
 
 
@@ -560,7 +560,7 @@
   loop_control:
     loop_var: files_arduino
   when: ansible_os_family == 'Windows'
-  tags: 
+  tags:
   - proteus
 
 - name: Copia arquivo para a biblioteca do proteus - Windows
@@ -568,7 +568,7 @@
     src: ARDUINO.LML
     dest: C:\ProgramData\Labcenter Electronics\Proteus 8 Professional\MODELS\
   when: ansible_os_family == 'Windows'
-  tags: 
+  tags:
   - proteus
 
 ###################### Início da configuracao do UTC Windows
