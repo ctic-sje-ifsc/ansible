@@ -31,7 +31,6 @@
     - konsole
     - gedit
     - okular
-    # - pinta ######################################################
     - mcu8051ide
     - vlc
     - x2goclient
@@ -41,11 +40,24 @@
     - google-chrome-stable
     - pdfsam
     - pdfshuffler
-    - qalculate
     - mate-applet-brisk-menu
-    - dconf-tools
     - dia
   when: ansible_os_family == 'Debian'
+
+- name: Instalar pacotes GUI ou "conhecidos" padroes de laboratorios - Debian 10
+  apt:
+    state: latest
+    pkg:
+    - qalculate
+    - dconf-tools
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
+
+- name: Instalar pacotes GUI ou "conhecidos" padroes de laboratorios - Debian 11
+  apt:
+    state: latest
+    pkg:
+    - qalc
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
 - name: Instalar pacotes de ferramentas "conhecidas" padroes de laboratorios - Linux
   apt:
@@ -66,7 +78,6 @@
     - git
     - logisim
     - mosquitto-clients
-    - mysql-client
     - nemiver
     - nodejs
     - vim
@@ -93,7 +104,6 @@
     - texlive-extra-utils
     - texlive-lang-portuguese
     - python3-pip
-    - python-rope
     - htop
     - firmware-amd-graphics
     - firmware-misc-nonfree
@@ -102,9 +112,7 @@
     - fping
     - libpcre++-dev
     - python3-tk
-    - gir1.2-appindicator3-0.1
     - ntpdate
-    # - linux-headers-{{ ansible_kernel }}
     - avahi-daemon
     - graphviz
     - avahi-utils
@@ -116,6 +124,17 @@
     - twinkle
   when: ansible_os_family == 'Debian'
 
+- name: Instalar pacotes de ferramentas "conhecidas" padroes de laboratorios - Debian 10
+  apt:
+    state: latest
+    pkg:
+    - mysql-client
+    - python-rope
+    - gir1.2-appindicator3-0.1
+    - linux-headers-{{ ansible_kernel }}
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
+
+
 - name: Instalar lista de pacotes pedida pelo Roberto de Matos Chamado IFSC#2019030810001087 - Linux
   apt:
     state: latest
@@ -124,7 +143,7 @@
     - gcc-avr
     - gdb-avr
     - avr-libc
-    - simulavr
+    # - simulavr #incompativel com debian 11
     - avrdude
     - avarice
   when: ansible_os_family == 'Debian'
@@ -137,11 +156,11 @@
     - sqlite3
     - sqlitebrowser
     - rabbitmq-server
-    - python-virtualenv
+    # - python-virtualenv #incompativel com debian 11
     - maven
-    - mysql-workbench
+    # - mysql-workbench #incompativel com debian 11
     - python-dev
-    - python-pip
+    # - python-pip #incompativel com debian 11
     - python3
     - python3-dev
     - libzmq3-dev
@@ -162,9 +181,9 @@
     - openjdk-11-doc
     - openjdk-11-jdk
     - openjdk-11-jre
-    - openjdk-8-doc
-    - openjdk-8-jdk
-    - openjdk-8-jre
+    # - openjdk-8-doc #incompativel com debian 11
+    # - openjdk-8-jdk #incompativel com debian 11
+    # - openjdk-8-jre #incompativel com debian 11
     - default-jre
     - default-jdk
   when: ansible_os_family == 'Debian'
@@ -224,7 +243,6 @@
     - libsm6:i386
     - libc6:i386
     - libpng16-16:i386
-    - libsm6:i386
     - libncurses5:i386
     - libstdc++6:i386
     - libxft2:i386
@@ -233,17 +251,38 @@
     - libxrender1:i386
     - libfreetype6:i386
     - libfontconfig1:i386
-  when: ansible_os_family == 'Debian'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'bullseye')
 
-- name: Install a .deb libpng12:i386 - Linux Debian
+- name: Instalar lista de pacotes necessarios para o quartus no Debian - Debian 11
   apt:
-    deb: http://mirrors.kernel.org/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1_i386.deb
-  when: ansible_os_family == 'Debian'
+    state: latest
+    pkg:
+    - lib32z1
+    - libc6-dev-i386
+    - libc6:i386
+    - libfontconfig1:i386
+    - libfreetype6:i386
+    - libgtk2.0-0:i386
+    - libncurses5:i386
+    - libsm6:i386
+    - libstdc++6:i386
+    - libxext6:i386
+    - libxft2
+    - libxft2:i386
+    - libxi6:i386
+    - libxrender1:i386
+    - libxtst6:i386
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
-- name: Install a .deb libpng12 - Linux Debian
-  apt:
-    deb: http://mirrors.kernel.org/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1_amd64.deb
-  when: ansible_os_family == 'Debian'
+# - name: Install a .deb libpng12:i386 - Linux Debian
+#   apt:
+#     deb: http://mirrors.kernel.org/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1_i386.deb
+#   when: ansible_os_family == 'Debian'
+
+# - name: Install a .deb libpng12 - Linux Debian
+#   apt:
+#     deb: http://mirrors.kernel.org/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1_amd64.deb
+#   when: ansible_os_family == 'Debian'
 
 - name: Instalar lista de pacotes necessarios para o Matlab no Debian - Linux
   apt:
