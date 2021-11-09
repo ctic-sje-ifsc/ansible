@@ -55,7 +55,8 @@
     - ingressa_ldap_gdm
 
 ##################  Maquina do RICARDO  ##################
-- hosts: sj-lin-ctic-744521.maquinas.sj.ifsc.edu.br
+# Não executar o Mestre.yml, executar apenas o ctic.yml #
+- hosts: sj-lin-ctic-744521.maquinas.sj.ifsc.edu.br,sj-lin-ctic-38319.maquinas.sj.ifsc.edu.br
   #any_errors_fatal: true
   roles:
     - kubernetes
@@ -92,7 +93,7 @@
       - vlan
       - python3-tk
       - python3-setuptools
-      - gir1.2-appindicator3-0.1
+      # - gir1.2-appindicator3-0.1 # Não é mais necessário
       # - python-appindicator # ruim no buster
       - vinagre
       - virtualenv
@@ -105,3 +106,9 @@
       - sshfs
       - net-tools
 ##########################################################
+
+# Windows Ricardo
+
+- hosts: sj-ctic-38319.maquinas.sj.ifsc.edu.br
+  roles:
+    - ingressa_ldap
