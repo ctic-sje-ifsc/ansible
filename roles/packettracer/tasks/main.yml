@@ -1,44 +1,85 @@
 ---
-#Linux
-- name: Adicionar repositório para instalar libssl1.0.0
-  apt_repository:
-    repo: deb http://security.debian.org/debian-security jessie/updates main
-    state: present
-    update_cache: yes
-  when: ansible_distribution == 'Debian'
+#   #### PACKET TRACER 7 ####
+# #Linux
+# - name: Adicionar repositório para instalar libssl1.0.0
+#   apt_repository:
+#     repo: deb http://security.debian.org/debian-security jessie/updates main
+#     state: present
+#     update_cache: yes
+#   when: ansible_os_family == 'Debian'
 
-- name: Instalar pacotes necessarios para o packettracer
-  apt: name=libssl1.0.0 state=latest default_release=jessie
-  when: ansible_distribution == 'Debian'
+# - name: Instalar pacotes necessarios para o packettracer
+#   apt: name=libssl1.0.0 state=latest default_release=jessie
+#   when: ansible_os_family == 'Debian'
 
-- name: Instalar pacotes necessarios para o packettracer - Linux
+# - name: Instalar pacotes necessarios para o packettracer7 - Linux
+#   apt:
+#     state: latest
+#     pkg:
+#     - libqt5webkit5
+#     - libqt5webkit5-dev
+#     - libqt5multimedia5
+#     - libqt5multimedia5-plugins
+#     - libqt5webkit5-dbg
+#     - libqt5script5
+#     - libqt5scripttools5
+#   when: ansible_os_family == 'Debian'
+
+# - name: Baixando e extraindo o packettracer7.tar.gz - Linux Debian 9 e 10
+#   unarchive:
+#     src: https://discovirtual.ifsc.edu.br/index.php/s/7LaUM9ofkcWP47c/download
+#     dest: /opt/
+#     creates: /opt/pt
+#     remote_src: yes
+#     owner: root
+#     group: root
+#     mode: 0755
+#   when: ansible_os_family == 'Debian'
+
+# - name: Criando o arquivo packettracer7.desktop - Linux Debian 9 e 10
+#   copy:
+#     src: packettracer7.desktop
+#     dest: /usr/share/applications/packettracer7.desktop
+#     owner: root
+#     group: root
+#     mode: 0644
+#   when: ansible_os_family == 'Debian'
+
+  #### PACKET TRACER 8 ####
+
+- name: Instalar pacotes necessarios para o packettracer 8 - Linux Debian 11
   apt:
     state: latest
     pkg:
+    - libqt5websockets5
     - libqt5webkit5
     - libqt5webkit5-dev
-    - libqt5multimedia5
-    - libqt5multimedia5-plugins
-    - libqt5webkit5-dbg
-    - libqt5script5
-    - libqt5scripttools5
-  when: ansible_distribution == 'Debian'
-
-- name: Baixando e extraindo o packettracer7.tar.gz - Linux Debian
-  unarchive:
-    src: https://discovirtual.ifsc.edu.br/index.php/s/7LaUM9ofkcWP47c/download
-    dest: /opt/
-    creates: /opt/pt
-    remote_src: yes
-    owner: root
-    group: root
-    mode: 0755
+    - dialog
+    - libgl1-mesa-glx
+    - libxcb-xinerama0-dev
   when: ansible_os_family == 'Debian'
 
-- name: Criando o arquivo packettracer7.desktop - Linux Debian
+### Gambiarra para baixar arquivo do Google Drive
+- name: Baixar Packet Tracer 8.0 - Linux Debian 11
+  shell: wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1GNzwSnzd4B1uqn7UB4oqE3kM-Weug2ad' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1GNzwSnzd4B1uqn7UB4oqE3kM-Weug2ad" -O /tmp/packet.tgz && rm -rf /tmp/cookies.txt
+  args:
+    creates: /opt/pt
+  when: ansible_os_family == 'Debian'
+
+- name: Extraindo Packet Tracer 8.0 - Linux Debian 11
+  unarchive:
+    src: /tmp/packet.tgz
+    dest: /opt/
+    owner: root
+    creates: /opt/pt
+    mode: 0755
+    remote_src: yes
+  when: ansible_os_family == 'Debian'
+
+- name: Criando o arquivo packettracer8.desktop - Linux Debian 11
   copy:
-    src: packettracer7.desktop
-    dest: /usr/share/applications/packettracer7.desktop
+    src: packettracer8.desktop
+    dest: /usr/share/applications/packettracer8.desktop
     owner: root
     group: root
     mode: 0644
