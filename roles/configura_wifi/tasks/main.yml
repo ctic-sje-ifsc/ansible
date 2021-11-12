@@ -7,6 +7,13 @@
     - wpasupplicant
   when: ansible_os_family == 'Debian'
 
+- name: Instala iwlwifi - Debian 11
+  apt:
+    state: latest
+    pkg:
+    - firmware-iwlwifi
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+
 - name: Copiando arquivo interfaces - Linux
   copy:
     src: interfaces
