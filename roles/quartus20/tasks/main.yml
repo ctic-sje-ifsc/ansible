@@ -14,7 +14,7 @@
     - libxext6:i386
     - libxtst6:i386
     - libxi6:i386
-    - libgtk2- 0-0:i386
+    - libgtk2.0-0:i386
     - libxft2
     - libxft2:i386
     - libc6-dev-i386
@@ -30,7 +30,7 @@
 
 - name: Extraindo Quartus 20.1 - Linux Debian 11
   unarchive:
-    src: quartus20.1.tgz
+    src: /tmp/quartus20.1.tgz
     dest: /opt/
     creates: /opt/intelFPGA
     remote_src: yes
