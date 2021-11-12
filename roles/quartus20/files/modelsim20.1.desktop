@@ -3,7 +3,7 @@
 Version=1.0
 Name=ModelSim-Altera Edition 20.1.1
 Comment=ModelSim simulation software for Altera FPGA's
-Exec=xterm -iconic -geometry 0x0 -b 0 -class widget /opt/intelFPmodelsim_ae/bin/vsim
+Exec=xterm -iconic -geometry 0x0 -b 0 -class widget /opt/intelFPGA/20.1/modelsim_ae/bin/vsim
 Icon=/opt/altera/13.0sp1/modelsim_ae/modesim.png
 Terminal=false
 Type=Application

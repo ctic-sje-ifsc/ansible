@@ -1,42 +1,60 @@
 ---
 
-# - name: Baixando e extraindo o Quartus18
-#   unarchive:
-#     src: http://nfs.sj.ifsc.edu.br/intelFPGA.tar
-#     dest: /opt/
-#     creates: /opt/intelFPGA
-#     remote_src: yes
-#     owner: root
-#     group: root
-#     mode: 0755
-#   when: ansible_os_family == 'Debian'
+- name: Instalar pacotes necessarios para o Quartus 20 - Linux Debian 11
+  apt:
+    state: latest
+    pkg:
+    - libc6:i386
+    - libncurses5:i386
+    - libstdc++6:i386
+    - libfreetype6:i386
+    - libsm6:i386
+    - libxrender1:i386
+    - libfontconfig1:i386
+    - libxext6:i386
+    - libxtst6:i386
+    - libxi6:i386
+    - libgtk2- 0-0:i386
+    - libxft2
+    - libxft2:i386
+    - libc6-dev-i386
+    - lib32z1
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
-# - name: Modifica o arquivo vco para contornar BUG
-#   replace:
-#     path: /opt/intelFPGA/18.1/modelsim_ae/vco
-#     regexp: 'linux_rh60'
-#     replace: 'linux'
-#     backup: yes
-#   when: ansible_os_family == 'Debian'
+### Gambiarra para baixar arquivo do Google Drive
+- name: Baixar Quartus 20.1 - Linux Debian 11
+  shell: wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1lBsil42TY5nbr8owQVyjngAnq71CMeVa' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1lBsil42TY5nbr8owQVyjngAnq71CMeVa" -O /tmp/quartus20.1.tgz && rm -rf /tmp/cookies.txt
+  args:
+    creates: /opt/intelFPGA
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
-# - name: Baixando e extraindo o arquivo de lib32
-#   unarchive:
-#     src: https://dl.dries007.net/lib32-freetype2-2.5.0.1.tar.xz
-#     dest: /opt/intelFPGA/18.1/modelsim_ae/
-#     creates: /opt/intelFPGA/18.1/modelsim_ae/lib32
-#     remote_src: yes
-#     owner: root
-#     group: root
-#     mode: 0755
-#   when: ansible_os_family == 'Debian'
+- name: Extraindo Quartus 20.1 - Linux Debian 11
+  unarchive:
+    src: quartus20.1.tgz
+    dest: /opt/
+    creates: /opt/intelFPGA
+    remote_src: yes
+    owner: root
+    group: root
+    mode: 0755
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
-# - name: Modifica o arquivo vco para contornar BUG de lib32
-#   lineinfile:
-#     path: /opt/intelFPGA/18.1/modelsim_ae/vco
-#     regexp: '^export LD_LIBRARY_PATH='
-#     insertafter: '^dir=`dirname '
-#     line: export LD_LIBRARY_PATH=/opt/intelFPGA/18.1/modelsim_ae/lib32/
-#   when: ansible_os_family == 'Debian'
+- name: Copiando o icone do modelsim - Debian 11
+  copy:
+    src: modelsim.png
+    dest: /opt/intelFPGA/20.1/modelsim_ae/modesim.png
+    owner: root
+    group: root
+    mode: 0644
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+
+- name: Adiciona LOCALE en_US.UTF-8 - Debian 11
+  lineinfile:
+    path: /etc/locale.gen
+    insertafter: "# en_US.UTF-8 UTF-8"
+    line: en_US.UTF-8 UTF-8
+    state: present
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
 - name: Define o /usr/share/applications/{{ altera_desktop }}
   copy:
@@ -50,27 +68,4 @@
     - modelsim20.1.desktop
   loop_control:
     loop_var: altera_desktop
-  when: ansible_os_family == 'Debian'
-
-- name: Inserir linha para arrumar eclipse
-  blockinfile:
-    path: /opt/intelFPGA/18.1/nios2eds/bin/eclipse_nios2/eclipse.ini
-    insertbefore: --launcher.appendVmargs
-    block: |
-      --launcher.GTK_version
-      2
-    state: present
-  when: ansible_os_family == 'Debian'
-
-- name: Adiciona LOCALE en_US.UTF-8
-  lineinfile:
-    path: /etc/locale.gen
-    insertafter: "# en_US.UTF-8 UTF-8"
-    line: en_US.UTF-8 UTF-8
-    state: present
-  when: ansible_os_family == 'Debian'
-
-- name: Atualizar o LOCALES
-  shell: dpkg-reconfigure -f -y locales
-  changed_when: false
-  when: ansible_os_family == 'Debian'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
