@@ -38,7 +38,7 @@ if [ $# -eq 0 ] || [ $# -gt 3 ] ;
         echo "Sintaxe errada. Exemplo:"
         echo ".$0 libera (Para limpar todas as regras)"
         echo ".$0 bloqueia (Para bloquear o acesso a internet mas liberar o servidor de licenças)"
-        echo ".$0 wiki (Para permitir acesso somente a página da wiki mas liberar o servidor de licenças)"
+        echo ".$0 wiki (Para permitir acesso a: página de tele, moodle, wiki e pagina do campus mas liberar o servidor de licenças)"
         echo ".$0 ajuda (Abrir manual de uso desse script)"
         exit
 fi
