@@ -8,6 +8,7 @@
 -A OUTPUT -p tcp -d www.sj.ifsc.edu.br -j ACCEPT
 -A OUTPUT -p tcp -d wiki.sj.ifsc.edu.br -j ACCEPT
 -A OUTPUT -p tcp -d tele.sj.ifsc.edu.br -j ACCEPT
+-A OUTPUT -p tcp -d moodle.ifsc.edu.br -j ACCEPT
 -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 -A INPUT -j DROP
 -A OUTPUT -j DROP
