@@ -25,7 +25,14 @@
     - epoptes_server
     - ingressa_ldap
     - configura_monitores
-    - owncloud_client
+    # - owncloud_client
+  tasks:
+  - name: Pacotes do Lab SiDi
+    apt:
+      state: latest
+      pkg:
+      - arandr
+
 
 # Windows
 
