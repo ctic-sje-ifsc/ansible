@@ -1,14 +1,32 @@
 ## Solicitacao do professor Roberto Matos atraves do chamado IFSC#2019070410000533
+#### VERSAO ANTIGA
+# - name: Baixando e extraindo os softwares da microchip - Linux Debian
+#   unarchive:
+#     src: https://discovirtual.ifsc.edu.br/index.php/s/jFJXF4Sk7Ou4k31/download
+#     dest: /opt/
+#     creates: /opt/microchip/mplabx/v5.20/mplab_platform/bin/mplab_ide
+#     remote_src: yes
+#     owner: root
+#     group: root
+#   when: ansible_os_family == 'Debian'
 
-- name: Baixando e extraindo os softwares da microchip - Linux Debian
-  unarchive:
-    src: https://discovirtual.ifsc.edu.br/index.php/s/jFJXF4Sk7Ou4k31/download
-    dest: /opt/
-    creates: /opt/microchip/mplabx/v5.20/mplab_platform/bin/mplab_ide
-    remote_src: yes
-    owner: root
-    group: root
+### Gambiarra para baixar arquivo do Google Drive
+- name: Baixar mplab - Linux Debian
+  shell: wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1avoU3UrkFSMkg3BFNgzr0T20QrajnUps' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1avoU3UrkFSMkg3BFNgzr0T20QrajnUps" -O /tmp/mplab.bz && rm -rf /tmp/cookies.txt
+  args:
+    creates: /opt/microchip
   when: ansible_os_family == 'Debian'
+
+- name: Extraindo mplab - Linux Debian
+  unarchive:
+    src: /tmp/mplab.bz
+    dest: /opt/
+    owner: root
+    creates: /opt/microchip
+    mode: 0755
+    remote_src: yes
+  when: ansible_os_family == 'Debian'
+
 
 - name: Extraindo avr8 toolchain - Linux Debian
   unarchive:
@@ -82,7 +100,7 @@
 
 - name: Criando links simbolicos - Linux Debian
   file:
-    src: /opt/microchip/mplabx/v5.20/mplab_platform/bin/{{ mplab_link }}
+    src: /opt/microchip/mplabx/v5.50/mplab_platform/bin/{{ mplab_link }}
     dest: /usr/bin/{{ mplab_link }}
     state: link
   loop:
@@ -91,21 +109,10 @@
   loop_control:
     loop_var: mplab_link
   when: ansible_os_family == 'Debian'
-  
-# - file:
-#     src: /opt/microchip/mplabx/v5.20/mplab_platform/bin/mplab_ide
-#     dest: /usr/bin/mplab_ide
-#     state: link
-#   when: ansible_os_family == 'Debian'
 
-# - file:
-#     src: /opt/microchip/mplabx/v5.20/mplab_platform/bin/mplab_ipe
-#     dest: /usr/bin/mplab_ipe
-#     state: link
-#   when: ansible_os_family == 'Debian'
-
-- file:
-    src: /opt/microchip/mplabx/v5.20/mplab_platform/bin/mdb.sh
+- name: Criando link simbolico com nome diferente - Linux Debian
+  file:
+    src: /opt/microchip/mplabx/v5.50/mplab_platform/bin/mdb.sh
     dest: /usr/bin/mdb
     state: link
   when: ansible_os_family == 'Debian'
