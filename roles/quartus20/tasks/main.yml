@@ -21,7 +21,7 @@
     - lib32z1
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
-### Gambiarra para baixar arquivo do Google Drive
+### Gambiarra para baixar arquivo do Google Drive, limite de 12 conexões simultâneas
 - name: Baixar Quartus 20.1 - Linux Debian 11
   shell: wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1lBsil42TY5nbr8owQVyjngAnq71CMeVa' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1lBsil42TY5nbr8owQVyjngAnq71CMeVa" -O /tmp/quartus20.1.tgz && rm -rf /tmp/cookies.txt
   args:
