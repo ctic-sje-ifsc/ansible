@@ -85,4 +85,11 @@
     mode: 0644
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
+- name: Criando link simbolico para o packettracer
+  file:
+    src: /opt/pt/packettracer
+    dest: /usr/bin/packettracer
+    state: link
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+
 #Unavaliable for Windows
