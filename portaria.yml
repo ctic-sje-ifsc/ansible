@@ -1,5 +1,0 @@
----
-
-- hosts: sj-lin-port-3850886.maquinas.sj.ifsc.edu.br
-  roles:
-    - configura_wifi
