@@ -19,8 +19,17 @@
     - owncloud_client
     - dropbox_client
     - bricscad
+    - imunes
+    - quartus20
     - role: grub
       tipo: grub_lin
+  tasks:
+    - name: Pacotes do Odilson
+      apt:
+        state: latest
+        pkg:
+        - xournal
+        - wireshark
 
 - hosts: sj-lin-des1-703868.maquinas.sj.ifsc.edu.br #Eraldo
   roles:
