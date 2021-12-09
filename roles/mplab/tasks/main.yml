@@ -10,11 +10,29 @@
 #     group: root
 #   when: ansible_os_family == 'Debian'
 
-# - name: Apagando mplab - Linux
-#   file:
-#     state: absent
-#     path: /opt/microchip/
-#   when: ansible_os_family == 'Debian'
+- name: Verificando se eh versao nova do mplab - Linux Debian
+  ansible.builtin.shell: ls -la /usr/bin/mplab*
+  register: result_mplab
+  changed_when: False
+  when: ansible_os_family == 'Debian'
+
+- name: Apagando mplab - Linux
+  file:
+    state: absent
+    path: /opt/microchip/
+  when: (ansible_os_family == 'Debian' and result_mplab.stdout.find('5.5') == -1)
+
+- name: Apagando links mplab - Linux
+  file:
+    state: absent
+    path: /usr/bin/{{ old_mplab_link }}
+  loop:
+    - mplab_ide
+    - mplab_ipe
+    - mdb
+  loop_control:
+    loop_var: old_mplab_link
+  when: (ansible_os_family == 'Debian' and result_mplab.stdout.find('5.5') == -1)
 
 ### Gambiarra para baixar arquivo do Google Drive, limite de 12 conexões simultâneas
 - name: Baixar mplab - Linux Debian
