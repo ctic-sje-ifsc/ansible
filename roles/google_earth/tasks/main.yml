@@ -1,0 +1,14 @@
+
+---
+
+#Linux
+- name: Copiando .deb para a máquina local - Linux Debian
+  copy:
+    src: google-earth-7.3.deb
+    dest: /opt/google.deb
+  when: ansible_os_family == 'Debian'
+
+- name: Baixa Google Earth - Linux
+  apt:
+    deb: /opt/google.deb
+  when: ansible_os_family == 'Debian'
