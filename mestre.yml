@@ -52,6 +52,7 @@
 - import_playbook: depe.yml
 - import_playbook: des1.yml
 - import_playbook: des2.yml
+- import_playbook: dire.yml
 - import_playbook: labfisica.yml
 - import_playbook: ledis.yml
 - import_playbook: mcul.yml

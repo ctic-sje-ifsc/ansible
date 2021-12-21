@@ -1,0 +1,5 @@
+---
+- hosts: sj-lin-dire-38850.maquinas.sj.ifsc.edu.br
+  #any_errors_fatal: true
+  roles:
+    - token_safenet
