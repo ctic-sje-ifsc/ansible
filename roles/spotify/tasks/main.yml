@@ -2,7 +2,7 @@
 - name: Adicionar a chave para o Spotify - Linux Debian 9
   apt_key:
     keyserver: keyserver.ubuntu.com
-    id: A87FF9DF48BF1C90
+    id: 5E3C45D7B312C643
   when: ansible_os_family == 'Debian'
 
 
