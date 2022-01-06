@@ -1,4 +1,4 @@
-- hosts: patrim
+- hosts: patrim ,!sj-lin-patri-cgwhd33.maquinas.sj.ifsc.edu.br
   #any_errors_fatal: true
   roles:
     - spotify
@@ -11,3 +11,21 @@
   tasks:
   - name: Instalar o software para criar as etiquetas Linux Debian
     apt: name=glabels state=latest
+
+
+### Notebook emprestado
+- hosts: sj-lin-patri-cgwhd33.maquinas.sj.ifsc.edu.br
+  #any_errors_fatal: true
+  tasks:
+  - name: Pacote necessario para ativar wifi
+    apt:
+      state: latest
+      pkg:
+      - firmware-iwlwifi
+  roles:
+    - configura_wifi
+    - role: grub
+      tipo: grub_soh_lin
+    - role: instala_impressora_cups
+      install: 0
+      argox: 1
