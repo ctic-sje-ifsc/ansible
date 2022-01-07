@@ -3,6 +3,7 @@
   roles:
     - google_earth
     - kernel_backports
+    - scidavis
     - role: grub
       tipo: grub_soh_lin
 
