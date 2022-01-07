@@ -3,7 +3,12 @@
 - name: Add an apt key by id from a keyserver Qgis
   ansible.builtin.apt_key:
     keyserver: keyserver.ubuntu.com
-    id: 46B5721DBBD2996A
+    id: "{{ id_list }}"
+  loop:
+    - 46B5721DBBD2996A
+    - B8F25A8A73EACF41
+  loop_control:
+    loop_var: id_list
   when: ansible_os_family == 'Debian'
 
 - name: Adicionar a chave do repositório do qgis
