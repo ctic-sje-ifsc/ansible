@@ -1,0 +1,35 @@
+---
+#Linux
+
+- name: Checar se discord esta instalado - Linux
+  shell: aptitude search discord |grep Chat
+  register: result_discord_check
+  changed_when: False
+  when: ansible_distribution_release == 'bullseye'
+
+- name: Adicionar repositório do Buster para instalar pendencia - Debian 11
+  apt_repository:
+    repo: deb http://deb.debian.org/debian/ buster main
+    state: present
+    filename: buster
+    update_cache: yes
+  when: (ansible_distribution_release == 'bullseye' and result_discord_check == 1)
+
+- name: Checar se foi adicionado repositorio buster - Debian 11
+  shell: ls -l /etc/apt/sources.list.d/buster.list
+  register: buster_require
+  changed_when: False
+  when: (ansible_distribution_release == 'bullseye' and result_discord_check == 1)
+
+- name: Baixando e instalando o Discord - Linux
+  apt:
+    deb: https://discord.com/api/download?platform=linux&format=deb
+  when: ansible_os_family == 'Debian'
+
+- name: Remove repositório do Buster - Debian 11
+  apt_repository:
+    repo: deb http://deb.debian.org/debian/ buster main
+    state: present
+    filename: buster
+    update_cache: yes
+  when: (ansible_distribution_release == 'bullseye' and buster_require == 1)
