@@ -19,3 +19,8 @@
       financeiro: 1
       cgp: 1
       pdf: 1
+
+- hosts: sj-lin-comaf-36867.maquinas.sj.ifsc.edu.br # Hanada
+  #any_errors_fatal: true
+  roles:
+    - token_safenet
