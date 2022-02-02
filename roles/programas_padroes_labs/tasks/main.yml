@@ -16,7 +16,6 @@
     pkg:
     - apt-transport-https
     - geany
-    - unrar
     - audacity
     - gimp
     - inkscape
@@ -48,6 +47,7 @@
   apt:
     state: latest
     pkg:
+    - unrar
     - qalculate
     - dconf-tools
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
@@ -63,6 +63,7 @@
   apt:
     state: latest
     pkg:
+    - unrar-free
     - xterm
     - ethtool
     - minicom
