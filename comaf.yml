@@ -9,7 +9,7 @@
       cgp: 1
       pdf: 1
 
-- hosts: sj-lin-comaf-744525.maquinas.sj.ifsc.edu.br
+- hosts: sj-lin-comaf-744525.maquinas.sj.ifsc.edu.br # Michael
   #any_errors_fatal: true
   roles:
     - ingressa_ldap_sem_cups_client
@@ -24,3 +24,8 @@
   #any_errors_fatal: true
   roles:
     - token_safenet
+
+- hosts: sj-lin-comaf-744518.maquinas.sj.ifsc.edu.br # Michael
+  #any_errors_fatal: true
+  roles:
+    - token_gd_starsign
