@@ -1,0 +1,15 @@
+# Linux
+
+- hosts: comex_lin
+  #any_errors_fatal: true
+  roles:
+    - ingressa_ldap
+    - role: grub
+      tipo: grub_lin
+
+# Windows
+
+- hosts: comex_win
+  #any_errors_fatal: true
+  roles:
+    - ingressa_ldap
