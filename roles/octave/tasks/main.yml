@@ -14,3 +14,10 @@
     - octave-control
     - octave-signal
   when: ansible_os_family == 'Debian'
+
+#Windows
+- name: Baixar e instalar Octave - Windows
+  win_chocolatey:
+    name: octave
+    # state: latest
+  when: ( ansible_os_family == 'Windows' and ansible_system_vendor == 'Dell Inc.' and ansible_bios_version == '1.7.0')
