@@ -1,0 +1,15 @@
+# Linux
+
+- hosts: ciehu_lin
+  #any_errors_fatal: true
+  roles:
+    - ingressa_ldap
+    - role: grub
+      tipo: grub_lin
+
+# Windows
+
+- hosts: ciehu_win
+  #any_errors_fatal: true
+  roles:
+    - ingressa_ldap
