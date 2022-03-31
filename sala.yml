@@ -11,7 +11,7 @@
           aluno:x:1001:1001::/home/aluno:
       when: ansible_os_family == 'Debian'
 
-    - name: Adiciona linha do usuario aluno no passwd
+    - name: Adiciona linha do usuario aluno no group
       blockinfile:
         path: /etc/group
         backup: yes
