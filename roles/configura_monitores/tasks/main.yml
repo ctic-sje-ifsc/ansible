@@ -49,3 +49,15 @@
     group: root
     mode: 0644
   when: ansible_hostname is search("^sj-lin-labmeios")
+
+- name: Configuracao dos monitores para das salas de aula - Linux
+  copy:
+    content: |
+      #!/bin/bash
+      /usr/bin/xrandr --output VGA-0 --primary --mode 1024x768 --pos 0x0 --rotate normal --output DisplayPort-0 --mode 1024x768 --pos 0x0 --rotate normal
+
+    dest: /etc/X11/Xsession.d/99ConfigMonitor
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_hostname is search("^sj-lin-sala")
