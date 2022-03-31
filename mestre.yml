@@ -62,6 +62,7 @@
 - import_playbook: patrim.yml
 - import_playbook: registro_academico.yml
 - import_playbook: secretaria.yml
+- import_playbook: sala.yml
 - import_playbook: almox.yml
 
 # Laboratorios
