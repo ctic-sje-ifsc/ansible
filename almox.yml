@@ -5,3 +5,7 @@
     - role: instala_impressora_cups
       install: 0
       almoxarifado: 1
+
+- hosts: sj-lin-almox-756044.maquinas.sj.ifsc.edu.br
+  roles:
+    - configura_wifi
