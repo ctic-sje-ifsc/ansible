@@ -41,6 +41,7 @@
     - pdfshuffler
     - mate-applet-brisk-menu
     - dia
+    - vokoscreen
   when: ansible_os_family == 'Debian'
 
 - name: Instalar pacotes GUI ou "conhecidos" padroes de laboratorios - Debian 10
