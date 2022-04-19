@@ -12,3 +12,12 @@
   roles:
     - role: grub
       tipo: grub_lin
+
+- hosts: sj-lin-depe-38093.maquinas.sj.ifsc.edu.br
+  tasks:
+  - name: Pacotes para os pcs #Solicitado pelo chamado IFSC#2022041810000801
+    apt:
+      state: latest
+      pkg:
+      - python3-pip
+      - texlive-xetex # equivalente para debian ao solicitado, xelatex
