@@ -42,6 +42,7 @@
 <volume user="*" uid="2000-1000000" server="dk.sj.ifsc.edu.br" path="gtmemoria" mountpoint="/media/pessoal/%(USER)/gtmemoria" fstype="cifs" options="dir_mode=0711,iocharset=utf8,vers=1.0" />
 <volume user="*" uid="2000-1000000" server="dk.sj.ifsc.edu.br" path="licenciatura" mountpoint="/media/pessoal/%(USER)/licenciatura" fstype="cifs" options="dir_mode=0711,iocharset=utf8,vers=1.0" />
 <volume user="*" uid="2000-1000000" server="dk.sj.ifsc.edu.br" path="matematica" mountpoint="/media/pessoal/%(USER)/matematica" fstype="cifs" options="dir_mode=0711,iocharset=utf8,vers=1.0" />
+<volume user="*" uid="2000-1000000" server="dk.sj.ifsc.edu.br" path="matricula" mountpoint="/media/pessoal/%(USER)/matricula" fstype="cifs" options="dir_mode=0711,iocharset=utf8,vers=1.0" />
 <volume user="*" uid="2000-1000000" server="dk.sj.ifsc.edu.br" path="orcamento" mountpoint="/media/pessoal/%(USER)/orcamento" fstype="cifs" options="dir_mode=0711,iocharset=utf8,vers=1.0" />
 <volume user="*" uid="2000-1000000" server="dk.sj.ifsc.edu.br" path="pesquisa" mountpoint="/media/pessoal/%(USER)/pesquisa" fstype="cifs" options="dir_mode=0711,iocharset=utf8,vers=1.0" />
 <volume user="*" uid="2000-1000000" server="dk.sj.ifsc.edu.br" path="portarias" mountpoint="/media/pessoal/%(USER)/portarias" fstype="cifs" options="dir_mode=0711,iocharset=utf8,vers=1.0" />
