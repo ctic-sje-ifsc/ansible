@@ -1,11 +1,18 @@
-- hosts: almox
-  #any_errors_fatal: true
-  roles:
-    - ingressa_ldap_sem_cups_client
-    - role: instala_impressora_cups
-      install: 0
-      almoxarifado: 1
+# - hosts: almox
+#   #any_errors_fatal: true
+#   roles:
+#     - ingressa_ldap_sem_cups_client
+#     - role: instala_impressora_cups
+#       install: 0
+#       almoxarifado: 0
 
 - hosts: sj-lin-almox-756044.maquinas.sj.ifsc.edu.br
   roles:
     - configura_wifi
+
+- hosts: sj-lin-almox-559824.maquinas.sj.ifsc.edu.br #Pereima
+  #any_errors_fatal: true
+  roles:
+    - role: instala_impressora_cups
+      install: 0
+      almoxarifado_3920: 1
