@@ -348,7 +348,7 @@
       </Printer>
   when: ( ansible_os_family == 'Debian' and  install == 1 and secretaria == 1 )
 
-- name: Instala a impressora Almoxarifado - Linux
+- name: Instala a impressora Almoxarifado Deskjet 6940- Linux
   blockinfile:
     path: /etc/cups/printers.conf
     marker: "# {mark} ANSIBLE MANAGED BLOCK Almoxarifado"
@@ -372,16 +372,51 @@
       OpPolicy default
       ErrorPolicy retry-job
       </Printer>
-  when: ( ansible_os_family == 'Debian' and  install == 1 and almoxarifado == 1 )
+  when: ( ansible_os_family == 'Debian' and  install == 1 and almoxarifado_6940 == 1 )
 
-- name: Copia os arquivos ppd Almoxarifado - Linux Debian
+- name: Instala a impressora Almoxarifado Deskjet 3920- Linux
+  blockinfile:
+    path: /etc/cups/printers.conf
+    marker: "# {mark} ANSIBLE MANAGED BLOCK Almoxarifado"
+    content: |
+      <Printer HP_Deskjet_3900>
+      UUID urn:uuid:ed199bbf-642e-3349-713e-6db761b2a21d
+      Info HP Deskjet 3900
+      Location
+      MakeModel HP Deskjet 3900, hpcups 3.18.12
+      DeviceURI hp:/usb/Deskjet_3900?serial=CN65K1P02T04CK
+      State Idle
+      StateTime 1651001137
+      ConfigTime 1651001144
+      Type 36892
+      Accepting Yes
+      Shared No
+      JobSheets none none
+      QuotaPeriod 0
+      PageLimit 0
+      KLimit 0
+      OpPolicy default
+      ErrorPolicy retry-job
+      </Printer>
+  when: ( ansible_os_family == 'Debian' and  install == 1 and almoxarifado_3920 == 1 )
+
+- name: Copia os arquivos ppd Almoxarifado Deskjet 6940 - Linux Debian
   copy:
     src: ppd/Deskjet_6940.ppd
     dest: /etc/cups/ppd/Deskjet_6940.ppd
     owner: root
     group: root
     mode: 0644
-  when: ( ansible_os_family == 'Debian' and  install == 1 and almoxarifado == 1 )
+  when: ( ansible_os_family == 'Debian' and  install == 1 and almoxarifado_6940 == 1 )
+
+- name: Copia os arquivos ppd Almoxarifado Deskjet 3920 - Linux Debian
+  copy:
+    src: ppd/HP_Deskjet_3900.ppd
+    dest: /etc/cups/ppd/HP_Deskjet_3900.ppd
+    owner: root
+    group: root
+    mode: 0644
+  when: ( ansible_os_family == 'Debian' and  install == 1 and almoxarifado_3920 == 1 )
 
 - name: Instala a impressora ImpBiblio - Linux
   blockinfile:
