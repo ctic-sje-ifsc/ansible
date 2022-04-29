@@ -1,19 +1,11 @@
-- hosts: des1,!sj-lin-des1-744932.maquinas.sj.ifsc.edu.br
+- hosts: des1,!sj-lin-des1-744935.maquinas.sj.ifsc.edu.br
   #any_errors_fatal: true
   roles:
     - packettracer
     - kile
     - programas_padroes_labs
 
-- hosts: sj-lin-des1-744935.maquinas.sj.ifsc.edu.br #Claudia
-  tasks:
-    - name: Pacotes da Claudia
-      apt:
-        state: latest
-        pkg:
-        - nautilus-dropbox
-
-- hosts: sj-lin-des1-744932.maquinas.sj.ifsc.edu.br,sj-des1-744932.maquinas.sj.ifsc.edu.br #Saul
+- hosts: sj-lin-des1-744935.maquinas.sj.ifsc.edu.br,sj-des1-744935.maquinas.sj.ifsc.edu.br #Saul
   #any_errors_fatal: true
   roles:
     - owncloud_client
@@ -23,13 +15,13 @@
     - quartus20
     - role: grub
       tipo: grub_lin
-  tasks:
-    - name: Pacotes do Odilson
-      apt:
-        state: latest
-        pkg:
-        - xournal
-        - wireshark
+  # tasks:
+  #   - name: Pacotes do Odilson
+  #     apt:
+  #       state: latest
+  #       pkg:
+  #       - xournal
+  #       - wireshark
 
 - hosts: sj-lin-des1-703868.maquinas.sj.ifsc.edu.br #Eraldo
   roles:
