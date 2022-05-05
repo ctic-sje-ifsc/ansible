@@ -154,7 +154,6 @@
   apt:
     state: latest
     pkg:
-    - gradle
     - sqlite3
     - sqlitebrowser
     - rabbitmq-server
@@ -174,6 +173,10 @@
     - figlet
   when: ansible_os_family == 'Debian'
 
+- name: Adiciona gradle
+  include_role:
+    name: gradle7
+  when: ansible_os_family == 'Debian'
 
 # # java
 - name: Instalar os pacotes  Java openjdk - Linux
