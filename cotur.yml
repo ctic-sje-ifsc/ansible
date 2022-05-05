@@ -3,6 +3,6 @@
   roles:
     - sinal
 
-- hosts: sj-lin-cotur-879950.maquinas.sj.ifsc.edu.br
+- hosts: sj-lin-cotur-38129.maquinas.sj.ifsc.edu.br
   roles:
     - configura_wifi
