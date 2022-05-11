@@ -1,4 +1,4 @@
-- hosts: labmeios
+- hosts: sj-lin-meios-744520.maquinas.sj.ifsc.edu.br
   #any_errors_fatal: true
   roles:
     - ingressa_ldap_sem_cups_client
@@ -8,3 +8,9 @@
     - role: instala_impressora_cups
       install: 0
       brother: 1
+
+- hosts: meios_lin
+  #any_errors_fatal: true
+  roles:
+    - role: grub
+      tipo: grub_lin
