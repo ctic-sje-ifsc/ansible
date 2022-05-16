@@ -1,9 +1,25 @@
 ---
 #Linux
 
+- name: Instalar os pacotes para o token SafeNet - Linux Debian 11
+  apt:
+    state: latest
+    pkg:
+    - libjbig0
+    - libtiff5
+    - fontconfig-config
+    - libfontconfig1
+    - libwxbase3.0-0v5
+    - libpcsclite1
+    - libccid
+    - pcscd
+    - opensc
+  when: ansible_distribution_release == 'buster'
+
+
 - name: Copy install file
   copy:
-    src: SafenetAuthenticationClient-BR-10.0.37-0_amd64.deb
+    src: SafenetAuthenticationClient-BR-10.7.77-amd64.deb
     dest: /tmp
     owner: root
     group: root
@@ -12,7 +28,7 @@
 
 - name: Install SafeNet
   apt:
-    deb: /tmp/SafenetAuthenticationClient-BR-10.0.37-0_amd64.deb
+    deb: /tmp/SafenetAuthenticationClient-BR-10.7.77-amd64.deb
   when: ansible_distribution_release == 'buster'
 
 - name: Create a symbolic link
@@ -31,7 +47,7 @@
 
       # Enconta onde está o arquivo db
       PERFIL=$(dirname $(find ~/.mozilla -name "cert9.db"))
-      if [[ -z "$PERFIL" ]]; then 
+      if [[ -z "$PERFIL" ]]; then
           echo "Nenhum perfil encontrado para este usuario."
           exit
       fi
@@ -58,7 +74,7 @@
       Comment= Habilita módulo Safenet nos navegadores Mozilla Firefox e Google Chrome
       Exec=bash -c '/usr/local/bin/habilita_token_safenet.sh && exit'
       Icon=utilities-terminal
-      Terminal=true 
+      Terminal=true
       Type=Application
       Categories=Application;
     dest: /usr/share/applications/habilita_token_safenet.desktop
