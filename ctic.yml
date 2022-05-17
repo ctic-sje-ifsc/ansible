@@ -46,6 +46,7 @@
       - gabriel.souza
       - marcelo.alejandro
       - etorresini
+      - davi.iahn
     when: ansible_os_family == 'Debian'
 
 ##################  Maquina do 1berto  ##################
