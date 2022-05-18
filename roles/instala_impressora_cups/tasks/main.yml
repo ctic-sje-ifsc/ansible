@@ -85,14 +85,41 @@
     mode: 0640
   when: ( ansible_os_family == 'Debian' and  install == 1 and brother == 1 )
 
-- name: Cria arquivo /etc/cups/printers.conf
+- name: Cria diretório /usr/share/cups/model/zebra/ - Linux
+  file:
+    path: /usr/share/cups/model/zebra/
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  when: ( ansible_os_family == 'Debian' and  install == 1 and zebra == 1 )
+
+- name: Copia os arquivos ppd Zebra - Linux Debian
   copy:
-    src: printers.conf
-    dest: /etc/cups/printers.conf
+    src: ppd/ZTC-ZD230-203dpi-ZPL.ppd
+    dest: /usr/share/cups/model/zebra/
+    owner: root
+    group: root
+    mode: 0644
+  when: ( ansible_os_family == 'Debian' and  install == 1 and zebra == 1 )
+
+- name: Copia os arquivos ppd zebra para /etc/cups/ppd/  - Linux Debian
+  copy:
+    src: ppd/ZTC-ZD230-203dpi-ZPL.ppd
+    dest: /etc/cups/ppd/Zebra.ppd
     owner: root
     group: lp
-    mode: 0600
-  when: ( ansible_os_family == 'Debian' and  install == 1)
+    mode: 0640
+  when: ( ansible_os_family == 'Debian' and  install == 1 and zebra == 1 )
+
+# - name: Cria arquivo /etc/cups/printers.conf
+#   copy:
+#     src: printers.conf
+#     dest: /etc/cups/printers.conf
+#     owner: root
+#     group: lp
+#     mode: 0600
+#   when: ( ansible_os_family == 'Debian' and  install == 1)
 
 - name: Instala a impressora Argox - Linux
   blockinfile:
