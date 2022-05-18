@@ -312,6 +312,14 @@
     key: "{{ lookup('file', 'marcelo.id_rsa.pub') }}"
   when: ansible_os_family == 'Debian'
 
+################# Copiar Chave pub Davi
+- name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys do Davi - Linux
+  authorized_key:
+    user: root
+    state: present
+    key: "{{ lookup('file', 'davi.id_rsa.pub') }}"
+  when: ansible_os_family == 'Debian'
+
 ###################### Inicio configuração SP1
 - name: Cria o arquivo /etc/X11/Xsession.d/99SP1 - Linux
   copy:
