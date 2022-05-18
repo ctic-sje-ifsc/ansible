@@ -89,7 +89,7 @@
 
 ##################### Impressao hodprint
 - name: Instala gtklp
-  apt: 
+  apt:
     name: gtklp
     state: latest
   when: ansible_os_family == 'Debian'
@@ -179,6 +179,13 @@
     key: "{{ lookup('file', 'marcelo.id_rsa.pub') }}"
   when: ansible_os_family == 'Debian'
 
+################# Copiar Chave pub Davi
+- name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys do Davi - Linux
+  authorized_key:
+    user: root
+    state: present
+    key: "{{ lookup('file', 'davi.id_rsa.pub') }}"
+  when: ansible_os_family == 'Debian'
 
 - name: Atualiza PATH no profile - Linux Debian 10 buster
   replace:
