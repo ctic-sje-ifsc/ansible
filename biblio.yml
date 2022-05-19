@@ -29,3 +29,11 @@
     - role: softwares_remotos
       apps:
         - sophiaslade
+
+- hosts: sj-lin-biblio-36076.maquinas.sj.ifsc.edu.br
+  #any_errors_fatal: true
+  roles:
+    - ingressa_ldap_sem_cups_client
+    - role: instala_impressora_cups
+      install: 0
+      zebra: 1
