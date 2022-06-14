@@ -2,7 +2,7 @@
 
 - name: Baixar e instalar o Pack Calculation PRO - Windows
   win_package:
-    path: https://www.ipu.dk/wp-content/uploads/2018/09/packcalculationpro-v444.exe
+    path: https://www.ipu.dk/wp-content/uploads/2022/05/packcalculationpro-5250.exe
     arguments:
     - /VERYSILENT
     - /SUPRESSMSGBOXES
