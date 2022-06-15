@@ -11,3 +11,9 @@
   #any_errors_fatal: true
   roles:
     - irpf
+
+- hosts: sj-lin-cgp-35968.maquinas.sj.ifsc.edu.br # Judite
+  #any_errors_fatal: true
+  roles:
+    - token_gd_starsign
+    - savpdf
