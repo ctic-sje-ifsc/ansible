@@ -3,6 +3,9 @@
   #any_errors_fatal: true
   roles:
     - token_safenet
+    - role: softwares_remotos
+      apps:
+        - isaacdesktop
 
 - hosts: sj-lin-dire-38853.maquinas.sj.ifsc.edu.br
   tasks:
