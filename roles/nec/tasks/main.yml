@@ -1,0 +1,33 @@
+#Windows
+
+##### 4nec2 V. 5.9.3
+- name: Baixar o 4nec2 - Windows
+  win_get_url:
+    url: 'https://discovirtual.ifsc.edu.br/index.php/s/keafBcqKLRLeRGl/download'
+    dest: 'C:\instaladores\4nec2.exe'
+    timeout: 120
+  when: ansible_os_family == 'Windows'
+
+- name: Instalar o 4nec2 - Windows
+  ansible.windows.win_package:
+    path: C:\instaladores\4nec2.exe
+    arguments: '/silent'
+    product_id: '4nec2_is1'
+    state: present
+  when: ansible_os_family == 'Windows'
+
+##### EZNEC V. 7.0.1
+- name: Baixar o EZNEC - Windows
+  win_get_url:
+    url: 'https://discovirtual.ifsc.edu.br/index.php/s/ebClP852jVR0MSx/download'
+    dest: 'C:\instaladores\eznec.exe'
+    timeout: 120
+  when: ansible_os_family == 'Windows'
+
+- name: Instalar o EZNEC - Windows
+  ansible.windows.win_package:
+    path: C:\instaladores\eznec.exe
+    arguments: '/silent /NORESTART /SP-'
+    product_id: 'EZNEC_7020_is1'
+    state: present
+  when: ansible_os_family == 'Windows'
