@@ -15,6 +15,15 @@
     state: present
   when: ansible_os_family == 'Windows'
 
+- name: Atalho para o linkplanner - Windows
+  win_shortcut:
+    description: Atalho para o LINK Planner
+    src: 'C:\Program Files\Cambium Networks\LINKPlanner\LinkPlanner.exe'
+    dest: '%Public%\Desktop\LINKPlanner.lnk'
+    icon: 'C:\Program Files\Cambium Networks\LINKPlanner\LinkPlanner.exe,0'
+    state: present
+  when: ansible_os_family == 'Windows'
+
 ### Comando em powershell para mostrar product_id
 ### get-wmiobject Win32_Product | Format-Table IdentifyingNumber, Name, LocalPackage -AutoSize
 ### Localizacao do productid 32 bits: HKLM:Software\Microsoft\Windows\CurrentVersion\Uninstall
