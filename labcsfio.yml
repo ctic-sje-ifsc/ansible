@@ -9,3 +9,5 @@
   #any_errors_fatal: true
   roles:
     - ingressa_ldap
+    - nec
+    - linkplanner
