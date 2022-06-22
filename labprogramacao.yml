@@ -20,7 +20,9 @@
     # - owncloud_client
 
 # Windows
-- hosts: sj-prog-744523.maquinas.sj.ifsc.edu.br #Maquina do professor
+- hosts: sj-prog-744523.maquinas.sj.ifsc.edu.br:imgwin10-lab.maquinas.sj.ifsc.edu.br #Maquina do professor
   #any_errors_fatal: true
   roles:
-    - ingressa_ldap
+    # - ingressa_ldap
+    - nec
+    - linkplanner
