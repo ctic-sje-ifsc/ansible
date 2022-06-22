@@ -10,7 +10,7 @@
 - hosts: sj-lin-cgp-613018.maquinas.sj.ifsc.edu.br
   #any_errors_fatal: true
   roles:
-    - irpf
+    - savpdf
 
 - hosts: sj-lin-cgp-35968.maquinas.sj.ifsc.edu.br # Judite
   #any_errors_fatal: true
