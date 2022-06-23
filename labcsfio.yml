@@ -1,13 +1,17 @@
-- hosts: csfio_lin
+---
+- hosts: sj-lin-csfio-744536.maquinas.sj.ifsc.edu.br,sj-csfio-744536.maquinas.sj.ifsc.edu.br
   #any_errors_fatal: true
   roles:
     - ingressa_ldap
+
+- hosts: csfio_lin
+  #any_errors_fatal: true
+  roles:
     - role: grub
       tipo: grub_lin
 
 - hosts: csfio_win
   #any_errors_fatal: true
   roles:
-    - ingressa_ldap
     - nec
     - linkplanner
