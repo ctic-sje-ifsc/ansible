@@ -9,8 +9,8 @@
       install: 0
       brother: 1
 
-- hosts: meios_lin
-  #any_errors_fatal: true
-  roles:
-    - role: grub
-      tipo: grub_lin
+# - hosts: meios_lin
+#   #any_errors_fatal: true
+#   roles:
+#     - role: grub
+#       tipo: grub_lin
