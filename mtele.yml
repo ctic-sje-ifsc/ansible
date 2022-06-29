@@ -24,3 +24,7 @@
   roles:
     - role: grub
       tipo: grub_lin
+
+- hosts: sj-lin-mtele-710798.maquinas.sj.ifsc.edu.br
+  roles:
+    - imunes
