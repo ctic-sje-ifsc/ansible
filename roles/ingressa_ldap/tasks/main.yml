@@ -113,11 +113,11 @@
 ### ocorra substituir a substring (19,10) para (19,8)
 
 - name: Setar servidor WINS e DNS - Windows 7
-  win_shell: netsh interface ip add wins name="Conexão Local" addr=191.36.8.68 ; netsh interface ip set dnsservers name="Conexão Local" source=static addr=191.36.8.1 ; netsh interface ip add dns name="Conexão Local" addr=191.36.8.66 index=2
+  win_shell: netsh interface ip add wins name="Conexão Local" addr=191.36.8.68 ; netsh interface ip add wins name="Conexão Local" addr=191.36.8.67 index=2; netsh interface ip set dnsservers name="Conexão Local" source=static addr=191.36.8.1 ; netsh interface ip add dns name="Conexão Local" addr=191.36.8.66 index=2
   when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 7 Professional')
 
 - name: Setar servidor WINS e DNS na interface {{ interface_win.stdout |trim }} - Windows 10
-  win_shell: netsh interface ip add wins name="{{ interface_win.stdout |trim }}" addr=191.36.8.68 index=2 ; netsh interface ip set dnsservers name="{{ interface_win.stdout |trim }}" source=static addr=191.36.8.1 ; netsh interface ip add dns name="{{ interface_win.stdout |trim }}" addr=191.36.8.66 index=2
+  win_shell: netsh interface ip add wins name="{{ interface_win.stdout |trim }}" addr=191.36.8.67 ; netsh interface ip add wins name="{{ interface_win.stdout |trim }}" addr=191.36.8.68 index=2 ; netsh interface ip set dnsservers name="{{ interface_win.stdout |trim }}" source=static addr=191.36.8.1 ; netsh interface ip add dns name="{{ interface_win.stdout |trim }}" addr=191.36.8.66 index=2
   when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 10 Pro')
 
 # - name: Setar servidor WINS e DNS - Windows 10
