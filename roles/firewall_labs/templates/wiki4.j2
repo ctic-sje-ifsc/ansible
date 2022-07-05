@@ -11,6 +11,7 @@
 -A OUTPUT -p tcp -d lic.sj.ifsc.edu.br -j ACCEPT
 -A OUTPUT -p tcp -d vm-lan2.sj.ifsc.edu.br -j ACCEPT
 -A OUTPUT -p tcp -d sigaa.ifsc.edu.br -j ACCEPT
+-A OUTPUT -p tcp -d moodle.ifsc.edu.br -j ACCEPT
 {% if ansible_hostname is search("^sj-lin-redes.*") %}
 -A OUTPUT -p tcp -d sj-lin-redes-906284.maquinas.sj.ifsc.edu.br -j ACCEPT
 {% elif ansible_hostname is search("^sj-lin-sidi.*") %}
