@@ -1,4 +1,4 @@
-- hosts: patrim ,!sj-lin-patri-cgwhd33.maquinas.sj.ifsc.edu.br
+- hosts: sj-lin-patrim-38143.maquinas.sj.ifsc.edu.br,!sj-lin-patri-cgwhd33.maquinas.sj.ifsc.edu.br
   #any_errors_fatal: true
   roles:
     - spotify
