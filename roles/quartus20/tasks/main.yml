@@ -89,6 +89,7 @@
   unarchive:
     src: /tmp/eclipse.bz
     dest: /opt/intelFPGA/20.1/nios2eds
+    remote_src: yes
     creates: /opt/intelFPGA/20.1/nios2eds/eclipse_nios2
     owner: root
     group: root
