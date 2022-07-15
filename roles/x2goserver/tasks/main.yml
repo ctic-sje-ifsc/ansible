@@ -3,7 +3,7 @@
   apt_key:
     keyserver: keys.gnupg.net
     id: E1F958385BFE2B6E
-  when: ansible_os_family == 'Debian'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'bullseye')
 
 - name: Arquivo do source list x2goserver - Linux
   copy:
@@ -12,13 +12,13 @@
     owner: root
     group: root
     mode: 0644
-  when: ansible_os_family == 'Debian'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'bullseye')
   notify:
     - update apt cache
 
 - name: Instalar os pacotes x2go-keyring - Linux
   apt: name=x2go-keyring state=latest update_cache=yes
-  when: ansible_os_family == 'Debian'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'bullseye')
 
 - name: Instalar pacotes para o x2goserver - Linux
   apt:
