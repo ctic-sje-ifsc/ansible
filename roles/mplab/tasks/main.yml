@@ -11,9 +11,10 @@
 #   when: ansible_os_family == 'Debian'
 
 - name: Verificando se eh versao nova do mplab - Linux Debian
-  ansible.builtin.shell: ls -la /usr/bin/mplab*
+  ansible.builtin.shell: ls /opt/microchip/mplabx
   register: result_mplab
   changed_when: False
+  failed_when: False
   when: ansible_os_family == 'Debian'
 
 - name: Apagando mplab - Linux
@@ -50,7 +51,6 @@
     mode: 0755
     remote_src: yes
   when: ansible_os_family == 'Debian'
-
 
 - name: Extraindo avr8 toolchain - Linux Debian
   unarchive:
