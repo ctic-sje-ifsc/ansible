@@ -55,3 +55,17 @@
     groups: [docker]
     append: yes
   when: ansible_os_family == 'Debian'
+
+##### Pacotes necessários para o Rootless
+### É necessário executar o comando systemctl disable --now docker.service docker.socket
+### para desabilitar o docker e em seguida /usr/bin/dockerd-rootless-setuptool.sh install
+### no usuário aluno para depois fazer backup da pasta aluno
+- name: Instalar lista de pacotes necessarios o funcionamento do Rootless - Debian 11
+  apt:
+    state: latest
+    pkg:
+    - uidmap
+    - dbus-user-session
+    - fuse-overlayfs
+    - slirp4netns
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
