@@ -8,8 +8,14 @@
     - gqrx-sdr
     - rtl-sdr
     - gr-osmosdr
-    - python-qwt5-qt4
   when: ansible_os_family == 'Debian'
+
+- name: Instalar pacotes necessários e referentes ao GNU-RADIO - Linux
+  apt:
+    state: latest
+    pkg:
+    - python-qwt5-qt4
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'bullseye')
 
 - name: Adicionar o dvb_usb_rtl28xxu no blacklist - Linux
   kernel_blacklist:
