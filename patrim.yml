@@ -7,21 +7,22 @@
       install: 0
       argox: 1
       compras: 1
+      cgp: 1
+      financeiro: 1
 
   tasks:
-  - name: Instalar o software para criar as etiquetas Linux Debian
-    apt: name=glabels state=latest
-
+    - name: Instalar o software para criar as etiquetas Linux Debian
+      apt: name=glabels state=latest
 
 ### Notebook emprestado
 - hosts: sj-lin-patri-cgwhd33.maquinas.sj.ifsc.edu.br
   #any_errors_fatal: true
   tasks:
-  - name: Pacote necessario para ativar wifi
-    apt:
-      state: latest
-      pkg:
-      - firmware-iwlwifi
+    - name: Pacote necessario para ativar wifi
+      apt:
+        state: latest
+        pkg:
+          - firmware-iwlwifi
   roles:
     - configura_wifi
     - role: grub
