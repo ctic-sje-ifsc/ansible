@@ -58,6 +58,16 @@
     state: latest
     pkg:
     - qalc
+    - cmake
+    - mariadb-client
+    - snapd
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+
+- name: Instalar pacotes snaps padroes de laboratorios - Debian 11
+  snap:
+    name:
+      - core
+      - mysql-workbench-community
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
 - name: Instalar pacotes de ferramentas "conhecidas" padroes de laboratorios - Linux
