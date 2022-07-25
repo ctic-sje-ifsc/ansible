@@ -206,3 +206,13 @@
 #       - "Usuários"
 #   when: ansible_os_family == 'Windows'
 #######################################################################
+
+
+######################## OBSERVAÇÕES IMPORTANTES ######################
+#######################################################################
+#######################################################################
+# Há roles que precisam ser atualizados de tempos em tempos.
+# Deve-se adicionar aqui os roles que perceberem que necessitam atualizações
+# - Atualizar os patrimonio do role firewall_labs.
+# - Uma vez por ano tem que atualizar o role do irpf, porém não estamos mais autorizados
+# a instalar ele.
