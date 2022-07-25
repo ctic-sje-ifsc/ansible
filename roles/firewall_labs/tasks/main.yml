@@ -9,10 +9,10 @@
     mode: 0755
   with_items:
     - sidi-703872
-    - redes-744530
+    - redes-906284
     - prog-744523
-    - cad1-37247
-    - cad2-38841
+    - cad1-879491
+    - cad2-905476
     - cad3-744528
   when: ( ansible_os_family == 'Debian' and  ansible_hostname is search("^sj-lin-{{ item }}") )
 
