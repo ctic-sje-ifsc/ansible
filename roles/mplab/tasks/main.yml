@@ -122,6 +122,17 @@
     mode: 0755
   when: ansible_os_family == 'Debian'
 
+### Comentado porque não é para executar na versão 2.05
+# - name: Copiando arquivo avrasm2 - Linux Debian
+#   copy:
+#     src: avrasm2
+#     dest: /opt/microchip/xc8/v2.05/avr/
+#     owner: root
+#     group: root
+#     mode: 0755
+#   changed_when: True
+#   when: ansible_os_family == 'Debian'
+
 - name: Criando links simbolicos - Linux Debian
   file:
     src: /opt/microchip/mplabx/v5.50/mplab_platform/bin/{{ mplab_link }}
