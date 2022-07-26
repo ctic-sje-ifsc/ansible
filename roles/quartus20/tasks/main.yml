@@ -105,3 +105,13 @@
     group: root
     mode: 0755
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye' and result_eclipse.stdout == "0")
+
+- name: Inserir linha para arrumar eclipse
+  blockinfile:
+    path: /opt/intelFPGA/20.1/nios2eds/bin/eclipse_nios2/eclipse.ini
+    insertbefore: --launcher.appendVmargs
+    block: |
+      --launcher.GTK_version
+      2
+    state: present
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
