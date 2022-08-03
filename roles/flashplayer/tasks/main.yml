@@ -47,8 +47,8 @@
   when: ansible_os_family == 'Debian'
 
 #Windows
-- name: Instalar o FlashPlayerPlugin - Windows
+- name: Instalar o FlashPlay - Windows
   win_chocolatey:
-    name: flashplayerplugin
+    name: flashplay
     # state: latest
   when: ansible_os_family == 'Windows'
