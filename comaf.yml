@@ -29,3 +29,13 @@
   #any_errors_fatal: true
   roles:
     - token_gd_starsign
+
+- hosts: sj-lin-comaf-37250.maquinas.sj.ifsc.edu.br # Edson
+  #any_errors_fatal: true
+  roles:
+    - ingressa_ldap_sem_cups_client
+    - savpdf
+    - role: instala_impressora_cups
+      install: 0
+      financeiro: 1
+      pdf: 1
