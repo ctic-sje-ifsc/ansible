@@ -401,6 +401,15 @@
       </Printer>
   when: ( ansible_os_family == 'Debian' and  install == 1 and almoxarifado_6940 == 1 )
 
+- name: Instala o hplip
+  apt:
+    state: latest
+    pkg:
+    - hplip
+    - hplip-gui
+    - printer-driver-hpcups
+  when: ( ansible_os_family == 'Debian' and  install == 1 and almoxarifado_6940 == 1 )
+
 - name: Instala a impressora Almoxarifado Deskjet 3920- Linux
   blockinfile:
     path: /etc/cups/printers.conf
@@ -425,6 +434,15 @@
       OpPolicy default
       ErrorPolicy retry-job
       </Printer>
+  when: ( ansible_os_family == 'Debian' and  install == 1 and almoxarifado_3920 == 1 )
+
+- name: Instala o hplip
+  apt:
+    state: latest
+    pkg:
+    - hplip
+    - hplip-gui
+    - printer-driver-hpcups
   when: ( ansible_os_family == 'Debian' and  install == 1 and almoxarifado_3920 == 1 )
 
 - name: Copia os arquivos ppd Almoxarifado Deskjet 6940 - Linux Debian
