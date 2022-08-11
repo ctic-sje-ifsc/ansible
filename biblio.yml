@@ -37,3 +37,7 @@
     - role: instala_impressora_cups
       install: 0
       zebra: 1
+
+- hosts: sj-lin-biblio-cnpq.maquinas.sj.ifsc.edu.br #para o notebook
+  roles:
+    - configura_wifi
