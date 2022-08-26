@@ -1,0 +1,44 @@
+#### Baixa e configura o Java17 da Oracle. Esta versão funciona com Gradle 7 ( Chamado Mello )
+
+- name: Cria diretório /usr/lib/jvm
+  file:
+    path: /usr/lib/jvm
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  when: (ansible_os_family == 'Debian')
+
+- name: Install a .deb package from the internet
+  ansible.builtin.apt:
+    deb: https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.deb
+
+- name: Correct java version selected
+  community.general.alternatives:
+    name: java
+    path: /usr/lib/jvm/jdk-17/bin/java
+
+- name: Cria atalho do Java ControlPanel na lista de aplicativos
+  copy:
+    content: |
+      [Desktop Entry]
+      Name=Java Console
+      Exec=/usr/lib/jvm/jdk-17/bin/jconsole
+      GenericName=Java Control Console
+      Type=Application
+      StartupNotify=true
+      Categories=Settings;
+      Icon=/usr/lib/jvm/jdk-17/lib/desktop/icons/hicolor/48x48/apps/sun-java.png
+      Comment=Oracle Java Console
+      Terminal=false
+    dest: /usr/share/applications/jcontrol.desktop
+    owner: root
+    group: root
+    mode: 0644
+  when: (ansible_os_family == 'Debian')
+
+
+
+
+
+
