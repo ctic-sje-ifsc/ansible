@@ -1,0 +1,50 @@
+# Linux
+- name: Remove pacotes para autenticação LDAP
+  ansible.builtin.apt:
+    state: absent
+    pkg:
+    - libnss-ldap
+    - libpam-ldap
+    - libpam-mount
+  when: ansible_distribution == 'Debian'
+
+- name: Removendo arquivo /etc/ldap/ldap.conf
+  ansible.builtin.file:
+    path: /etc/ldap/ldap.conf
+    state: absent
+  when: ansible_os_family == 'Debian'
+
+- name: Removendo arquivo /etc/{{ ldap_conf }}
+  ansible.builtin.file:
+    path: /etc/{{ ldap_conf }}
+    state: absent
+  loop:
+    - ldap.conf
+    - libnss-ldap.conf
+    - pam_ldap.conf
+  loop_control:
+    loop_var: ldap_conf
+  when: ansible_os_family == 'Debian'
+
+- name: Removendo arquivo /etc/nsswitch.conf
+  ansible.builtin.file:
+    path: /etc/nsswitch.conf
+    state: absent
+  when: ansible_os_family == 'Debian'
+
+- name: Removendo arquivo /etc/pam.d/{{ config_ldap }}
+  ansible.builtin.file:
+    path: /etc/pam.d/{{ config_ldap }}
+    state: absent
+  loop:
+    - common-auth
+    - common-session
+  loop_control:
+    loop_var: config_ldap
+  when: ansible_os_family == 'Debian'
+
+- name: Removendo arquivo /etc/security/pam_mount.conf.xml
+  ansible.builtin.file:
+    path: /etc/security/pam_mount.conf.xml
+    state: absent
+  when: ansible_os_family == 'Debian'
