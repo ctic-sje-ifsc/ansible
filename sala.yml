@@ -2,6 +2,7 @@
   #any_errors_fatal: true
   roles:
     - configura_monitores
+    - remove_ldap
   tasks:
     # - name: Adiciona linha do usuario aluno no passwd
     #   blockinfile:
@@ -19,15 +20,16 @@
     #       aluno:x:1001:
     #   when: ansible_os_family == 'Debian'
 
-    # - name: Cria usuário aluno com a senha aluno
-    #   user:
-    #     name: aluno
-    #     password: $6$B5dpvoG43l67q0sx$r0LDKV2TgNItf/kYx/76l89ZN4LhP/ksYIxp.SSVGttHoSZXLSoB6Hkg2A6y7M7aFJ8zEuauf5kS/yA/P61kN1
-    #     append: yes
-    #   when: ansible_os_family == 'Debian'
+    - name: Cria usuário aluno com a senha aluno
+      ansible.builtin.user:
+        name: aluno
+        shell: /bin/bash
+        password: $6$B5dpvoG43l67q0sx$r0LDKV2TgNItf/kYx/76l89ZN4LhP/ksYIxp.SSVGttHoSZXLSoB6Hkg2A6y7M7aFJ8zEuauf5kS/yA/P61kN1
+        append: yes
+      when: ansible_os_family == 'Debian'
 
     - name: Pacotes especiais
-      apt:
+      ansible.builtin.apt:
         state: latest
         pkg:
         - x2goclient
