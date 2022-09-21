@@ -3,26 +3,6 @@
 #     - config_padrao_adm
 
 # - hosts: laboratorios_win
-#   tasks:
-#     - name: Atualização do Windows
-#       win_updates:
-#         category_names:
-#           - Application
-#           - Connectors
-#           - CriticalUpdates
-#           - DefinitionUpdates
-#           - Developer Kits
-#           - FeaturePacks
-#           - Guidance
-#           - SecurityUpdates
-#           - ServicePacks
-#           - Tools
-#           - UpdateRollups
-#           - Updates
-#         reboot: yes
-#         reboot_timeout: 240
-
-# - hosts: laboratorios_win
 #   roles:
 #     - final_semestre
 
@@ -54,6 +34,16 @@
 #     - name: reboot if TLS config was applied
 #       win_reboot:
 #       when: enable_tls12 is changed
+
+# - hosts: laboratorios_win
+#   tasks:
+#     - name: Corrigir problema com senha expirada
+#       ansible.windows.win_user:
+#         name: aluno
+#         password_expired: false
+#         password_never_expires: true
+#         user_cannot_change_password: true
+#       when: ansible_os_family == 'Windows'
 
 # # LIMPA TEMP WINDOWS
 # - hosts: laboratorios_win
