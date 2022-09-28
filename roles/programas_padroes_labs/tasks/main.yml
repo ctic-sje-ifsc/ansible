@@ -240,13 +240,13 @@
 #     - libcunit1-dev
 #   when: ansible_os_family == 'Debian'
 
-- name: Instala flask com python pip  - Linux
-  pip:
-    state: latest
-    name:
-      - flask
-      - flask-httpauth
-  when: ansible_os_family == 'Debian'
+# - name: Instala flask com python pip  - Linux
+#   pip:
+#     state: latest
+#     name:
+#       - flask
+#       - flask-httpauth
+#   when: ansible_os_family == 'Debian'
 
 ### Inicio pacotes necessarios para o Quartus
 
