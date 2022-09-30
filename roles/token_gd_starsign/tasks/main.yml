@@ -29,6 +29,7 @@
     - odilane
     - judite
     - sabrinamc
+    - flavia.ferreira
   loop_control:
     loop_var: token_users
   when: ansible_os_family == 'Debian'
