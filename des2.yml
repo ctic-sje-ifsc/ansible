@@ -1,15 +1,11 @@
-# - hosts: des2
-#   #any_errors_fatal: true
-#   roles:
-#     - packettracer
-#     - kile
-#     - programas_padroes_labs
-
-# - hosts: des2
-#   #any_errors_fatal: true
-#   roles:
-#     - role: grub
-#       tipo: grub_lin
+- hosts: des2,!sj-lin-des2-744927.maquinas.sj.ifsc.edu.br,!sj-lin-des2-744928.maquinas.sj.ifsc.edu.br
+  #any_errors_fatal: true
+  roles:
+    - packettracer
+    - kile
+    # - programas_padroes_labs
+    - role: grub
+      tipo: grub_lin
 
 - hosts: sj-lin-des2-744927.maquinas.sj.ifsc.edu.br,sj-lin-des2-744928.maquinas.sj.ifsc.edu.br #Diego e Deise
   #any_errors_fatal: true
@@ -17,7 +13,7 @@
     - ingressa_ldap_gdm
   tasks:
   - name: Pacotes do Diego
-    apt:
+    ansible.builtin.apt:
       state: latest
       pkg:
       - nautilus-dropbox
@@ -26,3 +22,13 @@
   #   apt:
   #     deb: https://www.mendeley.com/repositories/ubuntu/stable/amd64/mendeleydesktop-latest
     when: ansible_os_family == 'Debian'
+
+- hosts: sj-lin-des2-2skdxp1.maquinas.sj.ifsc.edu.br # Pacotes Fabio
+  roles:
+    - dongo_sdr
+  tasks:
+  - name: Pacotes do Fabio
+    ansible.builtin.apt:
+      state: latest
+      pkg:
+      - spyder3
