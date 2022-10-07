@@ -68,7 +68,6 @@
     name:
       - core
       - mysql-workbench-community
-      -
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
 - name: Instalar pacotes de ferramentas "conhecidas" padroes de laboratorios - Linux
