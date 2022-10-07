@@ -32,3 +32,4 @@
       state: latest
       pkg:
       - spyder3
+      - dump1090-mutability
