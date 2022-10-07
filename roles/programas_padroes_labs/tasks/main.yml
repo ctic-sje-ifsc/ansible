@@ -1,17 +1,17 @@
 # Linux --------------------------------------------------------------------------------------------------------------
 
 - name: Install a .deb Google Chrome - Linux Debian
-  apt:
+  ansible.builtin.apt:
     deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
   when: ansible_os_family == 'Debian'
 
 - name: Install a .deb GBStudio - Linux Debian
-  apt:
+  ansible.builtin.apt:
     deb: https://github.com/chrismaltby/gb-studio/releases/download/v3.1.0/gb-studio-linux-debian.deb
   when: ansible_os_family == 'Debian'
 
 - name: Instalar pacotes GUI ou "conhecidos" padroes de laboratorios - Linux
-  apt:
+  ansible.builtin.apt:
     state: latest
     pkg:
     - apt-transport-https
@@ -45,7 +45,7 @@
   when: ansible_os_family == 'Debian'
 
 - name: Instalar pacotes GUI ou "conhecidos" padroes de laboratorios - Debian 10
-  apt:
+  ansible.builtin.apt:
     state: latest
     pkg:
     - unrar
@@ -54,7 +54,7 @@
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
 
 - name: Instalar pacotes GUI ou "conhecidos" padroes de laboratorios - Debian 11
-  apt:
+  ansible.builtin.apt:
     state: latest
     pkg:
     - qalc
@@ -64,14 +64,15 @@
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
 - name: Instalar pacotes snaps padroes de laboratorios - Debian 11
-  snap:
+  community.general.snap:
     name:
       - core
       - mysql-workbench-community
+      -
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
 - name: Instalar pacotes de ferramentas "conhecidas" padroes de laboratorios - Linux
-  apt:
+  ansible.builtin.apt:
     state: latest
     pkg:
     - unrar-free
@@ -137,7 +138,7 @@
   when: ansible_os_family == 'Debian'
 
 - name: Instalar pacotes de ferramentas "conhecidas" padroes de laboratorios - Debian 10
-  apt:
+  ansible.builtin.apt:
     state: latest
     pkg:
     - mysql-client
@@ -148,7 +149,7 @@
 
 
 - name: Instalar lista de pacotes pedida pelo Roberto de Matos Chamado IFSC#2019030810001087 - Linux
-  apt:
+  ansible.builtin.apt:
     state: latest
     pkg:
     - binutils-avr
@@ -161,7 +162,7 @@
   when: ansible_os_family == 'Debian'
 
 - name: Instalar lista de pacotes pedida pelo Emerson Mello - Linux
-  apt:
+  ansible.builtin.apt:
     state: latest
     pkg:
     - sqlite3
@@ -184,13 +185,13 @@
   when: ansible_os_family == 'Debian'
 
 - name: Adiciona gradle
-  include_role:
+  ansible.builtin.include_role:
     name: gradle7
   when: ansible_os_family == 'Debian'
 
 # # java
 - name: Instalar os pacotes  Java openjdk - Linux
-  apt:
+  ansible.builtin.apt:
     state: latest
     pkg:
     - openjdk-11-doc
@@ -205,7 +206,7 @@
 
 
 # - name: Instalar lista de pacotes pedida pelo Arliones - Linux
-#   apt: name={{ packages }} state=latest
+#   ansible.builtin.apt: name={{ packages }} state=latest
 #   vars:
 #     packages:
 #     - cmake
@@ -231,7 +232,7 @@
 #   when: ansible_os_family == 'Debian'
 
 # - name: Instalar lista de pacotes pedida pelo Arliones - Linux
-#   apt: name={{ packages }} state=latest
+#   ansible.builtin.apt: name={{ packages }} state=latest
 #   vars:
 #     packages:
 #     - libcppunit-dev
@@ -241,7 +242,7 @@
 #   when: ansible_os_family == 'Debian'
 
 # - name: Instala flask com python pip  - Linux
-#   pip:
+#   ansible.builtin.pip:
 #     state: latest
 #     name:
 #       - flask
@@ -251,7 +252,7 @@
 ### Inicio pacotes necessarios para o Quartus
 
 - name: Instalar lista de pacotes necessarios para o quartus no Debian - Linux
-  apt:
+  ansible.builtin.apt:
     state: latest
     pkg:
     - libbz2-1.0:i386
@@ -269,7 +270,7 @@
   when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'bullseye')
 
 - name: Instalar lista de pacotes necessarios para o quartus no Debian - Debian 11
-  apt:
+  ansible.builtin.apt:
     state: latest
     pkg:
     - lib32z1
@@ -290,17 +291,17 @@
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
 # - name: Install a .deb libpng12:i386 - Linux Debian
-#   apt:
+#   ansible.builtin.apt:
 #     deb: http://mirrors.kernel.org/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1_i386.deb
 #   when: ansible_os_family == 'Debian'
 
 # - name: Install a .deb libpng12 - Linux Debian
-#   apt:
+#   ansible.builtin.apt:
 #     deb: http://mirrors.kernel.org/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1_amd64.deb
 #   when: ansible_os_family == 'Debian'
 
 - name: Instalar lista de pacotes necessarios para o Matlab no Debian - Linux
-  apt:
+  ansible.builtin.apt:
     state: latest
     pkg:
     - libglu1-mesa
@@ -312,7 +313,7 @@
 
 ### Comentado pois não tem mais o repositorio
 # - name: Instalar dependência para cmake atualizado do stretch-backports
-#   apt:
+#   ansible.builtin.apt:
 #     default_release: stretch-backports-sloppy
 #     state: latest
 #     pkg:
@@ -320,7 +321,7 @@
 #   when: ansible_os_family == 'Debian'
 
 # - name: Instalar pacotes do cmake atualizado do stretch-backports
-#   apt:
+#   ansible.builtin.apt:
 #     default_release: stretch-backports
 #     state: latest
 #     pkg:
@@ -328,7 +329,7 @@
 #   when: ansible_os_family == 'Debian'
 
 - name: Remover programas  - Linux
-  apt:
+  ansible.builtin.apt:
     state: absent
     pkg:
     - transmission
