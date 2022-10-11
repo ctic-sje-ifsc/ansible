@@ -70,6 +70,13 @@
 #       shell: /usr/sbin/epoptes-client -c
 #       when: ansible_os_family == 'Debian'
 
+##RESOLVENDO PROBLEMA DAS INTERFACES DE REDE DO OPENVSWITCH NOS LABS
+# - hosts: laboratorios_lin
+#   tasks:
+#     - name: Apagar as interfaces virtuais de rede
+#       shell: for x in $(ovs-vsctl list-br); do ovs-vsctl del-br ${x}; done
+#       when: ansible_os_family == 'Debian'
+
 # - hosts: sidi_win
 #   tasks:
 #     - name: Turn off computers Windows
