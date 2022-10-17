@@ -1,13 +1,13 @@
 ---
 
-- name: Instalar lista de pacotes pedida pelo Emerson Mello - Linux
-  apt:
+- name: Instalar Gradle 7.5.1 chamado Emerson Mello - Linux
+  ansible.builtin.apt:
     state: absent
     pkg:
       - gradle
   when: ansible_os_family == 'Debian'
 - name: Cria diretório gradle - Linux Debian
-  file:
+  ansible.builtin.file:
     path: /opt/gradle
     state: directory
     owner: root
@@ -15,31 +15,38 @@
     mode: 0755
   when: ansible_os_family == 'Debian'
 
-- name: Baixando e extraindo o Gradle 7.4.2 - Linux Debian
-  unarchive:
-    src: https://discovirtual.ifsc.edu.br/index.php/s/ohoQlYcyO6kVKpn/download
+- name: Baixando e extraindo o Gradle 7.5.1 - Linux Debian
+  ansible.builtin.unarchive:
+    src: https://services.gradle.org/distributions/gradle-7.5.1-all.zip
     dest: /opt/gradle
-    creates: /opt/gradle/instalado
+#    creates: /opt/gradle/instalado
     remote_src: yes
     owner: aluno
     group: 513
   when: ansible_os_family == 'Debian'
 
 - name: Adicionar entrada no /etc/bash.bashrc  - Linux
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/bash.bashrc
-    line: 'export PATH=$PATH:/opt/gradle/gradle-7.4.2/bin'
+    line: 'export PATH=$PATH:/opt/gradle/gradle-7.5.1/bin'
   when: ansible_os_family == 'Debian'
 
 - name: Executa o gradle - Linux Debian
-  command: /opt/gradle/gradle-7.4.2/bin/gradle
+  ansible.builtin.command: /opt/gradle/gradle-7.5.1/bin/gradle
   args:
     creates: /opt/gradle/instalado
   when: ansible_os_family == 'Debian'
 
 - name: Finaliza instalacao - Linux Debian
   changed_when: False
-  file:
+  ansible.builtin.file:
     path: /opt/gradle/instalado
     state: touch
+  when: ansible_os_family == 'Debian'
+
+- name: Adicionar entrada no /etc/bash.bashrc  - Linux
+  ansible.builtin.lineinfile:
+    path: /etc/bash.bashrc
+    line: 'export PATH=$PATH:/opt/gradle/gradle-7.5.1/bin'
+    state: absent
   when: ansible_os_family == 'Debian'
