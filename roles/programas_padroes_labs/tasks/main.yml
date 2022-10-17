@@ -61,6 +61,8 @@
     - cmake
     - mariadb-client
     - snapd
+    - flameshot
+    - scrcpy
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
 - name: Instalar pacotes snaps padroes de laboratorios - Debian 11
