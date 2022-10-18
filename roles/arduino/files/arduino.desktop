@@ -1,10 +1,10 @@
 [Desktop Entry]
 Type=Application
-Name=Arduino 1.8.5 IDE 
+Name=Arduino 1.8.19 IDE
 GenericName=Integrated Development Environment
 Comment=An IDE for Arduino-compatible electronics prototyping platforms
-Exec=/opt/arduino-1.8.5/arduino
-Icon=/opt/arduino-1.8.5/lib/arduino.png
+Exec=/opt/arduino-1.8.19/arduino
+Icon=/opt/arduino-1.8.19/lib/arduino.png
 Terminal=false
 Categories=Development;IDE;Electronics;
 MimeType=text/x-arduino
