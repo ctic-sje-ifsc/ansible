@@ -74,14 +74,23 @@
 
 ###################### Inicio do ApagaAluno
 
-- name: Mantem o estado do arquivo /etc/init.d/apagaAluno.sh - Linux
+- name: Mantem o estado do arquivo /etc/init.d/apagaAluno.sh - Debian 9 e 10
   copy:
     src: apagaAluno.sh
     dest: /etc/init.d/apagaAluno.sh
     owner: root
     group: root
     mode: 0755
-  when: ansible_os_family == 'Debian'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'bullseye')
+
+- name: Mantem o estado do arquivo /etc/init.d/apagaAluno.sh - Debian 11
+  copy:
+    src: apagaAlunoDEB11.sh
+    dest: /etc/init.d/apagaAluno.sh
+    owner: root
+    group: root
+    mode: 0755
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
 - name: Mantem o estado do arquivo /lib/systemd/system/apagaAluno.service - Linux
   copy:
@@ -390,6 +399,7 @@
 - name: Altera parâmetro para que o dhclient não morra depois de pegar IPv6 e fique sem IPv4
   shell: nmcli connection modify Wired\ connection\ 1 ipv4.may-fail no
   changed_when: False
+  ignore_errors: true
   tags:
   - rede
   when: ansible_os_family == 'Debian'
