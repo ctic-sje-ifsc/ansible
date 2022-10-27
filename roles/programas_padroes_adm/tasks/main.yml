@@ -55,7 +55,7 @@
     - firmware-linux-free
     - firmware-linux-nonfree
     - vlc
-    - unrar-free
+    - unrar
     - dkms
     - ntp
     - libcurl4
