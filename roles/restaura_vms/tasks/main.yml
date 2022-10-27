@@ -2,17 +2,17 @@
 # Debian e Ubuntu
 - name: Apagar disk1 antes de restaurar as máquinas virtuais - Linux
   file:
-    path: /home/VMDK/{{ item }}-disk1.vmdk
+    path: /home/VMDK/{{ item }}-disk001.vdi
     state: absent
   with_items: "{{nome_vms}}"
-  when: ansible_os_family == 'Debian'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
 - name: Apagar disk2 antes de restaurar as máquinas virtuais - Linux
   file:
-    path: /home/VMDK/{{ item }}-disk2.vmdk
+    path: /home/VMDK/{{ item }}-disk002.vdi
     state: absent
   with_items: "{{nome_vms}}"
-  when: ansible_os_family == 'Debian'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
 - name: Restaurar as máquinas virtuais - Linux
   unarchive:
@@ -20,4 +20,4 @@
     dest: /
     remote_src: yes
   with_items: "{{nome_vms}}"
-  when: ansible_os_family == 'Debian'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
