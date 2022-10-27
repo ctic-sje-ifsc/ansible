@@ -76,7 +76,7 @@
   ansible.builtin.apt:
     state: latest
     pkg:
-    - unrar-free
+    - unrar
     - xterm
     - ethtool
     - minicom
@@ -85,7 +85,6 @@
     - iperf
     - ipcalc
     - tcpdump
-    - snmp-mibs-downloader
     - cutecom
     - gdb
     - ipython3
@@ -119,9 +118,6 @@
     - texlive-lang-portuguese
     - python3-pip
     - htop
-    - firmware-amd-graphics
-    - firmware-misc-nonfree
-    - firmware-linux
     - net-tools
     - fping
     - libpcre++-dev
@@ -145,6 +141,10 @@
     - mysql-client
     - python-rope
     - gir1.2-appindicator3-0.1
+    - snmp-mibs-downloader
+    - firmware-amd-graphics
+    - firmware-misc-nonfree
+    - firmware-linux
     - linux-headers-{{ ansible_kernel }}
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
 
@@ -351,7 +351,7 @@
   - cutepdf
   - adobereader
   - putty
-  - adobeair
+  # - adobeair
   - librecad
   - cadconverter
   - subtitleworkshop
@@ -372,11 +372,11 @@
 #     name: libreoffice-Fresh
 #   when: ansible_os_family == 'Windows'
 
-- name: Instalar o Unity 2018.2.10 - Windows
-  win_chocolatey:
-    name: unity
-    version: '2018.2.10'
-  when: ansible_os_family == 'Windows'
+# - name: Instalar o Unity 2018.2.10 - Windows
+#   win_chocolatey:
+#     name: unity
+#     version: '2018.2.10'
+#   when: ansible_os_family == 'Windows'
 
 # Comentado porque nao estava funcionando
 # - name: Instalar o FreeCad 0.17 - Windows
