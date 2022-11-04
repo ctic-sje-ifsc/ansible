@@ -1,9 +1,11 @@
 # Linux
 - name: Remove pacotes para autenticação LDAP
   ansible.builtin.apt:
+    state: absent
     purge: yes
     pkg:
     - libnss-ldap
     - libpam-ldap
     - libpam-mount
+    - cups-client
   when: ansible_distribution == 'Debian'
