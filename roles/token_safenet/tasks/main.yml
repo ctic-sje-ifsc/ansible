@@ -1,7 +1,7 @@
 ---
 #Linux
 
-- name: Instalar os pacotes para o token SafeNet - Linux Debian 10
+- name: Instalar os pacotes para o token SafeNet - Linux Debian 10 e debian 11
   apt:
     state: latest
     pkg:
@@ -14,7 +14,7 @@
     - libccid
     - pcscd
     - opensc
-  when: ansible_distribution_release == 'buster'
+  when: ansible_distribution_release != 'stretch'
 
 - name: Copia para a maquina o Safenet Authenticator Client - Debian 10
   copy:
@@ -27,7 +27,7 @@
 
 - name: Instala o Safenet Authenticator Client - Debian 10
   apt:
-    deb: /tmp/SafenetAuthenticationClient-BR-10.7.77-amd64.deb
+    deb: /tmp/safenetAuthenticationClient-BR-10.7.77-amd64.deb
   when: ansible_distribution_release == 'buster'
 
 - name: Cria link simbolico - Debian 10
@@ -39,6 +39,21 @@
     state: link
   when: ansible_distribution_release == 'buster'
 
+- name: Baixando e extraindo o Safenet Authenticator Client - Debian 11
+  ansible.builtin.unarchive:
+    src: https://www.globalsign.com/en/safenet-drivers/USB/10.7/Safenet_Linux_Installer_DEB_x64.zip
+    dest: /tmp
+    remote_src: yes
+    owner: root
+    group: root
+    mode: 0755
+  when: ansible_distribution_release == 'bullseye'
+
+- name: Instala o Safenet Authenticator Client - Debian 11
+  ansible.builtin.apt:
+    deb: /tmp/safenetauthenticationclient_10.7.77_amd64.deb
+  when: ansible_distribution_release == 'bullseye'
+  
 - name: Script para habilitar módulo no navegador
   copy:
     content: |
