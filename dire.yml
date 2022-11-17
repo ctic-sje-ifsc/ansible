@@ -7,6 +7,11 @@
       apps:
         - isaacdesktop
 
+- hosts: sj-lin-dire-5a224137a.maquinas.sj.ifsc.edu.br # Diretor
+  #any_errors_fatal: true
+  roles:
+    - token_safenet
+
 - hosts: sj-lin-dire-38853.maquinas.sj.ifsc.edu.br
   tasks:
   - name: Pacotes para os pcs da direcao #Solicitado pelo chamado IFSC#2022041810000801
