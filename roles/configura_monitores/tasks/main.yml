@@ -48,7 +48,7 @@
     owner: root
     group: root
     mode: 0644
-  when: ansible_hostname is search("^sj-lin-labmeios")
+  when: ansible_hostname is search("^sj-lin-meios")
 
 - name: Configuracao dos monitores para das salas de aula - Linux
   copy:
