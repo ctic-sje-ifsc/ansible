@@ -15,12 +15,12 @@
   #     state: present
   #   when: ansible_os_family == 'Debian'
 
-- hosts: cad1_lin:!sj-lin-cad1-879491.maquinas.sj.ifsc.edu.br
+- hosts: cad1_lin:!sj-lin-cad1-916082.maquinas.sj.ifsc.edu.br
   #any_errors_fatal: true
   roles:
     - epoptes_client
 
-- hosts: sj-lin-cad1-879491.maquinas.sj.ifsc.edu.br #Maquina do professor
+- hosts: sj-lin-cad1-916082.maquinas.sj.ifsc.edu.br #Maquina do professor
   #any_errors_fatal: true
   roles:
     - epoptes_server
@@ -29,7 +29,7 @@
 
 # Windows
 
-- hosts: sj-cad1-879491.maquinas.sj.ifsc.edu.br #Maquina do professor
+- hosts: sj-cad1-916082.maquinas.sj.ifsc.edu.br #Maquina do professor
   #any_errors_fatal: true
   roles:
     - ingressa_ldap
