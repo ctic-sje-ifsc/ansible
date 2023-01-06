@@ -11,6 +11,7 @@
     regexp: '^SERVER'
     path: /etc/default/epoptes-client
     line: 'SERVER=sj-lin-sidi-703872.maquinas.sj.ifsc.edu.br'
+    create: yes
   when: ansible_hostname is search("^sj-lin-sidi")
 
 - name: Adicionar entrada no /etc/default/epoptes-client sobre quem é o server do redes - Linux
@@ -18,6 +19,7 @@
     regexp: '^SERVER'
     path: /etc/default/epoptes-client
     line: 'SERVER=sj-lin-redes-906284.maquinas.sj.ifsc.edu.br'
+    create: yes
   when: ansible_hostname is search("^sj-lin-redes")
 
 - name: Adicionar entrada no /etc/default/epoptes-client sobre quem é o server do programacao - Linux
@@ -25,6 +27,7 @@
     regexp: '^SERVER'
     path: /etc/default/epoptes-client
     line: 'SERVER=sj-lin-prog-744523.maquinas.sj.ifsc.edu.br'
+    create: yes
   when: ansible_hostname is search("^sj-lin-prog")
 
 - name: Adicionar entrada no /etc/default/epoptes-client sobre quem é o server do cad1 - Linux
@@ -32,6 +35,7 @@
     regexp: '^SERVER'
     path: /etc/default/epoptes-client
     line: 'SERVER=sj-lin-cad1-37247.maquinas.sj.ifsc.edu.br'
+    create: yes
   when: ansible_hostname is search("^sj-lin-cad1")
 
 - name: Adicionar entrada no /etc/default/epoptes-client sobre quem é o server do cad2 - Linux
@@ -39,6 +43,7 @@
     regexp: '^SERVER'
     path: /etc/default/epoptes-client
     line: 'SERVER=sj-lin-cad2-905476.maquinas.sj.ifsc.edu.br'
+    create: yes
   when: ansible_hostname is search("^sj-lin-cad2")
 
 - name: Adicionar entrada no /etc/default/epoptes-client sobre quem é o server do cad3 - Linux
@@ -46,6 +51,7 @@
     regexp: '^SERVER'
     path: /etc/default/epoptes-client
     line: 'SERVER=sj-lin-cad3-744528.maquinas.sj.ifsc.edu.br'
+    create: yes
   when: ansible_hostname is search("^sj-lin-cad3")
 
 - name: Adicionar entrada no /etc/default/epoptes-client sobre quem é o server do informatica - Linux
@@ -53,4 +59,5 @@
     regexp: '^SERVER'
     path: /etc/default/epoptes-client
     line: 'SERVER=sj-lin-info-895203.maquinas.sj.ifsc.edu.br'
+    create: yes
   when: ansible_hostname is search("^sj-lin-info")
