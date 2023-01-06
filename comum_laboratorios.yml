@@ -21,7 +21,7 @@
     # - netbeans82 #incompativel com debian 11
     # - netkit2 #incompativel com debian 11
     # - packettracer #incompativel com debian 11
-    - virtualbox
+    # - virtualbox
     - wireshark
     - arduino
     - flashplayer
