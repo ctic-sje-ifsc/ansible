@@ -6,10 +6,10 @@
     - role: grub
       tipo: grub_lin
   tasks:
-  - name: Monta /dev/sda3 em /media/aluno/trabalhos fstab - Linux
+  - name: Monta /media/aluno/trabalhos fstab - Linux
     mount:
       path: /media/aluno/trabalhos
-      src: /dev/sda3
+      src: "UUID=872E-9221"
       fstype: vfat
       state: present
     when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'bullseye')
