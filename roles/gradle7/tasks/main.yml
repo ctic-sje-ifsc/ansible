@@ -1,11 +1,11 @@
 ---
 
-- name: Instalar Gradle 7.5.1 chamado Emerson Mello - Linux
-  ansible.builtin.apt:
-    state: absent
-    pkg:
-      - gradle
-  when: ansible_os_family == 'Debian'
+# - name: Instalar Gradle 7.5.1 chamado Emerson Mello - Linux
+#   ansible.builtin.apt:
+#     state: absent
+#     pkg:
+#       - gradle
+#   when: ansible_os_family == 'Debian'
 - name: Cria diretório gradle - Linux Debian
   ansible.builtin.file:
     path: /opt/gradle
@@ -19,7 +19,7 @@
   ansible.builtin.unarchive:
     src: https://services.gradle.org/distributions/gradle-7.5.1-all.zip
     dest: /opt/gradle
-#    creates: /opt/gradle/instalado
+    creates: /opt/gradle/instalado
     remote_src: yes
     owner: aluno
     group: 513
