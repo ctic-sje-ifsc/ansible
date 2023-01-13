@@ -10,7 +10,7 @@
   roles:
     - configura_wifi
 
-- hosts: sj-lin-almox-559824.maquinas.sj.ifsc.edu.br #Pereima
+- hosts: sj-lin-almox-879464.maquinas.sj.ifsc.edu.br #Pereima
   #any_errors_fatal: true
   roles:
     - role: instala_impressora_cups
