@@ -3,6 +3,7 @@
 - hosts: cad1_lin
   #any_errors_fatal: true
   roles:
+    - kernel6
     - role: grub
       tipo: grub_win
   # tasks:
