@@ -1,0 +1,10 @@
+---
+
+- name: Instala Kernel image e headers 6.0.0 do backports - debian 11
+  ansible.builtin.apt:
+    pkg:
+    - firmware-misc-nonfree
+    - firmware-realtek
+    - linux-image-6.0.0-0.deb11.6-amd64
+    - linux-headers-6.0.0-0.deb11.6-amd64
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye' )
