@@ -1,21 +1,42 @@
 #Antes de atualizar, verificar se o Ansible já gerencia snap
 
 - name: Instala snapd - Linux
-  apt: name=snapd state=latest
+  ansible.builtin.apt: name=snapd state=latest
   when: ansible_os_family == 'Debian'
 
 - name: Instala IDEA Ultimate via SNAP
-  command: /usr/bin/snap install intellij-idea-ultimate --classic
+  ansible.builtin.command: /usr/bin/snap install intellij-idea-ultimate --classic
   args:
     creates: /snap/intellij-idea-ultimate/
   when: ansible_os_family == 'Debian'
 
+- name: Configura atalho Intellijj - Linux
+  ansible.builtin.copy:
+    content: |
+      [Desktop Entry]
+      X-SnapInstanceName=intellij-idea-ultimate
+      Version=1.0
+      Type=Application
+      Name=IntelliJ IDEA Ultimate Edition
+      Icon=/snap/intellij-idea-ultimate/401/bin/idea.png
+      Exec=env BAMF_DESKTOP_FILE_HINT=/var/lib/snapd/desktop/applications/intellij-idea-ultimate_intellij-idea-ultimate.desktop /snap/bin/intellij-idea-ultimate %f
+      Comment=Capable and Ergonomic IDE for JVM
+      Categories=Development;IDE;
+      Terminal=false
+      StartupWMClass=jetbrains-idea
+      StartupNotify=true
+    dest: /usr/share/applications/intellij-idea-ultimate.desktop
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
 # - name: Atualiza IDEA Ultimate via SNAP
-#   command: /usr/bin/snap refresh
+#   ansible.builtin.command: /usr/bin/snap refresh
 #   when: ansible_os_family == 'Debian'
 
 # - name: Cria diretório jetbrains e apps
-#   file:
+#   ansible.builtin.file:
 #     path: /opt/jetbrains/apps
 #     state: directory
 #     owner: root
@@ -24,7 +45,7 @@
 #   when: ansible_os_family == 'Debian'
 
 # - name: Baixando e extraindo o Idea jetbrains - Linux Debian
-#   unarchive:
+#   ansible.builtin.unarchive:
 #     src: https://discovirtual.ifsc.edu.br/index.php/s/ArffLHA4jEM2H9C/download
 #     dest: /opt/jetbrains/apps
 #     creates: /opt/jetbrains/apps/IDEA-U/ch-0
@@ -34,7 +55,7 @@
 #   when: ansible_os_family == 'Debian'
 
 # - name: Criando o arquivo jetbrains-idea.desktop - Linux Debian
-#   copy:
+#   ansible.builtin.copy:
 #     src: jetbrains-idea.desktop
 #     dest: /usr/share/applications/jetbrains-idea.desktop
 #     owner: root
