@@ -3,9 +3,18 @@
   #any_errors_fatal: true
   roles:
     - pinta
+    - kernel6
     - role: grub
       tipo: grub_lin
   tasks:
+  - name: Modulo video AMD - Linux
+    apt:
+      state: latest
+      pkg:
+        - firmware-amd-graphics
+        - firmware-linux-nonfree
+    when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+    
   - name: Monta /media/aluno/trabalhos fstab - Linux
     mount:
       path: /media/aluno/trabalhos
