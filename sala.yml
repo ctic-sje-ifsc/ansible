@@ -1,4 +1,4 @@
-- hosts: sala
+- hosts: sala,salab
   #any_errors_fatal: true
   roles:
     - configura_monitores
