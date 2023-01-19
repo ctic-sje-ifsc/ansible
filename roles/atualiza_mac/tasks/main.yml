@@ -9,8 +9,6 @@
       - 2-Grafico
       - 3-Grafico
       - 4-Grafico
-      - 5-Grafico
-      - 6-Grafico
       - 1-Servidor
       - 2-Servidor
       - 3-Servidor
@@ -18,9 +16,6 @@
       - 5-Servidor
       - 6-Servidor
       - 7-Servidor
-      # - 8-Servidor
-      # - 9-Servidor
-      # - 10-Servidor
     loop_control:
       loop_var: vms
     when: (ansible_os_family == 'Debian' and  play == 1)
