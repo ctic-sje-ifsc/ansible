@@ -20,6 +20,14 @@
     - virtualbox-guest-x11
   when: ( ansible_distribution == 'Debian' and ansible_distribution_release == 'stretch' and ansible_hostname is not search("^sj-lin-mtele-577558") ) #PC da Mayara, tem virtualbox instalado na mão, mais novo.
 
+- name: Cria usuário aluno com a senha aluno
+  user:
+    name: aluno
+    groups: [vboxusers]
+    password: $6$B5dpvoG43l67q0sx$r0LDKV2TgNItf/kYx/76l89ZN4LhP/ksYIxp.SSVGttHoSZXLSoB6Hkg2A6y7M7aFJ8zEuauf5kS/yA/P61kN1
+    append: yes
+  when: ansible_os_family == 'Debian'
+
 # Debian 10
 - name: Adiciona uma chave para o virtualbox - Debian 10
   apt_key:
@@ -48,6 +56,14 @@
     - virtualbox-6.1
   when: ( ansible_distribution == 'Debian' and ansible_distribution_release == 'buster')
 
+- name: Cria usuário aluno com a senha aluno
+  user:
+    name: aluno
+    groups: [vboxusers]
+    password: $6$B5dpvoG43l67q0sx$r0LDKV2TgNItf/kYx/76l89ZN4LhP/ksYIxp.SSVGttHoSZXLSoB6Hkg2A6y7M7aFJ8zEuauf5kS/yA/P61kN1
+    append: yes
+  when: ansible_os_family == 'Debian'
+
 # Debian 11
 - name: Adiciona uma chave para o virtualbox - Debian 11
   apt_key:
@@ -68,6 +84,14 @@
     pkg:
     - virtualbox-6.1
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+
+- name: Cria usuário aluno com a senha aluno
+  user:
+    name: aluno
+    groups: [vboxusers]
+    password: $6$B5dpvoG43l67q0sx$r0LDKV2TgNItf/kYx/76l89ZN4LhP/ksYIxp.SSVGttHoSZXLSoB6Hkg2A6y7M7aFJ8zEuauf5kS/yA/P61kN1
+    append: yes
+  when: ansible_os_family == 'Debian'
 
 # # Ubuntu
 # - name: Instalar os pacotes para o Virtualbox do ubuntu - Linux Ubuntu
