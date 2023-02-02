@@ -1,7 +1,7 @@
 # Token Safenet 5110
 
 Esta role é utilizada para instalar o pacote SafenetAuthenticationClient versão 9.1.7 no Debian Buster.
-Esse pacote é necessário para o funcionamento do [Token Safenet 5110](https://safenet.gemalto.com/multi-factor-authentication/authenticators/pki-usb-authentication/etoken-5110-usb-token/).
+Esse pacote é necessário para o funcionamento do [Token Safenet 5110](https://www.serpro.gov.br/links-fixos-superiores/pss-serpro/drivers_token/).
 
 
 ## Firefox
