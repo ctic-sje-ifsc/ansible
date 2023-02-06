@@ -13,6 +13,27 @@
     creates: /snap/clion/
   when: ansible_os_family == 'Debian'
 
+- name: Configura atalho Clion - Linux
+  ansible.builtin.copy:
+    content: |
+      [Desktop Entry]
+      X-SnapInstanceName=clion
+      Version=1.0
+      Type=Application
+      Name=CLion
+      Icon=/snap/clion/219/bin/clion.png
+      Exec=env BAMF_DESKTOP_FILE_HINT=/var/lib/snapd/desktop/applications/clion_clion.desktop /snap/bin/clion %f
+      Comment=A cross-platform IDE for C and C++
+      Categories=Development;IDE;
+      Terminal=false
+      StartupWMClass=jetbrains-clion
+      StartupNotify=true
+    dest: /usr/share/applications/clion_clion.desktop
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
 # - name: Atualiza Clion via SNAP
 #   command: /usr/bin/snap refresh
 #   when: ansible_os_family == 'Debian'
