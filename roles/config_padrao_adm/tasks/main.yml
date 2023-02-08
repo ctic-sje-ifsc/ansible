@@ -2,7 +2,7 @@
 #Linux
 
 - name: Alterar tempo de retry do dhcp no adm- Linux
-  copy:
+  ansible.builtin.copy:
     src: dhclient.conf
     dest: /etc/dhcp/dhclient.conf
     owner: root
@@ -11,7 +11,7 @@
   when: ansible_os_family == 'Debian'
 
 - name: Inclui o role do NTP do Linux
-  include_role:
+  ansible.builtin.include_role:
     name: geerlingguy.ntp
   vars:
     ntp_timezone: America/Sao_Paulo
@@ -36,25 +36,25 @@
 #   - rede
 #   when: ansible_os_family == 'Debian'
 
-- name: Define o backend do cliente dhcp - Linux
-  copy:
-    content: |
-      [main]
-      dhcp=dhclient
-    dest: /etc/NetworkManager/conf.d/dhcp-client.conf
-    owner: root
-    group: root
-    mode: 0644
-  tags:
-  - rede
-  when: ansible_os_family == 'Debian'
+# - name: Define o backend do cliente dhcp - Linux
+#   copy:
+#     content: |
+#       [main]
+#       dhcp=dhclient
+#     dest: /etc/NetworkManager/conf.d/dhcp-client.conf
+#     owner: root
+#     group: root
+#     mode: 0644
+#   tags:
+#   - rede
+#   when: ansible_os_family == 'Debian'
 
-- name: Altera parâmetro para que o dhclient não morra depois de pegar IPv6 e fique sem IPv4
-  shell: nmcli connection modify Wired\ connection\ 1 ipv4.may-fail no
-  changed_when: False
-  tags:
-  - rede
-  when: ansible_os_family == 'Debian'
+# - name: Altera parâmetro para que o dhclient não morra depois de pegar IPv6 e fique sem IPv4
+#   shell: nmcli connection modify Wired\ connection\ 1 ipv4.may-fail no
+#   changed_when: False
+#   tags:
+#   - rede
+#   when: ansible_os_family == 'Debian'
 
 # - name: Remove arquivo /etc/network/interfaces.d/eth0
 #   file:
@@ -67,7 +67,7 @@
 
 ##################### Copia script para procurar termos em arquivo odt
 - name: Copia pesquisaodf - Linux
-  copy:
+  ansible.builtin.copy:
     src: pesquisaODF
     dest: /usr/local/bin/pesquisaODF
     owner: root
@@ -78,7 +78,7 @@
 
 ##################### Copia script para procurar termos em arquivo docx xlsx pptx
 - name: Copia pesquisamsx - Linux
-  copy:
+  ansible.builtin.copy:
     src: pesquisaMSX
     dest: /usr/local/bin/pesquisaMSX
     owner: root
@@ -89,13 +89,13 @@
 
 ##################### Impressao hodprint
 - name: Instala gtklp
-  apt:
+  ansible.builtin.apt:
     name: gtklp
     state: latest
   when: ansible_os_family == 'Debian'
 
 - name: Copia hodprint - Linux
-  copy:
+  ansible.builtin.copy:
     src: hodprint
     dest: /usr/bin/hodprint
     owner: root
@@ -107,7 +107,7 @@
 ##################### Arquivos de configuração do HOD
 
 - name: Cria diretório /home/hodfiles
-  file:
+  ansible.builtin.file:
     path: /home/hodfiles
     state: directory
     owner: root
@@ -116,7 +116,7 @@
   when: ansible_os_family == 'Debian'
 
 - name: Copia arquivos de configuração do HOD
-  copy:
+  ansible.builtin.copy:
     src: "{{ hodfiles }}"
     dest: /home/hodfiles/{{ hodfiles }}
     owner: root
@@ -132,7 +132,7 @@
   when: ansible_os_family == 'Debian'
 
 - name: Cria o Leiame.txt
-  copy:
+  ansible.builtin.copy:
     content: |
       # Nesta pasta tem os arquivos de configuraçao do HOD com a Console configurado
       e com a impressora de 132 colunas configurada para usar o hodprint
@@ -145,7 +145,7 @@
   when: ansible_os_family == 'Debian'
 
 - name: Change /etc/bash.bashrc
-  blockinfile:
+  ansible.builtin.blockinfile:
     path: /etc/bash.bashrc
     backup: yes
     block: |
@@ -164,7 +164,7 @@
 ##################### Desativa módulo
 
 - name: Blacklist the pcspkr driver module
-  kernel_blacklist:
+  community.general.kernel_blacklist:
     name: pcspkr
     state: present
   when: ansible_os_family == 'Debian'
@@ -173,7 +173,7 @@
 
 ################# Copiar Chave pub Marcelo
 - name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys do Marcelo - Linux
-  authorized_key:
+  ansible.posix.authorized_key:
     user: root
     state: present
     key: "{{ lookup('file', 'marcelo.id_rsa.pub') }}"
@@ -181,14 +181,14 @@
 
 ################# Copiar Chave pub Davi
 - name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys do Davi - Linux
-  authorized_key:
+  ansible.posix.authorized_key:
     user: root
     state: present
     key: "{{ lookup('file', 'davi.id_rsa.pub') }}"
   when: ansible_os_family == 'Debian'
 
 - name: Atualiza PATH no profile - Linux Debian 10 buster
-  replace:
+  ansible.builtin.replace:
     path: /etc/profile
     regexp: '/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games'
     replace: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
@@ -197,21 +197,21 @@
 #Windows
 
 - name: Configura servidor NTP para o Windows 1
-  win_regedit:
+  ansible.windows.win_regedit:
     path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DateTime\Servers
     name: "1"
     data: gps.ntp.br
   when: ansible_os_family == 'Windows'
 
 - name: Configura servidor NTP para o Windows 2
-  win_regedit:
+  ansible.windows.win_regedit:
     path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DateTime\Servers
     name: "2"
     data: a.st1.ntp.br
   when: ansible_os_family == 'Windows'
 
 - name: Configuracao no registro necessaria para UTC - Windows
-  win_regedit:
+  ansible.windows.win_regedit:
     path: HKLM:\System\CurrentControlSet\Control\TimeZoneInformation
     name: RealTimeIsUniversal
     data: "1"
@@ -220,7 +220,7 @@
 
 #OBS: _dstoff desativa o horario de verao
 - name: Setar timezone no Windows
-  win_shell: |
+  ansible.windows.win_shell: |
     tzutil /s "E. South America Standard Time_dstoff"
   when: ansible_os_family == 'Windows'
 #OBS2: na linha abaixo nao consegui adicionar o _dstoff
