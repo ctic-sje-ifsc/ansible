@@ -1,7 +1,7 @@
 ---
 
 - name: Alterar tempo de retry do dhcp no lab - Linux
-  copy:
+  ansible.builtin.copy:
     src: dhclient.conf
     dest: /etc/dhcp/dhclient.conf
     owner: root
@@ -13,7 +13,7 @@
 
 # Permissao para gravar na placa
 - name: Adiciona no grupo dialout
-  user:
+  ansible.builtin.user:
     name: "{{ add_dialout }}"
     groups: [dialout]
     append: yes
@@ -32,7 +32,7 @@
 ###################### Inicio Solicitado pelo Mello no chamado IFSC#2018060710000808 de 07/06/18
 
 - name: Adiciona no grupo plugdev
-  user:
+  ansible.builtin.user:
     name: "{{ grupo_plugdev }}"
     groups: [plugdev]
     append: yes
@@ -62,7 +62,7 @@
 ###################### Inicio Gerencia sudoers aluno
 
 - name: Adiciona e modifica entrada do usuario aluno no sudoers - Linux
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/sudoers
     state: present
     regexp: '^aluno '
@@ -75,7 +75,7 @@
 ###################### Inicio do ApagaAluno
 
 - name: Mantem o estado do arquivo /etc/init.d/apagaAluno.sh - Debian 9 e 10
-  copy:
+  ansible.builtin.copy:
     src: apagaAluno.sh
     dest: /etc/init.d/apagaAluno.sh
     owner: root
@@ -84,7 +84,7 @@
   when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'bullseye')
 
 - name: Mantem o estado do arquivo /etc/init.d/apagaAluno.sh - Debian 11
-  copy:
+  ansible.builtin.copy:
     src: apagaAlunoDEB11.sh
     dest: /etc/init.d/apagaAluno.sh
     owner: root
@@ -93,7 +93,7 @@
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
 - name: Mantem o estado do arquivo /lib/systemd/system/apagaAluno.service - Linux
-  copy:
+  ansible.builtin.copy:
     src: apagaAluno.service
     dest: /lib/systemd/system/apagaAluno.service
     owner: root
@@ -102,7 +102,7 @@
   when: ansible_os_family == 'Debian'
 
 - name: Aplica o daemon-reload e o enable no servico apagaAluno - Linux
-  systemd:
+  ansible.builtin.systemd:
     enabled: yes
     daemon_reload: yes
     name: apagaAluno
@@ -113,18 +113,18 @@
 ##################### Inicio adiciona arquitetura i386
 
 - name: Check if i386 is enabled
-  shell: dpkg --print-foreign-architectures | grep i386
+  ansible.builtin.shell: dpkg --print-foreign-architectures | grep i386
   register: result_i386_check
   changed_when: result_i386_check.rc == 1
   failed_when: result_i386_check.rc > 1
   when: ansible_os_family == 'Debian'
 
 - name: Enable i386 architecture
-  command: dpkg --add-architecture i386
+  ansible.builtin.command: dpkg --add-architecture i386
   when: ansible_os_family == 'Debian' and result_i386_check.rc == 1
 
 - name: Ensure apt cache is up to date
-  apt:
+  ansible.builtin.apt:
     update_cache: yes
   when: ansible_os_family == 'Debian' and result_i386_check.rc == 1
 
@@ -133,7 +133,7 @@
 ###################### Inicio senha_aluno
 
 - name: Cria usuário aluno com a senha aluno
-  user:
+  ansible.builtin.user:
     name: aluno    
     password: $6$B5dpvoG43l67q0sx$r0LDKV2TgNItf/kYx/76l89ZN4LhP/ksYIxp.SSVGttHoSZXLSoB6Hkg2A6y7M7aFJ8zEuauf5kS/yA/P61kN1
     append: yes
@@ -144,7 +144,7 @@
 ###################### Inicio do atalhos_e_icones
 
 - name: Mantem o estado do arquivo /usr/share/applications/quartus13.0sp1.desktop - Linux
-  copy:
+  ansible.builtin.copy:
     src: quartus13.0sp1.desktop
     dest: /usr/share/applications/quartus13.0sp1.desktop
     owner: root
@@ -153,7 +153,7 @@
   when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'bullseye')
 
 - name: Mantem o estado do arquivo /usr/share/applications/matlab2012b.desktop - Linux
-  copy:
+  ansible.builtin.copy:
     src: matlab2012b.desktop
     dest: /usr/share/applications/matlab2012b.desktop
     owner: root
@@ -162,7 +162,7 @@
   when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'bullseye')
 
 - name: Mantem o estado do arquivo /usr/share/applications/matlab2015a.desktop - Linux
-  copy:
+  ansible.builtin.copy:
     src: matlab2015a.desktop
     dest: /usr/share/applications/matlab2015a.desktop
     owner: root
@@ -172,21 +172,21 @@
 
 # Configuracao da variavel de licenca e biblioteca lib32
 - name: Adicionar entrada MGLS_LICENSE_FILE export no /etc/security/pam_env.conf - Linux
-  lineinfile:
+  ansible.builtin.lineinfile:
     regexp: '^MGLS_LICENSE_FILE'
     path: /etc/security/pam_env.conf
     line: 'MGLS_LICENSE_FILE   DEFAULT=1800@license-server.sj.ifsc.edu.br'
   when: ansible_os_family == 'Debian'
 
 - name: Adicionar entrada LD_LIBRARY_PATH export no /etc/security/pam_env.conf - Linux
-  lineinfile:
+  ansible.builtin.lineinfile:
     regexp: '^LD_LIBRARY_PATH'
     path: /etc/security/pam_env.conf
     line: 'LD_LIBRARY_PATH     DEFAULT=/opt/altera/13.0sp1/lib32'
   when: ansible_os_family == 'Debian'
 
 - name: Adicionar entrada LM_LICENSE_FILE export no /etc/security/pam_env.conf - Linux
-  lineinfile:
+  ansible.builtin.lineinfile:
     regexp: '^LM_LICENSE_FILE'
     path: /etc/security/pam_env.conf
     line: 'LM_LICENSE_FILE     DEFAULT=1800@license-server.sj.ifsc.edu.br'
@@ -194,7 +194,7 @@
 
 ## Feito para resolver o chamado IFSC#2017062710000273 do Moecke:
 - name: Mantem o estado do arquivo /usr/share/applications/modelsim10.1d.desktop - Linux
-  copy:
+  ansible.builtin.copy:
     src: modelsim10.1d.desktop
     dest: /usr/share/applications/modelsim10.1d.desktop
     owner: root
@@ -271,7 +271,7 @@
 #   when: ansible_os_family == 'Debian'
 
 - name: Mantem o estado do arquivo /home/aluno/.x2goclient - Linux
-  copy:
+  ansible.builtin.copy:
     src: sessions
     dest: /home/aluno/.x2goclient/sessions
     owner: aluno
@@ -286,7 +286,7 @@
 ###################### Início do NTP do Linux
 
 - name: Inclui o role do NTP do Linux
-  include_role:
+  ansible.builtin.include_role:
     name: geerlingguy.ntp
   vars:
     ntp_timezone: America/Sao_Paulo
@@ -302,7 +302,7 @@
 ###################### Correcao Bug do xpdf pe do NTP do Linux
 
 - name: Modifica o arquivo /usr/bin/xpdf - Linux
-  copy:
+  ansible.builtin.copy:
     src: xpdf
     dest: /usr/bin/xpdf
     owner: root
@@ -314,7 +314,7 @@
 
 ################# Copiar Chave pub Marcelo
 - name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys do Marcelo - Linux
-  authorized_key:
+  ansible.posix.authorized_key:
     user: root
     state: present
     key: "{{ lookup('file', 'marcelo.id_rsa.pub') }}"
@@ -322,7 +322,7 @@
 
 ################# Copiar Chave pub Davi
 - name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys do Davi - Linux
-  authorized_key:
+  ansible.posix.authorized_key:
     user: root
     state: present
     key: "{{ lookup('file', 'davi.id_rsa.pub') }}"
@@ -330,7 +330,7 @@
 
 ###################### Inicio configuração SP1
 - name: Cria o arquivo /etc/X11/Xsession.d/99SP1 - Linux
-  copy:
+  ansible.builtin.copy:
     src: SP1
     dest: /etc/X11/Xsession.d/99SP1
     owner: root
@@ -339,7 +339,7 @@
   when: ansible_os_family == 'Debian'
 
 - name: Cria o arquivo cat /etc/profile.d/99SP1.sh - Linux
-  copy:
+  ansible.builtin.copy:
     src: SP1
     dest: /etc/profile.d/99SP1.sh
     owner: root
@@ -348,7 +348,7 @@
   when: ansible_os_family == 'Debian'
 
 - name: Adicionar entrada export no /home/aluno/.bashrc - Linux
-  lineinfile:
+  ansible.builtin.lineinfile:
     regexp: '^export PS1='
     path: /home/aluno/.bashrc
     line: 'export PS1="\u: \[\e[34m\]\W\[\e[m\]\\$ "'
@@ -358,7 +358,7 @@
 
 ###################### Inicio configuração VIM
 - name: Cria o arquivo /etc/vim/vimrc - Linux
-  copy:
+  ansible.builtin.copy:
     src: vimrc
     dest: /etc/vim/vimrc
     owner: root
@@ -370,8 +370,11 @@
 
 ##################### Inicio configuracao interfaces
 - name: Mantem o estado do arquivo /etc/network/interfaces - Linux
-  copy:
+  ansible.builtin.copy:
     content: |
+      source /etc/network/interfaces.d/*
+
+      # The loopback network interface
       auto lo
       iface lo inet loopback
     dest: /etc/network/interfaces
@@ -379,11 +382,26 @@
     group: root
     mode: 0644
   tags:
+    - rede
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
+
+- name: Mantem o estado do arquivo /etc/network/interfaces - Linux
+  ansible.builtin.copy:
+    content: |      
+      search sj.ifsc.edu.br
+      nameserver 191.36.8.66
+      nameserver 191.36.8.90
+      nameserver 191.36.15.200
+    dest: /etc/resolv.conf
+    owner: root
+    group: root
+    mode: 0644
+  tags:
   - rede
-  when: ansible_os_family == 'Debian'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
 
 - name: Define o backend do cliente dhcp - Linux
-  copy:
+  ansible.builtin.copy:
     content: |
       [main]
       dhcp=dhclient
@@ -393,29 +411,31 @@
     mode: 0644
   tags:
   - rede
-  when: ansible_os_family == 'Debian'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
+
 
 - name: Altera parâmetro para que o dhclient não morra depois de pegar IPv6 e fique sem IPv4
-  shell: nmcli connection modify Wired\ connection\ 1 ipv4.may-fail no
+  ansible.builtin.shell: nmcli connection modify Wired\ connection\ 1 ipv4.may-fail no
   changed_when: False
   ignore_errors: true
   tags:
   - rede
-  when: ansible_os_family == 'Debian'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
 
 - name: Remove arquivo /etc/network/interfaces.d/eth0
-  file:
+  ansible.builtin.file:
     path: /etc/network/interfaces.d/eth0
     state: absent
   tags:
   - rede
-  when: ansible_distribution == 'Debian'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
+
 ##################### Fim configuracao interfaces
 
 ##################### Corrige problema no Matlab
 ## https://www.mathworks.com/matlabcentral/answers/260924-why-do-i-get-a-segmentation-fault-when-i-try-to-start-matlab-on-ubuntu-15-04-or-newer
 - name: Remove arquivo /opt/matlab/R2015a/sys/os/glnxa64/libstdc++.so.6
-  file:
+  ansible.builtin.file:
     path: /opt/matlab/R2015a/sys/os/glnxa64/libstdc++.so.6
     state: absent
   when: ansible_distribution == 'Debian'
@@ -439,13 +459,13 @@
 ##################### Cria e aplica SWAP
 
 - name: Create swap file
-  command: fallocate -l 4GB /swapfile
+  ansible.builtin.command: fallocate -l 4GB /swapfile
   args:
     creates: /swapfile
   when: ( ansible_distribution == 'Debian' and ansible_swaptotal_mb < 1 )
 
 - name: Change swap file permissions
-  file:
+  ansible.builtin.file:
     path: /swapfile
     owner: root
     group: root
@@ -453,16 +473,16 @@
   when: ( ansible_distribution == 'Debian' and ansible_swaptotal_mb < 1 )
 
 - name: Check swap file type
-  command: file /swapfile
+  ansible.builtin.command: file /swapfile
   register: swapfile
   when: ( ansible_distribution == 'Debian' and ansible_swaptotal_mb < 1 )
 
 - name: Make swap file
-  command: "mkswap /swapfile"
+  ansible.builtin.command: "mkswap /swapfile"
   when: ( ansible_distribution == 'Debian' and ansible_swaptotal_mb < 1 and swapfile.stdout.find('swap file') == -1 )
 
 - name: Write swap entry in fstab
-  mount:
+  ansible.posix.mount:
     name: none
     src: /swapfile
     fstype: swap
@@ -473,7 +493,7 @@
   when: ( ansible_distribution == 'Debian' and ansible_swaptotal_mb < 1 )
 
 - name: Mount swap
-  command: "swapon /swapfile"
+  ansible.builtin.command: "swapon /swapfile"
   when: (ansible_distribution == 'Debian' and ansible_swaptotal_mb < 1)
 
 ##################### Fim e aplica SWAP
@@ -481,7 +501,7 @@
 ###################### Inicio do arquivo para gravar FPGA no Quartus
 
 - name: Copia o arquivo altera-usb-blaster.rules - Linux
-  copy:
+  ansible.builtin.copy:
     src: altera-usb-blaster.rules
     dest: /etc/udev/rules.d/altera-usb-blaster.rules
     owner: root
@@ -494,7 +514,7 @@
 ###################### Inicio da conf de atalho para abrir o terminal
 
 - name: Cria o arquivo /etc/X11/Xsession.d/99AtalhoTerminal - Linux
-  copy:
+  ansible.builtin.copy:
     content: |
       dconf write /org/mate/marco/global-keybindings/run-command-terminal "'<Primary><Alt>t'"
 
@@ -509,7 +529,7 @@
 ###################### Inicio da configuracao do gdb chamado 2019032610000179
 
 - name: Adicionar entrada SHELL no /etc/bash.bashrc  - Linux
-  lineinfile:
+  ansible.builtin.lineinfile:
     regexp: "^export SHELL="
     state: present
     path: /etc/bash.bashrc
@@ -518,7 +538,7 @@
 
   #Descomentar o codigo abaixo caso o codigo acima nao funcionar
 - name: Adicionar entrada SHELL export no /etc/security/pam_env.conf - Linux
-  lineinfile:
+  ansible.builtin.lineinfile:
     regexp: '^SHELL'
     path: /etc/security/pam_env.conf
     line: 'SHELL     DEFAULT=/bin/bash'
@@ -530,7 +550,7 @@
 
 ###################### Inicio pasta instaladores Windows
 - name: Cria a pasta C:\instaladores\ - Windows
-  win_file:
+  ansible.windows.win_file:
     path: C:\instaladores\
     state: directory
   when: ansible_os_family == 'Windows'
@@ -538,7 +558,7 @@
 
 ###################### Inicio criacao de atalhos Windows
 - name: Atalho para o D - Windows
-  win_shortcut:
+  ansible.windows.win_shortcut:
     description: Atalho para trabalhos
     src: 'D:\'
     dest: '%Public%\Desktop\SALVE SEUS TRABALHOS AQUI.lnk'
@@ -549,14 +569,14 @@
 
 ###################### Início do NTP Windows
 - name: Configura servidor NTP para o Windows 1
-  win_regedit:
+  ansible.windows.win_regedit:
     path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DateTime\Servers
     name: "1"
     data: gps.ntp.br
   when: ansible_os_family == 'Windows'
 
 - name: Configura servidor NTP para o Windows 2
-  win_regedit:
+  ansible.windows.win_regedit:
     path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DateTime\Servers
     name: "2"
     data: a.st1.ntp.br
@@ -566,7 +586,7 @@
 
 ###################### Configuracao biblioteca do proteus, chamado IFSC#2020021310000059
 - name: Copia os arquivos solicitados para o proteus - Windows
-  win_copy:
+  ansible.windows.win_copy:
     src: "{{ files_arduino }}"
     dest: C:\ProgramData\Labcenter Electronics\Proteus 8 Professional\LIBRARY\
   loop:
@@ -581,7 +601,7 @@
   - proteus
 
 - name: Copia arquivo para a biblioteca do proteus - Windows
-  win_copy:
+  ansible.windows.win_copy:
     src: ARDUINO.LML
     dest: C:\ProgramData\Labcenter Electronics\Proteus 8 Professional\MODELS\
   when: ansible_os_family == 'Windows'
@@ -590,7 +610,7 @@
 
 ###################### Início da configuracao do UTC Windows
 - name: Configuracao no registro necessaria para UTC - Windows
-  win_regedit:
+  ansible.windows.win_regedit:
     path: HKLM:\System\CurrentControlSet\Control\TimeZoneInformation
     name: RealTimeIsUniversal
     data: "1"
@@ -599,7 +619,7 @@
 
 #OBS: _dstoff desativa o horario de verao
 - name: Setar timezone no Windows
-  win_shell: |
+  ansible.windows.win_shell: |
     tzutil /s "E. South America Standard Time_dstoff"
   when: ansible_os_family == 'Windows'
 #OBS2: na linha abaixo nao consegui adicionar o _dstoff
@@ -611,7 +631,7 @@
 ###################### Inicio dos Includes
 
 - name: Inclusão de roles config_padrao_labs
-  include_role:
+  ansible.builtin.include_role:
     name: "{{ roles_labs }}"
   loop:
     - sshd_config
