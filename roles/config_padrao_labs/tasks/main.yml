@@ -558,7 +558,7 @@
 
 ###################### Inicio criacao de atalhos Windows
 - name: Atalho para o D - Windows
-  ansible.windows.win_shortcut:
+  community.windows.win_shortcut:
     description: Atalho para trabalhos
     src: 'D:\'
     dest: '%Public%\Desktop\SALVE SEUS TRABALHOS AQUI.lnk'
