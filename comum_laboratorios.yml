@@ -18,6 +18,7 @@
     # - eclipse #incompativel com debian 11
     - mplab
     - jetbrains-toolbox
+    - java17-oracle
     # - netbeans82 #incompativel com debian 11
     # - netkit2 #incompativel com debian 11
     # - packettracer #incompativel com debian 11
