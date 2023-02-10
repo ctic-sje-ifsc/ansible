@@ -1,4 +1,4 @@
-- hosts: cere
+- hosts: cepe
   #any_errors_fatal: true
   tasks:
   - name: Pacotes especiais
@@ -6,3 +6,7 @@
       state: latest
       pkg:
       - nautilus-dropbox
+
+- hosts: sj-lin-cepe-38145.maquinas.sj.ifsc.edu.br #silvia
+  roles:
+    - kernel_backports
