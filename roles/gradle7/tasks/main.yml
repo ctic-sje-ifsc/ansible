@@ -50,3 +50,9 @@
     line: 'export PATH=$PATH:/opt/gradle/gradle-7.5.1/bin'
     state: absent
   when: ansible_os_family == 'Debian'
+
+- name: Create a symbolic link
+  ansible.builtin.file:
+    src: /opt/gradle/gradle-7.5.1/bin/gradle
+    dest: /usr/bin/gradle
+    state: link
