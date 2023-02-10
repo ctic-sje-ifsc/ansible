@@ -26,7 +26,7 @@
     - wireshark
     - arduino
     - flashplayer
-    - aluno
+    # - aluno
     # - qgis #incompativel com debian 11
     # - rstudio #incompativel com debian 11
     # - geogebra #incompativel com debian 11
