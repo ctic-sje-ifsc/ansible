@@ -33,7 +33,7 @@
 # Administrativos
 - import_playbook: auditorios_vconf.yml
 - import_playbook: biblio.yml
-- import_playbook: cere.yml
+- import_playbook: cepe.yml
 - import_playbook: cgp.yml
 - import_playbook: coger.yml
 - import_playbook: comaf.yml
