@@ -10,7 +10,7 @@
   lineinfile:
     regexp: '^SERVER'
     path: /etc/default/epoptes-client
-    line: 'SERVER=sj-lin-sidi-703872.maquinas.sj.ifsc.edu.br'
+    line: 'SERVER=sj-lin-sidi-25.maquinas.sj.ifsc.edu.br'
     create: yes
   when: ansible_hostname is search("^sj-lin-sidi")
 
