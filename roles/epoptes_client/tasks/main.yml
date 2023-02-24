@@ -34,7 +34,7 @@
   lineinfile:
     regexp: '^SERVER'
     path: /etc/default/epoptes-client
-    line: 'SERVER=sj-lin-cad1-37247.maquinas.sj.ifsc.edu.br'
+    line: 'SERVER=sj-lin-cad1-916082.maquinas.sj.ifsc.edu.br'
     create: yes
   when: ansible_hostname is search("^sj-lin-cad1")
 
@@ -50,7 +50,7 @@
   lineinfile:
     regexp: '^SERVER'
     path: /etc/default/epoptes-client
-    line: 'SERVER=sj-lin-cad3-744528.maquinas.sj.ifsc.edu.br'
+    line: 'SERVER=sj-lin-cad3-744517.maquinas.sj.ifsc.edu.br'
     create: yes
   when: ansible_hostname is search("^sj-lin-cad3")
 
