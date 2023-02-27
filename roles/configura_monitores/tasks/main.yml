@@ -1,21 +1,5 @@
----
-#Linux
-
-# Debian e Ubuntu
-- name: Configuracao dos monitores para o lab sidi - Linux
-  copy:
-    content: |
-      #!/bin/sh
-      xrandr --output DisplayPort-0 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-A-0 --mode 1280x800 --pos 1920x140 --rotate normal --output DisplayPort-1 --mode 1280x800 --pos 1920x140 --rotate normal
-
-    dest: /usr/local/bin/configura_monitores.sh
-    owner: root
-    group: root
-    mode: 0755
-  when: ansible_hostname is search("^sj-lin-sidi-25")
-
-- name: Configuracao dos monitores para o lab sidi - Linux
-  copy:
+- name: Cria serviço configura_monitores
+  ansible.builtin.copy:
     content: |
       [Desktop Entry]
       Type=Application
@@ -31,112 +15,125 @@
     owner: root
     group: root
     mode: 0644
+  when: (ansible_distribution_release == "bullseye" and (ansible_hostname is search("^sj-lin-sidi-25") or ansible_hostname is search("^sj-lin-redes-906284") or ansible_hostname is search("^sj-lin-prog-744523") or ansible_hostname is search("^sj-lin-cad1-916082") or ansible_hostname is search("^sj-lin-cad2-905476") or ansible_hostname is search("^sj-lin-cad3-744517") or ansible_hostname is search("^sj-lin-meios") or ansible_hostname is search("^sj-lin-salaa" or "^sj-lin-salab") or ansible_hostname is search("^sj-lin-auditorio")))
+  # when: (ansible_distribution_release == "bullseye" and (ansible_hostname is search("^sj-lin-sidi-25" or "^sj-lin-redes-906284" or "^sj-lin-prog-744523" or "^sj-lin-cad1-916082" or "^sj-lin-cad2-905476" or "^sj-lin-cad3-744517" or "^sj-lin-meios" or "^sj-lin-salaa" or "^sj-lin-salab" or "^sj-lin-auditorio")))  
+  tags: servico_monitores
+
+- name: Configuracao dos monitores para o lab sidi - Linux
+  ansible.builtin.copy:
+    content: |
+      #!/bin/sh
+      xrandr --output DisplayPort-0 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-A-0 --mode 1280x800 --pos 1920x140 --rotate normal --output DisplayPort-1 --mode 1280x800 --pos 1920x140 --rotate normal
+
+    dest: /usr/local/bin/configura_monitores.sh
+    owner: root
+    group: root
+    mode: 0755
   when: ansible_hostname is search("^sj-lin-sidi-25")
 
 - name: Configuracao dos monitores para o lab redes - Linux
-  copy:
+  ansible.builtin.copy:
     content: |
       #!/bin/sh
       xrandr --output DP-1 --off --output HDMI-1 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-2 --mode 1280x720 --pos 1920x180 --rotate normal --output DP-2 --mode 1280x720 --pos 1920x180 --rotate normal
 
-    dest: /etc/X11/Xsession.d/99ConfigMonitor
+    dest: /usr/local/bin/configura_monitores.sh
     owner: root
     group: root
     mode: 0644
   when: ansible_hostname is search("^sj-lin-redes-906284")
 
 - name: Configuracao dos monitores para o lab prog - Linux
-  copy:
+  ansible.builtin.copy:
     content: |
       #!/bin/sh
       xrandr --output VGA-1 --mode 1280x720 --pos 1600x0 --rotate normal --output HDMI-1 --mode 1280x720 --pos 1600x0 --rotate normal --output HDMI-2 --primary --mode 1600x900 --pos 0x20 --rotate normal --output DP-1 --off --output HDMI-3 --off
 
-    dest: /etc/X11/Xsession.d/99ConfigMonitor
+    dest: /usr/local/bin/configura_monitores.sh
     owner: root
     group: root
     mode: 0644
   when: ansible_hostname is search("^sj-lin-prog-744523")
 
 - name: Configuracao dos monitores para o lab cad1 - Linux
-  copy:
+  ansible.builtin.copy:
     content: |
       #!/bin/sh
       xrandr --output HDMI-1 --off --output HDMI-2 --off --output DP-1 --primary --mode 1600x900 --pos 0x0 --rotate normal --output HDMI-3 --off --output DP-2 --mode 1600x900 --pos 0x0 --rotate normal --output HDMI-4 --off
 
-    dest: /etc/X11/Xsession.d/99ConfigMonitor
+    dest: /usr/local/bin/configura_monitores.sh
     owner: root
     group: root
     mode: 0644
   when: ansible_hostname is search("^sj-lin-cad1-916082")
 
 - name: Configuracao dos monitores para o lab cad2 - Linux
-  copy:
+  ansible.builtin.copy:
     content: |
       #!/bin/sh
       xrandr --output DP-1 --off --output HDMI-1 --primary --mode 1024x768 --pos 0x0 --rotate normal --output HDMI-2 --off --output DP-2 --mode 1024x768 --pos 0x0 --rotate normal
 
-    dest: /etc/X11/Xsession.d/99ConfigMonitor
+    dest: /usr/local/bin/configura_monitores.sh
     owner: root
     group: root
     mode: 0644
   when: ansible_hostname is search("^sj-lin-cad2-905476")
 
 - name: Configuracao dos monitores para o lab cad3 - Linux
-  copy:
+  ansible.builtin.copy:
     content: |
       #!/bin/sh
       xrandr --output VGA-1 --primary --mode 1024x768 --pos 0x0 --rotate normal --output HDMI-1 --off --output HDMI-2 --mode 1024x768 --pos 0x0 --rotate normal --output DP-1 --off --output HDMI-3 --off
 
-    dest: /etc/X11/Xsession.d/99ConfigMonitor
+    dest: /usr/local/bin/configura_monitores.sh
     owner: root
     group: root
     mode: 0644
   when: ansible_hostname is search("^sj-lin-cad3-744517")
 
 - name: Configuracao dos monitores para o lab meios de transmissao - Linux
-  copy:
+  ansible.builtin.copy:
     content: |
       #!/bin/bash
       xrandr --output VGA-1 --mode 1024x768 --pos 1280x0 --rotate normal --output HDMI-1 --off --output HDMI-2 --mode 1024x768 --pos 1280x0 --rotate normal --output DP-1 --primary --mode 1280x1024 --pos 0x0 --rotate normal --output HDMI-3 --off
 
-    dest: /etc/X11/Xsession.d/99ConfigMonitor
+    dest: /usr/local/bin/configura_monitores.sh
     owner: root
     group: root
     mode: 0644
   when: ansible_hostname is search("^sj-lin-meios")
 
-########### Comentado porque as conexões não então padrão nas salas.
-# - name: Configuracao dos monitores para das salas de aula do terreo - Linux
-#   copy:
-#     content: |
-#       #!/bin/sh
-#       xrandr --output HDMI-1 --mode 1280x1024 --pos 0x0 --rotate normal --output DP-1 --off --output HDMI-2 --off --output DP-2 --primary --mode 1280x1024 --pos 0x0 --rotate normal --output HDMI-3 --off
-
-#     dest: /etc/X11/Xsession.d/99ConfigMonitor
-#     owner: root
-#     group: root
-#     mode: 0644
-#   when: ansible_hostname is search("^sj-lin-sala")
-
-- name: Configuracao dos monitores para das salas de aula do subsolo- Linux
-  copy:
+- name: Configuracao dos monitores para das salas de aula do terreo - Linux
+  ansible.builtin.copy:
     content: |
       #!/bin/sh
       xrandr --output HDMI-1 --mode 1280x1024 --pos 0x0 --rotate normal --output DP-1 --off --output HDMI-2 --off --output DP-2 --primary --mode 1280x1024 --pos 0x0 --rotate normal --output HDMI-3 --off
 
-    dest: /etc/X11/Xsession.d/99ConfigMonitor
+    dest: /usr/local/bin/configura_monitores.sh
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_hostname is search("^sj-lin-salaa")
+
+- name: Configuracao dos monitores para das salas de aula do subsolo- Linux
+  ansible.builtin.copy:
+    content: |
+      #!/bin/sh
+      xrandr --output HDMI-1 --mode 1280x1024 --pos 0x0 --rotate normal --output DP-1 --off --output HDMI-2 --off --output DP-2 --primary --mode 1280x1024 --pos 0x0 --rotate normal --output HDMI-3 --off
+
+    dest: /usr/local/bin/configura_monitores.sh
     owner: root
     group: root
     mode: 0644
   when: ansible_hostname is search("^sj-lin-salab")
 
 - name: Configuracao do monitor e tela de projecao auditorio - Linux
-  copy:
+  ansible.builtin.copy:
     content: |
       #!/bin/bash
       xrandr --output VGA-0 --off --output DVI-D-0 --primary --mode 1280x1024 --pos 0x0 --rotate normal --output HDMI-0 --mode 1280x1024 --pos 0x0 --rotate normal
 
-    dest: /etc/X11/Xsession.d/99ConfigMonitor
+    dest: /usr/local/bin/configura_monitores.sh
     owner: root
     group: root
     mode: 0644
