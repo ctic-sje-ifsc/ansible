@@ -7,15 +7,15 @@
     timeout: 120
   when: ansible_os_family == 'Windows'
 
-  - name: Baixar bibliotecas necessárias para instalação do cade simu
+- name: Baixar bibliotecas necessárias para instalação do cade simu
   win_copy:
-    src: {{  arquivoDLL  }} 
-    dest: C:\Windows\SysWOW64
+    src: "{{ arquivoDLL }}" 
+    dest: C:\Windows\SysWOW64\{{ arquivoDLL }}
   loop:
-  - libnodave.dll
-  - MFC42D.DLL
-  - MFCO42D.DLL
-  - MSVCRTD.DLL
+    - libnodave.dll
+    - MFC42D.DLL
+    - MFCO42D.DLL
+    - MSVCRTD.DLL
   loop_control:
     loop_var: arquivoDLL
   when: ansible_os_family == 'Windows'
