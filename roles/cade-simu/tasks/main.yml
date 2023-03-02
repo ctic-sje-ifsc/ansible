@@ -1,0 +1,30 @@
+#Windows
+
+- name: Baixar o instalador do LINK Cade SIMU 4.0 - Windows
+  win_get_url:
+    url: 'https://discovirtual.ifsc.edu.br/index.php/s/EWDFkvOHlRoLLD7/download'
+    dest: 'C:\instaladores\cade-simu.exe'
+    timeout: 120
+  when: ansible_os_family == 'Windows'
+
+  - name: Baixar bibliotecas necessárias para instalação do cade simu
+  win_copy:
+    src: {{  arquivoDLL  }} 
+    dest: C:\Windows\SysWOW64
+  loop:
+  - libnodave.dll
+  - MFC42D.DLL
+  - MFCO42D.DLL
+  - MSVCRTD.DLL
+  loop_control:
+    loop_var: arquivoDLL
+  when: ansible_os_family == 'Windows'
+
+- name: Atalho para o Cade SIMU 4.0 - Windows
+  win_shortcut:
+    description: Atalho para o Cade SIMU
+    src: 'C:\instaladores\cade-simu.exe'
+    dest: '%Public%\Desktop\CadeSIMU.lnk'
+    icon: 'C:\instaladores\cade-simu.exe,0'
+    state: present
+  when: ansible_os_family == 'Windows'
