@@ -1,119 +1,120 @@
-- name:  Copia o arquivo cups-browsed.conf com a pesquisa de impressoras desativada- Linux Debian
-  copy:
+- name: Copia o arquivo cups-browsed.conf com a pesquisa de impressoras desativada- Linux Debian
+  ansible.builtin.copy:
     src: cups-browsed.conf
     dest: /etc/cups/cups-browsed.conf
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
   when: ( ansible_os_family == 'Debian' and  install == 1 )
 
 - name: Cria diretório /usr/share/cups/model/argox/ - Linux
-  file:
+  ansible.builtin.file:
     path: /usr/share/cups/model/argox/
     state: directory
     owner: root
     group: root
-    mode: 0755
+    mode: '0755'
   when: ( ansible_os_family == 'Debian' and  install == 1 and argox == 1 )
 
 - name: Copia os arquivos ppd Argox - Linux Debian
-  copy:
+  ansible.builtin.copy:
     src: ppd/argox_OS-214_plus_ppla.ppd
     dest: /usr/share/cups/model/argox/
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
   when: ( ansible_os_family == 'Debian' and  install == 1 and argox == 1 )
 
 - name: Copia os arquivos ppd Argox para /etc/cups/ppd/  - Linux Debian
-  copy:
+  ansible.builtin.copy:
     src: ppd/argox_OS-214_plus_ppla.ppd
     dest: /etc/cups/ppd/Argox.ppd
     owner: root
     group: lp
-    mode: 0640
+    mode: '0640'
   when: ( ansible_os_family == 'Debian' and  install == 1 and argox == 1 )
 
-- name:  Copia o arquivo rastertoargox - Linux Debian
-  copy:
+- name: Copia o arquivo rastertoargox - Linux Debian
+  ansible.builtin.copy:
     src: rastertoargox
     dest: /usr/lib/cups/filter/rastertoargox
     owner: root
     group: root
-    mode: 0755
+    mode: '0755'
   when: ( ansible_os_family == 'Debian' and  install == 1 and argox == 1 )
 
 - name: Cria diretório /usr/share/cups/model/Brother/ - Linux
-  file:
+  ansible.builtin.file:
     path: /usr/share/cups/model/Brother/
     state: directory
     owner: root
     group: root
-    mode: 0755
+    mode: '0755'
   when: ( ansible_os_family == 'Debian' and  install == 1 and brother == 1 )
 
 - name: Copia os arquivos ppd Brother - Linux Debian
-  copy:
+  ansible.builtin.copy:
     src: ppd/brother_ql700_printer_en.ppd
     dest: /usr/share/cups/model/Brother/
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
   when: ( ansible_os_family == 'Debian' and  install == 1 and brother == 1 )
 
 - name: Copia os drivers da brother - Linux Debian
-  copy:
+  ansible.builtin.copy:
     src: brother
     dest: /opt
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
   when: ( ansible_os_family == 'Debian' and  install == 1 and brother == 1 )
 
-- file:
+- name: Cria link
+  ansible.builtin.file:
     src: /opt/brother/PTouch/ql700/cupswrapper/brother_lpdwrapper_ql700
     dest: /usr/lib/cups/filter/brother_lpdwrapper_ql700
     state: link
   when: ( ansible_os_family == 'Debian' and  install == 1 and brother == 1 )
 
 - name: Copia os arquivos ppd Brother para /etc/cups/ppd/  - Linux Debian
-  copy:
+  ansible.builtin.copy:
     src: ppd/brother_ql700_printer_en.ppd
     dest: /etc/cups/ppd/QL700.ppd
     owner: root
     group: lp
-    mode: 0640
+    mode: '0640'
   when: ( ansible_os_family == 'Debian' and  install == 1 and brother == 1 )
 
 - name: Cria diretório /usr/share/cups/model/zebra/ - Linux
-  file:
+  ansible.builtin.file:
     path: /usr/share/cups/model/zebra/
     state: directory
     owner: root
     group: root
-    mode: 0755
+    mode: '0755'
   when: ( ansible_os_family == 'Debian' and  install == 1 and zebra == 1 )
 
 - name: Copia os arquivos ppd Zebra - Linux Debian
-  copy:
+  ansible.builtin.copy:
     src: ppd/ZTC-ZD230-203dpi-ZPL.ppd
     dest: /usr/share/cups/model/zebra/
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
   when: ( ansible_os_family == 'Debian' and  install == 1 and zebra == 1 )
 
 - name: Copia os arquivos ppd zebra para /etc/cups/ppd/  - Linux Debian
-  copy:
+  ansible.builtin.copy:
     src: ppd/ZTC-ZD230-203dpi-ZPL.ppd
     dest: /etc/cups/ppd/Zebra.ppd
     owner: root
     group: lp
-    mode: 0640
+    mode: '0640'
   when: ( ansible_os_family == 'Debian' and  install == 1 and zebra == 1 )
 
 # - name: Cria arquivo /etc/cups/printers.conf
-#   copy:
+#   ansible.builtin.copy:
 #     src: printers.conf
 #     dest: /etc/cups/printers.conf
 #     owner: root
@@ -122,7 +123,7 @@
 #   when: ( ansible_os_family == 'Debian' and  install == 1)
 
 - name: Instala a impressora Argox - Linux
-  blockinfile:
+  ansible.builtin.blockinfile:
     path: /etc/cups/printers.conf
     marker: "# {mark} ANSIBLE MANAGED BLOCK - Argox"
     content: |
@@ -147,7 +148,7 @@
   when: ( ansible_os_family == 'Debian' and  install == 1 and argox == 1 )
 
 - name: Instala a impressora Brother - Linux
-  blockinfile:
+  ansible.builtin.blockinfile:
     path: /etc/cups/printers.conf
     marker: "# {mark} ANSIBLE MANAGED BLOCK - Brother"
     content: |
@@ -173,7 +174,7 @@
   when: ( ansible_os_family == 'Debian' and  install == 1 and brother == 1 )
 
 - name: Instala a impressora ImpCompras - Linux
-  blockinfile:
+  ansible.builtin.blockinfile:
     path: /etc/cups/printers.conf
     marker: "# {mark} ANSIBLE MANAGED BLOCK ImpCompras"
     content: |
@@ -197,7 +198,7 @@
   when: ( ansible_os_family == 'Debian' and  install == 1 and compras == 1 )
 
 - name: Instala a impressora reprografia_reserva - Linux
-  blockinfile:
+  ansible.builtin.blockinfile:
     path: /etc/cups/printers.conf
     marker: "# {mark} ANSIBLE MANAGED BLOCK reprografia_reserva "
     content: |
@@ -221,7 +222,7 @@
   when: ( ansible_os_family == 'Debian' and  install == 1 and reprografia_reserva == 1 )
 
 - name: Instala a impressora reprografia_principal - Linux
-  blockinfile:
+  ansible.builtin.blockinfile:
     path: /etc/cups/printers.conf
     marker: "# {mark} ANSIBLE MANAGED BLOCK reprografia_principal"
     content: |
@@ -251,7 +252,7 @@
   when: ( ansible_os_family == 'Debian' and  install == 1 and reprografia_principal == 1 )
 
 - name: Instala a impressora ImpCGP - Linux
-  blockinfile:
+  ansible.builtin.blockinfile:
     path: /etc/cups/printers.conf
     marker: "# {mark} ANSIBLE MANAGED BLOCK ImpCGP"
     content: |
@@ -275,7 +276,7 @@
   when: ( ansible_os_family == 'Debian' and  install == 1 and cgp == 1 )
 
 - name: Instala a impressora ImpBiblioteca_USB - Linux
-  blockinfile:
+  ansible.builtin.blockinfile:
     path: /etc/cups/printers.conf
     marker: "# {mark} ANSIBLE MANAGED BLOCK ImpBiblioteca_USB"
     content: |
@@ -304,7 +305,7 @@
   when: ( ansible_os_family == 'Debian' and  install == 1 and biblioteca_usb == 1 )
 
 - name: Instala a impressora ImpDirecao - Linux
-  blockinfile:
+  ansible.builtin.blockinfile:
     path: /etc/cups/printers.conf
     marker: "# {mark} ANSIBLE MANAGED BLOCK ImpDirecao"
     content: |
@@ -328,7 +329,7 @@
   when: ( ansible_os_family == 'Debian' and  install == 1 and direcao == 1 )
 
 - name: Instala a impressora ImpFinanceiro - Linux
-  blockinfile:
+  ansible.builtin.blockinfile:
     path: /etc/cups/printers.conf
     marker: "# {mark} ANSIBLE MANAGED BLOCK ImpFinanceiro"
     content: |
@@ -352,7 +353,7 @@
   when: ( ansible_os_family == 'Debian' and  install == 1 and financeiro == 1 )
 
 - name: Instala a impressora ImpSecretaria - Linux
-  blockinfile:
+  ansible.builtin.blockinfile:
     path: /etc/cups/printers.conf
     marker: "# {mark} ANSIBLE MANAGED BLOCK ImpSecretaria"
     content: |
@@ -376,7 +377,7 @@
   when: ( ansible_os_family == 'Debian' and  install == 1 and secretaria == 1 )
 
 - name: Instala a impressora Almoxarifado Deskjet 6940- Linux
-  blockinfile:
+  ansible.builtin.blockinfile:
     path: /etc/cups/printers.conf
     marker: "# {mark} ANSIBLE MANAGED BLOCK Almoxarifado"
     content: |
@@ -402,16 +403,15 @@
   when: ( ansible_os_family == 'Debian' and  install == 1 and almoxarifado_6940 == 1 )
 
 - name: Instala o hplip
-  apt:
-    state: latest
+  ansible.builtin.apt:
     pkg:
-    - hplip
-    - hplip-gui
-    - printer-driver-hpcups
+      - hplip
+      - hplip-gui
+      - printer-driver-hpcups
   when: ( ansible_os_family == 'Debian' and  install == 1 and almoxarifado_6940 == 1 )
 
 - name: Instala a impressora Almoxarifado Deskjet 3920- Linux
-  blockinfile:
+  ansible.builtin.blockinfile:
     path: /etc/cups/printers.conf
     marker: "# {mark} ANSIBLE MANAGED BLOCK Almoxarifado"
     content: |
@@ -437,34 +437,33 @@
   when: ( ansible_os_family == 'Debian' and  install == 1 and almoxarifado_3920 == 1 )
 
 - name: Instala o hplip
-  apt:
-    state: latest
+  ansible.builtin.apt:
     pkg:
-    - hplip
-    - hplip-gui
-    - printer-driver-hpcups
+      - hplip
+      - hplip-gui
+      - printer-driver-hpcups
   when: ( ansible_os_family == 'Debian' and  install == 1 and almoxarifado_3920 == 1 )
 
 - name: Copia os arquivos ppd Almoxarifado Deskjet 6940 - Linux Debian
-  copy:
+  ansible.builtin.copy:
     src: ppd/Deskjet_6940.ppd
     dest: /etc/cups/ppd/Deskjet_6940.ppd
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
   when: ( ansible_os_family == 'Debian' and  install == 1 and almoxarifado_6940 == 1 )
 
 - name: Copia os arquivos ppd Almoxarifado Deskjet 3920 - Linux Debian
-  copy:
+  ansible.builtin.copy:
     src: ppd/HP_Deskjet_3900.ppd
     dest: /etc/cups/ppd/HP_Deskjet_3900.ppd
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
   when: ( ansible_os_family == 'Debian' and  install == 1 and almoxarifado_3920 == 1 )
 
 - name: Instala a impressora ImpBiblio - Linux
-  blockinfile:
+  ansible.builtin.blockinfile:
     path: /etc/cups/printers.conf
     marker: "# {mark} ANSIBLE MANAGED BLOCK ImpBiblio"
     content: |
@@ -491,19 +490,17 @@
   when: ( ansible_os_family == 'Debian' and  install == 1 and biblioteca == 1 )
 
 - name: Instalar o cups-pdf - Linux Ubuntu e Debian menos buster
-  apt:
+  ansible.builtin.apt:
     name: cups-pdf
-    state: latest
   when: ( ansible_os_family == 'Debian' and ansible_distribution_release != 'buster' and install == 1 and pdf == 1 )
 
 - name: Instalar o cups-pdf - Debian buster
-  apt:
+  ansible.builtin.apt:
     name: printer-driver-cups-pdf
-    state: latest
   when: ( ansible_os_family == 'Debian' and ansible_distribution_release == 'buster' and  install == 1 and pdf == 1 )
 
 - name: Instala a impressora PDF - Linux
-  blockinfile:
+  ansible.builtin.blockinfile:
     path: /etc/cups/printers.conf
     marker: "# {mark} ANSIBLE MANAGED BLOCK pdf"
     content: |
