@@ -6,9 +6,9 @@
 #       install: 0
 #       almoxarifado: 0
 
-- hosts: sj-lin-almox-756044.maquinas.sj.ifsc.edu.br
-  roles:
-    - configura_wifi
+# - hosts: sj-lin-almox-756044.maquinas.sj.ifsc.edu.br
+#   roles:
+#     - configura_wifi
 
 - hosts: sj-lin-almox-879464.maquinas.sj.ifsc.edu.br #Pereima
   #any_errors_fatal: true
