@@ -1,13 +1,13 @@
 ---
 #Linux
 - name: Add an apt key by id from a keyserver
-  apt_key:
+  ansible.builtin.apt_key:
     keyserver: pgp.mit.edu
     id: 1C61A2656FB57B7E4DE0F4C1FC918B335044912E
-  when: ansible_os_family == 'Debian'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'bullseye')
 # Debian 9
 - name: Adicionar repositório Dropbox - Linux Debian 9
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: deb [arch=i386,amd64] http://linux.dropbox.com/debian stretch main
     state: present
     update_cache: yes
@@ -15,15 +15,15 @@
 
 # Debian 10
 - name: Adicionar repositório Dropbox - Linux Debian 10
-  apt_repository:
-    repo: 'deb [arch=i386,amd64] http://linux.dropbox.com/debian buster main'
+  ansible.builtin.apt_repository:
+    repo: "deb [arch=i386,amd64] http://linux.dropbox.com/debian buster main"
     state: present
     update_cache: yes
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
 
 # Ubuntu
 - name: Adicionar repositório dropbox - Linux Ubuntu
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: deb [arch=i386,amd64] http://linux.dropbox.com/debian trusty main
     state: present
     update_cache: yes
@@ -31,14 +31,14 @@
 
 #Debian e Ubuntu
 - name: Instalar o Owncloud Client - Linux Debian
-  apt:
+  ansible.builtin.apt:
     name: dropbox
     state: latest
-  when: ansible_os_family == 'Debian'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'bullseye')
 
 #Windows
 - name: Install Dropbox - Windows
-  win_chocolatey:
+  chocolatey.chocolatey.win_chocolatey:
     name: dropbox
     # state: latest
   when: ansible_os_family == 'Windows'
