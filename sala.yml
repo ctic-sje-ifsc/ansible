@@ -1,21 +1,21 @@
-- hosts: sala,salab
-  #any_errors_fatal: true
+- name: Configuração salas de aula
+  hosts: salaa,salab
   roles:
     - configura_monitores
     - remove_ldap
   tasks:
     - name: Adiciona linha do usuario aluno no passwd
-      blockinfile:
+      ansible.builtin.blockinfile:
         path: /etc/passwd
-        backup: yes
+        backup: true
         block: |
           aluno:x:1001:1001::/home/aluno:
       when: ansible_os_family == 'Debian'
 
     - name: Adiciona linha do usuario aluno no group
-      blockinfile:
+      ansible.builtin.blockinfile:
         path: /etc/group
-        backup: yes
+        backup: true
         block: |
           aluno:x:1001:
       when: ansible_os_family == 'Debian'
@@ -26,11 +26,10 @@
         shell: /bin/bash
         password: $6$B5dpvoG43l67q0sx$r0LDKV2TgNItf/kYx/76l89ZN4LhP/ksYIxp.SSVGttHoSZXLSoB6Hkg2A6y7M7aFJ8zEuauf5kS/yA/P61kN1
         groups: aluno
-        append: yes
+        append: true
       when: ansible_os_family == 'Debian'
 
     - name: Pacotes especiais
       ansible.builtin.apt:
-        state: latest
         pkg:
-        - x2goclient
+          - x2goclient
