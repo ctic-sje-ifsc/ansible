@@ -66,9 +66,20 @@
     path: /etc/sudoers
     state: present
     regexp: '^aluno '
-    line: 'aluno ALL=(ALL) NOPASSWD: SETENV: /sbin/ethtool,/usr/local/netkit2/bin/tap.py,/sbin/ifconfig,/usr/sbin/iptraf,/usr/sbin/tcpdump,/sbin/route,/usr/local/netkit/bin/vclean,/usr/bin/minicom,/usr/sbin/brctl,/usr/sbin/traceroute,/usr/local/netkit/bin/manage_tuntap,/usr/bin/wireshark,/sbin/iwconfig,/sbin/iwlist,/sbin/iw,/etc/init.d/firewall.sh,/usr/bin/usb-creator-gtk,/sbin/dhclient,/usr/bin/MercurioIV_Linux_1.1.0.run,/etc/init.d/isc-dhcp-server,/etc/init.d/udev,/usr/bin/rpcgen,/sbin/rpcbind,/usr/sbin/rfkill'
+    line: 'aluno ALL=(ALL) NOPASSWD: SETENV: /sbin/ethtool,/usr/local/netkit2/bin/tap.py,/sbin/ifconfig,/usr/sbin/iptraf,/usr/bin/tcpdump,/sbin/route,/usr/local/netkit/bin/vclean,/usr/bin/minicom,/usr/sbin/brctl,/usr/sbin/traceroute,/usr/local/netkit/bin/manage_tuntap,/usr/bin/wireshark,/sbin/iwconfig,/sbin/iwlist,/sbin/iw,/etc/init.d/firewall.sh,/usr/bin/usb-creator-gtk,/sbin/dhclient,/usr/bin/MercurioIV_Linux_1.1.0.run,/etc/init.d/isc-dhcp-server,/etc/init.d/udev,/usr/bin/rpcgen,/sbin/rpcbind,/usr/sbin/rfkill'
     validate: '/usr/sbin/visudo -cf %s'
-  when: ansible_os_family == 'Debian'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
+  tags: sudoers
+
+- name: Adiciona e modifica entrada do usuario aluno no sudoers - Linux
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers
+    state: present
+    regexp: '^aluno '
+    line: 'aluno ALL=(ALL) NOPASSWD: SETENV: /usr/sbin/ethtool,/usr/sbin/ifconfig,/usr/bin/tcpdump,/usr/sbin/route,/usr/bin/minicom,/usr/sbin/traceroute,/usr/bin/wireshark,/sbin/iwconfig,/usr/sbin/iwlist,/usr/sbin/iw,/etc/init.d/firewall.sh,/usr/sbin/dhclient,/usr/bin/MercurioIV_Linux_1.1.0.run,/etc/init.d/isc-dhcp-server,/etc/init.d/udev,/usr/bin/rpcgen,/usr/sbin/rfkill'
+    validate: '/usr/sbin/visudo -cf %s'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+  tags: sudoers
 
 ###################### Fim Gerencia sudoers aluno
 
