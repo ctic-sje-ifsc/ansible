@@ -113,14 +113,14 @@
     mode: '0640'
   when: ( ansible_os_family == 'Debian' and  install == 1 and zebra == 1 )
 
-# - name: Cria arquivo /etc/cups/printers.conf
-#   ansible.builtin.copy:
-#     src: printers.conf
-#     dest: /etc/cups/printers.conf
-#     owner: root
-#     group: lp
-#     mode: 0600
-#   when: ( ansible_os_family == 'Debian' and  install == 1)
+- name: Cria arquivo /etc/cups/printers.conf
+  ansible.builtin.copy:
+    src: printers.conf
+    dest: /etc/cups/printers.conf
+    owner: root
+    group: lp
+    mode: '0600'
+  when: ( ansible_os_family == 'Debian' and  install == 1)
 
 - name: Instala a impressora Argox - Linux
   ansible.builtin.blockinfile:
@@ -181,7 +181,7 @@
       <Printer ImpCompras>
       UUID urn:uuid:1101979c-312e-3bf2-7b77-3d4e37848272
       Info Lexmark MX611dhe
-      DeviceURI ipp://vm-lan2/printers/ImpCompras
+      DeviceURI ipp://cups/printers/ImpCompras
       State Idle
       StateTime 1474292804
       ConfigTime 1496336591
@@ -203,12 +203,12 @@
     marker: "# {mark} ANSIBLE MANAGED BLOCK reprografia_reserva "
     content: |
       <Printer reprografia_reserva>
-      UUID urn:uuid:ef4f0aaa-0f49-3b9e-7afc-fed50abe8c4b
-      Info Sharp MX-M363N
-      DeviceURI ipp://vm-lan2/printers/reprografia_reserva
+      UUID urn:uuid:03768eee-e53e-304f-4cc9-075007705592
+      Info Kyocera Taskalfa 5003i
+      DeviceURI ipp://cups/printers/reprografia_reserva
       State Idle
-      StateTime 1473940443
-      ConfigTime 1496336591
+      StateTime 1678293831
+      ConfigTime 1661540411
       Type 6
       Accepting Yes
       Shared No
@@ -230,7 +230,7 @@
       UUID urn:uuid:a495fc7c-aa14-3045-62de-3a58634f6286
       AuthInfoRequired none
       Info Kyocera Taskalfa 5501i
-      DeviceURI ipp://vm-lan2/printers/reprografia_principal
+      DeviceURI ipp://cups/printers/reprografia_principal
       State Idle
       StateTime 1473939314
       ConfigTime 1496336591
@@ -259,7 +259,7 @@
       <Printer ImpCGP>
       UUID urn:uuid:ea779c60-6775-3ea3-70a3-ec6f07272f9c
       Info Lexmark MX611dhe
-      DeviceURI ipp://vm-lan2/printers/ImpCGP
+      DeviceURI ipp://cups/printers/ImpCGP
       State Idle
       StateTime 1474292746
       ConfigTime 1496336591
@@ -312,7 +312,7 @@
       <Printer ImpDirecaoColor>
       UUID urn:uuid:f8f1609d-66b6-3c91-469e-9f093e06a9f2
       Info Sharp MX-C301
-      DeviceURI ipp://vm-lan2/printers/ImpDirecaoColor
+      DeviceURI ipp://cups/printers/ImpDirecaoColor
       State Idle
       StateTime 1474293271
       ConfigTime 1496336591
@@ -336,7 +336,7 @@
       <Printer ImpFinanceiro>
       UUID urn:uuid:1e9ad194-c243-3f65-6ba7-5ad2192081b0
       Info Lexmark MX611dhe
-      DeviceURI ipp://vm-lan2/printers/ImpFinanceiro
+      DeviceURI ipp://cups/printers/ImpFinanceiro
       State Idle
       StateTime 1474292859
       ConfigTime 1496336591
@@ -360,7 +360,7 @@
       <Printer ImpSecretaria>
       UUID urn:uuid:2b5be820-a8de-3ff3-7693-e5ecb8e2278b
       Info Lexmark MX611dhe
-      DeviceURI ipp://vm-lan2/printers/ImpSecretaria
+      DeviceURI ipp://cups/printers/ImpSecretaria
       State Idle
       StateTime 1474292916
       ConfigTime 1496336591
