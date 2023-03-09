@@ -1,0 +1,27 @@
+- name: Configuração video conferência
+  hosts: sj-lin-vconf-744390.maquinas.sj.ifsc.edu.br
+  tasks:
+    - name: Adiciona linha do usuario aluno no passwd
+      ansible.builtin.blockinfile:
+        path: /etc/passwd
+        backup: true
+        block: |
+          aluno:x:1001:1001::/home/aluno:
+      when: ansible_os_family == 'Debian'
+
+    - name: Adiciona linha do usuario aluno no group
+      ansible.builtin.blockinfile:
+        path: /etc/group
+        backup: true
+        block: |
+          aluno:x:1001:
+      when: ansible_os_family == 'Debian'
+
+    - name: Cria usuário aluno com a senha aluno
+      ansible.builtin.user:
+        name: aluno
+        shell: /bin/bash
+        password: $6$B5dpvoG43l67q0sx$r0LDKV2TgNItf/kYx/76l89ZN4LhP/ksYIxp.SSVGttHoSZXLSoB6Hkg2A6y7M7aFJ8zEuauf5kS/yA/P61kN1
+        groups: aluno
+        append: true
+      when: ansible_os_family == 'Debian'

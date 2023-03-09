@@ -59,6 +59,7 @@
 - import_playbook: secretaria.yml
 - import_playbook: sala.yml
 - import_playbook: almox.yml
+- import_playbook: vconf.yml
 
 # Laboratorios
 - import_playbook: ciehu.yml
