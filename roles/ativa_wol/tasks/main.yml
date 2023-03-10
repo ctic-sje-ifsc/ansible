@@ -1,0 +1,25 @@
+---
+- name: Criando script para ligar a interface
+  copy:
+    content: |
+      [Unit]
+      Description=Configure Wake-up on LAN
+
+      [Service]
+      Type=oneshot
+      ExecStart=/sbin/ethtool -s eth0 wol g
+
+      [Install]
+      WantedBy=basic.target
+    dest: /lib/systemd/system/wol.service
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_distribution_release == 'bullseye'
+
+- name: Aplica o daemon-reload e o enable no servico wol - Linux
+  systemd:
+    enabled: yes
+    daemon_reload: yes
+    name: wol
+  when: ansible_distribution_release == 'bullseye'
