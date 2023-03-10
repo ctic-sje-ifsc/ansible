@@ -1,6 +1,5 @@
 # Linux
 - hosts: sidi_lin
-  #any_errors_fatal: true
   roles:
     - pinta
     - kernel6
@@ -8,15 +7,14 @@
       tipo: grub_lin
   tasks:
   - name: Modulo video AMD - Linux
-    apt:
-      state: latest
+    ansible.builtin.apt:
       pkg:
         - firmware-amd-graphics
         - firmware-linux-nonfree
     when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
     
   - name: Monta /media/aluno/trabalhos fstab - Linux
-    mount:
+    ansible.posix.mount:
       path: /media/aluno/trabalhos
       src: "UUID=872E-9221"
       fstype: vfat
@@ -24,7 +22,7 @@
     when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'bullseye')
 
   - name: Monta HD correto em /media/aluno/trabalhos fstab - Linux
-    mount:
+    ansible.posix.mount:
       path: /media/aluno/trabalhos
       src: UUID=872E-9221
       fstype: vfat
@@ -32,28 +30,36 @@
     when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
 - hosts: sidi_lin:!sj-lin-sidi-25.maquinas.sj.ifsc.edu.br
-  #any_errors_fatal: true
   roles:
     - epoptes_client
 
-- hosts: sj-lin-sidi-25.maquinas.sj.ifsc.edu.br #Maquina do professor
-  #any_errors_fatal: true
+- name: Máquina do professor
+  hosts: sj-lin-sidi-25.maquinas.sj.ifsc.edu.br
   roles:
     - epoptes_server
     - ingressa_ldap
     - configura_monitores
-    # - owncloud_client
+    
   tasks:
   - name: Pacotes do Lab SiDi
-    apt:
-      state: latest
+    ansible.builtin.apt:
       pkg:
-      - arandr
-
+        - arandr
 
 # Windows
 
-- hosts: sj-sidi-25.maquinas.sj.ifsc.edu.br #Maquina do professor
-  #any_errors_fatal: true
+- name: Computadores Windows
+  hosts: sidi_win
+
+- name: Desativa o início rápido para o WOL funcionar
+  ansible.windows.win_regedit:
+    path: HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power
+    name: HiberbootEnabled
+    data: 0
+    type: dword
+
+- name: Maquina do professor
+  hosts: sj-sidi-25.maquinas.sj.ifsc.edu.br
+  
   roles:
     - ingressa_ldap
