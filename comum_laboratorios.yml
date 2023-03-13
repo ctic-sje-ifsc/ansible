@@ -7,36 +7,45 @@
     - programas_padroes_labs
     - config_padrao_labs
     - papel_de_parede_e_icones_lab
-    # - softwares_sdr #incompativel com debian 11
     - octave
     - cmaptools
-    # - android-studio #incompativel com debian 11
     - clion
     - code
     - idea
     - pycharm
-    # - eclipse #incompativel com debian 11
     - mplab
     - jetbrains-toolbox
     - java17-oracle
-    # - netbeans82 #incompativel com debian 11
-    # - netkit2 #incompativel com debian 11
-    # - packettracer #incompativel com debian 11
-    # - virtualbox
     - wireshark
     - arduino
     - flashplayer
-    # - aluno
-    # - qgis #incompativel com debian 11
-    # - rstudio #incompativel com debian 11
-    # - geogebra #incompativel com debian 11
     - kile
     - foxit
     - unattendedUpgrades_labs
     - imunes
-    # - zoiper
-    # - astah
-    # - ingles_progs
+
+- hosts: laboratorios_lin
+  roles:
+  - role: gantsign.visual-studio-code-extensions
+    users:
+      - username: aluno
+        visual_studio_code_extensions:
+          - vscjava.vscode-java-pack
+          - richardwillis.vscode-gradle-extension-pack
+          - vscjava.vscode-lombok
+          - ms-azuretools.vscode-docker
+          - ms-vscode-remote.remote-containers
+          - VisualStudioExptTeam.vscodeintellicode
+          - James-Yu.latex-workshop
+          - yzhang.markdown-all-in-one
+          - bierner.markdown-preview-github-styles
+          - ms-python.python
+          - ms-python.vscode-pylance
+          - jeff-hykin.better-cpp-syntax
+          - ms-vscode.cpptools-extension-pack
+          - streetsidesoftware.code-spell-checker
+          - streetsidesoftware.code-spell-checker-portuguese-brazilian
+          - vscode-icons-team.vscode-icons
 
   ## Inclusao de roles apenas para WINDOWS
 - hosts: laboratorios_win
