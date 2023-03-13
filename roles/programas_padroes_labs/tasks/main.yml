@@ -134,6 +134,12 @@
     - twinkle
   when: ansible_os_family == 'Debian'
 
+- name: Reinicia servico resolvconf
+  ansible.builtin.service:
+    name: networking
+    state: restarted
+  when: ansible_distribution_release == 'bullseye'
+
 - name: Instalar pacotes de ferramentas "conhecidas" padroes de laboratorios - Debian 10
   ansible.builtin.apt:
     state: latest
@@ -157,7 +163,6 @@
     - gcc-avr
     - gdb-avr
     - avr-libc
-    # - simulavr #incompativel com debian 11
     - avrdude
     - avarice
   when: ansible_os_family == 'Debian'
@@ -169,11 +174,8 @@
     - sqlite3
     - sqlitebrowser
     - rabbitmq-server
-    # - python-virtualenv #incompativel com debian 11
     - maven
-    # - mysql-workbench #incompativel com debian 11
     - python-dev
-    # - python-pip #incompativel com debian 11
     - python3
     - python3-dev
     - libzmq3-dev
@@ -198,9 +200,6 @@
     - openjdk-11-doc
     - openjdk-11-jdk
     - openjdk-11-jre
-    # - openjdk-8-doc #incompativel com debian 11
-    # - openjdk-8-jdk #incompativel com debian 11
-    # - openjdk-8-jre #incompativel com debian 11
     - default-jre
     - default-jdk
   when: ansible_os_family == 'Debian'
@@ -269,6 +268,14 @@
     - libfreetype6:i386
     - libfontconfig1:i386
   when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'bullseye')
+
+- name: Enable i386 architecture for debian 11
+  command: dpkg --add-architecture i386
+  when: ansible_distribution_release == 'bullseye'
+
+- name: Ensure apt cache is up to date for debian 11
+  apt: update_cache=yes
+  when: ansible_distribution_release == 'bullseye'
 
 - name: Instalar lista de pacotes necessarios para o quartus no Debian - Debian 11
   ansible.builtin.apt:
