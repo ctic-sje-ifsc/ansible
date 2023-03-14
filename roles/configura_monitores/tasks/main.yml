@@ -14,7 +14,7 @@
     dest: /etc/xdg/autostart/configura-monitores.desktop
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
   when: (ansible_distribution_release == "bullseye" and (ansible_hostname is search("^sj-lin-sidi-25") or ansible_hostname is search("^sj-lin-redes-906284") or ansible_hostname is search("^sj-lin-prog-744523") or ansible_hostname is search("^sj-lin-cad1-916082") or ansible_hostname is search("^sj-lin-cad2-905476") or ansible_hostname is search("^sj-lin-cad3-744517") or ansible_hostname is search("^sj-lin-meios") or ansible_hostname is search("^sj-lin-salaa" or "^sj-lin-salab") or ansible_hostname is search("^sj-lin-auditorio")))
   tags: servico_monitores
 
@@ -27,7 +27,7 @@
     dest: /usr/local/bin/configura_monitores.sh
     owner: root
     group: root
-    mode: 0755
+    mode: '0755'
   when: ansible_hostname is search("^sj-lin-sidi-25")
 
 - name: Configuracao dos monitores para o lab redes - Linux
@@ -39,7 +39,7 @@
     dest: /usr/local/bin/configura_monitores.sh
     owner: root
     group: root
-    mode: 0644
+    mode: '0755'
   when: ansible_hostname is search("^sj-lin-redes-906284")
 
 - name: Configuracao dos monitores para o lab prog - Linux
@@ -51,7 +51,7 @@
     dest: /usr/local/bin/configura_monitores.sh
     owner: root
     group: root
-    mode: 0644
+    mode: '0755'
   when: ansible_hostname is search("^sj-lin-prog-744523")
 
 - name: Configuracao dos monitores para o lab cad1 - Linux
@@ -63,7 +63,7 @@
     dest: /usr/local/bin/configura_monitores.sh
     owner: root
     group: root
-    mode: 0644
+    mode: '0755'
   when: ansible_hostname is search("^sj-lin-cad1-916082")
 
 - name: Configuracao dos monitores para o lab cad2 - Linux
@@ -75,7 +75,7 @@
     dest: /usr/local/bin/configura_monitores.sh
     owner: root
     group: root
-    mode: 0644
+    mode: '0755'
   when: ansible_hostname is search("^sj-lin-cad2-905476")
 
 - name: Configuracao dos monitores para o lab cad3 - Linux
@@ -87,7 +87,7 @@
     dest: /usr/local/bin/configura_monitores.sh
     owner: root
     group: root
-    mode: 0644
+    mode: '0755'
   when: ansible_hostname is search("^sj-lin-cad3-744517")
 
 - name: Configuracao dos monitores para o lab meios de transmissao - Linux
@@ -99,7 +99,7 @@
     dest: /usr/local/bin/configura_monitores.sh
     owner: root
     group: root
-    mode: 0644
+    mode: '0755'
   when: ansible_hostname is search("^sj-lin-meios")
 
 - name: Configuracao dos monitores para das salas de aula do terreo - Linux
@@ -111,7 +111,7 @@
     dest: /usr/local/bin/configura_monitores.sh
     owner: root
     group: root
-    mode: 0644
+    mode: '0755'
   when: ansible_hostname is search("^sj-lin-salaa")
 
 - name: Configuracao dos monitores para das salas de aula do subsolo- Linux
@@ -123,7 +123,7 @@
     dest: /usr/local/bin/configura_monitores.sh
     owner: root
     group: root
-    mode: 0644
+    mode: '0755'
   when: ansible_hostname is search("^sj-lin-salab")
 
 - name: Configuracao do monitor e tela de projecao auditorio - Linux
@@ -135,5 +135,5 @@
     dest: /usr/local/bin/configura_monitores.sh
     owner: root
     group: root
-    mode: 0644
+    mode: '0755'
   when: ansible_hostname is search("^sj-lin-auditorio")
