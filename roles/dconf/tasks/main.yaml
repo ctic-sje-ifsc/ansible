@@ -1,0 +1,155 @@
+# https://help.gnome.org/admin/system-admin-guide/stable/desktop-lockscreen.html.en
+- name: Cria diretório
+  ansible.builtin.file:
+    path: /etc/dconf/profile
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+
+- name: Create the user profile
+  ansible.builtin.copy:
+    content: |
+      user-db:user
+      system-db:local
+    dest: /etc/dconf/profile/user
+    owner: root
+    group: root
+    mode: '0644'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+
+- name: Create the directory /etc/dconf/db/local.d/
+  ansible.builtin.file:
+    path: /etc/dconf/db/local.d/
+    state: directory
+    recurse: true
+    owner: root
+    group: root
+    mode: '0755'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+
+- name: Create the key file /etc/dconf/db/local.d/00-screensaver to provide information for the local database
+  ansible.builtin.copy:
+    content: |
+      [org/gnome/desktop/session]
+      idle-delay=uint32 0
+      [org/cinnamon/desktop/session]
+      idle-delay=uint32 0
+      [org/cinnamon/settings-daemon/plugins/power]
+      sleep-display-battery=int32 0
+      sleep-display-ac=int32 0
+    dest: /etc/dconf/db/local.d/00-screensaver
+    owner: root
+    group: root
+    mode: '0644'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+
+- name: Create the directory /etc/dconf/db/local.d/
+  ansible.builtin.file:
+    path: /etc/dconf/db/local.d/locks/
+    state: directory
+    recurse: true
+    owner: root
+    group: root
+    mode: '0755'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+
+- name: To prevent the user from overriding these settings, create the file /etc/dconf/db/local.d/locks/screensaver with the following content
+  ansible.builtin.copy:
+    content: |
+      /org/gnome/desktop/session/idle-delay
+      /org/cinnamon/desktop/session/idle-delay
+      /org/cinnamon/settings-daemon/plugins/power/sleep-display-battery
+      /org/cinnamon/settings-daemon/plugins/power/sleep-display-ac
+    dest: /etc/dconf/db/local.d/locks/screensaver
+    owner: root
+    group: root
+    mode: '0644'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+
+- name: Atualiza as configurações do dconf
+  ansible.builtin.command: dconf update
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+
+# https://help.gnome.org/admin/system-admin-guide/stable/desktop-lockscreen.html.en
+- name: Copiando o plano de fundo para a máquina
+  ansible.builtin.copy:
+    src: ifsc.jpg
+    dest: /usr/share/images/desktop-base/ifsc.jpg
+    owner: root
+    group: root
+    mode: '0755'
+  when: ansible_os_family == 'Debian'
+
+- name: Cria diretório
+  ansible.builtin.file:
+    path: /etc/dconf/profile
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+
+- name: Create the user profile
+  ansible.builtin.copy:
+    content: |
+      user-db:user
+      system-db:local
+    dest: /etc/dconf/profile/user
+    owner: root
+    group: root
+    mode: '0644'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+
+- name: Create the directory /etc/dconf/db/local.d/
+  ansible.builtin.file:
+    path: /etc/dconf/db/local.d/
+    state: directory
+    recurse: true
+    owner: root
+    group: root
+    mode: '0755'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+
+- name: Create the key file /etc/dconf/db/local.d/00-background to provide information for the local database
+  ansible.builtin.copy:
+    content: |
+      [org/gnome/desktop/background]
+      picture-uri='file:///usr/share/images/desktop-base/ifsc.jpg'
+      picture-options='zoom'
+      [org/cinnamon/desktop/background]
+      picture-uri='file:///usr/share/images/desktop-base/ifsc.jpg'
+      picture-options='zoom'
+    dest: /etc/dconf/db/local.d/00-background
+    owner: root
+    group: root
+    mode: '0644'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+
+- name: Create the directory /etc/dconf/db/local.d/
+  ansible.builtin.file:
+    path: /etc/dconf/db/local.d/locks/
+    state: directory
+    recurse: true
+    owner: root
+    group: root
+    mode: '0755'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+
+- name: To prevent the user from overriding these settings, create the file /etc/dconf/db/local.d/locks/screensaver with the following content
+  ansible.builtin.copy:
+    content: |
+      /org/gnome/desktop/background/picture-uri
+      /org/gnome/desktop/background/picture-options
+      /org/cinnamon/desktop/background/picture-uri
+      /org/cinnamon/desktop/background/picture-options
+    dest: /etc/dconf/db/local.d/locks/background
+    owner: root
+    group: root
+    mode: '0644'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+
+- name: Atualiza as configurações do dconf
+  ansible.builtin.command: dconf update
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
