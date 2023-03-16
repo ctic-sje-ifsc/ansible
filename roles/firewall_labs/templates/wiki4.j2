@@ -8,8 +8,7 @@
 -A OUTPUT -p tcp -d www.sj.ifsc.edu.br -j ACCEPT
 -A OUTPUT -p tcp -d wiki.sj.ifsc.edu.br -j ACCEPT
 -A OUTPUT -p tcp -d tele.sj.ifsc.edu.br -j ACCEPT
--A OUTPUT -p tcp -d lic.sj.ifsc.edu.br -j ACCEPT
--A OUTPUT -p tcp -d vm-lan2.sj.ifsc.edu.br -j ACCEPT
+-A OUTPUT -p tcp -d license-server.sj.ifsc.edu.br -j ACCEPT
 -A OUTPUT -p tcp -d sigaa.ifsc.edu.br -j ACCEPT
 -A OUTPUT -p tcp -d moodle.ifsc.edu.br -j ACCEPT
 {% if ansible_hostname is search("^sj-lin-redes.*") %}
