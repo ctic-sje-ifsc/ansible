@@ -297,6 +297,7 @@
     - libxi6:i386
     - libxrender1:i386
     - libxtst6:i386
+    - docker-compose-plugin
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
 # - name: Install a .deb libpng12:i386 - Linux Debian
