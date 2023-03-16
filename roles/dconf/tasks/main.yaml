@@ -6,7 +6,7 @@
     owner: root
     group: root
     mode: '0755'
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+  when: ansible_distribution_release == 'bullseye'
 
 - name: Create the user profile
   ansible.builtin.copy:
@@ -17,7 +17,7 @@
     owner: root
     group: root
     mode: '0644'
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+  when: ansible_distribution_release == 'bullseye'
 
 - name: Create the directory /etc/dconf/db/local.d/
   ansible.builtin.file:
@@ -27,7 +27,7 @@
     owner: root
     group: root
     mode: '0755'
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+  when: ansible_distribution_release == 'bullseye'
 
 - name: Create the key file /etc/dconf/db/local.d/00-screensaver to provide information for the local database
   ansible.builtin.copy:
@@ -43,7 +43,7 @@
     owner: root
     group: root
     mode: '0644'
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+  when: ansible_distribution_release == 'bullseye'
 
 - name: Create the directory /etc/dconf/db/local.d/
   ansible.builtin.file:
@@ -53,7 +53,7 @@
     owner: root
     group: root
     mode: '0755'
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+  when: ansible_distribution_release == 'bullseye'
 
 - name: To prevent the user from overriding these settings, create the file /etc/dconf/db/local.d/locks/screensaver with the following content
   ansible.builtin.copy:
@@ -66,11 +66,11 @@
     owner: root
     group: root
     mode: '0644'
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+  when: ansible_distribution_release == 'bullseye'
 
 - name: Atualiza as configurações do dconf
   ansible.builtin.command: dconf update
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+  when: ansible_distribution_release == 'bullseye'
 
 # https://help.gnome.org/admin/system-admin-guide/stable/desktop-lockscreen.html.en
 - name: Copiando o plano de fundo para a máquina
@@ -89,7 +89,7 @@
     owner: root
     group: root
     mode: '0755'
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+  when: ansible_distribution_release == 'bullseye'
 
 - name: Create the user profile
   ansible.builtin.copy:
@@ -100,7 +100,7 @@
     owner: root
     group: root
     mode: '0644'
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+  when: ansible_distribution_release == 'bullseye'
 
 - name: Create the directory /etc/dconf/db/local.d/
   ansible.builtin.file:
@@ -110,7 +110,7 @@
     owner: root
     group: root
     mode: '0755'
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+  when: ansible_distribution_release == 'bullseye'
 
 - name: Create the key file /etc/dconf/db/local.d/00-background to provide information for the local database
   ansible.builtin.copy:
@@ -125,7 +125,7 @@
     owner: root
     group: root
     mode: '0644'
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+  when: ansible_distribution_release == 'bullseye'
 
 - name: Create the directory /etc/dconf/db/local.d/
   ansible.builtin.file:
@@ -135,9 +135,9 @@
     owner: root
     group: root
     mode: '0755'
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+  when: ansible_distribution_release == 'bullseye'
 
-- name: To prevent the user from overriding these settings, create the file /etc/dconf/db/local.d/locks/screensaver with the following content
+- name: To prevent the user from overriding these settings, create the file /etc/dconf/db/local.d/locks/background with the following content
   ansible.builtin.copy:
     content: |
       /org/gnome/desktop/background/picture-uri
@@ -148,8 +148,8 @@
     owner: root
     group: root
     mode: '0644'
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+  when: ansible_distribution_release == 'bullseye'
 
 - name: Atualiza as configurações do dconf
   ansible.builtin.command: dconf update
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+  when: ansible_distribution_release == 'bullseye'
