@@ -5,8 +5,7 @@
 -A OUTPUT -p tcp -m tcp --sport 22 -m conntrack --ctstate ESTABLISHED -j ACCEPT
 -A INPUT -p icmp -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
 -A OUTPUT -p icmp -m state --state ESTABLISHED,RELATED -j ACCEPT
--A OUTPUT -p tcp -d lic.sj.ifsc.edu.br -j ACCEPT
--A OUTPUT -p tcp -d vm-lan2.sj.ifsc.edu.br -j ACCEPT
+-A OUTPUT -p tcp -d license-server.sj.ifsc.edu.br -j ACCEPT
 {% if ansible_hostname is search("^sj-lin-redes.*") %}
 -A OUTPUT -p tcp -d sj-lin-redes-906284.maquinas.sj.ifsc.edu.br -j ACCEPT
 {% elif ansible_hostname is search("^sj-lin-sidi.*") %}

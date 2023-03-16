@@ -10,7 +10,7 @@
 
 # MTI_VCO_MODE environment variable may be set to "32" or "64"
 # to force selection of 32-bit or 64-bit platform directory for executables.
-export MGLS_LICENSE_FILE=1800@vm-lan2.sj.ifsc.edu.br
+export MGLS_LICENSE_FILE=1800@license-server.sj.ifsc.edu.br
 export LD_LIBRARY_PATH=/opt/altera/13.0sp1/lib32
 mode=${MTI_VCO_MODE:-""}
 
