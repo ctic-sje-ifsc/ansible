@@ -145,7 +145,7 @@
 
 - name: Cria usuário aluno com a senha aluno
   ansible.builtin.user:
-    name: aluno    
+    name: aluno
     password: $6$B5dpvoG43l67q0sx$r0LDKV2TgNItf/kYx/76l89ZN4LhP/ksYIxp.SSVGttHoSZXLSoB6Hkg2A6y7M7aFJ8zEuauf5kS/yA/P61kN1
     append: yes
   when: ansible_os_family == 'Debian'
@@ -212,6 +212,32 @@
     group: root
     mode: 0644
   when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'bullseye')
+
+####### Ativar Wakeonlan no Debian 11
+- name: Criando script para ligar a interface
+  ansible.builtin.copy:
+    content: |
+      [Unit]
+      Description=Configure Wake-up on LAN
+
+      [Service]
+      Type=oneshot
+      ExecStart=/sbin/ethtool -s eth0 wol g
+
+      [Install]
+      WantedBy=basic.target
+    dest: /lib/systemd/system/wol.service
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_distribution_release == 'bullseye'
+
+- name: Aplica o daemon-reload e o enable no servico wol - Linux
+  ansible.builtin.systemd:
+    enabled: yes
+    daemon_reload: yes
+    name: wol
+  when: ansible_distribution_release == 'bullseye'
 
 # - name: Mantem o estado do arquivo /usr/share/applications/modelsim.png - Linux
 #   copy:
@@ -398,7 +424,7 @@
 
 - name: Mantem o estado do arquivo /etc/network/interfaces - Linux
   ansible.builtin.copy:
-    content: |      
+    content: |
       search sj.ifsc.edu.br
       nameserver 191.36.8.66
       nameserver 191.36.8.90
