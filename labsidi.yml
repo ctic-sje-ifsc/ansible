@@ -12,7 +12,7 @@
         - firmware-amd-graphics
         - firmware-linux-nonfree
     when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
-    
+
   - name: Monta /media/aluno/trabalhos fstab - Linux
     ansible.posix.mount:
       path: /media/aluno/trabalhos
@@ -39,7 +39,7 @@
     - epoptes_server
     - ingressa_ldap
     - configura_monitores
-    
+
   tasks:
   - name: Pacotes do Lab SiDi
     ansible.builtin.apt:
@@ -57,9 +57,10 @@
     name: HiberbootEnabled
     data: 0
     type: dword
+  when: ansible_os_family == 'Windows'
 
 - name: Maquina do professor
   hosts: sj-sidi-25.maquinas.sj.ifsc.edu.br
-  
+
   roles:
     - ingressa_ldap
