@@ -6,28 +6,28 @@
     - role: grub
       tipo: grub_lin
   tasks:
-  - name: Modulo video AMD - Linux
-    ansible.builtin.apt:
-      pkg:
-        - firmware-amd-graphics
-        - firmware-linux-nonfree
-    when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+    - name: Modulo video AMD - Linux
+      ansible.builtin.apt:
+        pkg:
+          - firmware-amd-graphics
+          - firmware-linux-nonfree
+      when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
-  - name: Monta /media/aluno/trabalhos fstab - Linux
-    ansible.posix.mount:
-      path: /media/aluno/trabalhos
-      src: "UUID=872E-9221"
-      fstype: vfat
-      state: present
-    when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'bullseye')
+    - name: Monta /media/aluno/trabalhos fstab - Linux
+      ansible.posix.mount:
+        path: /media/aluno/trabalhos
+        src: "UUID=872E-9221"
+        fstype: vfat
+        state: present
+      when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'bullseye')
 
-  - name: Monta HD correto em /media/aluno/trabalhos fstab - Linux
-    ansible.posix.mount:
-      path: /media/aluno/trabalhos
-      src: UUID=872E-9221
-      fstype: vfat
-      state: present
-    when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+    - name: Monta HD correto em /media/aluno/trabalhos fstab - Linux
+      ansible.posix.mount:
+        path: /media/aluno/trabalhos
+        src: UUID=872E-9221
+        fstype: vfat
+        state: present
+      when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
 - hosts: sidi_lin:!sj-lin-sidi-25.maquinas.sj.ifsc.edu.br
   roles:
@@ -41,23 +41,23 @@
     - configura_monitores
 
   tasks:
-  - name: Pacotes do Lab SiDi
-    ansible.builtin.apt:
-      pkg:
-        - arandr
+    - name: Pacotes do Lab SiDi
+      ansible.builtin.apt:
+        pkg:
+          - arandr
 
 # Windows
 
 - name: Computadores Windows
   hosts: sidi_win
-
-- name: Desativa o início rápido para o WOL funcionar
-  ansible.windows.win_regedit:
-    path: HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power
-    name: HiberbootEnabled
-    data: 0
-    type: dword
-  when: ansible_os_family == 'Windows'
+  tasks:
+    - name: Desativa o início rápido para o WOL funcionar
+      ansible.windows.win_regedit:
+        path: HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power
+        name: HiberbootEnabled
+        data: 0
+        type: dword
+      when: ansible_os_family == 'Windows'
 
 - name: Maquina do professor
   hosts: sj-sidi-25.maquinas.sj.ifsc.edu.br
