@@ -1,8 +1,50 @@
-# - hosts: sj-lin-ctic-deb10.maquinas.sj.ifsc.edu.br
-#   roles:
-#     - config_padrao_adm
+# - hosts: csfio_lin
 
-# - hosts: laboratorios_win
+#   tasks:
+
+#     - name: Mantem o estado do arquivo /etc/network/interfaces - Linux
+#       ansible.builtin.copy:
+#         content: |
+#           search sj.ifsc.edu.br
+#           nameserver 191.36.8.66
+#           nameserver 191.36.8.90
+#           nameserver 191.36.15.200
+#         dest: /etc/resolv.conf
+#         owner: root
+#         group: root
+#         mode: 0644
+
+# - name: Executa alguma coisa
+#   hosts: sj-ctic-1bw10.maquinas.sj.ifsc.edu.br
+#   tasks:
+#     - name: Desativa o início rápido para o WOL funcionar
+#       ansible.windows.win_regedit:
+#         path: HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power
+#         name: HiberbootEnabled
+#         data: 0
+#         type: dword
+
+- hosts: sj-lin-ctic-humbertos-vm.maquinas.sj.ifsc.edu.br
+  roles:
+    - geogebra
+
+# - hosts: lab_profs_lin
+#   roles:
+#     - configura_monitores
+
+# - hosts: sj-lin-dire-38132.maquinas.sj.ifsc.edu.br
+
+#   tasks:
+#     - name: Configura printers.conf
+#       ansible.builtin.copy:
+#         content: |
+#           ServerName 191.36.8.74
+#         dest: /etc/cups/client.conf
+#         owner: 'root'
+#         group: 'root'
+#         mode: '0644'
+
+# - hosts: sj-ctic-1bw10.maquinas.sj.ifsc.edu.br
 #   roles:
 #     - final_semestre
 
