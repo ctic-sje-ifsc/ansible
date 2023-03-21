@@ -3,6 +3,7 @@
   roles:
     - configura_monitores
     - remove_ldap
+    - geogebra
   tasks:
     - name: Adiciona linha do usuario aluno no passwd
       ansible.builtin.blockinfile:
@@ -33,3 +34,4 @@
       ansible.builtin.apt:
         pkg:
           - x2goclient
+          - wxmaxima
