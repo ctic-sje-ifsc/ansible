@@ -5,6 +5,7 @@
     id: 4EB27DB2A3B88B8B
     url: https://dl-ssl.google.com/linux/linux_signing_key.pub
     keyring: /etc/apt/trusted.gpg.d/google-chrome.gpg
+  when: ansible_os_family == 'Debian'
 
 - name: Install a .deb Google Chrome - Linux Debian
   apt:
@@ -135,7 +136,7 @@
     ignore_checksums: yes
   when: ansible_os_family == 'Windows'
 
-- name: Instalar o LibreOffice Fresh 6.3.4 - Windows
+- name: Instalar o LibreOffice Fresh - Windows
   win_chocolatey:
     name: libreoffice-fresh
     # version: latest
