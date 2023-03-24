@@ -59,7 +59,7 @@
     # - mmanagal  #Verificar o problema
     # - scratch  #Verificar o problema
     - bipide
-    # - sr2015  #Verificar o problema
+    - sr2015
     - chemdraw_12
     - ltspice
     - tracker
