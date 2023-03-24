@@ -1,8 +1,8 @@
 ---
-- hosts: ctic
+- name: Computadores da CTIC
+  hosts: ctic
   vars:
     ansible_python_interpreter: /usr/bin/python3
-  #any_errors_fatal: true
   gather_facts: true
   roles:
     - code
@@ -15,45 +15,39 @@
   tasks:
   # - name: Instalar os pacotes para o Ansible #do buster-backports - Linux Debian
   #   apt: name=ansible state=latest #default_release=buster-backports
-  - name: Pacotes padroes da CTIC
-    ansible.builtin.apt:
-      state: latest
-      pkg:
-      - ipcalc
-      - ansible
-      - keepassx
-      - git
-      - gparted
-      - vinagre
-      - tcpdump
-      - dnsutils
-      - python3-pip
-      # - python-pip # Ruim no bullseye
-  - ansible.builtin.pip:
-      name:
-        - pywinrm
-        - paramiko
-        - cryptography # ==2.4.2 #Não eh mais necessario essa versao
-      executable: pip3
-  - name: Adiciona no grupo docker
-    ansible.builtin.user:
-      name: "{{item}}"
-      groups: docker
-      append: yes
-    with_items:
-      - rmartins
-      - humbertos
-      - gabriel.souza
-      - marcelo.alejandro
-      - etorresini
-      - davi.iahn
-    when: ansible_os_family == 'Debian'
+    - name: Pacotes padroes da CTIC
+      ansible.builtin.apt:
+        pkg:
+          - ipcalc
+          - ansible
+          - keepassx
+          - git
+          - gparted
+          - vinagre
+          - tcpdump
+          - dnsutils
+          - python3-pip
 
-##################  Maquina do 1berto  ##################
-- hosts: sj-lin-ctic-37247.maquinas.sj.ifsc.edu.br
-  #any_errors_fatal: true
-  roles:
-    - ingressa_ldap_gdm
+    - name: Instala pacotes pip
+      ansible.builtin.pip:
+        name:
+          - pywinrm
+          - paramiko
+          - cryptography
+        executable: pip3
+
+    - name: Adiciona no grupo docker
+      ansible.builtin.user:
+        name: "{{ item }}"
+        groups: docker
+        append: true
+      with_items:
+        - rmartins
+        - humbertos
+        - marcelo.alejandro
+        - davi.iahn
+        - davi.m12
+      when: ansible_os_family == 'Debian'
 
 ##################  Maquina do RICARDO  ##################
 # Não executar o Mestre.yml, executar apenas o ctic.yml #
