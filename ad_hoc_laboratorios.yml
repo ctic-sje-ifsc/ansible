@@ -1,7 +1,11 @@
+---
+
+# - hosts: sj-lin-ctic-humbertos-vm.maquinas.sj.ifsc.edu.br
+#   roles:
+#     - geogebra
+
 # - hosts: csfio_lin
-
 #   tasks:
-
 #     - name: Mantem o estado do arquivo /etc/network/interfaces - Linux
 #       ansible.builtin.copy:
 #         content: |
@@ -23,10 +27,6 @@
 #         name: HiberbootEnabled
 #         data: 0
 #         type: dword
-
-- hosts: sj-lin-ctic-humbertos-vm.maquinas.sj.ifsc.edu.br
-  roles:
-    - geogebra
 
 # - hosts: lab_profs_lin
 #   roles:
