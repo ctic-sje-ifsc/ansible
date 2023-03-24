@@ -383,7 +383,7 @@
   win_chocolatey:
     # version: latest
     # force: yes
-    name: libreoffice-Fresh
+    name: libreoffice-fresh
   when: ansible_os_family == 'Windows'
 
 # - name: Instalar o Unity 2018.2.10 - Windows
