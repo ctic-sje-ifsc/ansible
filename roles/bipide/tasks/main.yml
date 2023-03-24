@@ -1,15 +1,21 @@
-#Windows
+# Windows
+
+- name: Create directory C:\instaladores
+  ansible.windows.win_file:
+    path: C:\instaladores
+    state: directory
+  when: ansible_os_family == 'Windows'
 
 - name: Baixar o instalador do BIP IDE - Windows
-  win_get_url:
+  ansible.windows.win_get_url:
     url: 'https://sourceforge.net/projects/bipide/files/latest/download'
     dest: 'C:\instaladores\setup_v3.msi'
-    force: no
+    force: false
     timeout: 300 # 5 minutos
   when: ansible_os_family == 'Windows'
 
 - name: Instalar o BIP IDE - Windows
-  win_package:
+  ansible.windows.win_package:
     path: 'C:\instaladores\setup_v3.msi'
     product_id: '{833F7C2A-28F1-4D9B-8D79-3C296B257B0B}'
     state: present
@@ -21,10 +27,21 @@
 ### Localizacao do productid 64 bits: HKLM:Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall
 
 - name: Atalho para o BIP IDE - Windows
-  win_shortcut:
+  community.windows.win_shortcut:
     description: Atalho para o bipide
     src: 'C:\Program Files (x86)\Univali\Bipide\Bipide.exe'
     dest: '%Public%\Desktop\Bipide.lnk'
     icon: 'C:\Program Files (x86)\Univali\Bipide\pe32.ico,0'
     state: present
   when: ansible_os_family == 'Windows'
+
+- name: Install .Net 3.5
+  become: true
+  become_method: runas
+  become_user: System
+  ansible.windows.win_optional_feature:
+    name: NetFx3
+    include_parent: true
+    state: present
+  when: ansible_os_family == 'Windows'
+  tags: dotnet3.5
