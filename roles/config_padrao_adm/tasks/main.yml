@@ -180,12 +180,13 @@
   when: ansible_os_family == 'Debian'
 
 ################# Copiar Chave pub Davi
-- name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys do Davi - Linux
+- name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys do Davi Machado Bolsista - Linux
   ansible.posix.authorized_key:
     user: root
     state: present
-    key: "{{ lookup('file', 'davi.id_rsa.pub') }}"
+    key: "{{ lookup('file', 'davi-machado.pub') }}"
   when: ansible_os_family == 'Debian'
+  tags: chave_davimachado
 
 - name: Atualiza PATH no profile - Linux Debian 10 buster
   ansible.builtin.replace:
