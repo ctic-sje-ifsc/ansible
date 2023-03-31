@@ -300,9 +300,15 @@
 - name: Solucao de contorno criado pelo joao
   ansible.builtin.copy:
     content: |
-      pkill -f jtagd -9
-      /opt/altera/intelFPGA/20.1/quartus/bin/jtagd --user-start
-      /opt/altera/intelFPGA/20.1/quartus/bin/jtagconfig
+      [Unit]
+      Description=Configurar jtag
+
+      [Service]
+      Type=oneshot
+      ExecStart=pkill -f jtagd -9 ; /opt/altera/intelFPGA/20.1/quartus/bin/jtagd --user-start ; /opt/altera/intelFPGA/20.1/quartus/bin/jtagconfig
+
+      [Install]
+      WantedBy=basic.target
     dest: /lib/systemd/system/jtagd.service
     owner: root
     group: root
