@@ -193,9 +193,14 @@
     - figlet
   when: ansible_os_family == 'Debian'
 
-- name: Adiciona gradle
+- name: Adiciona roles
   ansible.builtin.include_role:
-    name: gradle7
+    name: roles_lin
+  loop:
+  - gradle7
+  - eclipse
+  loop_control:
+    loop_var: roles_lin
   when: ansible_os_family == 'Debian'
 
 # # java
