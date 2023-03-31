@@ -313,6 +313,7 @@
     owner: root
     group: root
     mode: 0644
+  tags: jtag
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
 - name: Aplica o daemon-reload e o enable do script para correcao do quartus - Linux
@@ -320,6 +321,7 @@
     enabled: yes
     daemon_reload: yes
     name: jtagd
+  tags: jtag
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
 # Para solucionar problemas com Ctrl + C Ctrl + v no matlab
