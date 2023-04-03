@@ -35,8 +35,8 @@
 - name: Baixa e extrai eclipse 8.8 - Debian 11
   ansible.builtin.unarchive:
     src: http://ansiblefiles.sj.ifsc.edu.br/eclipse-cpp-mars-2-linux-gtk-x86_64.tar.gz
-    dest: /opt/intelFPGA/18.1/nios2eds/bin/
-    creates: /opt/intelFPGA/18.1/nios2eds/bin/eclipse_nios2/plugin_customization.ini
+    dest: /opt/altera/intelFPGA/20.1/nios2eds/bin/
+    creates: /opt/altera/intelFPGA/20.1/nios2eds/bin/eclipse_nios2/plugin_customization.ini
     remote_src: true
     owner: root
     group: root
@@ -45,9 +45,10 @@
 
 - name: Extrai plugins eclipse - Debian 11
   ansible.builtin.unarchive:
-    src: /opt/intelFPGA/18.1/nios2eds/bin/eclipse_nios2_plugins.tar.gz
-    dest: /opt/intelFPGA/18.1/nios2eds/bin
-    creates: /opt/intelFPGA/18.1/nios2eds/bin/eclipse_nios2/plugin_customization.ini
+    src: /opt/altera/intelFPGA/20.1/nios2eds/bin/eclipse_nios2_plugins.tar.gz
+    dest: /opt/altera/intelFPGA/20.1/nios2eds/bin
+    creates: /opt/altera/intelFPGA/20.1/nios2eds/bin/eclipse_nios2/plugin_customization.ini
+    remote_src: true
     owner: root
     group: root
     mode: 0755
@@ -56,7 +57,7 @@
 
 - name: Inserir linha para arrumar eclipse
   blockinfile:
-    path: /opt/intelFPGA/20.1/nios2eds/bin/eclipse_nios2/eclipse.ini
+    path: /opt/altera/intelFPGA/20.1/nios2eds/bin/eclipse_nios2/eclipse.ini
     insertbefore: --launcher.appendVmargs
     block: |
       --launcher.GTK_version
