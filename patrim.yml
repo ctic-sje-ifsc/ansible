@@ -1,7 +1,6 @@
-- hosts: sj-lin-patrim-710789.maquinas.sj.ifsc.edu.br,!sj-lin-patri-cgwhd33.maquinas.sj.ifsc.edu.br
-  #any_errors_fatal: true
+- name: Computador da Ana Martens
+  hosts: sj-lin-patrim-710789.maquinas.sj.ifsc.edu.br
   roles:
-    - spotify
     - ingressa_ldap_sem_cups_client
     - role: instala_impressora_cups
       install: 0
@@ -12,15 +11,15 @@
 
   tasks:
     - name: Instalar o software para criar as etiquetas Linux Debian
-      apt: name=glabels state=latest
+      ansible.builtin.apt:
+        name:
+          - glabels
 
-### Notebook emprestado
-- hosts: sj-lin-patri-cgwhd33.maquinas.sj.ifsc.edu.br
-  #any_errors_fatal: true
+- name: Notebook emprestado
+  hosts: sj-lin-patri-cgwhd33.maquinas.sj.ifsc.edu.br
   tasks:
     - name: Pacote necessario para ativar wifi
-      apt:
-        state: latest
+      ansible.builtin.apt:
         pkg:
           - firmware-iwlwifi
   roles:
