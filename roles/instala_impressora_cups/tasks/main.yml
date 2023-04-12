@@ -130,6 +130,7 @@
       <Printer Argox>
       UUID urn:uuid:9725d01e-d047-38d5-706e-0b2406ed785c
       Info Argox
+      Location Patrimonio
       MakeModel ARGOX OS-214 plus PPLA
       DeviceURI parallel:/dev/usb/lp0
       State Idle
@@ -179,8 +180,11 @@
     marker: "# {mark} ANSIBLE MANAGED BLOCK ImpCompras"
     content: |
       <Printer ImpCompras>
+      PrinterId 2
       UUID urn:uuid:1101979c-312e-3bf2-7b77-3d4e37848272
-      Info Lexmark MX611dhe
+      Info Lexmark MX622adhe
+      Location Impressora Compras
+      MakeModel Lexmark MX610 Series
       DeviceURI ipp://cups/printers/ImpCompras
       State Idle
       StateTime 1474292804
@@ -203,8 +207,10 @@
     marker: "# {mark} ANSIBLE MANAGED BLOCK reprografia_reserva "
     content: |
       <Printer reprografia_reserva>
-      UUID urn:uuid:03768eee-e53e-304f-4cc9-075007705592
+      PrinterId 9
+      UUID urn:uuid:aa0cf28d-3e7b-3723-70bf-da3cc8a1df02
       Info Kyocera Taskalfa 5003i
+      Location Reprografia
       DeviceURI ipp://cups/printers/reprografia_reserva
       State Idle
       StateTime 1678293831
@@ -227,9 +233,11 @@
     marker: "# {mark} ANSIBLE MANAGED BLOCK reprografia_principal"
     content: |
       <Printer reprografia_principal>
-      UUID urn:uuid:a495fc7c-aa14-3045-62de-3a58634f6286
-      AuthInfoRequired none
+      PrinterId 10
+      UUID urn:uuid:d0430e96-df34-3b84-7ac2-e69ad2abb9f6
       Info Kyocera Taskalfa 5501i
+      Location Reprografia
+      MakeModel TASKalfa 5501i KPDL
       DeviceURI ipp://cups/printers/reprografia_principal
       State Idle
       StateTime 1473939314
@@ -257,8 +265,11 @@
     marker: "# {mark} ANSIBLE MANAGED BLOCK ImpCGP"
     content: |
       <Printer ImpCGP>
-      UUID urn:uuid:ea779c60-6775-3ea3-70a3-ec6f07272f9c
+      PrinterId 1
+      UUID urn:uuid:d715e5dc-7178-3e8d-5f44-7012443466bc
       Info Lexmark MX611dhe
+      Location CGP
+      MakeModel Lexmark MX610 Series
       DeviceURI ipp://cups/printers/ImpCGP
       State Idle
       StateTime 1474292746
@@ -283,7 +294,7 @@
       <Printer ImpBiblioteca>
       UUID urn:uuid:fb4156cd-356d-3c05-4a36-205fe33f2293
       Info ImpBiblioteca
-      Location
+      Location Biblioteca
       MakeModel HP LaserJet 1020 Foomatic/foo2zjs-z1 (recommended)
       DeviceURI hp:/usb/HP_LaserJet_1020?serial=FZ04KNA
       State Idle
@@ -310,8 +321,11 @@
     marker: "# {mark} ANSIBLE MANAGED BLOCK ImpDirecao"
     content: |
       <Printer ImpDirecaoColor>
-      UUID urn:uuid:f8f1609d-66b6-3c91-469e-9f093e06a9f2
-      Info Sharp MX-C301
+      PrinterId 3
+      UUID urn:uuid:a24181f7-e0c1-3ce6-541d-9cc52ee9f9f2
+      Info Lexmark CX725dhe
+      Location Direcao
+      MakeModel Lexmark CX725 Series
       DeviceURI ipp://cups/printers/ImpDirecaoColor
       State Idle
       StateTime 1474293271
@@ -334,8 +348,11 @@
     marker: "# {mark} ANSIBLE MANAGED BLOCK ImpFinanceiro"
     content: |
       <Printer ImpFinanceiro>
-      UUID urn:uuid:1e9ad194-c243-3f65-6ba7-5ad2192081b0
+      PrinterId 4
+      UUID urn:uuid:ab4361e0-c24c-3b1e-4307-22d869620253
       Info Lexmark MX611dhe
+      Location Financeiro
+      MakeModel Lexmark MX610 Series
       DeviceURI ipp://cups/printers/ImpFinanceiro
       State Idle
       StateTime 1474292859
@@ -358,8 +375,11 @@
     marker: "# {mark} ANSIBLE MANAGED BLOCK ImpSecretaria"
     content: |
       <Printer ImpSecretaria>
-      UUID urn:uuid:2b5be820-a8de-3ff3-7693-e5ecb8e2278b
+      PrinterId 6
+      UUID urn:uuid:81f5a635-f301-3630-452f-ed201b33e272
       Info Lexmark MX611dhe
+      Location Secretaria
+      MakeModel Lexmark MX610 Series
       DeviceURI ipp://cups/printers/ImpSecretaria
       State Idle
       StateTime 1474292916
