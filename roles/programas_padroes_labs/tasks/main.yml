@@ -78,6 +78,16 @@
       - mysql-workbench-community
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
+- name: Cria atalho mysql-workbench-community
+  ansible.builtin.file:
+    src: /var/lib/snapd/desktop/applications/mysql-workbench-community_mysql-workbench-community.desktop
+    dest: /usr/share/applications/mysql-workbench-community_mysql-workbench-community.desktop
+    owner: root
+    group: root
+    state: link
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+  tags: atalho_workbench
+
 - name: Instalar pacotes de ferramentas "conhecidas" padroes de laboratorios - Linux
   ansible.builtin.apt:
     state: latest
