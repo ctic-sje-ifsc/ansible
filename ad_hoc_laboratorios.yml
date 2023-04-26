@@ -1,8 +1,12 @@
 ---
 
-# - hosts: sj-lin-ctic-humbertos-vm.maquinas.sj.ifsc.edu.br
-#   roles:
-#     - geogebra
+# - name: Servidor controlador
+#   hosts: controlador
+#   tasks:
+#     - name: Cria usuários para o IFSC-Terceirizados
+#       ansible.builtin.shell: "samba-tool user create {{ item.user }} {{ item.password }} --userou=OU=terceirizados && samba-tool user setexpiry --days=365 {{ item.user }}"
+#       loop:
+#         - { user: usuario, password: senha }
 
 # - hosts: csfio_lin
 #   tasks:
