@@ -3,10 +3,11 @@
 # - name: Servidor controlador
 #   hosts: controlador
 #   tasks:
+#     # USAR O CPF COMO USUÁRIO E A SENHA DEVE TER NO MÍNIMO 8 dígitos
 #     - name: Cria usuários para o IFSC-Terceirizados
 #       ansible.builtin.shell: "samba-tool user create {{ item.user }} {{ item.password }} --userou=OU=terceirizados && samba-tool user setexpiry --days=365 {{ item.user }}"
 #       loop:
-#         - { user: usuario, password: senha }
+#         - { user: 12345678910, password: 87654321 }
 
 # - hosts: csfio_lin
 #   tasks:
