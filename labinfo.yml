@@ -1,11 +1,23 @@
 - hosts: info_lin
-  #any_errors_fatal: true
+  any_errors_fatal: true
   roles:
+    - sources_list
     - google_earth
-    - kernel_backports
+    # - kernel_backports
     - scidavis
     - role: grub
       tipo: grub_soh_lin
+  tasks:
+  - name: Cria o arquivo tcp_rmem # chamado IFSC#2023050410000449
+    ansible.builtin.copy:
+      content: |
+        10000 10000 10000
+      dest: /proc/sys/net/ipv4/tcp_rmem
+      owner: root
+      group: root
+      mode: 0644
+      unsafe_writes: true
+    when: ansible_os_family == 'Debian'
 
 - hosts: info_lin:!sj-lin-info-895203.maquinas.sj.ifsc.edu.br
   #any_errors_fatal: true
