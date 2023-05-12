@@ -33,6 +33,11 @@
     - role: grub
       tipo: grub_soh_lin
 
+- hosts: administrativos_win:!sj-lin-almoxtele-710793.maquinas.sj.ifsc.edu.br
+  #any_errors_fatal: true
+  roles:
+    - ingressa_ldap
+
 - hosts: administrativos_win
   #any_errors_fatal: true
   roles:
@@ -41,5 +46,4 @@
     - acesso_remoto
     - papel_de_parede_e_icones_adm
     - windows_update
-    - ingressa_ldap
     - auto_desligamento
