@@ -8,12 +8,12 @@
     group: root
     mode: 0755
   with_items:
-    - sidi-703872
+    - sidi-25
     - redes-906284
     - prog-744523
-    - cad1-879491
+    - cad1-916082
     - cad2-905476
-    - cad3-744528
+    - cad3-744517
   when: ( ansible_os_family == 'Debian' and  ansible_hostname is search("^sj-lin-{{ item }}") )
 
 - name: Copia o arquivo com os patrimonios para a maquina do professor - Linux
@@ -24,12 +24,12 @@
     group: root
     mode: 0755
   with_items:
-    - sidi-703872
-    - redes-744530
+    - sidi-25
+    - redes-906284
     - prog-744523
-    - cad1-37247
-    - cad2-38841
-    - cad3-744528
+    - cad1-916082
+    - cad2-905476
+    - cad3-744517
   when: ( ansible_os_family == 'Debian' and ansible_hostname is search("^sj-lin-{{ item }}") )
 
 - name: Copia regras ipv6 de bloqueio para todas as maquinas - Linux
