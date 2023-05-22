@@ -3,6 +3,7 @@
   roles:
     - pinta
     - kernel6
+    - zoiper
     - role: grub
       tipo: grub_lin
   tasks:
@@ -61,6 +62,5 @@
 
 - name: Maquina do professor
   hosts: sj-sidi-25.maquinas.sj.ifsc.edu.br
-
   roles:
     - ingressa_ldap
