@@ -1,8 +1,8 @@
 ---
 # Linux
 
-- name: Baixar e instalar zoiper 5.5.10 - Linux
-  apt:
-    deb: https://discovirtual.ifsc.edu.br/index.php/s/NRMtlWNKUexw5Sn/download
+- name: Baixar e instalar zoiper 5.5.15 - Linux
+  ansible.builtin.apt:
+    deb: http://ansiblefiles.sj.ifsc.edu.br/Zoiper5_5.5.15_x86_64.deb
   when: ansible_os_family == 'Debian'
 # Windows
