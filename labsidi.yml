@@ -40,12 +40,12 @@
     - epoptes_server
     - ingressa_ldap
     - configura_monitores
-
   tasks:
     - name: Pacotes do Lab SiDi
       ansible.builtin.apt:
         pkg:
           - arandr
+      when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
 # Windows
 
