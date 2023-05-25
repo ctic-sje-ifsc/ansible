@@ -1,29 +1,35 @@
 ---
 
 #Linux
-- name: Garantir que o snapd esteja instalado - Linux
+# - name: Garantir que o snapd esteja instalado - Linux
+#   ansible.builtin.apt:
+#     state: latest
+#     pkg: snapd
+#   when: ansible_os_family == 'Debian'
+
+# - name: Verifica versao do GLPI-agent  - Linux
+#   ansible.builtin.shell: GET https://github.com/glpi-project/glpi-agent/releases |grep glpi-agent_ |grep snap |cut -d'/' -f8 |head -n1
+#   register: versao_glpi
+#   changed_when: False
+#   when: ansible_os_family == 'Debian'
+
+# - name: Baixar o snap do glpi v{{ versao_glpi.stdout }} - Linux
+#   ansible.builtin.get_url:
+#     url: 'https://github.com/glpi-project/glpi-agent/releases/download/{{ versao_glpi.stdout }}/glpi-agent_{{ versao_glpi.stdout }}_amd64.snap'
+#     dest: '/var/GLPI-Agent-{{ versao_glpi.stdout }}_amd64.snap'
+#   when: ansible_os_family == 'Debian'
+
+# - name: Instala GPLI Agent via SNAP - Linux
+#   ansible.builtin.command: snap install --classic --dangerous /var/GLPI-Agent-{{ versao_glpi.stdout }}_amd64.snap
+#   args:
+#     creates: /snap/glpi-agent
+#   when: ansible_os_family == 'Debian'
+
+- name: Instala GPLI Agent 1.4 - Linux
+- name: Install a .deb package from the internet
   ansible.builtin.apt:
-    state: latest
-    pkg: snapd
-  when: ansible_os_family == 'Debian'
-
-- name: Verifica versao do GLPI-agent  - Linux
-  ansible.builtin.shell: GET https://github.com/glpi-project/glpi-agent/releases |grep glpi-agent_ |grep snap |cut -d'/' -f8 |head -n1
-  register: versao_glpi
-  changed_when: False
-  when: ansible_os_family == 'Debian'
-
-- name: Baixar o snap do glpi v{{ versao_glpi.stdout }} - Linux
-  ansible.builtin.get_url:
-    url: 'https://github.com/glpi-project/glpi-agent/releases/download/{{ versao_glpi.stdout }}/glpi-agent_{{ versao_glpi.stdout }}_amd64.snap'
-    dest: '/var/GLPI-Agent-{{ versao_glpi.stdout }}_amd64.snap'
-  when: ansible_os_family == 'Debian'
-
-- name: Instala GPLI Agent via SNAP - Linux
-  ansible.builtin.command: snap install --classic --dangerous /var/GLPI-Agent-{{ versao_glpi.stdout }}_amd64.snap
-  args:
-    creates: /snap/glpi-agent
-  when: ansible_os_family == 'Debian'
+    deb: https://github.com/glpi-project/glpi-agent/releases/download/1.4/glpi-agent_1.4-1_all.deb
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
 - name: Setar GPLI Agent - Linux
   ansible.builtin.command: snap set glpi-agent server=https://glpi.ifsc.edu.br/front/inventory.php
