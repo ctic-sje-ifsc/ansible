@@ -26,13 +26,12 @@
 #   when: ansible_os_family == 'Debian'
 
 - name: Instala GPLI Agent 1.4 - Linux
-- name: Install a .deb package from the internet
   ansible.builtin.apt:
     deb: https://github.com/glpi-project/glpi-agent/releases/download/1.4/glpi-agent_1.4-1_all.deb
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
 - name: Setar GPLI Agent - Linux
-  ansible.builtin.command: snap set glpi-agent server=https://glpi.ifsc.edu.br/front/inventory.php
+  ansible.builtin.command: glpi-agent -s https://glpi.ifsc.edu.br/front/inventory.php
   # args:
   #   creates: /snap/glpi-agent
   when: ansible_os_family == 'Debian'
