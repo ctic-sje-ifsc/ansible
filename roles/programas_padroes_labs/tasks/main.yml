@@ -177,6 +177,8 @@
     - firmware-ath9k-htc
     - firmware-atheros
     - firmware-realtek
+    - firmware-misc-nonfree
+  tags: sobral
   when: ansible_os_family == 'Debian'
 
 - name: Instalar lista de pacotes pedida pelo Roberto de Matos Chamado IFSC#2019030810001087 - Linux
