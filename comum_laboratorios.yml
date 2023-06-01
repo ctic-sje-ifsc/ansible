@@ -69,6 +69,7 @@
     - qgis
     - rstudio
     - geogebra
+    - glpi_agent
     # - virtualbox
     # - wireshark
     # - kile

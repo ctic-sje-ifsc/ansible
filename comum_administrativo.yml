@@ -11,6 +11,7 @@
     - papel_de_parede_e_icones_adm
     # - irpf # Novo diretor nao autorizou a instalacao do programa
     - unattendedUpgrades_adm
+    - glpi_agent
 
 
 # Chamado do Jorge casagrande pedindo para desativar o desligamento na máquina dele IFSC#2019090410000968
