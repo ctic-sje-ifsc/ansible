@@ -60,7 +60,7 @@
     # - scratch  #Verificar o problema
     - bipide
     - sr2015
-    - chemdraw_12
+    # - chemdraw_12
     - ltspice
     - tracker
     - foxit
