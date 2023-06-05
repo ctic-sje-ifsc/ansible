@@ -23,6 +23,7 @@
     - foxit
     - unattendedUpgrades_labs
     - imunes
+    - glpi_agent
 
 - hosts: laboratorios_lin
   roles:
