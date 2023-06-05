@@ -215,7 +215,7 @@
 
 - name: Adiciona roles
   ansible.builtin.include_role:
-    name: roles_lin
+    name: '{{ roles_lin }}'
   loop:
   - gradle7
   - eclipse
