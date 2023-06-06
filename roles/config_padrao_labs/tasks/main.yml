@@ -377,12 +377,12 @@
 
 ###################### Fim do NTP do Linux
 
-################# Copiar Chave pub Marcelo
-- name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys do Marcelo - Linux
+################# Copiar Chave pub davi.m12
+- name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys do davi.m12 - Linux
   ansible.posix.authorized_key:
     user: root
     state: present
-    key: "{{ lookup('file', 'marcelo.id_rsa.pub') }}"
+    key: "{{ lookup('file', 'davi.m12.id_rsa.pub') }}"
   when: ansible_os_family == 'Debian'
 
 ################# Copiar Chave pub Davi
