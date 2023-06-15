@@ -1,0 +1,15 @@
+# Linux
+
+- hosts: almoxrac_lin
+  #any_errors_fatal: true
+  roles:
+    - ingressa_ldap
+    - role: grub
+      tipo: grub_win
+
+# Windows
+
+- hosts: almoxrac_win
+  #any_errors_fatal: true
+  roles:
+    - ingressa_ldap
