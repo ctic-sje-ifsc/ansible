@@ -62,6 +62,7 @@
 - import_playbook: vconf.yml
 
 # Laboratorios
+- import_playbook: almoxrac.yml
 - import_playbook: ciehu.yml
 - import_playbook: comex.yml
 - import_playbook: comum_laboratorios.yml
