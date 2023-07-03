@@ -5,7 +5,7 @@
     state: latest
     pkg:
     - qgis
-    - python-qgis
+    - python3-qgis
     - qgis-plugin-grass
   when: ansible_os_family == 'Debian'
 
