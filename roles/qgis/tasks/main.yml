@@ -1,49 +1,5 @@
 # Debian e Ubuntu
 
-- name: Add an apt key by id from a keyserver Qgis
-  ansible.builtin.apt_key:
-    keyserver: keyserver.ubuntu.com
-    id: "{{ id_list }}"
-  loop:
-    - 46B5721DBBD2996A
-    - B8F25A8A73EACF41
-  loop_control:
-    loop_var: id_list
-  when: ansible_os_family == 'Debian'
-
-- name: Adicionar a chave do repositório do qgis
-  apt_key:
-    url: https://qgis.org/downloads/qgis-2019.gpg.key
-    state: present
-  when: ansible_os_family == 'Debian'
-
-# Ubuntu 18.04
-- name: Adicionar repositório qgis - Ubuntu Bionic
-  apt_repository:
-    repo: deb http://qgis.org/debian bionic main
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bionic')
-
-# Debian 8
-- name: Remove repositório qgis antigo - Linux Debian 9
-  apt_repository:
-    repo: deb http://ftp.debian.org/debian jessie-backports main
-    state: absent
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
-
-# Debian 9
-- name: Remove repositório qgis - Linux Debian 9
-  apt_repository:
-    repo: deb http://qgis.org/debian stretch main
-    state: absent
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
-
-- name: Adicionar repositório qgis novo - Linux Debian 9
-  apt_repository:
-    repo: deb https://qgis.org/debian-ltr stretch main
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
-
-# Debian e Ubuntu
-
 - name: Instalar os pacotes para o qgis
   apt:
     state: latest
