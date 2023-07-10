@@ -217,7 +217,7 @@
   ansible.builtin.include_role:
     name: '{{ roles_lin }}'
   loop:
-  - gradle7
+  - gradle
   - eclipse
   loop_control:
     loop_var: roles_lin
