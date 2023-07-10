@@ -18,7 +18,7 @@
       Version=1.0
       Type=Application
       Name=IntelliJ IDEA Ultimate Edition
-      Icon=/snap/intellij-idea-ultimate/401/bin/idea.png
+      Icon=/snap/intellij-idea-ultimate/405/bin/idea.png
       Exec=env BAMF_DESKTOP_FILE_HINT=/var/lib/snapd/desktop/applications/intellij-idea-ultimate_intellij-idea-ultimate.desktop /snap/bin/intellij-idea-ultimate %f
       Comment=Capable and Ergonomic IDE for JVM
       Categories=Development;IDE;
