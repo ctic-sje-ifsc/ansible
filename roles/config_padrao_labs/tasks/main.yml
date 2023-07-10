@@ -132,6 +132,7 @@
 
 - name: Enable i386 architecture
   ansible.builtin.command: dpkg --add-architecture i386
+  changed_when: False
   when: ansible_os_family == 'Debian' and result_i386_check.rc == 1
 
 - name: Ensure apt cache is up to date
