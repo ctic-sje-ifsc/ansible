@@ -21,7 +21,7 @@
       Version=1.0
       Type=Application
       Name=CLion
-      Icon=/snap/clion/219/bin/clion.png
+      Icon=/snap/clion/222/bin/clion.png
       Exec=env BAMF_DESKTOP_FILE_HINT=/var/lib/snapd/desktop/applications/clion_clion.desktop /snap/bin/clion %f
       Comment=A cross-platform IDE for C and C++
       Categories=Development;IDE;
