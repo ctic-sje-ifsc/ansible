@@ -3,13 +3,13 @@
 
 # Debian e Ubuntu
 - name: Adicionar a chave do repositório do vscode - Linux
-  apt_key:
+  ansible.builtin.apt_key:
     url: https://packages.microsoft.com/keys/microsoft.asc
     state: present
   when: ansible_os_family == 'Debian'
 
 - name: Adicionar repositório do vscode - Linux
-  apt_repository:
+  ansible.builtin.apt_repository:
     filename: vscode
     repo: deb [arch=amd64] http://packages.microsoft.com/repos/vscode stable main
     state: present
@@ -17,28 +17,19 @@
   when: ansible_os_family == 'Debian'
 
 - name: Instalar o vscode - Linux
-  apt:
+  ansible.builtin.apt:
     name: code
     state: latest
   when: ansible_os_family == 'Debian'
 
 - name: Remove source list duplicado do code
-  file:
+  ansible.builtin.file:
     path: /etc/apt/sources.list.d/packages_microsoft_com_repos_vscode.list
     state: absent
   when: ansible_os_family == 'Debian'
 
-# - name: Extraindo extensões para o vscode para lab- Linux Debian
-#   unarchive:
-#     src: vscode.bz
-#     dest: /opt
-#     owner: aluno
-#     group: aluno
-#     mode: 0755
-#   when: ( ansible_os_family == 'Debian' and  lab == 1 )
-
 #Windows
 - name: Instalar o Visual Studio Code - Windows
-  win_chocolatey:
+  chocolatey.chocolatey.win_chocolatey:
     name: vscode
   when: ansible_os_family == 'Windows'
