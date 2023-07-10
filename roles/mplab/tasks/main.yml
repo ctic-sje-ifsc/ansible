@@ -21,7 +21,7 @@
   file:
     state: absent
     path: /opt/microchip/
-  when: (ansible_os_family == 'Debian' and result_mplab.stdout.find('5.5') == -1)
+  when: (ansible_os_family == 'Debian' and result_mplab.stdout.find('6.10') == -1)
 
 - name: Apagando links mplab - Linux
   file:
@@ -33,24 +33,18 @@
     - mdb
   loop_control:
     loop_var: old_mplab_link
-  when: (ansible_os_family == 'Debian' and result_mplab.stdout.find('5.5') == -1)
+  when: (ansible_os_family == 'Debian' and result_mplab.stdout.find('6.10') == -1)
 
-### Gambiarra para baixar arquivo do Google Drive, limite de 12 conexões simultâneas
-- name: Baixar mplab - Linux Debian
-  shell: wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1HrdzV-MYGFEMW4zvFgvaMugyhlCJ0wGo' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1HrdzV-MYGFEMW4zvFgvaMugyhlCJ0wGo" -O /tmp/mplab.bz && rm -rf /tmp/cookies.txt
-  args:
-    creates: /opt/microchip
-  when: ansible_os_family == 'Debian'
-
-- name: Extraindo mplab - Linux Debian
-  unarchive:
-    src: /tmp/mplab.bz
-    dest: /opt/
+- name: Baixa e extrai mplab 6.10 - Debian 11
+  ansible.builtin.unarchive:
+    src: http://ansiblefiles.sj.ifsc.edu.br/mplab.bz
+    dest: /opt
+    creates: /opt/microchip/mplabx/v6.10
+    remote_src: true
     owner: root
-    creates: /opt/microchip
+    group: root
     mode: 0755
-    remote_src: yes
-  when: ansible_os_family == 'Debian'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
 - name: Extraindo avr8 toolchain - Linux Debian
   unarchive:
