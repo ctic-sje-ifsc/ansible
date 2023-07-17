@@ -14,42 +14,41 @@
   when: ansible_os_family == 'Debian'
 
 
-# #### Para o proprio usuario corrigir o problema do epoptes
-- name: Adiciona script para corrigir epoptes - Linux SIDI
-  ansible.builtin.blockinfile:
-    path: /etc/init.d/corrigi_epoptes.sh
-    content: |
-      #!/bin/bash
+# # #### Para o proprio usuario corrigir o problema do epoptes
+# - name: Adiciona script para corrigir epoptes - Linux SIDI
+#   ansible.builtin.blockinfile:
+#     path: /etc/init.d/corrigi_epoptes.sh
+#     content: |
+#       #!/bin/bash
 
-      if [[ $(whoami) == aluno ]];
+#       if [[ $(whoami) == aluno ]];
 
-        then
-        ssh root@sj-lin-sidi-24.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
-        ssh root@sj-lin-sidi-23.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
-        ssh root@sj-lin-sidi-22.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
-        ssh root@sj-lin-sidi-21.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
-        ssh root@sj-lin-sidi-20.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
-        ssh root@sj-lin-sidi-19.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
-        ssh root@sj-lin-sidi-18.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
-        ssh root@sj-lin-sidi-17.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
-        ssh root@sj-lin-sidi-16.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
-        ssh root@sj-lin-sidi-15.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
-        ssh root@sj-lin-sidi-14.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
-        ssh root@sj-lin-sidi-13.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
-        ssh root@sj-lin-sidi-12.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
-        ssh root@sj-lin-sidi-11.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
-        ssh root@sj-lin-sidi-10.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
-        ssh root@sj-lin-sidi-9.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
-        ssh root@sj-lin-sidi-8.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
-        ssh root@sj-lin-sidi-7.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
-        ssh root@sj-lin-sidi-6.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
-        ssh root@sj-lin-sidi-5.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
-        ssh root@sj-lin-sidi-4.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
-        ssh root@sj-lin-sidi-3.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
-        ssh root@sj-lin-sidi-2.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
-        ssh root@sj-lin-sidi-1.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
-      else
-        echo -e "O usuário $(whoami) não tem permissão. Precisa ser usuário aluno."
-      fi
-  when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-sidi-25")
-
+#         then
+#         ssh root@sj-lin-sidi-24.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
+#         ssh root@sj-lin-sidi-23.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
+#         ssh root@sj-lin-sidi-22.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
+#         ssh root@sj-lin-sidi-21.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
+#         ssh root@sj-lin-sidi-20.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
+#         ssh root@sj-lin-sidi-19.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
+#         ssh root@sj-lin-sidi-18.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
+#         ssh root@sj-lin-sidi-17.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
+#         ssh root@sj-lin-sidi-16.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
+#         ssh root@sj-lin-sidi-15.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
+#         ssh root@sj-lin-sidi-14.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
+#         ssh root@sj-lin-sidi-13.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
+#         ssh root@sj-lin-sidi-12.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
+#         ssh root@sj-lin-sidi-11.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
+#         ssh root@sj-lin-sidi-10.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
+#         ssh root@sj-lin-sidi-9.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
+#         ssh root@sj-lin-sidi-8.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
+#         ssh root@sj-lin-sidi-7.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
+#         ssh root@sj-lin-sidi-6.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
+#         ssh root@sj-lin-sidi-5.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
+#         ssh root@sj-lin-sidi-4.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
+#         ssh root@sj-lin-sidi-3.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
+#         ssh root@sj-lin-sidi-2.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
+#         ssh root@sj-lin-sidi-1.maquinas.sj.ifsc.edu.br "/usr/sbin/epoptes-client -c"
+#       else
+#         echo -e "O usuário $(whoami) não tem permissão. Precisa ser usuário aluno."
+#       fi
+#   when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-sidi-25")
