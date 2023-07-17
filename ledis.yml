@@ -1,13 +1,5 @@
-- hosts: ledis
-  #any_errors_fatal: true
+- name: Computadores do Laboratório de Ensino à distância.
+  hosts: ledis
   roles:
     - role: grub
       tipo: grub_win
-
-- hosts: ledis_win
-  roles:
-    - sam
-
-- hosts: sj-ledis-744515.maquinas.sj.ifsc.edu.br
-  roles:
-    - energyplus
