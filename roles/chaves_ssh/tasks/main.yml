@@ -101,6 +101,7 @@
     path: /home/aluno/.ssh
     state: directory
     mode: '0700'
+  when: ansible_os_family == 'Debian'
 
 - name: Modifica o arquivo /home/aluno/.ssh/id_rsa do SIDI - lINUX
   ansible.builtin.copy:
