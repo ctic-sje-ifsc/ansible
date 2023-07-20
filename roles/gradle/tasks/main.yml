@@ -21,7 +21,7 @@
   failed_when: False
   when: (ansible_os_family == 'Debian' and result_gradle.stdout.find('gradle-8.2.1') == -1)
 
-- name: Baixando e extraindo o Gradle 8.2.1 - Linux Debian
+- name: Baixando e extraindo o {{ result_gradle.stdout }} - Linux Debian
   ansible.builtin.unarchive:
     src: https://services.gradle.org/distributions/gradle-8.2.1-all.zip
     dest: /opt/gradle
@@ -42,3 +42,5 @@
     src: /opt/gradle/{{ result_gradle.stdout }}/bin/gradle
     dest: /usr/bin/gradle
     state: link
+  failed_when: False
+  when: ansible_os_family == 'Debian'
