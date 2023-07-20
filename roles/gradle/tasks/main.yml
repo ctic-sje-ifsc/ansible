@@ -1,25 +1,31 @@
 ---
 
-# - name: Apaga diretório gradle - Linux Debian
-#   ansible.builtin.file:
-#     path: /opt/gradle
-#     state: absent
-#   when: ansible_os_family == 'Debian'
-
-- name: Cria diretório gradle - Linux Debian
-  ansible.builtin.file:
-    path: /opt/gradle
-    state: directory
-    owner: root
-    group: root
-    mode: 0755
+- name: Verificando se eh versao nova do gradle - Linux Debian
+  ansible.builtin.shell: ls /opt/gradle/
+  register: result_gradle
+  changed_when: False
+  failed_when: False
   when: ansible_os_family == 'Debian'
+
+- name: Apagando gradle - Linux
+  ansible.builtin.file:
+    state: absent
+    path: /opt/gradle
+  failed_when: False
+  when: (ansible_os_family == 'Debian' and result_gradle.stdout.find('gradle-8.2.1') == -1)
+
+- name: Criando pasta gradle - Linux
+  ansible.builtin.file:
+    state: directory
+    path: /opt/gradle
+  failed_when: False
+  when: (ansible_os_family == 'Debian' and result_gradle.stdout.find('gradle-8.2.1') == -1)
 
 - name: Baixando e extraindo o Gradle 8.2.1 - Linux Debian
   ansible.builtin.unarchive:
     src: https://services.gradle.org/distributions/gradle-8.2.1-all.zip
     dest: /opt/gradle
-    # creates: /opt/gradle/instalado
+    creates: /opt/gradle/{{ result_gradle.stdout }}
     remote_src: yes
     owner: aluno
     group: 513
@@ -28,24 +34,11 @@
 - name: Adicionar entrada no /etc/bash.bashrc  - Linux
   ansible.builtin.lineinfile:
     path: /etc/bash.bashrc
-    line: 'export PATH=$PATH:/opt/gradle/gradle-8.2.1/bin'
-  when: ansible_os_family == 'Debian'
-
-- name: Executa o gradle - Linux Debian
-  ansible.builtin.command: /opt/gradle/gradle-8.2.1/bin/gradle
-  args:
-    creates: /opt/gradle/instalado
-  when: ansible_os_family == 'Debian'
-
-- name: Finaliza instalacao - Linux Debian
-  changed_when: False
-  ansible.builtin.file:
-    path: /opt/gradle/instalado
-    state: touch
+    line: 'export PATH=$PATH:/opt/gradle/{{ result_gradle.stdout }}/bin'
   when: ansible_os_family == 'Debian'
 
 - name: Create a symbolic link
   ansible.builtin.file:
-    src: /opt/gradle/gradle-8.2.1/bin/gradle
+    src: /opt/gradle/{{ result_gradle.stdout }}/bin/gradle
     dest: /usr/bin/gradle
     state: link
