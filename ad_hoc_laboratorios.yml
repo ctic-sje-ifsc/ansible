@@ -33,9 +33,18 @@
 #         data: 0
 #         type: dword
 
-# - hosts: lab_profs_lin
+## Executar no final do semestre
+# - hosts: programacao_lin
 #   roles:
-#     - configura_monitores
+    # - chaves_ssh
+    # - firewall_labs
+    # - final_semestre
+    #  - gradle
+  # roles:
+  #   - role: atualiza_mac
+  #     play: 1
+      # play: 0 desativa
+      # play: 1 ativa
 
 # - hosts: sj-lin-dire-38132.maquinas.sj.ifsc.edu.br
 
@@ -129,13 +138,12 @@
 #     - name: Turn off computers Windows
 #       raw: shutdown /s /hybrid /t 15 /c "We are turning computers off after maintenance"
 
-# - hosts: sidi_lin
+# - hosts: programacao_lin
 #   tasks:
 #     - name: Reboot computer para Windows
 #       raw: grub-reboot 2
 #     - name: Turn off computers
 #       raw: reboot
-
 
 # - hosts: laboratorios_lin
 #   roles:
