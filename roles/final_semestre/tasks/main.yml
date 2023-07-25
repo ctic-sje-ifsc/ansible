@@ -71,3 +71,10 @@
     groups:
       - "Usuários"
   when: ansible_os_family == 'Windows'
+
+- name: Instala Atualizações críticas e de segurança #### A máquina pode reiniciar
+  ansible.windows.win_updates:
+    category_names:
+      - SecurityUpdates
+      - CriticalUpdates
+  when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 10 Pro')
