@@ -226,6 +226,29 @@
 
 # - win_shell: netsh interface ip add wins name=LAN addr=172.18.109.10 index=0
 
+# - name: Install HPLIP on Debian 
+#   hosts: sj-lin-biblio-36076.maquinas.sj.ifsc.edu.br
+#   become: yes
+
+#   tasks:
+#     - name: Update apt cache
+#       apt:
+#         update_cache: yes
+
+#     - name: Install required packages
+#       apt:
+#         name: "{{ item }}"
+#         state: present
+#       with_items:
+#         - hplip
+#         - hplip-gui
+
+#     - name: Ensure the cups service is running
+#       service:
+#         name: cups
+#         state: started
+#         enabled: yes
+
 
 
 ################### Limpar home do aluno no windows ###################
