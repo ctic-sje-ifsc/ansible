@@ -58,9 +58,9 @@
 #         group: 'root'
 #         mode: '0644'
 
-# - hosts: sj-ctic-1bw10.maquinas.sj.ifsc.edu.br
+# - hosts:  sj-lin-biblio-744533.maquinas.sj.ifsc.edu.br 
 #   roles:
-#     - final_semestre
+#     - instala_impressora_cups
 
 # - hosts: all
 #   tasks:
