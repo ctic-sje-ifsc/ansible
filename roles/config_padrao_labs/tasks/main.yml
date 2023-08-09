@@ -76,7 +76,7 @@
     path: /etc/sudoers
     state: present
     regexp: '^aluno '
-    line: 'aluno ALL=(ALL) NOPASSWD: SETENV: /usr/sbin/ethtool,/usr/sbin/ifconfig,/usr/bin/tcpdump,/usr/sbin/route,/usr/bin/minicom,/usr/sbin/traceroute,/usr/bin/wireshark,/sbin/iwconfig,/usr/sbin/iwlist,/usr/sbin/iw,/etc/init.d/firewall.sh,/usr/sbin/dhclient,/usr/bin/MercurioIV_Linux_1.1.0.run,/etc/init.d/isc-dhcp-server,/etc/init.d/udev,/usr/bin/rpcgen,/usr/sbin/rfkill,/usr/bin/ip'
+    line: 'aluno ALL=(ALL) NOPASSWD: SETENV: /usr/sbin/ethtool,/usr/sbin/ifconfig,/usr/bin/tcpdump,/usr/sbin/route,/usr/bin/minicom,/usr/sbin/traceroute,/usr/bin/wireshark,/sbin/iwconfig,/usr/sbin/iwlist,/usr/sbin/iw,/etc/init.d/firewall.sh,/usr/sbin/dhclient,/usr/bin/MercurioIV_Linux_1.1.0.run,/etc/init.d/isc-dhcp-server,/etc/init.d/udev,/usr/bin/rpcgen,/usr/sbin/rfkill,/usr/bin/ip,/usr/bin/systemctl start NetworkManager,/usr/bin/systemctl stop NetworkManager,/usr/bin/systemctl start NetworkManager.service,/usr/bin/systemctl stop NetworkManager.service'
     validate: '/usr/sbin/visudo -cf %s'
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
   tags: sudoers
