@@ -35,3 +35,46 @@
         pkg:
           - x2goclient
           - wxmaxima
+
+##### Configuração do script para apagar o home do aluno a cade inicialização
+    - name: Adiciona script para zerar o home do aluno
+      ansible.builtin.blockinfile:
+        path: /etc/init.d/apagaAluno.sh
+        create: true
+        block: |
+          #!/bin/bash
+
+          ##Este arquivo eh gerado automaticamente pelo Ansible, nao adianta editar.
+
+          #Restaurar o usuario aluno quando manda desligar a maquina ou reiniciar.
+          rm -rf /var/spool/cron/crontabs/aluno
+          rm -rf /home/aluno
+          tar -zxvf /home/backup/aluno.tgz -C / --exclude=home/aluno/.ssh/known_hosts
+      when: ansible_os_family == 'Debian'
+
+    - name: Adiciona o arquivo /lib/systemd/system/apagaAluno.service
+      ansible.builtin.blockinfile:
+        path: /lib/systemd/system/apagaAluno.service
+        create: true
+        block: |
+          [Unit]
+          Description=Usuário padrão
+          DefaultDependencies=no
+          Before=shutdown.target
+
+          [Service]
+          Type=oneshot
+          ExecStart=/etc/init.d/apagaAluno.sh
+
+          [Install]
+          WantedBy=reboot.target halt.target poweroff.target
+      when: ansible_os_family == 'Debian'
+
+    - name: Aplica o daemon-reload e o enable no servico apagaAluno - Linux
+      ansible.builtin.systemd:
+        enabled: yes
+        daemon_reload: yes
+        name: apagaAluno
+      when: ansible_os_family == 'Debian'
+
+###################### Fim do ApagaAluno
