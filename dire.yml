@@ -1,5 +1,5 @@
 ---
-- hosts: sj-lin-dire-38132.maquinas.sj.ifsc.edu.br,sj-lin-dire-894097.maquinas.sj.ifsc.edu.br
+- hosts: sj-lin-dire-38132.maquinas.sj.ifsc.edu.br,sje-lin-dire-894097.maquinas.sj.ifsc.edu.br
   #any_errors_fatal: true
   roles:
     - token_safenet
