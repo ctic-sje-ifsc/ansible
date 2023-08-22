@@ -79,4 +79,4 @@
     - openjdk-11-jre-headless
     - openjdk-11-jre
     - icedtea-netx
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
+  when: ansible_os_family == 'Debian'
