@@ -121,6 +121,51 @@
 
 ###################### Fim do ApagaAluno
 
+################### Inicio limpa interfaces openvswitch
+
+- name: Mantem o estado do arquivo /etc/init.d/apagaInterfacesOVS.sh
+  ansible.builtin.copy:
+    content: |
+      #!/bin/bash
+      for x in $(ovs-vsctl list-br); do ovs-vsctl del-br ${x}; done
+    dest: /etc/init.d/apagaInterfacesOVS.sh
+    owner: root
+    group: root
+    mode: 0755
+  when: ansible_os_family == 'Debian'
+  tags: ovs_interfaces
+
+- name: Mantem o estado do arquivo /lib/systemd/system/apagaInterfacesOVS.service - Linux
+  ansible.builtin.copy:
+    content: |
+      [Unit]
+      Description= Apagar as interfaces virtuais de rede
+      DefaultDependencies=no
+      Before=shutdown.target
+      
+      [Service]
+      Type=oneshot
+      ExecStart=/etc/init.d/apagaInterfacesOVS.sh
+      
+      [Install]
+      WantedBy=reboot.target halt.target poweroff.target
+    dest: /lib/systemd/system/apagaInterfacesOVS.service
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+  tags: ovs_interfaces
+
+- name: Aplica o daemon-reload e o enable no servico apagaInterfacesOVS - Linux
+  ansible.builtin.systemd:
+    enabled: yes
+    daemon_reload: yes
+    name: apagaInterfacesOVS
+  when: ansible_os_family == 'Debian'
+  tags: ovs_interfaces
+
+################### Fim limpa interfaces openvswitch
+
 ##################### Inicio adiciona arquitetura i386
 
 - name: Check if i386 is enabled
