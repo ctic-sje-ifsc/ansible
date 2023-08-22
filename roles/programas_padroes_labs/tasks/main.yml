@@ -224,19 +224,6 @@
     loop_var: roles_lin
   when: ansible_os_family == 'Debian'
 
-# # java
-- name: Instalar os pacotes  Java openjdk - Linux
-  ansible.builtin.apt:
-    state: latest
-    pkg:
-    - openjdk-11-doc
-    - openjdk-11-jdk
-    - openjdk-11-jre
-    - default-jre
-    - default-jdk
-  when: ansible_os_family == 'Debian'
-
-
 # - name: Instalar lista de pacotes pedida pelo Arliones - Linux
 #   ansible.builtin.apt: name={{ packages }} state=latest
 #   vars:

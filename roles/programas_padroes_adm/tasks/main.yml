@@ -81,7 +81,6 @@
     - pdfshuffler
     - gnome-terminal
     - icedtea-netx
-    - openjdk-11-jre
   when: (ansible_os_family == 'Debian' and (ansible_distribution_release == 'buster' or ansible_distribution_release == 'bullseye'))
 
 - name: Instalar pacotes padroes - Linux (Debian 10)
