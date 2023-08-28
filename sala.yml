@@ -38,10 +38,8 @@
 
 ##### Configuração do script para apagar o home do aluno a cade inicialização
     - name: Adiciona script para zerar o home do aluno
-      ansible.builtin.blockinfile:
-        path: /etc/init.d/apagaAluno.sh
-        create: true
-        block: |
+      ansible.builtin.copy:
+        content: |
           #!/bin/bash
 
           ##Este arquivo eh gerado automaticamente pelo Ansible, nao adianta editar.
@@ -50,13 +48,16 @@
           rm -rf /var/spool/cron/crontabs/aluno
           rm -rf /home/aluno
           tar -zxvf /home/backup/aluno.tgz -C / --exclude=home/aluno/.ssh/known_hosts
+        dest: /etc/init.d/apagaAluno.sh
+        owner: root
+        group: root
+        mode: '0755'
       when: ansible_os_family == 'Debian'
+      tags: apagaAluno
 
     - name: Adiciona o arquivo /lib/systemd/system/apagaAluno.service
-      ansible.builtin.blockinfile:
-        path: /lib/systemd/system/apagaAluno.service
-        create: true
-        block: |
+      ansible.builtin.copy:
+        content: |
           [Unit]
           Description=Usuário padrão
           DefaultDependencies=no
@@ -68,13 +69,19 @@
 
           [Install]
           WantedBy=reboot.target halt.target poweroff.target
+        dest: /lib/systemd/system/apagaAluno.service
+        owner: root
+        group: root
+        mode: '0644'
       when: ansible_os_family == 'Debian'
+      tags: apagaAluno
 
     - name: Aplica o daemon-reload e o enable no servico apagaAluno - Linux
       ansible.builtin.systemd:
-        enabled: yes
-        daemon_reload: yes
+        enabled: true
+        daemon_reload: true
         name: apagaAluno
       when: ansible_os_family == 'Debian'
+      tags: apagaAluno
 
 ###################### Fim do ApagaAluno
