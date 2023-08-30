@@ -9,7 +9,6 @@
       state: latest
       pkg:
       - idle3
-      - python-flask
       - python3-flask
     when: ansible_os_family == 'Debian'
 
