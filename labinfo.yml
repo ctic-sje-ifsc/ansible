@@ -19,6 +19,13 @@
       unsafe_writes: true
     when: ansible_os_family == 'Debian'
 
+  - name: Instala tiled via SNAP
+    community.general.snap:
+      name:
+        - tiled
+    when: ansible_os_family == 'Debian'
+    tags: tiled
+
 - hosts: info_lin:!sj-lin-info-895203.maquinas.sj.ifsc.edu.br
   #any_errors_fatal: true
   roles:
