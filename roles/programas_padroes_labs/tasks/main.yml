@@ -212,7 +212,8 @@
     - android-tools-adb
     - python3-venv
     - figlet
-  when: ansible_os_family == 'Debian'
+    - valgrind
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
 - name: Adiciona roles
   ansible.builtin.include_role:
