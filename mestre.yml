@@ -44,6 +44,7 @@
 - import_playbook: cotur.yml
 - import_playbook: corac.yml
 - import_playbook: ctic.yml
+- import_playbook: dae.yml
 - import_playbook: depe.yml
 - import_playbook: des1.yml
 - import_playbook: des2.yml

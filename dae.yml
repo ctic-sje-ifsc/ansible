@@ -1,0 +1,8 @@
+---
+- hosts: sje-lin-dae-926476.maquinas.sj.ifsc.edu.br # Notebook acer
+  roles:
+    - remove_ldap
+
+##### Configuração do teclado #####
+##### https://ubuntuforum-br.org/index.php?topic=118420.0 ##### Dica de 2015
+##### Inglês (Mali, US internacional) #####
