@@ -3,6 +3,7 @@
   roles:
     - sources_list
     - google_earth
+    - tracker
     # - kernel_backports
     - scidavis
     - role: grub
