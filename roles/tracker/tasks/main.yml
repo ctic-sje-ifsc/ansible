@@ -1,12 +1,12 @@
 - name: Baixa e extrai tracker
   unarchive:
-    src: https://discovirtual.ifsc.edu.br/index.php/s/XIFC6A0ZvxQ2MkF/download
+    src: http://ansiblefiles.sj.ifsc.edu.br/tracker-6.1.3.bz
     dest: /opt/
     creates: /opt/tracker
     remote_src: yes
     owner: root
     group: root
-    mode: 0755  
+    mode: 0755
   when: ansible_os_family == 'Debian'
 
 - name: Criando o arquivo tracker.desktop - Linux Debian
