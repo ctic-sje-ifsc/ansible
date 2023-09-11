@@ -31,7 +31,7 @@
   roles:
     - epoptes_client
 
-- hosts: sj-lin-info-895203.maquinas.sj.ifsc.edu.br #Maquina do professor
+- hosts: sje-lin-info-895203.maquinas.sj.ifsc.edu.br #Maquina do professor
   #any_errors_fatal: true
   roles:
     - epoptes_server
