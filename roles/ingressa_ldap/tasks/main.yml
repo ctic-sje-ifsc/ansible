@@ -108,7 +108,14 @@
   register: interface_win
   ignore_errors: True
   changed_when: False
-  when: ansible_os_family == 'Windows'
+  when: (ansible_os_family == 'Windows' and (ansible_os_name == 'Microsoft Windows 11 Pro') or ansible_os_name == 'Microsoft Windows 7 Professional')
+
+- name: Verifica interface de rede
+  win_shell: "(ipconfig | findstr Ethernet).substring(19,10)"
+  register: interface_win
+  ignore_errors: True
+  changed_when: False
+  when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 10 Pro')
 ### As vezes dá erro porque a interface não vem seguido de um numero, caso isso
 ### ocorra substituir a substring (19,10) para (19,8)
 
