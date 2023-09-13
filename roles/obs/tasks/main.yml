@@ -5,3 +5,9 @@
     - ffmpeg
     - obs-studio
   when: ansible_distribution == 'Debian'
+
+- name: Instalar OBS studio no Windows
+  chocolatey.chocolatey.win_chocolatey:
+    name: obs-studio
+    state: present
+  when: ansible_os_family == 'Windows'
