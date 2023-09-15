@@ -4,3 +4,20 @@
     - obs
     - openboard
     - shotcut
+
+- hosts: nead_win
+  tasks:
+    - name: Instalar pacotes solicitados - Windows
+      chocolatey.chocolatey.win_chocolatey:
+        name: '{{ pkgchoco }}'
+        state: present
+      loop:
+        - blender
+        - inkscape
+        - kdenlive
+        - gimp
+        - audacity
+        - audacity-ffmpeg
+      loop_control:
+        loop_var: pkgchoco
+      when: ansible_os_family == 'Windows'
