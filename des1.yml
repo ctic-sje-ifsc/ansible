@@ -23,7 +23,7 @@
   #       - xournal
   #       - wireshark
 
-- hosts: sj-lin-des1-703868.maquinas.sj.ifsc.edu.br #Eraldo
+- hosts: sje-lin-des1-703868.maquinas.sj.ifsc.edu.br #Eraldo
   roles:
     - dropbox_client
     - imunes
