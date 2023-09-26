@@ -1,5 +1,5 @@
 ---
-- hosts: sj-lin-csfio-744536.maquinas.sj.ifsc.edu.br,sj-csfio-744536.maquinas.sj.ifsc.edu.br
+- hosts: sje-lin-csfio-744536.maquinas.sj.ifsc.edu.br,sj-csfio-744536.maquinas.sj.ifsc.edu.br
   #any_errors_fatal: true
   roles:
     - ingressa_ldap
