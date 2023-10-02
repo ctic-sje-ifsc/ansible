@@ -1,18 +1,61 @@
 - name: Instala epoptes
-  apt: name=epoptes state=latest
+  ansible.builtin.apt:
+    pkg:
+      - epoptes
   when: ansible_distribution == 'Debian'
+  tags: epoptes
 
 - name: Remove epoptes-client
-  apt: name=epoptes-client state=absent purge=yes
+  ansible.builtin.apt:
+    pkg:
+      - epoptes-client
+    state: absent
+    purge: true
   when: ansible_distribution == 'Debian'
+  tags: epoptes
 
-- name: Criar o grupo epoptes no arquivo /etc/group - Linux
-  lineinfile:
-    regexp: '^epoptes'
-    path: /etc/group
-    line: 'epoptes:x:900:davi.iahn,humbertos,rmartins,marcelo.muniz,ctic,eraldo,moecke,niltons,saul,sclima,claudiacastro,volnei,rosane,rubem,leda,odilson,graciane,elen,pedroarmando,tisemp,mdoniak,msobral,mello,noronha,casagrande,silvianac,andrealves,etorresini,diegomedeiros,deise.arndt,fabiosouza,roberto.matos,claudia.bastos,arliones.hoeller,roberto.nobrega,ramon.mayor,clayrton.henrique,cleber.amaral,joao.carlos,fernanda.cherem,tallys.barbosa'
-  when: ansible_os_family == 'Debian'
-
+- name: Adiciona usuários no grupo epoptes
+  ansible.builtin.user:
+    name: "{{ item }}"
+    groups: epoptes
+    append: true
+  loop:
+    - davi.iahn
+    - humbertos
+    - rmartins
+    - marcelo.muniz
+    - ctic
+    - eraldo
+    - moecke
+    - niltons
+    - saul
+    - sclima
+    - volnei
+    - odilson
+    - elen
+    - tisemp
+    - mdoniak
+    - msobral
+    - mello
+    - noronha
+    - casagrande
+    - silvianac
+    - andrealves
+    - etorresini
+    - diegomedeiros
+    - deise.arndt
+    - fabiosouza
+    - roberto.matos
+    - arliones.hoeller
+    - roberto.nobrega
+    - ramon.mayor
+    - clayrton.henrique
+    - cleber.amaral
+    - joao.carlos
+    - fernanda.cherem
+    - tallys.barbosa
+  when: ansible_distribution == 'Debian'
+  tags: epoptes
 
 # # #### Para o proprio usuario corrigir o problema do epoptes
 # - name: Adiciona script para corrigir epoptes - Linux SIDI
