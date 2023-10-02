@@ -1,14 +1,6 @@
+# Linux
 
----
-
-#Linux
-- name: Copiando .deb para a máquina local - Linux Debian
-  copy:
-    src: google-earth-pro.deb
-    dest: /opt/google.deb
-  when: ansible_os_family == 'Debian'
-
-- name: Baixa Google Earth - Linux
-  apt:
-    deb: /opt/google.deb
+- name: Instala Google Earth
+  ansible.builtin.apt:
+    deb: https://dl.google.com/dl/linux/direct/google-earth-pro-stable_7.3.6_amd64.deb
   when: ansible_os_family == 'Debian'
