@@ -1,5 +1,5 @@
-- hosts: sj-lin-deb10remoto-12345.maquinas.sj.ifsc.edu.br
-### Pacotes
+- name: Computadores para uso remoto - Pandemia
+  hosts: sj-lin-deb10remoto-12345.maquinas.sj.ifsc.edu.br
   roles:
     - sources_list
     - openaudit
@@ -8,67 +8,66 @@
     - anydesk
     - token_safenet
     - cadeia_certificados
-  
+
   tasks:
     - name: Install a .deb Google Chrome - Linux Debian
-      apt:
+      ansible.builtin.apt:
         deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
       when: ansible_os_family == 'Debian'
-    
+
     - name: Instalar pacotes padroes - Linux (Debian 10)
-      apt:
-        state: latest
+      ansible.builtin.apt:
         pkg:
-        - apt-transport-https
-        - aptitude
-        - vim
-        - bash-completion
-        - firmware-linux-free
-        - firmware-linux-nonfree
-        - vlc
-        - unrar-free
-        - dkms
-        - ntp
-        - ssh
-        - kolourpaint4
-        - kde-l10n-ptbr        
-        - google-chrome-stable        
-        - libreoffice-pdfimport
-        - gscan2pdf
-        - okular
-        - network-manager-gnome
-        - network-manager
-        - network-manager-pptp
-        - network-manager-pptp-gnome
-        - system-config-printer
-        - pdfshuffler
-        - gnome-terminal
-        - default-jre
-        - icedtea-netx
-        - printer-driver-cups-pdf
+          - apt-transport-https
+          - aptitude
+          - vim
+          - bash-completion
+          - firmware-linux-free
+          - firmware-linux-nonfree
+          - vlc
+          - unrar-free
+          - dkms
+          - ntp
+          - ssh
+          - kolourpaint4
+          - kde-l10n-ptbr
+          - google-chrome-stable
+          - libreoffice-pdfimport
+          - gscan2pdf
+          - okular
+          - network-manager-gnome
+          - network-manager
+          - network-manager-pptp
+          - network-manager-pptp-gnome
+          - system-config-printer
+          - pdfshuffler
+          - gnome-terminal
+          - default-jre
+          - icedtea-netx
+          - printer-driver-cups-pdf
       when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
 
     - name: Remover programas  - Linux
-      apt:
+      ansible.builtin.apt:
         state: absent
         pkg:
-        - transmission
-        - transmission-common
-        - gnome-games
+          - transmission
+          - transmission-common
+          - gnome-games
       when: ansible_os_family == 'Debian'
 
 ### Configurações
 
     - name: Blacklist the pcspkr driver module
-      kernel_blacklist:
+      community.general.kernel_blacklist:
         name: pcspkr
         state: present
       when: ansible_os_family == 'Debian'
 
     - name: Ativa lista de usuários no lightdm
-      replace:
+      ansible.builtin.replace:
         path: /etc/lightdm/lightdm.conf
-        backup: yes
+        backup: true
         regexp: '#greeter-hide-users=false'
         replace: 'greeter-hide-users=false'
       when: ansible_os_family == 'Debian'
@@ -76,22 +75,21 @@
 
 ### Impressao hodprint
     - name: Instala gtklp
-      apt: 
+      ansible.builtin.apt:
         name: gtklp
-        state: latest
       when: ansible_os_family == 'Debian'
 
     - name: Copia hodprint - Linux
-      copy:
+      ansible.builtin.copy:
         src: roles/config_padrao_adm/files/hodprint
         dest: /usr/bin/hodprint
         owner: root
         group: root
-        mode: 0755
+        mode: '0755'
       when: ansible_os_family == 'Debian'
 
     - name: Cria diretório /home/hodfiles
-      file:
+      ansible.builtin.file:
         path: /home/hodfiles
         state: directory
         owner: root
@@ -100,12 +98,12 @@
       when: ansible_os_family == 'Debian'
 
     - name: Copia arquivos de configuração do HOD
-      copy:
+      ansible.builtin.copy:
         src: roles/config_padrao_adm/files/{{ hodfiles }}
         dest: /home/hodfiles/{{ hodfiles }}
         owner: root
         group: root
-        mode: 0644
+        mode: '0644'
       loop:
         - cfg0.df
         - cfg1.df
@@ -116,7 +114,7 @@
       when: ansible_os_family == 'Debian'
 
     - name: Cria o Leiame.txt
-      copy:
+      ansible.builtin.copy:
         content: |
           # Nesta pasta tem os arquivos de configuraçao do HOD com a Console configurado
           e com a impressora de 132 colunas configurada para usar o hodprint
@@ -125,11 +123,11 @@
         dest: /home/hodfiles/Leiame.txt
         owner: root
         group: root
-        mode: 0644
+        mode: '0644'
       when: ansible_os_family == 'Debian'
 
     - name: Cria usuário ifsc
-      user:
+      ansible.builtin.user:
         name: ifsc
         skeleton: /etc/skel
         shell: /bin/bash
@@ -137,7 +135,7 @@
       when: ansible_os_family == 'Debian'
 
     - name: Cria usuário para acesso remoto
-      user:
+      ansible.builtin.user:
         name: remoto
         skeleton: /etc/skel
         shell: /bin/bash

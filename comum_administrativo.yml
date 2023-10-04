@@ -1,6 +1,5 @@
----
-- hosts: administrativos_lin
-  #any_errors_fatal: true
+- name: Roles computadores administrativos_lin
+  hosts: administrativos_lin
   roles:
     - sources_list
     - openaudit
@@ -9,38 +8,35 @@
     - acesso_remoto
     - fonte_garamound
     - papel_de_parede_e_icones_adm
-    # - irpf # Novo diretor nao autorizou a instalacao do programa
     - unattendedUpgrades_adm
     - glpi_agent
 
-
 # Chamado do Jorge casagrande pedindo para desativar o desligamento na máquina dele IFSC#2019090410000968
 # Chamado do Diego Medeiros pedindo para desativar o desligamento na máquina dele IFSC#2018112810000143
-- hosts: administrativos_lin:!sj-lin-des2-744402.maquinas.sj.ifsc.edu.br:!sj-lin-des2-744927.maquinas.sj.ifsc.edu.br:!sj-lin-des2-744928.maquinas.sj.ifsc.edu.br:!sj-lin-dire-37243.maquinas.sj.ifsc.edu.br
-  #any_errors_fatal: true
+- name: Role que desliga os computadores de noite.
+  hosts: administrativos_lin:!sj-lin-des2-744402.maquinas.sj.ifsc.edu.br:!sj-lin-des2-744927.maquinas.sj.ifsc.edu.br:!sj-lin-des2-744928.maquinas.sj.ifsc.edu.br:!sj-lin-dire-37243.maquinas.sj.ifsc.edu.br
   roles:
     - auto_desligamento
 
 # Ingressa LDAP. Exclui da lista as máquinas com impressora local
-- hosts: administrativos_lin:!sj-lin-des2-744927.maquinas.sj.ifsc.edu.br:!sj-lin-des2-744928.maquinas.sj.ifsc.edu.br:!patrim:!biblio:!sj-lin-comaf-37250.maquinas.sj.ifsc.edu.br:!sj-lin-almox-756044.maquinas.sj.ifsc.edu.br:!sj-lin-comaf-744525.maquinas.sj.ifsc.edu.br:!sj-lin-ctic-744521.maquinas.sj.ifsc.edu.br:!sj-lin-contra-710813.maquinas.sj.ifsc.edu.br:!sala:!salab
-  #any_errors_fatal: true
+- name: Coloca os computadores para logar usando o LDAP
+  hosts: administrativos_lin:!sj-lin-des2-744927.maquinas.sj.ifsc.edu.br:!sj-lin-des2-744928.maquinas.sj.ifsc.edu.br:!patrim:!biblio:!sj-lin-comaf-37250.maquinas.sj.ifsc.edu.br:!sj-lin-almox-756044.maquinas.sj.ifsc.edu.br:!sj-lin-comaf-744525.maquinas.sj.ifsc.edu.br:!sj-lin-ctic-744521.maquinas.sj.ifsc.edu.br:!sj-lin-contra-710813.maquinas.sj.ifsc.edu.br:!sala:!salab:!sj-lin-patrim-cgwhd33.maquinas.sj.ifsc.edu.br
   roles:
     - ingressa_ldap
 
-#Colocar os grupos que possuem mais de uma distribuicao instalada e criar o playbook para o grupo
-- hosts: administrativos_lin:!labfisica:!maud:!aud:!vconf:!ledis:!mcul:!des2:!sj-lin-depe-BRG311F6PN.maquinas.sj.ifsc.edu.br:!mrac_lin:!sj-lin-manut-866467.maquinas.sj.ifsc.edu.br:!sj-lin-mtele-703868.maquinas.sj.ifsc.edu.br
-  #any_errors_fatal: true
+- name: Colocar os grupos que possuem mais de uma distribuicao instalada e criar o playbook para o grupo
+  hosts: administrativos_lin:!labfisica:!maud:!aud:!vconf:!ledis:!mcul:!des2:!sj-lin-depe-BRG311F6PN.maquinas.sj.ifsc.edu.br:!mrac_lin:!sj-lin-manut-866467.maquinas.sj.ifsc.edu.br:!sj-lin-mtele-703868.maquinas.sj.ifsc.edu.br
   roles:
     - role: grub
       tipo: grub_soh_lin
 
-- hosts: administrativos_win:!sj-lin-almoxtele-710793.maquinas.sj.ifsc.edu.br
-  #any_errors_fatal: true
+- name: Configura computadores no domínio
+  hosts: administrativos_win:!sj-lin-almoxtele-710793.maquinas.sj.ifsc.edu.br
   roles:
     - ingressa_ldap
 
-- hosts: administrativos_win
-  #any_errors_fatal: true
+- name: Computador administrativos Windows - roles
+  hosts: administrativos_win
   roles:
     - programas_padroes_adm
     - config_padrao_adm
