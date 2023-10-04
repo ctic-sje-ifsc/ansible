@@ -16,16 +16,43 @@
           - glabels
 
 - name: Notebook emprestado
-  hosts: sj-lin-patri-cgwhd33.maquinas.sj.ifsc.edu.br
-  tasks:
-    - name: Pacote necessario para ativar wifi
-      ansible.builtin.apt:
-        pkg:
-          - firmware-iwlwifi
+  hosts: sj-lin-patrim-cgwhd33.maquinas.sj.ifsc.edu.br
   roles:
-    - configura_wifi
     - role: grub
       tipo: grub_soh_lin
     - role: instala_impressora_cups
       install: 0
       argox: 1
+    - remove_ldap
+  tasks:
+    - name: Pacote necessario para ativar wifi
+      ansible.builtin.apt:
+        pkg:
+          - firmware-iwlwifi
+
+    - name: Blacklist the pcspkr driver module
+      community.general.kernel_blacklist:
+        name: pcspkr
+        state: present
+      when: ansible_os_family == 'Debian'
+
+    - name: Ativa lista de usuários no lightdm
+      ansible.builtin.replace:
+        path: /etc/lightdm/lightdm.conf
+        backup: true
+        regexp: '#greeter-hide-users=false'
+        replace: 'greeter-hide-users=false'
+      when: ansible_os_family == 'Debian'
+      tags: lightdm
+
+    - name: Cria usuário local para Ana Martens
+      ansible.builtin.user:
+        name: ana.martens
+        comment: Ana Elizabeth Martens
+      tags: cria_usuario
+
+    - name: Define a senha do usuário ana.martens para "aluno"
+      ansible.builtin.user:
+        name: ana.martens
+        password: $6$je40HdiVkofL6RRQ$84a8GaFd4l1o.Hr1x8QU7f/jr58.zE2LxyvXwomVDo4Vc0vG4nGyW.YWwfGMO5KYeRXE.YLyhu9joPR.CJcEJ/
+      tags: cria_usuario
