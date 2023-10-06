@@ -102,12 +102,14 @@
   win_chocolatey:
     name: "{{ instala_r }}"
     state: latest
+    ignore_checksums: true
   loop:
     - r.project
     - r.studio
   loop_control:
     loop_var: instala_r
   when: ansible_os_family == 'Windows'
+  tags: rstudio
 
 - name: Atalho para o r-project versao {{ versao_R.stdout | trim}} - Windows
   win_shortcut:
