@@ -1,13 +1,3 @@
----
-- hosts: all
-  tasks:
-    - name: Deletar linha repositório debian jessie
-      lineinfile:
-        path: /etc/apt/sources.list.d/ftp_debian_org_debian.list
-        state: absent
-        regexp: '^deb http://ftp.debian.org/debian jessie-backports '
-      when: ansible_os_family == 'Debian'
-
 - hosts: all:!wol
   # #any_errors_fatal: true
   tasks:
