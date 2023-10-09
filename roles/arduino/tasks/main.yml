@@ -25,11 +25,9 @@
   user:
     name: "{{ grupodialout }}"
     groups: dialout
-    append: yes
+    append: true
   loop:
-    - mayara.sousa
     - elen
-    - claudiacastro
   loop_control:
     loop_var: grupodialout
   when: ansible_os_family == 'Debian'
