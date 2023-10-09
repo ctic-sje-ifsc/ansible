@@ -16,10 +16,9 @@
   ansible.builtin.user:
     name: "{{ add_dialout }}"
     groups: [dialout]
-    append: yes
+    append: true
   loop:
     - aluno
-    - mayara.sousa
     - arliones.hoeller
     - roberto.matos
     - elen
