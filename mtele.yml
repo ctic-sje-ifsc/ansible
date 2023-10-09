@@ -12,13 +12,6 @@
     - zoiper
     - code
     - virtualbox
-  tasks:
-    - name: Adiciona usuaria mayara.sousa no grupo sudo
-      user:
-        name: mayara.sousa
-        groups: sudo
-        append: yes
-      when: ansible_os_family == 'Debian'
 
 - hosts: sj-lin-mtele-703868.maquinas.sj.ifsc.edu.br
   roles:
