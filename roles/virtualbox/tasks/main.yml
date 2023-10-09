@@ -1,120 +1,28 @@
-#Linux
-
-# Debian 9
-- name: Adicionar repositório stretch-backports para Virtualbox - Linux Debian 9
-  apt_repository:
-    repo: deb http://ftp.debian.org/debian stretch-backports main contrib non-free
-    state: present
-    update_cache: yes
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
-
-- name: Instalar os pacotes para o Virtualbox do stretch-backports - Linux Debian 9
-  apt:
-    state: latest
-    default_release: stretch-backports
-    pkg:
-    - virtualbox
-    - virtualbox-dkms
-    - virtualbox-ext-pack
-    - virtualbox-guest-utils
-    - virtualbox-guest-x11
-  when: ( ansible_distribution == 'Debian' and ansible_distribution_release == 'stretch' and ansible_hostname is not search("^sj-lin-mtele-577558") ) #PC da Mayara, tem virtualbox instalado na mão, mais novo.
-
-- name: Cria usuário aluno com a senha aluno
-  user:
-    name: aluno
-    groups: [vboxusers]
-    password: $6$B5dpvoG43l67q0sx$r0LDKV2TgNItf/kYx/76l89ZN4LhP/ksYIxp.SSVGttHoSZXLSoB6Hkg2A6y7M7aFJ8zEuauf5kS/yA/P61kN1
-    append: yes
-  when: ansible_os_family == 'Debian'
-
-# Debian 10
-- name: Adiciona uma chave para o virtualbox - Debian 10
-  apt_key:
-    url: https://www.virtualbox.org/download/oracle_vbox.asc
-    state: present
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
-
-- name: Adiciona outra chave para o virtualbox - Debian 10
-  apt_key:
-    url: https://www.virtualbox.org/download/oracle_vbox_2016.asc
-    state: present
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
-
-- name: Adicionar repositório para Virtualbox - Linux Debian 10
-  apt_repository:
-    repo: deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian buster contrib
-    state: present
-    filename: virtualbox.list
-    update_cache: yes
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
-
-- name: Instalar os pacotes para o Virtualbox do buster - Linux Debian 10
-  apt:
-    state: latest
-    pkg:
-    - virtualbox-6.1
-  when: ( ansible_distribution == 'Debian' and ansible_distribution_release == 'buster')
-
-- name: Cria usuário aluno com a senha aluno
-  user:
-    name: aluno
-    groups: [vboxusers]
-    password: $6$B5dpvoG43l67q0sx$r0LDKV2TgNItf/kYx/76l89ZN4LhP/ksYIxp.SSVGttHoSZXLSoB6Hkg2A6y7M7aFJ8zEuauf5kS/yA/P61kN1
-    append: yes
-  when: ansible_os_family == 'Debian'
-
 # Debian 11
 - name: Adiciona uma chave para o virtualbox - Debian 11
-  apt_key:
+  ansible.builtin.apt_key:
     url: https://www.virtualbox.org/download/oracle_vbox_2016.asc
     state: present
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
 - name: Adicionar repositório para Virtualbox - Linux Debian 11
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian bullseye contrib
     state: present
     filename: virtualbox.list
-    update_cache: yes
+    update_cache: true
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
 - name: Instalar os pacotes para o Virtualbox do buster - Linux Debian 11
-  apt:
+  ansible.builtin.apt:
     pkg:
-    - virtualbox-6.1
+      - virtualbox-6.1
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
 - name: Cria usuário aluno com a senha aluno
-  user:
+  ansible.builtin.user:
     name: aluno
     groups: [vboxusers]
     password: $6$B5dpvoG43l67q0sx$r0LDKV2TgNItf/kYx/76l89ZN4LhP/ksYIxp.SSVGttHoSZXLSoB6Hkg2A6y7M7aFJ8zEuauf5kS/yA/P61kN1
-    append: yes
+    append: true
   when: ansible_os_family == 'Debian'
-
-# # Ubuntu
-# - name: Instalar os pacotes para o Virtualbox do ubuntu - Linux Ubuntu
-#   apt:
-#     state: latest
-#     pkg:
-#     - virtualbox
-#     - virtualbox-dkms
-#     - virtualbox-ext-pack
-#     - virtualbox-guest-utils
-#     - virtualbox-guest-x11
-#   when: ansible_distribution == 'Ubuntu'
-
-#Windows
-# - name: Instalar o Virtualbox - Windows
-#   win_chocolatey:
-#     name: '{{ pkg_vb }}'
-# #     version: 'latest'
-#     skip_scripts: yes
-#     force: yes
-#   loop:
-#   - vboxguestadditions.install
-#   - virtualbox
-#   loop_control:
-#     loop_var: pkg_vb
-#   when: ansible_os_family == 'Windows'
