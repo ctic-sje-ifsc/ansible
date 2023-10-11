@@ -1,0 +1,49 @@
+- name: Remove scrcpy from snap
+  community.general.snap:
+    name: scrcpy
+    state: absent
+
+- name: Install packages
+  ansible.builtin.apt:
+    pkg:
+      - ffmpeg
+      - libsdl2-2.0-0
+      - adb
+      - wget
+      - gcc
+      - git
+      - pkg-config
+      - meson
+      - ninja-build
+      - libsdl2-dev
+      - libavcodec-dev
+      - libavdevice-dev
+      - libavformat-dev
+      - libavutil-dev
+      - libswresample-dev
+      - libusb-1.0-0
+      - libusb-1.0-0-dev
+  when: ansible_os_family == 'Debian'
+
+- name: Create directory
+  ansible.builtin.file:
+    path: /usr/src/scrcpy
+    mode: "0755"
+    owner: root
+    group: root
+    state: directory
+  when: ansible_os_family == 'Debian'
+
+- name: Clone/Checkout scrcpy via git
+  ansible.builtin.git:
+    repo: https://github.com/Genymobile/scrcpy
+    dest: /usr/src/scrcpy
+    force: true
+    version: master
+  when: ansible_os_family == 'Debian'
+
+- name: Install scrcpy from source
+  ansible.builtin.shell:
+    chdir: /usr/src/scrcpy/
+    cmd: /bin/bash install_release.sh
+  when: ansible_os_family == 'Debian'
