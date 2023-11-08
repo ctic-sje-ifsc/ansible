@@ -1,5 +1,6 @@
 # Linux
-- hosts: sidi_lin
+- name: Computadores do laboratório
+  hosts: sidi_lin
   roles:
     - pinta
     - kernel6
@@ -30,7 +31,8 @@
         state: present
       when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
-- hosts: sidi_lin:!sj-lin-sidi-25.maquinas.sj.ifsc.edu.br
+- name: Computadores dos alunos
+  hosts: sidi_lin:!sj-lin-sidi-25.maquinas.sj.ifsc.edu.br
   roles:
     - epoptes_client
 
@@ -40,6 +42,7 @@
     - epoptes_server
     - ingressa_ldap
     - configura_monitores
+    - scrcpy
   tasks:
     - name: Pacotes do Lab SiDi
       ansible.builtin.apt:

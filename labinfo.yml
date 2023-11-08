@@ -37,6 +37,7 @@
     - epoptes_server
     - ingressa_ldap
     - configura_monitores
+    - scrcpy
 
 # Windows
 

@@ -2,6 +2,7 @@
   hosts: sje-lin-csfio-744536.maquinas.sj.ifsc.edu.br,sj-csfio-744536.maquinas.sj.ifsc.edu.br
   roles:
     - ingressa_ldap
+    - scrcpy
 
 - name: Notebooks dos alunos
   hosts: csfio_lin,!sje-lin-csfio-744536.maquinas.sj.ifsc.edu.br,!sj-csfio-744536.maquinas.sj.ifsc.edu.br

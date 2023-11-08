@@ -1,36 +1,33 @@
-#Linux
-
-- hosts: cad2_lin
-  #any_errors_fatal: true
+- name: Computadores do laboratório
+  hosts: cad2_lin
   roles:
     - kernel_backports
     - role: grub
       tipo: grub_win
   tasks:
-  - name: Monta /media/aluno/trabalhos fstab - Linux
-    mount:
-      path: /media/aluno/trabalhos
-      src: "UUID=872E-9221"
-      fstype: vfat
-      opts: uid=aluno,gid=aluno
-      state: present
-    when: ansible_os_family == 'Debian'
+    - name: Monta /media/aluno/trabalhos fstab - Linux
+      ansible.posix.mount:
+        path: /media/aluno/trabalhos
+        src: "UUID=872E-9221"
+        fstype: vfat
+        opts: uid=aluno,gid=aluno
+        state: present
+      when: ansible_os_family == 'Debian'
 
-- hosts: cad2_lin:!sj-lin-cad2-905476.maquinas.sj.ifsc.edu.br
-  #any_errors_fatal: true
+- name: Computadores dos alunos
+  hosts: cad2_lin:!sj-lin-cad2-905476.maquinas.sj.ifsc.edu.br
   roles:
     - epoptes_client
 
-- hosts: sj-lin-cad2-905476.maquinas.sj.ifsc.edu.br #Maquina do professor
-  #any_errors_fatal: true
+- name: Computador professor Linux
+  hosts: sj-lin-cad2-905476.maquinas.sj.ifsc.edu.br
   roles:
     - epoptes_server
     - ingressa_ldap
-    # - owncloud_client
+    - scrcpy
 
 # Windows
-
-- hosts: sj-cad2-905476.maquinas.sj.ifsc.edu.br #Maquina do professor
-  #any_errors_fatal: true
+- name: Computador professor Windows
+  hosts: sj-cad2-905476.maquinas.sj.ifsc.edu.br
   roles:
     - ingressa_ldap
