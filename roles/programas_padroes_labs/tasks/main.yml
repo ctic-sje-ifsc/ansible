@@ -138,7 +138,7 @@
     - fping
     - libpcre++-dev
     - python3-tk
-    - ntpdate
+    - chrony
     - avahi-daemon
     - graphviz
     - avahi-utils

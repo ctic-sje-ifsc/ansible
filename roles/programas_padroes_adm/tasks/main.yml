@@ -23,7 +23,7 @@
     - vlc
     - unrar
     - dkms
-    - ntp
+    - chrony
     - libcurl3
     - ssh
     - pdfsam
@@ -63,7 +63,7 @@
     - vlc
     - unrar
     - dkms
-    - ntp
+    - chrony
     - libcurl4
     - ssh
     - dia
