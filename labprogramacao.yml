@@ -1,28 +1,26 @@
----
-# Linux
-- hosts: programacao_lin
-  #any_errors_fatal: true
+- name: Computadores do laboratório
+  hosts: programacao_lin
   roles:
     - role: grub
       tipo: grub_lin
 
-- hosts: programacao_lin:!sj-lin-prog-744523.maquinas.sj.ifsc.edu.br
-  #any_errors_fatal: true
+- name: Computadores dos alunos
+  hosts: programacao_lin:!sj-lin-prog-744523.maquinas.sj.ifsc.edu.br
   roles:
     - epoptes_client
 
-- hosts: sj-lin-prog-744523.maquinas.sj.ifsc.edu.br #Maquina do professor
-  #any_errors_fatal: true
+- name: Computador do professor Linux
+  hosts: sj-lin-prog-744523.maquinas.sj.ifsc.edu.br
   roles:
     - epoptes_server
     - ingressa_ldap
     - configura_monitores
-    # - owncloud_client
+    - scrcpy
 
 # Windows
-- hosts: sj-prog-744523.maquinas.sj.ifsc.edu.br:imgwin10-lab.maquinas.sj.ifsc.edu.br #Maquina do professor
-  #any_errors_fatal: true
+- name: Computador do professor Windows
+  hosts: sj-prog-744523.maquinas.sj.ifsc.edu.br:imgwin10-lab.maquinas.sj.ifsc.edu.br
   roles:
-    # - ingressa_ldap
+    - ingressa_ldap
     - nec
     - linkplanner

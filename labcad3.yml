@@ -1,7 +1,5 @@
-#Linux
-
-- hosts: cad3_lin
-  #any_errors_fatal: true
+- name: Computadores do laboratório
+  hosts: cad3_lin
   roles:
     - role: grub
       tipo: grub_win
@@ -15,22 +13,21 @@
   #     state: present
   #   when: ansible_os_family == 'Debian'
 
-- hosts: cad3_lin:!sj-lin-cad3-744517.maquinas.sj.ifsc.edu.br
-  #any_errors_fatal: true
+- name: Computador dos alunos
+  hosts: cad3_lin:!sj-lin-cad3-744517.maquinas.sj.ifsc.edu.br
   roles:
     - epoptes_client
 
-- hosts: sj-lin-cad3-744517.maquinas.sj.ifsc.edu.br #Maquina do professor
-  #any_errors_fatal: true
+- name: Computador professor Linux
+  hosts: sj-lin-cad3-744517.maquinas.sj.ifsc.edu.br
   roles:
     - epoptes_server
     - ingressa_ldap
-    - owncloud_client
-    - curso_lic_leone #Curso do Leone eh para ser temporario
+    - curso_lic_leone
+    - scrcpy
 
 # Windows
-
-- hosts: sj-cad3-744517.maquinas.sj.ifsc.edu.br #Maquina do professor
-  #any_errors_fatal: true
+- name: Computador professor Windows
+  hosts: sj-cad3-744517.maquinas.sj.ifsc.edu.br
   roles:
     - ingressa_ldap
