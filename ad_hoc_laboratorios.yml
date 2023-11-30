@@ -248,8 +248,13 @@
 #         name: cups
 #         state: started
 #         enabled: yes
-
-
+#
+######################### Instala Gnome Online Accounts no debian ##############
+#
+#     - name: Install gnome-online-accounts
+#       apt:
+#        name: gnome-online-accounts
+#        state: present
 
 ################### Limpar home do aluno no windows ###################
 # - name: Remove conta do aluno
