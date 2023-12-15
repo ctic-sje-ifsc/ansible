@@ -2,6 +2,7 @@
   community.general.snap:
     name: scrcpy
     state: absent
+  when: ansible_os_family == 'Debian'
 
 - name: Install packages
   ansible.builtin.apt:
