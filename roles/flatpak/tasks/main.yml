@@ -1,0 +1,97 @@
+- name: Instala flatpak
+  ansible.builtin.apt:
+    pkg:
+      - flatpak
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bookworm')
+
+- name: Automatic update flatpak --user
+  ansible.builtin.copy:
+    content: |
+      [Unit]
+      Description=Update user Flatpaks
+
+      [Service]
+      Type=oneshot
+      ExecStart=/usr/bin/flatpak update --assumeyes --noninteractive
+
+      [Install]
+      WantedBy=default.target
+    owner: root
+    group: root
+    mode: '0644'
+    dest: /etc/systemd/user/update-user-flatpaks.service
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bookworm')
+
+
+- name: Automatic update flatpak --system
+  ansible.builtin.copy:
+    content: |
+      [Unit]
+      Description=Update system Flatpaks
+      After=network-online.target
+      Wants=network-online.target
+
+      [Service]
+      Type=oneshot
+      ExecStart=/usr/bin/flatpak update --assumeyes --noninteractive --system
+
+      [Install]
+      WantedBy=multi-user.target
+    owner: root
+    group: root
+    mode: '0644'
+    dest: /etc/systemd/system/update-system-flatpaks.service
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bookworm')
+
+- name: Timer for automatic update flatpak --user
+  ansible.builtin.copy:
+    content: |
+      [Unit]
+      Description=Update user Flatpaks daily
+
+      [Timer]
+      OnCalendar=daily
+      Persistent=true
+
+      [Install]
+      WantedBy=timers.target
+    owner: root
+    group: root
+    mode: '0644'
+    dest: /etc/systemd/user/update-user-flatpaks.timer
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bookworm')
+
+- name: Timer for automatic update flatpak --system
+  ansible.builtin.copy:
+    content: |
+      [Unit]
+      Description=Update system Flatpaks daily
+
+      [Timer]
+      OnCalendar=daily
+      Persistent=true
+
+      [Install]
+      WantedBy=timers.target
+    owner: root
+    group: root
+    mode: '0644'
+    dest: /etc/systemd/system/update-system-flatpaks.timer
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bookworm')
+
+- name: Enable systemd update-user-flatpaks.timer
+  ansible.builtin.systemd_service:
+    name: update-user-flatpaks.timer
+    state: started
+    enabled: true
+    scope: user
+    daemon_reload: true
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bookworm')
+
+- name: Enable systemd update-system-flatpaks.timer
+  ansible.builtin.systemd_service:
+    name: update-system-flatpaks.timer
+    state: started
+    enabled: true
+    scope: system
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bookworm')
