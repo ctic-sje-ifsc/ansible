@@ -1,7 +1,7 @@
 - name: Update all packages to their latest version
   ansible.builtin.apt:
     upgrade: full
-  when: ansible_os_family == 'Debian'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
 - name: Upgrade the /etc/apt/sources.list
   ansible.builtin.copy:
@@ -23,21 +23,21 @@
     group: root
     mode: '0644'
     dest: /etc/apt/sources.list
-  when: ansible_os_family == 'Debian'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
 - name: Upgrade the OS (apt-get dist-upgrade) and pass options to dpkg on run
   ansible.builtin.apt:
     upgrade: dist
     update_cache: true
     dpkg_options: 'force-confold,force-confdef'
-  when: ansible_os_family == 'Debian'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
 - name: Remove dependencies that are no longer required and purge their configuration files
   ansible.builtin.apt:
     autoremove: true
     purge: true
-  when: ansible_os_family == 'Debian'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
 - name: Unconditionally reboot the machine with all defaults
   ansible.builtin.reboot:
-  when: ansible_os_family == 'Debian'
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
