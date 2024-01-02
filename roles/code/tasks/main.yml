@@ -28,6 +28,31 @@
     state: absent
   when: ansible_os_family == 'Debian'
 
+- name: Adicionar extensoes vscode - Linux
+  include_role:
+    name: gantsign.visual-studio-code-extensions
+  vars:
+    users:
+      - username: aluno
+        visual_studio_code_extensions:
+          - bierner.markdown-preview-github-styles
+          - James-Yu.latex-workshop
+          - jeff-hykin.better-cpp-syntax
+          - ms-azuretools.vscode-docker
+          - ms-python.python
+          - ms-python.vscode-pylance
+          - ms-vscode-remote.remote-containers
+          - ms-vscode.cpptools-extension-pack
+          - richardwillis.vscode-gradle-extension-pack
+          - streetsidesoftware.code-spell-checker
+          - streetsidesoftware.code-spell-checker-portuguese-brazilian
+          - VisualStudioExptTeam.vscodeintellicode
+          - vscjava.vscode-java-pack
+          - vscjava.vscode-lombok
+          - vscode-icons-team.vscode-icons
+          - yzhang.markdown-all-in-one
+  when: ansible_os_family == 'Debian'
+
 #Windows
 - name: Instalar o Visual Studio Code - Windows
   chocolatey.chocolatey.win_chocolatey:
