@@ -1,7 +1,6 @@
 - name: Computadores do laboratório
   hosts: cad1_lin
   roles:
-    - kernel6
     - role: grub
       tipo: grub_win
 

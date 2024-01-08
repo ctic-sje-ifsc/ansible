@@ -1,7 +1,6 @@
 - name: Computadores dos labratórios
   hosts: redes_lin
   roles:
-    - kernel_backports
     - role: grub
       tipo: grub_lin
 
