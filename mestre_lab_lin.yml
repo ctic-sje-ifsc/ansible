@@ -19,7 +19,6 @@
           - command-not-found
       when: ansible_os_family == 'Debian'
 
-
     - name: Define conteúdo do /etc/bash.bashrc
       ansible.builtin.copy:
         content: |
@@ -78,3 +77,12 @@
         backup: true
       when: ansible_os_family == 'Debian'
       tags: bashrc
+
+ #Import de playbooks
+- import_playbook: labcad1.yml
+- import_playbook: labcad2.yml
+- import_playbook: labcad3.yml
+- import_playbook: labprogramacao.yml
+- import_playbook: labredes.yml
+- import_playbook: labinfo.yml
+- import_playbook: labsidi.yml
