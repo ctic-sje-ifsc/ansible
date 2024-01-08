@@ -1,18 +1,17 @@
 - name: Computadores do laboratório
   hosts: cad2_lin
   roles:
-    - kernel_backports
     - role: grub
       tipo: grub_win
-  tasks:
-    - name: Monta /media/aluno/trabalhos fstab - Linux
-      ansible.posix.mount:
-        path: /media/aluno/trabalhos
-        src: "UUID=872E-9221"
-        fstype: vfat
-        opts: uid=aluno,gid=aluno
-        state: present
-      when: ansible_os_family == 'Debian'
+  # tasks:
+  #   - name: Monta /media/aluno/trabalhos fstab - Linux
+  #     ansible.posix.mount:
+  #       path: /media/aluno/trabalhos
+  #       src: "UUID=872E-9221"
+  #       fstype: vfat
+  #       opts: uid=aluno,gid=aluno
+  #       state: present
+  #     when: ansible_os_family == 'Debian'
 
 - name: Computadores dos alunos
   hosts: cad2_lin:!sj-lin-cad2-905476.maquinas.sj.ifsc.edu.br

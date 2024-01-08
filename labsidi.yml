@@ -3,7 +3,6 @@
   hosts: sidi_lin
   roles:
     - pinta
-    - kernel6
     - zoiper
     - role: grub
       tipo: grub_lin
