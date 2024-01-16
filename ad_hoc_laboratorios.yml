@@ -58,7 +58,7 @@
 #         group: 'root'
 #         mode: '0644'
 
-# - hosts:  sj-lin-biblio-744533.maquinas.sj.ifsc.edu.br 
+# - hosts:  sj-lin-biblio-744533.maquinas.sj.ifsc.edu.br
 #   roles:
 #     - instala_impressora_cups
 
@@ -123,7 +123,7 @@
 # - hosts: laboratorios_lin
 #   tasks:
 #     - name: Pegar as chaves do epoptes server no cliente - Linux
-#       shell: /usr/sbin/epoptes-client -c
+#       shell: poweroff
 #       when: ansible_os_family == 'Debian'
 
 ##RESOLVENDO PROBLEMA DAS INTERFACES DE REDE DO OPENVSWITCH NOS LABS
@@ -149,12 +149,6 @@
 #   roles:
 #     - role: restaura_vms
 #       nome_vms:
-#         - 1-Grafico
-#         - 2-Grafico
-#         - 3-Grafico
-#         - 4-Grafico
-#         - 5-Grafico
-#         - 6-Grafico
 #         - 1-Servidor
 #         - 2-Servidor
 #         - 3-Servidor
@@ -162,6 +156,15 @@
 #         - 5-Servidor
 #         - 6-Servidor
 #         - 7-Servidor
+
+# - hosts: laboratorios_lin
+#   roles:
+#     - role: restaura_vms_grafico
+#       nome_vms:
+#         - 1-Grafico
+#         - 2-Grafico
+#         - 3-Grafico
+#         - 4-Grafico
 
 # #
 # ## Utilizado para fazer o hold do linux-image e linux-headers e reinstalar o virtualbox-dkms
@@ -226,7 +229,7 @@
 
 # - win_shell: netsh interface ip add wins name=LAN addr=172.18.109.10 index=0
 
-# - name: Install HPLIP on Debian 
+# - name: Install HPLIP on Debian
 #   hosts: sj-lin-biblio-36076.maquinas.sj.ifsc.edu.br
 #   become: yes
 
