@@ -2,14 +2,14 @@
 # Debian e Ubuntu
 - name: Apagar disk1 antes de restaurar as máquinas virtuais - Linux
   file:
-    path: /opt/vdi/{{ item }}/{{ item }}-disk001.vdi
+    path: /opt/vdi/{{ item }}/UbuntuGrafico-disk001.vdi
     state: absent
   with_items: "{{nome_vms}}"
   when: ansible_os_family == 'Debian'
 
 - name: Apagar disk2 antes de restaurar as máquinas virtuais - Linux
   file:
-    path: /opt/vdi/{{ item }}/{{ item }}-disk002.vdi
+    path: /opt/vdi/{{ item }}/UbuntuGrafico-disk002.vdi
     state: absent
   with_items: "{{nome_vms}}"
   when: ansible_os_family == 'Debian'

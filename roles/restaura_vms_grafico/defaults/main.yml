@@ -1,0 +1,19 @@
+---
+nome_vms: []
+
+#Como usar
+#
+# nome_vms:
+#   - 1-Grafico
+#   - 2-Grafico
+#   - 3-Grafico
+#   - 4-Grafico
+#   - 5-Grafico
+#   - 6-Grafico
+#   - 1-Servidor
+#   - 2-Servidor
+#   - 3-Servidor
+#   - 4-Servidor
+#   - 5-Servidor
+#   - 6-Servidor
+#   - 7-Servidor
