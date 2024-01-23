@@ -123,7 +123,7 @@
 # - hosts: laboratorios_lin
 #   tasks:
 #     - name: Pegar as chaves do epoptes server no cliente - Linux
-#       shell: poweroff
+#       shell: /usr/sbin/epoptes-client -c
 #       when: ansible_os_family == 'Debian'
 
 ##RESOLVENDO PROBLEMA DAS INTERFACES DE REDE DO OPENVSWITCH NOS LABS
