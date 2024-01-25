@@ -1,16 +1,23 @@
-- hosts: sj-lin-meios-744520.maquinas.sj.ifsc.edu.br
-  #any_errors_fatal: true
-  roles:
-    - ingressa_ldap_sem_cups_client
-    - configura_monitores
-    - role: grub
-      tipo: grub_soh_lin
-    - role: instala_impressora_cups
-      install: 0
-      brother: 1
-
-# - hosts: meios_lin
+# - hosts: sj-lin-meios-744520.maquinas.sj.ifsc.edu.br
 #   #any_errors_fatal: true
 #   roles:
+#     - ingressa_ldap_sem_cups_client
+#     - configura_monitores
 #     - role: grub
-#       tipo: grub_lin
+#       tipo: grub_soh_lin
+#     - role: instala_impressora_cups
+#       install: 0
+#       brother: 1
+
+- name: Computador professor Linux
+  hosts: sje-lin-mtrans-926158.maquinas.sj.ifsc.edu.br
+  roles:
+    - epoptes_server
+    - ingressa_ldap
+    - configura_monitores
+
+- hosts: meios_lin
+  #any_errors_fatal: true
+  roles:
+    - role: grub
+      tipo: grub_lin
