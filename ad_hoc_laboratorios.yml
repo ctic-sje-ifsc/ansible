@@ -23,6 +23,19 @@
 #         group: root
 #         mode: 0644
 
+# - hosts: laboratorios_lin
+#   tasks:
+#     - name: Copia um arquivo para as maquinas - Linux
+#       ansible.builtin.copy:
+#         src: /dados/backup/{{ item }}
+#         dest: /usr/share/applications/
+#         owner: root
+#         group: root
+#         mode: 0644
+#       with_items:
+#         - google-chrome.desktop
+#         - firefox-esr.desktop
+
 # - name: Executa alguma coisa
 #   hosts: sj-ctic-1bw10.maquinas.sj.ifsc.edu.br
 #   tasks:
