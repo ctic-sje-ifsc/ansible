@@ -68,3 +68,12 @@
     create: true
     mode: '0644'
   when: ansible_hostname is search("^sje-lin-info")
+
+- name: Adicionar entrada no /etc/default/epoptes-client sobre quem é o server do meios de transmissao - Linux
+  ansible.builtin.lineinfile:
+    regexp: '^SERVER'
+    path: /etc/default/epoptes-client
+    line: 'SERVER=sje-lin-mtrans-926158.maquinas.sj.ifsc.edu.br'
+    create: true
+    mode: '0644'
+  when: ansible_hostname is search("^sje-lin-mtrans")
