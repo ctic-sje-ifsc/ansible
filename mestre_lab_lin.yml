@@ -86,3 +86,4 @@
 - import_playbook: labredes.yml
 - import_playbook: labinfo.yml
 - import_playbook: labsidi.yml
+- import_playbook: labmeios.yml
