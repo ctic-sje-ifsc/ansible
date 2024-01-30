@@ -1,117 +1,165 @@
 # Linux
 - name: Instalar pacotes necessarios para autenticação LDAP
-  apt:
-    state: latest
+  ansible.builtin.apt:
     pkg:
-    - libnss-ldap
-    - libpam-ldap
-    - ldap-utils
-    - libpam-mount
-    - cifs-utils
-  when: ansible_distribution == 'Debian'
+      - libnss-ldap
+      - libpam-ldap
+      - ldap-utils
+      - libpam-mount
+      - cifs-utils
+  when: (ansible_distribution == 'Debian' and ansible_distribution_release == 'bullseye')
+
+- name: Instalar pacotes necessarios para autenticação LDAP
+  ansible.builtin.apt:
+    pkg:
+      - libnss-ldapd
+      - libpam-ldapd
+      - ldap-utils
+      - cifs-utils
+      - nslcd
+      - nslcd-utils
+  when: (ansible_distribution == 'Debian' and ansible_distribution_release == 'bookworm')
 
 - name: Copiando arquivo /etc/ldap/ldap.conf
-  copy:
-    src: ldap.conf
-    dest: /etc/ldap/ldap.conf
+  ansible.builtin.copy:
+    content: |
+      base dc=cefetsc,dc=edu,dc=br
+      uri ldap://ldap.sj.ifsc.edu.br ldap://ldap.ifsc.edu.br
+      ldap_version 3
+      nss_initgroups_ignoreusers aluno,avahi,avahi-autoipd,backup,bin,colord,daemon,dnsmasq,games,gnats,hplip,irc,kernoops,libuuid,libvirt-dnsmasq,libvirt-qemu,lightdm,list,lp,mail,man,messagebus,news,ntp,proxy,pulse,puppet,quagga,rabbitmq,root,rtkit,saned,speech-dispatcher,sshd,statd,sync,sys,syslog,uml-net,usbmux,uucp,whoopsie,www-data,zabbix
+    dest: "{{ item }}"
     owner: root
     group: root
-    mode: 0644
-  when: ansible_os_family == 'Debian'
-
-- name: Copiando arquivo /etc/{{ ldap_conf }}
-  copy:
-    src: ldap.conf
-    dest: /etc/{{ ldap_conf }}
-    owner: root
-    group: root
-    mode: 0644
+    mode: '0644'
   loop:
-    - ldap.conf
-    - libnss-ldap.conf
-    - pam_ldap.conf
-  loop_control:
-    loop_var: ldap_conf
+    - /etc/ldap.conf
+    - /etc/libnss-ldap.conf
+    - /etc/pam_ldap.conf
+    - /etc/ldap/ldap.conf
   when: ansible_os_family == 'Debian'
+  tags: ldap
 
 - name: Copiando arquivo /etc/nsswitch.conf
-  copy:
-    src: nsswitch.conf
+  ansible.builtin.copy:
+    content: |
+      passwd:         compat ldap
+      group:          compat ldap
+      shadow:         compat ldap
+      gshadow:        files
+      hosts:          files myhostname mdns4_minimal [NOTFOUND=return] dns
+      networks:       files
+      protocols:      db files
+      services:       db files
+      ethers:         db files
+      rpc:            db files
+      netgroup:       nis
     dest: /etc/nsswitch.conf
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
   when: ansible_os_family == 'Debian'
 
-- name: Copiando arquivo /etc/pam.d/{{ config_ldap }}
-  copy:
-    src: "{{ config_ldap }}"
-    dest: /etc/pam.d/{{ config_ldap }}
+- name: Copiando arquivo /etc/pam.d/common-auth
+  ansible.builtin.copy:
+    content: |
+      auth    [success=2 default=ignore]      pam_unix.so nullok_secure
+      auth    [success=1 default=ignore]      pam_ldap.so use_first_pass
+      auth    requisite                       pam_deny.so
+      auth    required                        pam_permit.so
+      auth    optional                        pam_mount.so
+      auth    optional                        pam_cap.so
+    dest: /etc/pam.d/common-auth
     owner: root
     group: root
-    mode: 0644
-  loop:
-    - common-auth
-    - common-session
-  loop_control:
-    loop_var: config_ldap
+    mode: '0644'
   when: ansible_os_family == 'Debian'
+
+- name: Copiando arquivo /etc/nslcd.conf
+  ansible.builtin.copy:
+    content: |
+      # The user and group nslcd should run as.
+      uid nslcd
+      gid nslcd
+      # The location at which the LDAP server(s) should be reachable.
+      uri ldap://ldap.sj.ifsc.edu.br ldap://ldap.ifsc.edu.br
+      # The search base that will be used for all queries.
+      base dc=cefetsc,dc=edu,dc=br
+      # The LDAP protocol version to use.
+      ldap_version 3
+    dest: /etc/nslcd.conf
+    owner: root
+    group: root
+    mode: '0644'
+  when: (ansible_distribution == 'Debian' and ansible_distribution_release == 'bookworm')
+
+- name: Copiando arquivo /etc/pam.d/common-session
+  ansible.builtin.copy:
+    content: |
+      session [default=1]     pam_permit.so
+      session requisite       pam_deny.so
+      session required        pam_permit.so
+      session required        pam_unix.so
+      session optional        pam_ldap.so
+      session optional        pam_systemd.so
+      session required        pam_mkhomedir.so skel=/etc/skel umask=077
+      session optional        pam_mount.so
+    dest: /etc/pam.d/common-session
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+
 
 - name: Copiando arquivo /etc/security/pam_mount.conf.xml
-  copy:
-    src: pam_mount.conf.xml
-    dest: /etc/security/pam_mount.conf.xml
-    owner: root
-    group: root
-    mode: 0644
+  ansible.builtin.file:
+    path: /etc/security/pam_mount.conf.xml
+    state: absent
   when: ansible_os_family == 'Debian'
 
 - name: Instala cups-client
-  apt: name=cups-client state=latest
+  ansible.builtin.apt:
+    pkg:
+      - cups-client
   when: ansible_distribution == 'Debian'
 
 - name: Cria diretório /etc/cups
-  file:
+  ansible.builtin.file:
     path: /etc/cups
     state: directory
     owner: root
     group: lp
-    mode: 0755
+    mode: '0755'
   when: ansible_os_family == 'Debian'
 
 - name: Copia arquivo client.conf para configurar o cups client
-  copy:
-    src: client.conf
+  ansible.builtin.copy:
+    content: |
+      ServerName cups
     dest: /etc/cups/client.conf
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
   when: ansible_os_family == 'Debian'
 
 - name: Instala o lightdm
-  apt:
-    state: latest
+  ansible.builtin.apt:
     pkg:
-    - lightdm
-    - lightdm-gtk-greeter
-    - lightdm-gtk-greeter-settings
-  when: ansible_distribution == 'Debian'
-
-- name: Remove GDM3
-  apt: name=gdm3 state=absent purge=yes
+      - lightdm
+      - lightdm-gtk-greeter
+      - lightdm-gtk-greeter-settings
   when: ansible_distribution == 'Debian'
 
 # Windows
 
 - name: Verifica interface de rede
-  win_shell: "(ipconfig | findstr Ethernet).substring(19,8)"
+  ansible.windows.win_shell: "(ipconfig | findstr Ethernet).substring(19,8)"
   register: interface_win
   ignore_errors: True
   changed_when: False
-  when: (ansible_os_family == 'Windows' and (ansible_os_name == 'Microsoft Windows 11 Pro') or ansible_os_name == 'Microsoft Windows 7 Professional')
+  when: (ansible_os_family == 'Windows' and ((ansible_os_name == 'Microsoft Windows 11 Pro') or (ansible_os_name == 'Microsoft Windows 7 Professional')))
 
 - name: Verifica interface de rede
-  win_shell: "(ipconfig | findstr Ethernet).substring(19,10)"
+  ansible.windows.win_shell: "(ipconfig | findstr Ethernet).substring(19,10)"
   register: interface_win
   ignore_errors: True
   changed_when: False
@@ -120,11 +168,11 @@
 ### ocorra substituir a substring (19,10) para (19,8)
 
 - name: Setar servidor WINS e DNS - Windows 7
-  win_shell: netsh interface ip add wins name="Conexão Local" addr=191.36.8.68 ; netsh interface ip add wins name="Conexão Local" addr=191.36.8.67 index=2; netsh interface ip set dnsservers name="Conexão Local" source=static addr=191.36.8.67 ; netsh interface ip add dns name="Conexão Local" addr=191.36.8.68 index=2
+  ansible.windows.win_shell: netsh interface ip add wins name="Conexão Local" addr=191.36.8.68 ; netsh interface ip add wins name="Conexão Local" addr=191.36.8.67 index=2; netsh interface ip set dnsservers name="Conexão Local" source=static addr=191.36.8.67 ; netsh interface ip add dns name="Conexão Local" addr=191.36.8.68 index=2
   when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 7 Professional')
 
 - name: Setar servidor WINS e DNS na interface {{ interface_win.stdout |trim }} - Windows 10
-  win_shell: netsh interface ip add wins name="{{ interface_win.stdout |trim }}" addr=191.36.8.67 ; netsh interface ip add wins name="{{ interface_win.stdout |trim }}" addr=191.36.8.68 index=2 ; netsh interface ip set dnsservers name="{{ interface_win.stdout |trim }}" source=static addr=191.36.8.67 ; netsh interface ip add dns name="{{ interface_win.stdout |trim }}" addr=191.36.8.68 index=2
+  ansible.windows.win_shell: netsh interface ip add wins name="{{ interface_win.stdout |trim }}" addr=191.36.8.67 ; netsh interface ip add wins name="{{ interface_win.stdout |trim }}" addr=191.36.8.68 index=2 ; netsh interface ip set dnsservers name="{{ interface_win.stdout |trim }}" source=static addr=191.36.8.67 ; netsh interface ip add dns name="{{ interface_win.stdout |trim }}" addr=191.36.8.68 index=2
   when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 10 Pro')
 
 # - name: Setar servidor WINS e DNS - Windows 10
@@ -132,18 +180,18 @@
 #   when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 10 Pro')
 
 - name: Setar servidor WINS e DNS na interface {{ interface_win.stdout |trim }} - Windows 11
-  win_shell: netsh interface ip add wins name="{{ interface_win.stdout |trim }}" addr=191.36.8.67 ; netsh interface ip add wins name="{{ interface_win.stdout |trim }}" addr=191.36.8.68 index=2 ; netsh interface ip set dnsservers name="{{ interface_win.stdout |trim }}" source=static addr=191.36.8.67 ; netsh interface ip add dns name="{{ interface_win.stdout |trim }}" addr=191.36.8.68 index=2
+  ansible.windows.win_shell: netsh interface ip add wins name="{{ interface_win.stdout |trim }}" addr=191.36.8.67 ; netsh interface ip add wins name="{{ interface_win.stdout |trim }}" addr=191.36.8.68 index=2 ; netsh interface ip set dnsservers name="{{ interface_win.stdout |trim }}" source=static addr=191.36.8.67 ; netsh interface ip add dns name="{{ interface_win.stdout |trim }}" addr=191.36.8.68 index=2
   when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 11 Pro')
 
 - name: Setar sufixo DNS - Windows
-  win_regedit:
+  ansible.windows.win_regedit:
     path: HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters
     name: SearchList
     data: "cefetsc.edu.br,sj.ifsc.edu.br"
   when: ansible_os_family == 'Windows'
 
 - name: Ingressa no dominio - Windows
-  win_domain_membership:
+  ansible.windows.win_domain_membership:
     dns_domain_name: cefetsc
     domain_admin_user: "{{ domain_admin_user }}"
     domain_admin_password: "{{ domain_admin_password }}"
@@ -151,5 +199,6 @@
   register: domain_state
   when: (ansible_os_family == 'Windows' and ansible_windows_domain_member == false)
 
-- win_reboot:
+- name: Reinicia o computador
+  ansible.windows.win_reboot:
   when: (ansible_os_family == 'Windows' and ansible_windows_domain_member == false and domain_state.reboot_required)
