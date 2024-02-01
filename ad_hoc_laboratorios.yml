@@ -1,4 +1,22 @@
 ---
+# - name: Criar conta de usuário aluno no host local
+#   hosts: sje-lin-note-3849460.maquinas.sj.ifsc.edu.br 
+#   tasks:
+#     - name: Criar diretório home
+#       file:
+#         path: /home/aluno
+#         state: directory
+#         owner: aluno
+#         group: aluno
+#         mode: '0755'
+#     - name: Criar conta de usuário
+#       user:
+#         name: aluno
+#         password: "{{ 'aluno' | password_hash('sha512') }}"
+#         shell: /bin/bash
+#         home: /home/aluno
+#         createhome: no
+
 
 # - name: Servidor controlador
 #   hosts: controlador
