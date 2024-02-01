@@ -2,10 +2,71 @@
 - name: Remove pacotes para autenticação LDAP
   ansible.builtin.apt:
     state: absent
-    purge: yes
     pkg:
-    - libnss-ldap
-    - libpam-ldap
-    - libpam-mount
-    - cups-client
+      - libnss-ldap
+      - libpam-ldap
+      - libpam-mount
+      - cups-client
+      - nslcd
+      - nslcd-utils
   when: ansible_distribution == 'Debian'
+
+- name: Apaga arquivos de configuração relacionados ao LDAP
+  ansible.builtin.file:
+    state: absent
+    path: "{{ item }}"
+  loop:
+    - /etc/ldap.conf
+    - /etc/libnss-ldap.conf
+    - /etc/pam_ldap.conf
+    - /etc/ldap/ldap.conf
+    - /etc/nslcd.conf
+    - /etc/security/pam_mount.conf.xml
+    - /etc/cups/client.conf
+  when: ansible_os_family == 'Debian'
+
+- name: Cria arquivo /etc/nsswitch.conf
+  ansible.builtin.copy:
+    content: |
+      passwd:         files
+      group:          files
+      shadow:         files
+      gshadow:        files
+      hosts:          files mdns4_minimal [NOTFOUND=return] dns mymachines
+      networks:       files
+      protocols:      db files
+      services:       db files
+      ethers:         db files
+      rpc:            db files
+      netgroup:       nis
+    dest: /etc/nsswitch.conf
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+
+- name: Cria arquivo /etc/pam.d/common-auth
+  ansible.builtin.copy:
+    content: |
+      auth    [success=1 default=ignore]      pam_unix.so nullok
+      auth    requisite                       pam_deny.so
+      auth    required                        pam_permit.so
+    dest: /etc/pam.d/common-auth
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+
+- name: Cria arquivo /etc/pam.d/common-session
+  ansible.builtin.copy:
+    content: |
+      session [default=1]     pam_permit.so
+      session requisite       pam_deny.so
+      session required        pam_permit.so
+      session required        pam_unix.so
+      session optional        pam_systemd.so
+    dest: /etc/pam.d/common-session
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
