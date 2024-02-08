@@ -1,13 +1,13 @@
 #Windows
 
-- name: Copy o preparador de instalação do Revit - Windows
+- name: Copia o preparador de instalação do Revit - Windows
   win_copy:
     src: Revit_2021.exe
-    dest: C:\Revit_2021.exe
+    dest: C:\instaladores\Revit_2021.exe
 
-- name: Preparar o instalador do Revit - Windows
+- name: Instalar o Revit - Windows
   win_package:
-    path: 'C:\Revit_2021.exe'
+    path: 'C:\instaladores\Revit_2021.exe'
     creates_path: 'C:/Autodesk\{7357F4C2-BA44-4FD9-88E4-96A55D0BBA59}\image\Installer.exe'
     product_id: '{7357F4C2-BA44-4FD9-88E4-96A55D0BBA59}'
     state: present
