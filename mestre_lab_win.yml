@@ -1,0 +1,5 @@
+---
+- name: Laboratórios Windows
+  hosts: laboratorios_win
+  roles:
+    - revit
