@@ -89,9 +89,9 @@
 #         group: 'root'
 #         mode: '0644'
 
-# - hosts:  sj-lin-biblio-744533.maquinas.sj.ifsc.edu.br
-#   roles:
-#     - instala_impressora_cups
+- hosts:  sje-lin-suped-920798.maquinas.sj.ifsc.edu.br
+  roles:
+    - remove_ldap
 
 # - hosts: all
 #   tasks:
