@@ -89,9 +89,9 @@
 #         group: 'root'
 #         mode: '0644'
 
-- hosts:  sje-lin-suped-920798.maquinas.sj.ifsc.edu.br
-  roles:
-    - remove_ldap
+# - hosts:  sje-lin-suped-920798.maquinas.sj.ifsc.edu.br
+#   roles:
+#     - remove_ldap
 
 # - hosts: all
 #   tasks:
