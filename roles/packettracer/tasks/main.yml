@@ -92,4 +92,43 @@
     state: link
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
+
+
+
+
+
+
+- name: Baixa e extrai Cisco PacketTracer 8.2.1 - Debian 12
+  ansible.builtin.unarchive:
+    src: http://ansiblefiles.sj.ifsc.edu.br/packettracer821.bz
+    dest: /opt/
+    creates: /opt/pt/bin/PacketTracer
+    remote_src: true
+    owner: root
+    group: root
+    mode: 0755
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bookworm')
+
+- name: Copiando os atalhos - Linux Debian 12
+  ansible.builtin.copy:
+    src: "/opt/pt/{{ atalho }}"
+    dest: /usr/share/applications/
+    owner: root
+    group: root
+    mode: 0644
+    remote_src: true
+  loop:
+    - cisco-pt821.desktop
+    - cisco-ptsa821.desktop
+  loop_control:
+    loop_var: atalho
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bookworm')
+
+- name: Criando link simbolico para o packettracer - Debian 12
+  ansible.builtin.file:
+    src: /opt/pt/packettracer
+    dest: /usr/local/bin/packettracer
+    state: link
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bookworm')
+
 #Unavaliable for Windows
