@@ -3,4 +3,5 @@
 *.retry
 testes.*
 ad_hoc_laboratorios*
+local.yml
 .vscode/settings.json
