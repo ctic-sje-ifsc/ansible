@@ -1,0 +1,17 @@
+# https://www.factorymation.com/software-downloads
+
+- name: Install PL2303 Prolific Driver
+  ansible.windows.win_package:
+    path: http://ansiblefiles.sj.ifsc.edu.br/PL2303_Prolific_DriverInstaller_v1.5.0.exe
+    creates_path: C:\Program Files (x86)\TECO
+    arguments:
+      - /S
+  when: ansible_os_family == 'Windows'
+
+- name: Install SG2 Client
+  ansible.windows.win_package:
+    path: http://ansiblefiles.sj.ifsc.edu.br/SG2ClientSetupv3.51.exe
+    creates_path: C:\Program Files (x86)\TECO
+    arguments:
+      - /silent
+  when: ansible_os_family == 'Windows'
