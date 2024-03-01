@@ -149,6 +149,23 @@
       - lightdm-gtk-greeter-settings
   when: ansible_distribution == 'Debian'
 
+- name: Desinstala o cups
+  ansible.builtin.apt:
+    state: absent
+    pkg:
+      - cups
+      - bc
+      - cups-browsed
+      - cups-core-drivers
+      - cups-daemon
+      - cups-filters
+      - cups-filters-core-drivers
+      - cups-ipp-utils
+      - cups-ppdc
+      - cups-server-common
+      - libcupsfilters1
+  when: ansible_distribution == 'Debian'
+
 # Windows
 
 - name: Verifica interface de rede
