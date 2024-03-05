@@ -395,12 +395,13 @@
     # version: latest
   when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 7 Professional')
 
-- name: Instalar o LibreOffice Fresh - Windows
-  win_chocolatey:
-    # version: latest
-    # force: yes
-    name: libreoffice-fresh
-  when: ansible_os_family == 'Windows'
+########### Instalado manualmente uma versão bem mais nova ###########
+# - name: Instalar o LibreOffice Fresh - Windows
+#   win_chocolatey:
+#     # version: latest
+#     # force: yes
+#     name: libreoffice-fresh
+#   when: ansible_os_family == 'Windows'
 
 # - name: Instalar o Unity 2018.2.10 - Windows
 #   win_chocolatey:
