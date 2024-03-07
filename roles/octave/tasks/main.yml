@@ -13,6 +13,7 @@
     - octave-communications
     - octave-control
     - octave-signal
+    - octave-statistics
   when: ansible_os_family == 'Debian'
 
 #Windows
