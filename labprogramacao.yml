@@ -12,6 +12,8 @@
         pkg:
           - firmware-amd-graphics
           - firmware-linux-nonfree
+          - linux-image-6.5.0-0.deb12.4-amd64
+          - linux-headers-6.5.0-0.deb12.4-amd64
       tags: firmware-amd
 
 - name: Computadores dos alunos
