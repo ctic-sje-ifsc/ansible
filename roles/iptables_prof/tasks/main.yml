@@ -1,0 +1,126 @@
+- name: Instala pacotes
+  ansible.builtin.apt:
+    pkg:
+      - ansible
+  when: ansible_os_family == 'Debian'
+
+- name: Cria diretório
+  ansible.builtin.file:
+    state: directory
+    path: /etc/ansible
+    owner: root
+    group: root
+    mode: '0755'
+  when: ansible_os_family == 'Debian'
+
+- name: Define arquivo hosts
+  ansible.builtin.copy:
+    content: |
+      [all]
+      debian12-aluno ansible_host=192.168.122.31
+    dest: /etc/ansible/hosts
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+
+- name: Cria firewall.yml
+  ansible.builtin.copy:
+    content: |
+      - name: Todos os hosts
+        hosts: all
+
+        tasks:
+
+
+          - name: Libera dns
+            ansible.builtin.iptables:
+              chain: OUTPUT
+              protocol: udp
+              destination_port: 53
+              table: filter
+              jump: ACCEPT
+            when: ansible_os_family == 'Debian'
+
+          - name: Entrada ssh
+            ansible.builtin.iptables:
+              chain: OUTPUT
+              protocol: tcp
+              destination_port: 22
+              match:
+                - conntrack
+              ctstate:
+                - NEW
+                - ESTABLISHED
+              table: filter
+              jump: ACCEPT
+            when: ansible_os_family == 'Debian'
+
+          - name: Saída ssh
+            ansible.builtin.iptables:
+              chain: OUTPUT
+              protocol: tcp
+              source_port: 22
+              match:
+                - conntrack
+              ctstate:
+                - ESTABLISHED
+              table: filter
+              jump: ACCEPT
+            when: ansible_os_family == 'Debian'
+
+          - name: Libera wiki.sj.ifsc.edu.br
+            ansible.builtin.iptables:
+              chain: OUTPUT
+              protocol: tcp
+              destination: wiki.sj.ifsc.edu.br
+              table: filter
+              jump: ACCEPT
+            when: ansible_os_family == 'Debian'
+
+          - name: Libera license-server.sj.ifsc.edu.br
+            ansible.builtin.iptables:
+              chain: OUTPUT
+              protocol: tcp
+              destination: license-server.sj.ifsc.edu.br
+              table: filter
+              jump: ACCEPT
+            when: ansible_os_family == 'Debian'
+
+          - name: Libera sigaa.ifsc.edu.br
+            ansible.builtin.iptables:
+              chain: OUTPUT
+              protocol: tcp
+              destination: sigaa.ifsc.edu.br
+              table: filter
+              jump: ACCEPT
+            when: ansible_os_family == 'Debian'
+
+          - name: Libera moodle.ifsc.edu.br
+            ansible.builtin.iptables:
+              chain: OUTPUT
+              protocol: tcp
+              destination: moodle.ifsc.edu.br
+              table: filter
+              jump: ACCEPT
+            when: ansible_os_family == 'Debian'
+
+          - name: bloqueia saída
+            ansible.builtin.iptables:
+              chain: OUTPUT
+              table: filter
+              jump: DROP
+            when: ansible_os_family == 'Debian'
+
+          - name: bloqueia entrada
+            ansible.builtin.iptables:
+              chain: INPUT
+              table: filter
+              jump: DROP
+            when: ansible_os_family == 'Debian'
+
+    dest: /etc/ansible/firewall.yml
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
