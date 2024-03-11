@@ -5,7 +5,7 @@
   roles:
     - ingressa_ldap
     - role: grub
-      tipo: grub_lin
+      tipo: grub_soh_lin
 
 # Windows
 
