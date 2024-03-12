@@ -1,4 +1,8 @@
 ---
+- hosts:  sj-labter-614120.maquinas.sj.ifsc.edu.br 
+  roles:
+    - create_user_aluno
+#
 # - name: Criar conta de usuário aluno no host local
 #   hosts: sje-lin-note-3849460.maquinas.sj.ifsc.edu.br 
 #   tasks:
