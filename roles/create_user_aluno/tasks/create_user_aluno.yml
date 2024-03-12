@@ -1,0 +1,23 @@
+- name: Create user account "aluno" with password "aluno"
+  win_user:
+    name: aluno
+    password: aluno
+    state: present
+    
+- name: Set password to never expire for user "aluno"
+  win_shell: |
+    net user aluno /expires:never
+  args:
+    executable: cmd
+
+- name: Prevent user "aluno" from changing the password
+  win_shell: |
+    net user aluno /passwordchg:no
+  args:
+    executable: cmd
+
+- name: Add user "aluno" to local group "Usuários"
+  win_group_membership:
+    name: Usuários
+    members: aluno
+    state: present
