@@ -24,6 +24,22 @@
 #         createhome: no
 ##########################################################################
 
+######### Executar o Windows Update em Hosts windows remotos
+
+# - name: Executar o Windows Update em Hosts windows remotos
+#   hosts: sj-labter-614120.maquinas.sj.ifsc.edu.br
+#   tasks:
+#     - name: Run Windows Update
+#       win_updates:
+#         category_names:
+#           - CriticalUpdates
+#           - SecurityUpdates
+#           - UpdateRollups
+#           - FeaturePacks
+#           - ServicePacks
+#         state: installed
+#         reboot: yes
+
 
 # - name: Servidor controlador
 #   hosts: controlador
