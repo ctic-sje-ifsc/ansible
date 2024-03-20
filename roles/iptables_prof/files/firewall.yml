@@ -9,11 +9,86 @@
         destination_port: 53
         table: filter
         jump: ACCEPT
+      tags: wiki, bloqueia
+      when: ansible_os_family == 'Debian'
+
+    - name: Libera dns
+      ansible.builtin.iptables:
+        chain: INPUT
+        protocol: udp
+        source_port: 53
+        table: filter
+        jump: ACCEPT
+      tags: wiki, bloqueia
+      when: ansible_os_family == 'Debian'
+
+    - name: Libera saída epoptes server
+      ansible.builtin.iptables:
+        chain: OUTPUT
+        protocol: tcp
+        destination_port: "{{ item }}"
+        table: filter
+        jump: ACCEPT
+      loop:
+        - 789
+        - 5499
+        - 5500
+        - 5501
+        - 5502
+      tags: wiki, bloqueia
+      when: ansible_os_family == 'Debian'
+
+    - name: Libera entrada epoptes server
+      ansible.builtin.iptables:
+        chain: INPUT
+        protocol: tcp
+        source_port: "{{ item }}"
+        table: filter
+        jump: ACCEPT
+      loop:
+        - 789
+        - 5499
+        - 5500
+        - 5501
+        - 5502
+      tags: wiki, bloqueia
+      when: ansible_os_family == 'Debian'
+
+    - name: Libera entrada ICMP
+      ansible.builtin.iptables:
+        chain: INPUT
+        protocol: "{{ item }}"
+        ctstate:
+          - NEW
+          - ESTABLISHED
+          - RELATED
+        table: filter
+        jump: ACCEPT
+      loop:
+        - ICMP
+        - ICMPv6
+      tags: wiki, bloqueia
+      when: ansible_os_family == 'Debian'
+
+    - name: Libera saída ICMP
+      ansible.builtin.iptables:
+        chain: OUTPUT
+        protocol: "{{ item }}"
+        ctstate:
+          - NEW
+          - ESTABLISHED
+          - RELATED
+        table: filter
+        jump: ACCEPT
+      loop:
+        - ICMP
+        - ICMPv6
+      tags: wiki, bloqueia
       when: ansible_os_family == 'Debian'
 
     - name: Entrada ssh
       ansible.builtin.iptables:
-        chain: OUTPUT
+        chain: INPUT
         protocol: tcp
         destination_port: 22
         match:
@@ -23,6 +98,7 @@
           - ESTABLISHED
         table: filter
         jump: ACCEPT
+      tags: wiki, bloqueia
       when: ansible_os_family == 'Debian'
 
     - name: Saída ssh
@@ -36,15 +112,7 @@
           - ESTABLISHED
         table: filter
         jump: ACCEPT
-      when: ansible_os_family == 'Debian'
-
-    - name: Libera wiki.sj.ifsc.edu.br
-      ansible.builtin.iptables:
-        chain: OUTPUT
-        protocol: tcp
-        destination: wiki.sj.ifsc.edu.br
-        table: filter
-        jump: ACCEPT
+      tags: wiki, bloqueia
       when: ansible_os_family == 'Debian'
 
     - name: Libera license-server.sj.ifsc.edu.br
@@ -54,6 +122,17 @@
         destination: license-server.sj.ifsc.edu.br
         table: filter
         jump: ACCEPT
+      tags: wiki, bloqueia
+      when: ansible_os_family == 'Debian'
+
+    - name: Libera wiki.sj.ifsc.edu.br
+      ansible.builtin.iptables:
+        chain: OUTPUT
+        protocol: tcp
+        destination: wiki.sj.ifsc.edu.br
+        table: filter
+        jump: ACCEPT
+      tags: wiki
       when: ansible_os_family == 'Debian'
 
     - name: Libera sigaa.ifsc.edu.br
@@ -63,22 +142,45 @@
         destination: sigaa.ifsc.edu.br
         table: filter
         jump: ACCEPT
+      tags: wiki
+      when: ansible_os_family == 'Debian'
+
+    - name: Libera sig.ifsc.edu.br
+      ansible.builtin.iptables:
+        chain: OUTPUT
+        protocol: tcp
+        destination: sig.ifsc.edu.br
+        table: filter
+        jump: ACCEPT
+      tags: wiki
       when: ansible_os_family == 'Debian'
 
     - name: Libera moodle.ifsc.edu.br
       ansible.builtin.iptables:
         chain: OUTPUT
         protocol: tcp
-        destination: moodle.ifsc.edu.br
+        destination: "{{ item }}"
         table: filter
         jump: ACCEPT
+      tags: wiki
+      loop:
+        - moodle.ifsc.edu.br
+        - use.fontawesome.com
+        - fonts.googleapis.com
+        - fonts.gstatic.com
       when: ansible_os_family == 'Debian'
 
-    - name: Bloqueia saída
+    - name: Permite a entrada de conexões relacionadas
       ansible.builtin.iptables:
-        chain: OUTPUT
+        chain: INPUT
+        match:
+          - conntrack
+        ctstate:
+          - ESTABLISHED
+          - RELATED
         table: filter
-        jump: DROP
+        jump: ACCEPT
+      tags: wiki
       when: ansible_os_family == 'Debian'
 
     - name: Bloqueia entrada
@@ -86,4 +188,19 @@
         chain: INPUT
         table: filter
         jump: DROP
+      tags: wiki, bloqueia
+      when: ansible_os_family == 'Debian'
+
+    - name: Bloqueia saída
+      ansible.builtin.iptables:
+        chain: OUTPUT
+        table: filter
+        jump: DROP
+      tags: wiki, bloqueia
+      when: ansible_os_family == 'Debian'
+
+    - name: Iptables flush filter
+      ansible.builtin.iptables:
+        flush: true
+      tags: flush
       when: ansible_os_family == 'Debian'
