@@ -13,17 +13,6 @@
     mode: '0755'
   when: ansible_os_family == 'Debian'
 
-- name: Define arquivo hosts
-  ansible.builtin.copy:
-    content: |
-      [all]
-      debian12-aluno ansible_host=192.168.122.31
-    dest: /etc/ansible/hosts
-    owner: root
-    group: root
-    mode: '0644'
-  when: ansible_os_family == 'Debian'
-
 - name: Cria firewall.yml
   ansible.builtin.copy:
     src: firewall.yml
@@ -32,3 +21,84 @@
     group: root
     mode: '0644'
   when: ansible_os_family == 'Debian'
+
+- name: Define arquivo hosts
+  ansible.builtin.copy:
+    src: hosts.cad1
+    dest: /etc/ansible/hosts
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-cad1-916082")
+
+- name: Define arquivo hosts
+  ansible.builtin.copy:
+    src: hosts.cad2
+    dest: /etc/ansible/hosts
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-cad2-905476")
+
+- name: Define arquivo hosts
+  ansible.builtin.copy:
+    src: hosts.cad3
+    dest: /etc/ansible/hosts
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-cad3-744517")
+
+- name: Define arquivo hosts
+  ansible.builtin.copy:
+    src: hosts.csfio
+    dest: /etc/ansible/hosts
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-csfio-744536")
+
+- name: Define arquivo hosts
+  ansible.builtin.copy:
+    src: hosts.informatica
+    dest: /etc/ansible/hosts
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-info-895203")
+
+- name: Define arquivo hosts
+  ansible.builtin.copy:
+    src: hosts.meiostrans
+    dest: /etc/ansible/hosts
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-mtrans-926158")
+
+- name: Define arquivo hosts
+  ansible.builtin.copy:
+    src: hosts.programacao
+    dest: /etc/ansible/hosts
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-prog-744523")
+
+- name: Define arquivo hosts
+  ansible.builtin.copy:
+    src: hosts.redes
+    dest: /etc/ansible/hosts
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-redes-906284")
+
+- name: Define arquivo hosts
+  ansible.builtin.copy:
+    src: hosts.sidi
+    dest: /etc/ansible/hosts
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-sidi-25")
