@@ -82,6 +82,7 @@
 - import_playbook: labcad1.yml
 - import_playbook: labcad2.yml
 - import_playbook: labcad3.yml
+- import_playbook: labcomex.yml
 - import_playbook: labprogramacao.yml
 - import_playbook: labredes.yml
 - import_playbook: labinfo.yml
