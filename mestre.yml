@@ -55,7 +55,7 @@
 # Laboratorios
 - import_playbook: almoxrac.yml
 - import_playbook: ciehu.yml
-- import_playbook: comex.yml
+- import_playbook: labcomex.yml
 - import_playbook: comum_laboratorios.yml
 - import_playbook: labaplicada.yml
 - import_playbook: labcad1.yml
