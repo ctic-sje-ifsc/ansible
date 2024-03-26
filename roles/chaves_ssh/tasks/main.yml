@@ -1,6 +1,3 @@
----
-#Linux
-
 ## CAD1
 - name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys do CAD1 - Linux
   ansible.posix.authorized_key:
@@ -15,16 +12,7 @@
     dest: /root/.ssh/id_rsa
     owner: root
     group: root
-    mode: 0400
-  when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-cad1-916082")
-
-- name: Modifica o arquivo /home/aluno/.ssh/id_rsa do CAD1 - lINUX
-  ansible.builtin.copy:
-    src: sidi.id_rsa
-    dest: /home/aluno/.ssh/id_rsa
-    owner: aluno
-    group: aluno
-    mode: 0400
+    mode: '0400'
   when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-cad1-916082")
 
 ## CAD2
@@ -41,16 +29,7 @@
     dest: /root/.ssh/id_rsa
     owner: root
     group: root
-    mode: 0400
-  when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-cad2-905476")
-
-- name: Modifica o arquivo /home/aluno/.ssh/id_rsa do CAD2 - lINUX
-  ansible.builtin.copy:
-    src: sidi.id_rsa
-    dest: /home/aluno/.ssh/id_rsa
-    owner: aluno
-    group: aluno
-    mode: 0400
+    mode: '0400'
   when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-cad2-905476")
 
 ## CAD3
@@ -67,16 +46,7 @@
     dest: /root/.ssh/id_rsa
     owner: root
     group: root
-    mode: 0400
-  when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-cad3-744517")
-
-- name: Modifica o arquivo /home/aluno/.ssh/id_rsa do CAD3 - lINUX
-  ansible.builtin.copy:
-    src: sidi.id_rsa
-    dest: /home/aluno/.ssh/id_rsa
-    owner: aluno
-    group: aluno
-    mode: 0400
+    mode: '0400'
   when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-cad3-744517")
 
 ## SIDI
@@ -93,23 +63,7 @@
     dest: /root/.ssh/id_rsa
     owner: root
     group: root
-    mode: 0400
-  when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-sidi-25")
-
-- name: Create a directory if it does not exist
-  ansible.builtin.file:
-    path: /home/aluno/.ssh
-    state: directory
-    mode: '0700'
-  when: ansible_os_family == 'Debian'
-
-- name: Modifica o arquivo /home/aluno/.ssh/id_rsa do SIDI - lINUX
-  ansible.builtin.copy:
-    src: sidi.id_rsa
-    dest: /home/aluno/.ssh/id_rsa
-    owner: aluno
-    group: aluno
-    mode: 0400
+    mode: '0400'
   when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-sidi-25")
 
 ## REDES
@@ -126,16 +80,7 @@
     dest: /root/.ssh/id_rsa
     owner: root
     group: root
-    mode: 0400
-  when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-redes-906284")
-
-- name: Modifica o arquivo /home/aluno/.ssh/id_rsa do REDES - lINUX
-  ansible.builtin.copy:
-    src: sidi.id_rsa
-    dest: /home/aluno/.ssh/id_rsa
-    owner: aluno
-    group: aluno
-    mode: 0400
+    mode: '0400'
   when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-redes-906284")
 
 ## PROG
@@ -152,14 +97,5 @@
     dest: /root/.ssh/id_rsa
     owner: root
     group: root
-    mode: 0400
-  when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-prog-744523")
-
-- name: Modifica o arquivo /home/aluno/.ssh/id_rsa do PROG - lINUX
-  ansible.builtin.copy:
-    src: sidi.id_rsa
-    dest: /home/aluno/.ssh/id_rsa
-    owner: aluno
-    group: aluno
-    mode: 0400
+    mode: '0400'
   when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-prog-744523")
