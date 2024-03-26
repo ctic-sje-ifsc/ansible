@@ -4,22 +4,15 @@
   tasks:
     - name: Libera dns
       ansible.builtin.iptables:
-        chain: OUTPUT
+        chain: "{{ item }}"
         protocol: udp
         destination_port: 53
         table: filter
         jump: ACCEPT
-      tags: wiki, bloqueia
-      when: ansible_os_family == 'Debian'
-
-    - name: Libera dns
-      ansible.builtin.iptables:
-        chain: INPUT
-        protocol: udp
-        source_port: 53
-        table: filter
-        jump: ACCEPT
-      tags: wiki, bloqueia
+      loop:
+        - OUTPUT
+        - INPUT
+      tags: wiki, moodle, sigaa, bloqueia, ifsc, ifsc-sje
       when: ansible_os_family == 'Debian'
 
     - name: Libera saída epoptes server
@@ -35,7 +28,7 @@
         - 5500
         - 5501
         - 5502
-      tags: wiki, bloqueia
+      tags: wiki, moodle, sigaa, bloqueia, ifsc, ifsc-sje
       when: ansible_os_family == 'Debian'
 
     - name: Libera entrada epoptes server
@@ -51,7 +44,7 @@
         - 5500
         - 5501
         - 5502
-      tags: wiki, bloqueia
+      tags: wiki, moodle, sigaa, bloqueia, ifsc, ifsc-sje
       when: ansible_os_family == 'Debian'
 
     - name: Libera entrada ICMP
@@ -67,7 +60,7 @@
       loop:
         - ICMP
         - ICMPv6
-      tags: wiki, bloqueia
+      tags: wiki, moodle, sigaa, bloqueia, ifsc, ifsc-sje
       when: ansible_os_family == 'Debian'
 
     - name: Libera saída ICMP
@@ -83,7 +76,7 @@
       loop:
         - ICMP
         - ICMPv6
-      tags: wiki, bloqueia
+      tags: wiki, moodle, sigaa, bloqueia, ifsc, ifsc-sje
       when: ansible_os_family == 'Debian'
 
     - name: Entrada ssh
@@ -98,7 +91,7 @@
           - ESTABLISHED
         table: filter
         jump: ACCEPT
-      tags: wiki, bloqueia
+      tags: wiki, moodle, sigaa, bloqueia, ifsc, ifsc-sje
       when: ansible_os_family == 'Debian'
 
     - name: Saída ssh
@@ -112,7 +105,7 @@
           - ESTABLISHED
         table: filter
         jump: ACCEPT
-      tags: wiki, bloqueia
+      tags: wiki, moodle, sigaa, bloqueia, ifsc, ifsc-sje
       when: ansible_os_family == 'Debian'
 
     - name: Libera license-server.sj.ifsc.edu.br
@@ -122,7 +115,7 @@
         destination: license-server.sj.ifsc.edu.br
         table: filter
         jump: ACCEPT
-      tags: wiki, bloqueia
+      tags: wiki, moodle, sigaa, bloqueia, ifsc, ifsc-sje
       when: ansible_os_family == 'Debian'
 
     - name: Libera wiki.sj.ifsc.edu.br
@@ -132,6 +125,7 @@
         destination: wiki.sj.ifsc.edu.br
         table: filter
         jump: ACCEPT
+        action: insert
       tags: wiki
       when: ansible_os_family == 'Debian'
 
@@ -142,7 +136,8 @@
         destination: sigaa.ifsc.edu.br
         table: filter
         jump: ACCEPT
-      tags: wiki
+        action: insert
+      tags: sigaa
       when: ansible_os_family == 'Debian'
 
     - name: Libera sig.ifsc.edu.br
@@ -152,22 +147,76 @@
         destination: sig.ifsc.edu.br
         table: filter
         jump: ACCEPT
-      tags: wiki
+        action: insert
+      tags: sigaa
       when: ansible_os_family == 'Debian'
 
-    - name: Libera moodle.ifsc.edu.br
+    - name: Libera moodle.ifsc.edu.br IPv4
       ansible.builtin.iptables:
         chain: OUTPUT
         protocol: tcp
         destination: "{{ item }}"
         table: filter
         jump: ACCEPT
-      tags: wiki
+        action: insert
+      tags: moodle
       loop:
         - moodle.ifsc.edu.br
         - use.fontawesome.com
         - fonts.googleapis.com
         - fonts.gstatic.com
+      when: ansible_os_family == 'Debian'
+
+    - name: Libera moodle.ifsc.edu.br IPv6
+      ansible.builtin.iptables:
+        chain: OUTPUT
+        protocol: tcp
+        destination: "{{ item }}"
+        table: filter
+        jump: ACCEPT
+        action: insert
+        ip_version: ipv6
+      tags: moodle
+      loop:
+        - use.fontawesome.com
+        - fonts.googleapis.com
+        - fonts.gstatic.com
+      when: ansible_os_family == 'Debian'
+
+    - name: Libera para a faixa ip do campus SJE
+      ansible.builtin.iptables:
+        chain: OUTPUT
+        protocol: tcp
+        ip_version: "{{ item.ip_version }}"
+        destination: "{{ item.destination }}"
+        table: filter
+        jump: ACCEPT
+        action: insert
+      loop:
+        - { ip_version: ipv4,
+            destination: 191.36.8.0/21, }
+        - { ip_version: ipv6,
+            destination: 2804:1454:1004::/48, }
+      tags: ifsc-sje
+      when: ansible_os_family == 'Debian'
+
+    - name: Libera para a faixa ip do IFSC
+      ansible.builtin.iptables:
+        chain: OUTPUT
+        protocol: tcp
+        ip_version: "{{ item.ip_version }}"
+        destination: "{{ item.destination }}"
+        table: filter
+        jump: ACCEPT
+        action: insert
+      loop:
+        - { ip_version: ipv4,
+            destination: 191.36.0.0/17, }
+        - { ip_version: ipv4,
+            destination: 200.135.190.0/24, }
+        - { ip_version: ipv6,
+            destination: 2804:1454::/32, }
+      tags: ifsc
       when: ansible_os_family == 'Debian'
 
     - name: Permite a entrada de conexões relacionadas
@@ -180,27 +229,39 @@
           - RELATED
         table: filter
         jump: ACCEPT
-      tags: wiki
+      tags: wiki, moodle, sigaa, bloqueia, ifsc, ifsc-sje
       when: ansible_os_family == 'Debian'
 
     - name: Bloqueia entrada
       ansible.builtin.iptables:
         chain: INPUT
         table: filter
+        ip_version: "{{ item }}"
         jump: DROP
-      tags: wiki, bloqueia
+      loop:
+        - ipv4
+        - ipv6
+      tags: wiki, moodle, sigaa, bloqueia, ifsc, ifsc-sje
       when: ansible_os_family == 'Debian'
 
     - name: Bloqueia saída
       ansible.builtin.iptables:
         chain: OUTPUT
         table: filter
+        ip_version: "{{ item }}"
         jump: DROP
-      tags: wiki, bloqueia
+      loop:
+        - ipv4
+        - ipv6
+      tags: wiki, moodle, sigaa, bloqueia, ifsc, ifsc-sje
       when: ansible_os_family == 'Debian'
 
     - name: Iptables flush filter
       ansible.builtin.iptables:
+        ip_version: "{{ item }}"
         flush: true
-      tags: flush
+      loop:
+        - ipv4
+        - ipv6
+      tags: libera
       when: ansible_os_family == 'Debian'
