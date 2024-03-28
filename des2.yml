@@ -23,15 +23,16 @@
   #     deb: https://www.mendeley.com/repositories/ubuntu/stable/amd64/mendeleydesktop-latest
     when: ansible_os_family == 'Debian'
 
-- hosts: sj-lin-des2-2skdxp1.maquinas.sj.ifsc.edu.br # Pacotes Fabio
+- hosts: sje-lin-des2-926164.maquinas.sj.ifsc.edu.br # Pacotes Fabio
   roles:
-    - dongo_sdr
+    # - dongo_sdr
+    - rstudio
   tasks:
   - name: Pacotes do Fabio
     ansible.builtin.apt:
       state: latest
       pkg:
-      - spyder3
+      - spyder
       - dump1090-mutability
 
 - hosts: sj-lin-des2-879467.maquinas.sj.ifsc.edu.br # Clayrton
