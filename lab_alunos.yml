@@ -3,3 +3,10 @@
   #any_errors_fatal: true
   roles:
     - imunes
+
+  tasks:
+    - name: Copia aluno.tgz para a máquina
+      ansible.builtin.get_url:
+        url: http://ansiblefiles.sj.ifsc.edu.br/aluno_lab.tgz
+        dest: /opt/backup/aluno.tgz
+      when: ansible_os_family == 'Debian'
