@@ -168,43 +168,6 @@
 
 # Windows
 
-- name: Verifica interface de rede
-  ansible.windows.win_shell: "(ipconfig | findstr Ethernet).substring(19,8)"
-  register: interface_win
-  ignore_errors: true
-  changed_when: false
-  when: (ansible_os_family == 'Windows' and ((ansible_os_name == 'Microsoft Windows 11 Pro') or (ansible_os_name == 'Microsoft Windows 7 Professional')))
-  tags: wins
-
-- name: Verifica interface de rede
-  ansible.windows.win_shell: "(ipconfig | findstr Ethernet).substring(19,8)"
-  register: interface_win
-  ignore_errors: true
-  changed_when: false
-  when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 10 Pro')
-  tags: wins
-### As vezes dá erro porque a interface não vem seguido de um numero, caso isso
-### ocorra substituir a substring (19,10) para (19,8)
-
-- name: Setar servidor WINS e DNS - Windows 7
-  ansible.windows.win_shell: netsh interface ip add wins name="Conexão Local" addr=191.36.8.68 ; netsh interface ip add wins name="Conexão Local" addr=191.36.8.67 index=2; netsh interface ip set dnsservers name="Conexão Local" source=static addr=191.36.8.67 ; netsh interface ip add dns name="Conexão Local" addr=191.36.8.68 index=2
-  when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 7 Professional')
-  tags: wins
-
-
-- name: Setar servidor WINS e DNS na interface {{ interface_win.stdout |trim }} - Windows 10
-  ansible.windows.win_shell: netsh interface ip add wins name="{{ interface_win.stdout |trim }}" addr=191.36.8.67 ; netsh interface ip add wins name="{{ interface_win.stdout |trim }}" addr=191.36.8.68 index=2 ; netsh interface ip set dnsservers name="{{ interface_win.stdout |trim }}" source=static addr=191.36.8.67 ; netsh interface ip add dns name="{{ interface_win.stdout |trim }}" addr=191.36.8.68 index=2
-  when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 10 Pro')
-  tags: wins
-
-# - name: Setar servidor WINS e DNS - Windows 10
-#   win_shell: netsh interface ip set wins name="Ethernet 3" source=static addr=191.36.8.67 ; netsh interface ip add wins name="Ethernet 3" addr=191.36.8.68 index=2 ; netsh interface ip set dnsservers name="Ethernet 3" source=static addr=191.36.8.67 ; netsh interface ip add dns name="Ethernet 3" addr=191.36.8.68 index=2
-#   when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 10 Pro')
-
-- name: Setar servidor WINS e DNS na interface {{ interface_win.stdout |trim }} - Windows 11
-  ansible.windows.win_shell: netsh interface ip add wins name="{{ interface_win.stdout |trim }}" addr=191.36.8.67 ; netsh interface ip add wins name="{{ interface_win.stdout |trim }}" addr=191.36.8.68 index=2 ; netsh interface ip set dnsservers name="{{ interface_win.stdout |trim }}" source=static addr=191.36.8.67 ; netsh interface ip add dns name="{{ interface_win.stdout |trim }}" addr=191.36.8.68 index=2
-  when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 11 Pro')
-
 - name: Setar sufixo DNS - Windows
   ansible.windows.win_regedit:
     path: HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters
@@ -214,7 +177,7 @@
 
 - name: Ingressa no dominio - Windows
   ansible.windows.win_domain_membership:
-    dns_domain_name: cefetsc
+    dns_domain_name: cefetsc.edu.br
     domain_admin_user: "{{ domain_admin_user }}"
     domain_admin_password: "{{ domain_admin_password }}"
     state: domain
