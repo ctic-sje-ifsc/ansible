@@ -1,36 +1,7 @@
 ---
-# Linux Debian 9
-- name: Adicionar a chave do repositório do scidavis
-  apt_key:
-    url: https://download.opensuse.org/repositories/home:hpcoder1/Debian_9.0/Release.key
-    state: present
-  when: ansible_distribution_release == 'stretch'
 
-- name: Adicionar repositório scidavis - Linux Debian 9
-  apt_repository:
-    filename: hpcoder1
-    repo: deb http://download.opensuse.org/repositories/home:/hpcoder1/Debian_9.0/ /
-    state: present
-    update_cache: yes
-  when: ansible_distribution_release == 'stretch'
-
-- name: Instalar o scidavis - Linux
-  apt:
-    name: scidavis
-    state: latest
-  when: ansible_distribution_release == 'stretch'
-
-# Linux Debian 11
-- name: Copia o scidavis 2.4.1 para a maquina
-  copy:
-    src: scidavis_2.4.1-1_deb11.deb
-    dest: /tmp
-    owner: root
-    group: root
-    mode: 0644
-  when: ansible_distribution_release == 'bullseye'
-
-- name: Instalar o Scidavis 2.4.1
-  apt:
-    deb: /tmp/scidavis_2.4.1-1_deb11.deb
-  when: ansible_distribution_release == 'bullseye'
+# Linux Debian OBS: versão para debian 11
+- name: Instalar o Scidavis 2.8.1
+  ansible.builtin.apt:
+    deb: http://ansiblefiles.sj.ifsc.edu.br/scidavis_2.8-1_amd64.deb
+  when: ansible_os_family == 'Debian'
