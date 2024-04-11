@@ -1,8 +1,31 @@
-# ---
-###### Criar e configurar a conta aluno em maquinas windows ############
-# - hosts:  sj-labter-614120.maquinas.sj.ifsc.edu.br 
+---
+# ##### Criar e configurar a conta aluno em maquinas windows ############ ( não está funcionando )
+# - hosts:  sje-ctic-866467.maquinas.sj.ifsc.edu.br 
 #   roles:
 #     - create_user_aluno
+# - name: Manage local user aluno on a Windows remote host # ( ESTÁ funcionando )
+#   hosts: sje-ctic-866467.maquinas.sj.ifsc.edu.br
+#   gather_facts: no
+
+#   vars:
+#     ansible_winrm_transport: basic
+#     ansible_winrm_server_cert_validation: ignore
+
+#   tasks:
+#     - name: Ensure user "aluno" exists and set password
+#       win_user:
+#         name: aluno
+#         password: aluno
+#         password_never_expires: yes
+#         user_cannot_change_password: yes
+#         state: present
+
+#     - name: Add user "aluno" to local group "Usuários"
+#       win_group_membership:
+#         name: Usuários
+#         members:
+#           - aluno
+#         state: present
 #
 ###### Criar e configurar a conta aluno em maquinas Linux ##############
 # - name: Criar conta de usuário aluno no host local
