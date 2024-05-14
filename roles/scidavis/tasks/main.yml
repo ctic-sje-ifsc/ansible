@@ -1,7 +1,8 @@
 ---
 
 # Linux Debian OBS: versão para debian 11
-- name: Instalar o Scidavis 2.8.1
-  ansible.builtin.apt:
-    deb: http://ansiblefiles.sj.ifsc.edu.br/scidavis_2.8-1_amd64.deb
+- name: Instala SCIdavis usando flatpak
+  community.general.flatpak:
+    name:  https://dl.flathub.org/repo/appstream/net.sourceforge.scidavis.flatpakref
+    state: present
   when: ansible_os_family == 'Debian'
