@@ -1,5 +1,5 @@
 ---
-- hosts: lab_alunos
+- hosts: lab_alunos_lin
   #any_errors_fatal: true
   roles:
     - imunes
