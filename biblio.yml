@@ -72,3 +72,32 @@
         groups: aluno
         append: yes
       when: ansible_os_family == 'Debian'
+
+
+####################### Computador do balcao
+- hosts: sje-lin-biblio-28857.maquinas.sj.ifsc.edu.br
+  tasks:
+    - name: Adiciona linha do usuario biblioteca no passwd
+      blockinfile:
+        path: /etc/passwd
+        backup: yes
+        block: |
+          biblioteca:x:1001:1001:,,,:/home/biblioteca:/bin/bash
+      when: ansible_os_family == 'Debian'
+
+    - name: Adiciona linha do usuario biblioteca no group
+      blockinfile:
+        path: /etc/group
+        backup: yes
+        block: |
+          biblioteca:x:1001:
+      when: ansible_os_family == 'Debian'
+
+    - name: Cria usuário biblioteca com a senha sebib1234
+      ansible.builtin.user:
+        name: biblioteca
+        shell: /bin/bash
+        password: $6$LCZb7LjvRCkVnHRI$R8VIp.EhrflQoTTwrtSCfQvtMjo2ONFMDtS6RDmwxTCsBegqerBcyxDoiOmzPhwRpU50hC20FmLGRgUvA1L3z.
+        groups: biblioteca
+        append: yes
+      when: ansible_os_family == 'Debian'
