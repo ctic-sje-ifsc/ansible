@@ -35,6 +35,12 @@
         pkg:
           - x2goclient
           - wxmaxima
+          - python3-matplotlib
+          - python3-numpy
+          - python3-scipy
+          - python3-pandas
+          - python3-pip
+      tags: pacotes
 
 ##### Configuração do script para apagar o home do aluno a cade inicialização
     - name: Adiciona script para zerar o home do aluno
