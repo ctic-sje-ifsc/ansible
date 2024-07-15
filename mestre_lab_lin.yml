@@ -2,13 +2,13 @@
   hosts: laboratorios_lin
 
   roles:
-    - upgrade_11to12
     - flatpak
     - virtualbox
     - java21-oracle
     - gradle_8.5
     - jetbrains
     - docker
+    - unattendedUpgrades_labs
 
   tasks:
 
@@ -77,6 +77,11 @@
         backup: true
       when: ansible_os_family == 'Debian'
       tags: bashrc
+  
+- name: Configurações aplicadas somente para os alunos
+  hosts: laboratorios_lin:!lab_profs_lin
+  roles:
+    - lightdm-autologin
 
  #Import de playbooks
 - import_playbook: labcad1.yml
