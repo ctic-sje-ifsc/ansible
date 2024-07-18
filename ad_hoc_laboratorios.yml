@@ -28,24 +28,52 @@
 #         state: present
 #
 ###### Criar e configurar a conta aluno em maquinas Linux ##############
-# - name: Criar conta de usuário aluno no host local
-#   hosts: sje-lin-note-3849460.maquinas.sj.ifsc.edu.br 
+# - name: Criar conta de usuário 'aluno' e configurar ambiente
+#   hosts: sj-lin-ciehu-710797.maquinas.sj.ifsc.edu.br
+#   become: yes
 #   tasks:
-#     - name: Criar diretório home
+#     - name: Criar grupo vboxusers se não existir
+#       group:
+#         name: vboxusers
+#         state: present
+    
+#     - name: Criar usuário 'aluno'
+#       user:
+#         name: aluno
+#         password: "{{ 'aluno' | password_hash('sha512', 'mysalt') }}"  # Substitua 'mysalt' por um valor seguro
+#         groups: vboxusers
+#         shell: /bin/bash
+#         create_home: yes
+#       register: aluno_user
+    
+#     - name: Verificar se o usuário 'aluno' foi criado
+#       command: id aluno
+#       register: aluno_id
+#       ignore_errors: true
+    
+#     - name: Garantir que o diretório home /home/aluno existe
 #       file:
 #         path: /home/aluno
 #         state: directory
 #         owner: aluno
 #         group: aluno
 #         mode: '0755'
-#     - name: Criar conta de usuário
-#       user:
-#         name: aluno
-#         password: "{{ 'aluno' | password_hash('sha512') }}"
-#         shell: /bin/bash
-#         home: /home/aluno
-#         createhome: no
-##########################################################################
+#       when: aluno_user.changed
+    
+#     - name: Verificar se o diretório home /home/aluno foi criado
+#       stat:
+#         path: /home/aluno
+#       register: aluno_home
+    
+#     - name: Mensagem de sucesso se o usuário 'aluno' foi criado com sucesso
+#       debug:
+#         msg: "*** Conta Aluno criada com sucesso ****"
+#       when: aluno_id.rc == 0 and aluno_home.stat.exists
+
+#     - name: Mostrar detalhes se o usuário 'aluno' não foi criado com sucesso
+#       debug:
+#         msg: "Erro: Falha ao criar conta de aluno"
+#       when: aluno_id.rc != 0 or not aluno_home.stat.exists
 
 ######### Executar o Windows Update em Hosts windows remotos
 
@@ -135,7 +163,7 @@
 #         group: 'root'
 #         mode: '0644'
 
-# - hosts:  sje-lin-suped-920798.maquinas.sj.ifsc.edu.br
+# - hosts:  sj-lin-ciehu-710797.maquinas.sj.ifsc.edu.br
 #   roles:
 #     - remove_ldap
 
