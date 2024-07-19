@@ -27,9 +27,15 @@
 #           - aluno
 #         state: present
 #
-###### Criar e configurar a conta aluno em maquinas Linux ##############
+# ## Remover do LDAP ##############
+
+# - hosts:  sj-lin-ciehu-710790.maquinas.sj.ifsc.edu.br
+#   roles:
+#     - remove_ldap
+
+# ###### Criar e configurar a conta aluno em maquinas Linux ##############
 # - name: Criar conta de usuário 'aluno' e configurar ambiente
-#   hosts: sj-lin-ciehu-710797.maquinas.sj.ifsc.edu.br
+#   hosts: sj-lin-ciehu-710790.maquinas.sj.ifsc.edu.br
 #   become: yes
 #   tasks:
 #     - name: Criar grupo vboxusers se não existir
@@ -162,10 +168,6 @@
 #         owner: 'root'
 #         group: 'root'
 #         mode: '0644'
-
-# - hosts:  sj-lin-ciehu-710797.maquinas.sj.ifsc.edu.br
-#   roles:
-#     - remove_ldap
 
 # - hosts: all
 #   tasks:
