@@ -2,7 +2,7 @@
   hosts: laboratorios_lin
 
   roles:
-    - flatpak
+ #   - flatpak
     - virtualbox
     - java21-oracle
     - gradle_8.5
