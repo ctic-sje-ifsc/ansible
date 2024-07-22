@@ -6,3 +6,9 @@
     deb: http://ansiblefiles.sj.ifsc.edu.br/Zoiper5_5.5.15_x86_64.deb
   when: ansible_os_family == 'Debian'
 # Windows
+
+- name: Instalar o Zoiper 5 - Windows 7
+  chocolatey.chocolatey.win_chocolatey:
+    name: zoiper
+    # version: 5.5.10
+  when: ansible_os_family == 'Windows'
