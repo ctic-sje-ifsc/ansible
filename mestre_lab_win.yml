@@ -3,3 +3,8 @@
   hosts: laboratorios_win
   roles:
     - revit
+
+- name: Configurações aplicadas somente para as maquinas dos professores
+  hosts: lab_profs_win
+  roles:
+    - ingressa_ldap
