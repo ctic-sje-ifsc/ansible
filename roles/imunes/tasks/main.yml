@@ -1,46 +1,42 @@
-## Para esse role funcionar corretamente ele precisa dos seguintes roles:
-# docker (instalação do docker)
-
-- include_role:
+- name: Adiciona role docker
+  include_role:
     name: docker
 
 - name: Instalar pacotes necessarios - Linux
-  apt:
-    state: latest
+  ansible.builtin.apt:
     pkg:
-    - apt-transport-https
-    - ca-certificates
-    - curl
-    - gnupg2
-    - software-properties-common
-    - openvswitch-switch
-    - xterm
-    - imagemagick
-    - tk
-    - tcllib
-    - util-linux
-    - make
-    - socat
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg2
+      - software-properties-common
+      - openvswitch-switch
+      - xterm
+      - imagemagick
+      - tk
+      - tcllib
+      - util-linux
+      - make
+      - socat
   when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'jessie')
 
 - name: Baixa repositorio no git do IMUNES
-  git:
+  ansible.builtin.git:
     repo: 'https://github.com/imunes/imunes.git'
     dest: /opt/imunes
-    clone: yes
-    update: no
+    version: v2.5.0
   when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'jessie')
 
 - name: Executa o make install
-  make:
+  ansible.builtin.make:
     chdir: /opt/imunes/
     target: install
-  become: yes
-  changed_when: False
+  become: true
+  changed_when: false
   when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'jessie')
 
 - name: Criando o arquivo vmd.desktop - Linux Debian
-  copy:
+  ansible.builtin.copy:
     content: |
         [Desktop Entry]
         Encoding=UTF-8
@@ -58,14 +54,14 @@
   when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'jessie')
 
 - name: Adiciona pacotes extras dentro da imagem do IMUNES
-  shell: "apt-get_imunes install firefox-esr socat -y"
-  changed_when: False
+  ansible.builtin.shell: "apt-get_imunes install firefox-esr socat -y"
+  changed_when: false
   args:
     executable: /bin/bash
   when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'jessie')
 
 - name: Criar arquivo /home/.Xresources que personaliza Xterm
-  copy:
+  ansible.builtin.copy:
     content: |
         ! Use a nice truetype font and size by default...
         xterm*faceName: DejaVu Sans Mono Book
@@ -119,7 +115,7 @@
   when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'jessie')
 
 - name: Criar arquivo /etc/xdg/autostart/xrdb-autostart.desktop para caregar automaticamente a personalizalização do Xterm
-  copy:
+  ansible.builtin.copy:
     content: |
         [Desktop Entry]
         Type=Application
@@ -136,7 +132,7 @@
   when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'jessie')
 
 - name: Adiciona porgramas para serem executados pelo sudo sem senha
-  copy:
+  ansible.builtin.copy:
     content: |
       ALL   ALL=(ALL) NOPASSWD: SETENV: /usr/local/bin/imunes,/usr/local/bin/hcp,/usr/local/bin/himage,\
       /usr/local/bin/vlink,/usr/local/bin/cleanupAll,/opt/imunes-examples/ipsec/start64.sh,\
@@ -163,34 +159,35 @@
   when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'jessie')
 
 - name: Clona repositorio no git do IMUNES-EXAMPLES
-  git:
+  ansible.builtin.git:
     repo: 'https://github.com/imunes/imunes-examples.git'
     dest: /opt/imunes-examples
+    version: master
   when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'jessie')
 
 - name: Clona repositorio no git do IMUNES-SECURITY
-  git:
+  ansible.builtin.git:
     repo: 'https://github.com/imunes/imunes-security.git'
     dest: /opt/imunes-security
+    version: master
   when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'jessie')
 
 - name: Instala o Wireshark
-  apt:
-    state: latest
+  ansible.builtin.apt:
     pkg:
-    - wireshark
-    - wireshark-doc
+      - wireshark
+      - wireshark-doc
   when: ansible_os_family == 'Debian'
 
 - name: Set CAP_NET_RAW+eip on /usr/bin/dumpcap for Wireshark
-  capabilities:
+  ansible.builtin.capabilities:
     path: /usr/bin/dumpcap
     capability: CAP_NET_RAW+eip
     state: present
   when: ansible_os_family == 'Debian'
 
 - name: Set CAP_NET_ADMIN+eip on /usr/bin/dumpcap for Wireshark
-  capabilities:
+  ansible.builtin.capabilities:
     path: /usr/bin/dumpcap
     capability: CAP_NET_ADMIN+eip
     state: present
