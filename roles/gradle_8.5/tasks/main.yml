@@ -27,7 +27,7 @@
     creates: /opt/gradle/gradle-8.5
     remote_src: true
     owner: aluno
-    group: 513
+    group: 'Domain Users'
   when: ansible_os_family == 'Debian'
 
 - name: Create a symbolic link
