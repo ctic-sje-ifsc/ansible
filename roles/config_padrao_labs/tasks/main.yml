@@ -34,7 +34,7 @@
   ansible.builtin.user:
     name: "{{ grupo_plugdev }}"
     groups: [plugdev]
-    append: yes
+    append: true
   loop:
     - aluno
   loop_control:
@@ -113,8 +113,8 @@
 
 - name: Aplica o daemon-reload e o enable no servico apagaAluno - Linux
   ansible.builtin.systemd:
-    enabled: yes
-    daemon_reload: yes
+    enabled: true
+    daemon_reload: true
     name: apagaAluno
   when: ansible_os_family == 'Debian'
 
@@ -141,7 +141,7 @@
       Description= Apagar as interfaces virtuais de rede
       DefaultDependencies=no
       Before=shutdown.target
-      
+
       [Service]
       Type=oneshot
       ExecStart=/etc/init.d/apagaInterfacesOVS.sh
@@ -157,8 +157,8 @@
 
 - name: Aplica o daemon-reload e o enable no servico apagaInterfacesOVS - Linux
   ansible.builtin.systemd:
-    enabled: yes
-    daemon_reload: yes
+    enabled: true
+    daemon_reload: true
     name: apagaInterfacesOVS
   when: ansible_os_family == 'Debian'
   tags: ovs_interfaces
@@ -181,7 +181,7 @@
 
 - name: Ensure apt cache is up to date
   ansible.builtin.apt:
-    update_cache: yes
+    update_cache: true
   when: ansible_os_family == 'Debian' and result_i386_check.rc == 1
 
 ##################### Fim adiciona arquitetura i386
@@ -192,7 +192,7 @@
   ansible.builtin.user:
     name: aluno
     password: $6$B5dpvoG43l67q0sx$r0LDKV2TgNItf/kYx/76l89ZN4LhP/ksYIxp.SSVGttHoSZXLSoB6Hkg2A6y7M7aFJ8zEuauf5kS/yA/P61kN1
-    append: yes
+    append: true
   when: ansible_os_family == 'Debian'
 
 ###################### Fim do senha_aluno
@@ -279,8 +279,8 @@
 
 - name: Aplica o daemon-reload e o enable no servico wol - Linux
   ansible.builtin.systemd:
-    enabled: yes
-    daemon_reload: yes
+    enabled: true
+    daemon_reload: true
     name: wol
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
@@ -363,8 +363,8 @@
 
 - name: Aplica o daemon-reload e o enable do script para correcao do quartus - Linux
   ansible.builtin.systemd:
-    enabled: yes
-    daemon_reload: yes
+    enabled: true
+    daemon_reload: true
     name: jtagd
   tags: jtag
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
@@ -478,68 +478,6 @@
 
 ###################### Fim configuração VIM
 
-##################### Inicio configuracao interfaces
-- name: Mantem o estado do arquivo /etc/network/interfaces - Linux
-  ansible.builtin.copy:
-    content: |
-      source /etc/network/interfaces.d/*
-
-      # The loopback network interface
-      auto lo
-      iface lo inet loopback
-    dest: /etc/network/interfaces
-    owner: root
-    group: root
-    mode: 0644
-  tags:
-    - rede
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
-
-- name: Mantem o estado do arquivo /etc/network/interfaces - Linux
-  ansible.builtin.copy:
-    content: |
-      search sj.ifsc.edu.br
-      nameserver 191.36.8.66
-      nameserver 191.36.8.90
-      nameserver 191.36.15.200
-    dest: /etc/resolv.conf
-    owner: root
-    group: root
-    mode: 0644
-  tags:
-  - rede
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
-
-- name: Define o backend do cliente dhcp - Linux
-  ansible.builtin.copy:
-    content: |
-      [main]
-      dhcp=dhclient
-    dest: /etc/NetworkManager/conf.d/dhcp-client.conf
-    owner: root
-    group: root
-    mode: 0644
-  tags:
-  - rede
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
-
-
-- name: Altera parâmetro para que o dhclient não morra depois de pegar IPv6 e fique sem IPv4
-  ansible.builtin.shell: nmcli connection modify Wired\ connection\ 1 ipv4.may-fail no
-  changed_when: False
-  ignore_errors: true
-  tags:
-  - rede
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
-
-- name: Remove arquivo /etc/network/interfaces.d/eth0
-  ansible.builtin.file:
-    path: /etc/network/interfaces.d/eth0
-    state: absent
-  tags:
-  - rede
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
-
 ##################### Fim configuracao interfaces
 
 ##################### Corrige problema no Matlab
@@ -550,21 +488,6 @@
     state: absent
   when: ansible_distribution == 'Debian'
 ##################### Fim do corrige problema no Matlab
-
-##################### Definir versao do java e javac padroes
-# - name: Definir versão java padrão - Linux
-#   alternatives:
-#     name: java
-#     path: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
-#   when: ansible_distribution == 'Debian'
-
-# - name: Definir versão javac padrão - Linux
-#   alternatives:
-#     name: javac
-#     path: /usr/lib/jvm/java-8-openjdk-amd64/bin/javac
-#   when: ansible_distribution == 'Debian'
-##################### Fim do Definir versao do java e javac padroes
-
 
 ##################### Cria e aplica SWAP
 
@@ -646,7 +569,7 @@
     line: 'export SHELL=/bin/bash'
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
 
-  #Descomentar o codigo abaixo caso o codigo acima nao funcionar
+  # Descomentar o codigo abaixo caso o codigo acima nao funcionar
 - name: Adicionar entrada SHELL export no /etc/security/pam_env.conf - Linux
   ansible.builtin.lineinfile:
     regexp: '^SHELL'
