@@ -5,12 +5,12 @@
       tipo: grub_lin
 
 - name: Computadores dos alunos
-  hosts: redes_lin:!sj-lin-redes-906284.maquinas.sj.ifsc.edu.br
+  hosts: redes_lin:!sje-lin-redes-906284.maquinas.sj.ifsc.edu.br
   roles:
     - epoptes_client
 
 - name: Computador professor Linux
-  hosts: sj-lin-redes-906284.maquinas.sj.ifsc.edu.br
+  hosts: sje-lin-redes-906284.maquinas.sj.ifsc.edu.br
   roles:
     - epoptes_server
     - ingressa_ldap
