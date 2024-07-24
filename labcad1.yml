@@ -5,12 +5,12 @@
       tipo: grub_win
 
 - name: Computadores dos alunos
-  hosts: cad1_lin:!sj-lin-cad1-916082.maquinas.sj.ifsc.edu.br
+  hosts: cad1_lin:!sje-lin-cad1-916082.maquinas.sj.ifsc.edu.br
   roles:
     - epoptes_client
 
 - name: Computador do professor Linux
-  hosts: sj-lin-cad1-916082.maquinas.sj.ifsc.edu.br
+  hosts: sje-lin-cad1-916082.maquinas.sj.ifsc.edu.br
   roles:
     - epoptes_server
     - ingressa_ldap
