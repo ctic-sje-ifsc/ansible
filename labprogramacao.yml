@@ -17,12 +17,12 @@
       tags: firmware-amd
 
 - name: Computadores dos alunos
-  hosts: programacao_lin:!sj-lin-prog-744523.maquinas.sj.ifsc.edu.br
+  hosts: programacao_lin:!sje-lin-prog-744523.maquinas.sj.ifsc.edu.br
   roles:
     - epoptes_client
 
 - name: Computador do professor Linux
-  hosts: sj-lin-prog-744523.maquinas.sj.ifsc.edu.br
+  hosts: sje-lin-prog-744523.maquinas.sj.ifsc.edu.br
   roles:
     - epoptes_server
     - ingressa_ldap

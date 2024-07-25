@@ -94,4 +94,4 @@
 #       else
 #         echo -e "O usuário $(whoami) não tem permissão. Precisa ser usuário aluno."
 #       fi
-#   when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-sidi-25")
+#   when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-sidi-25")
