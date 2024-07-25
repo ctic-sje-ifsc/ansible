@@ -19,7 +19,7 @@
   ansible.builtin.lineinfile:
     regexp: '^SERVER'
     path: /etc/default/epoptes-client
-    line: 'SERVER=sj-lin-redes-906284.maquinas.sj.ifsc.edu.br'
+    line: 'SERVER=sje-lin-redes-906284.maquinas.sj.ifsc.edu.br'
     create: true
     mode: '0644'
   when: ansible_hostname is search("^sj-lin-redes")
