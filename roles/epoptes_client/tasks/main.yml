@@ -31,7 +31,7 @@
     line: 'SERVER=sje-lin-prog-744523.maquinas.sj.ifsc.edu.br'
     create: true
     mode: '0644'
-  when: ansible_hostname is search("^sje-lin-prog")
+  when: (ansible_hostname is search("^sje-lin-prog") or ansible_hostname is search("^sj-lin-prog"))
 
 - name: Adicionar entrada no /etc/default/epoptes-client sobre quem é o server do cad1 - Linux
   ansible.builtin.lineinfile:
