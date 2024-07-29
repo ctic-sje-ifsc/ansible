@@ -10,7 +10,7 @@
 -A OUTPUT -p tcp -d sj-lin-redes-906284.maquinas.sj.ifsc.edu.br -j ACCEPT
 {% elif ansible_hostname is search("^sj-lin-sidi.*") %}
 -A OUTPUT -p tcp -d sje-lin-sidi-25.maquinas.sj.ifsc.edu.br -j ACCEPT
-{% elif ansible_hostname is search("^sj-lin-prog.*") %}
+{% elif ansible_hostname is search("^sje-lin-prog.*") %}
 -A OUTPUT -p tcp -d sje-lin-prog-744523.maquinas.sj.ifsc.edu.br -j ACCEPT
 {% elif ansible_hostname is search("^sj-lin-cad1.*") %}
 -A OUTPUT -p tcp -d sj-lin-cad1-916082.maquinas.sj.ifsc.edu.br -j ACCEPT
