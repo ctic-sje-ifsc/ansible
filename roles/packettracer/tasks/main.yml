@@ -13,3 +13,44 @@
   ansible.builtin.apt:
     deb: http://ansiblefiles.sj.ifsc.edu.br/CiscoPacketTracer_821_Ubuntu_64bit.deb
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bookworm')
+
+- name: Cria o arquivo /etc/init.d/apagaInterfacesOVS.sh
+  ansible.builtin.copy:
+    content: |
+      #!/bin/bash
+      for x in $(ovs-vsctl list-br); do ovs-vsctl del-br ${x}; done
+    dest: /etc/init.d/apagaInterfacesOVS.sh
+    owner: root
+    group: root
+    mode: 0755
+  when: ansible_os_family == 'Debian'
+  tags: ovs_interfaces
+
+- name: Cria o serviço /lib/systemd/system/apagaInterfacesOVS.service
+  ansible.builtin.copy:
+    content: |
+      [Unit]
+      Description= Apagar as interfaces virtuais de rede
+      DefaultDependencies=no
+      Before=shutdown.target
+
+      [Service]
+      Type=oneshot
+      ExecStart=/etc/init.d/apagaInterfacesOVS.sh
+
+      [Install]
+      WantedBy=reboot.target halt.target poweroff.target
+    dest: /lib/systemd/system/apagaInterfacesOVS.service
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+  tags: ovs_interfaces
+
+- name: Ativa o servico apagaInterfacesOVS
+  ansible.builtin.systemd:
+    enabled: true
+    daemon_reload: true
+    name: apagaInterfacesOVS
+  when: ansible_os_family == 'Debian'
+  tags: ovs_interfaces
