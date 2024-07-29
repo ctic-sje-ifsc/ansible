@@ -1,3 +1,0 @@
-#!/bin/sh
-
-export PROMPT_COMMAND='export PS1="\u: \[\e[34m\]\W\[\e[m\]\\$ "'
