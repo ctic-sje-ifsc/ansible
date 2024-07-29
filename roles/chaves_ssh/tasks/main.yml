@@ -89,7 +89,7 @@
     user: root
     state: present
     key: "{{ lookup('file', 'prog.id_rsa.pub') }}"
-  when: ansible_os_family == 'Debian' and (ansible_hostname is search("^sj-lin-prog") or ansible_hostname is search("^sje-lin-prog"))
+  when: ansible_os_family == 'Debian' and (ansible_hostname is search("^sje-lin-prog") or ansible_hostname is search("^sje-lin-prog"))
 
 - name: Modifica o arquivo /root/.ssh/id_rsa do PROG - lINUX
   ansible.builtin.copy:
