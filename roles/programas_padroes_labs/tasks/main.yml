@@ -1,440 +1,167 @@
-# Linux --------------------------------------------------------------------------------------------------------------
-- name: Add an Apt signing key to a specific keyring file
-  ansible.builtin.apt_key:
-    id: 4EB27DB2A3B88B8B
-    url: https://dl-ssl.google.com/linux/linux_signing_key.pub
-    keyring: /etc/apt/trusted.gpg.d/google-chrome.gpg
-  when: ansible_os_family == 'Debian'
-
-- name: Install a .deb Google Chrome - Linux Debian
-  ansible.builtin.apt:
-    deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-  when: ansible_os_family == 'Debian'
-
-- name: Install a .deb GBStudio - Linux Debian
-  ansible.builtin.apt:
-    deb: https://github.com/chrismaltby/gb-studio/releases/download/v3.1.0/gb-studio-linux-debian.deb
-  when: ansible_os_family == 'Debian'
-
-- name: Instalar pacotes GUI ou "conhecidos" padroes de laboratorios - Linux
-  ansible.builtin.apt:
-    state: latest
-    pkg:
-    - apt-transport-https
-    - geany
-    - audacity
-    - gimp
-    - inkscape
-    - latexila
-    - xournal
-    - abntex
-    - fritzing
-    - kalzium
-    - kdenlive
-    - kicad
-    - kolourpaint4
-    - konsole
-    - gedit
-    - okular
-    - mcu8051ide
-    - vlc
-    - x2goclient
-    - xpdf
-    - libreoffice
-    - libreoffice-l10n-pt-br
-    - google-chrome-stable
-    - pdfsam
-    - pdfshuffler
-    - mate-applet-brisk-menu
-    - dia
-    - vokoscreen
-  when: ansible_os_family == 'Debian'
-
-- name: Instalar pacotes GUI ou "conhecidos" padroes de laboratorios - Debian 10
-  ansible.builtin.apt:
-    state: latest
-    pkg:
-    - unrar
-    - qalculate
-    - dconf-tools
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
-
-- name: Instalar pacotes GUI ou "conhecidos" padroes de laboratorios - Debian 11
-  ansible.builtin.apt:
-    state: latest
-    pkg:
-    - qalc
-    - cmake
-    - mariadb-client
-    - snapd
-    - flameshot
-    - scrcpy
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
-
-- name: Instalar pacotes snaps padroes de laboratorios - Debian 11
-  community.general.snap:
-    name:
-      - core
-      - mysql-workbench-community
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
-
-- name: Cria atalho mysql-workbench-community
-  ansible.builtin.file:
-    src: /var/lib/snapd/desktop/applications/mysql-workbench-community_mysql-workbench-community.desktop
-    dest: /usr/share/applications/mysql-workbench-community_mysql-workbench-community.desktop
-    owner: root
-    group: root
-    state: link
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
-  tags: atalho_workbench
-
-- name: Instalar pacotes de ferramentas "conhecidas" padroes de laboratorios - Linux
-  ansible.builtin.apt:
-    state: latest
-    pkg:
-    - unrar
-    - xterm
-    - ethtool
-    - minicom
-    - nmap
-    - ntfs-3g
-    - iperf
-    - ipcalc
-    - tcpdump
-    - cutecom
-    - gdb
-    - ipython3
-    - git
-    - logisim
-    - mosquitto-clients
-    - nemiver
-    - nodejs
-    - vim
-    - whois
-    - wxmaxima
-    - traceroute
-    - tree
-    - u-boot-tools
-    - uuid-dev
-    - resolvconf
-    - spyder3
-    - subversion
-    - as31
-    - chrpath
-    - diffstat
-    - dnsutils
-    - fish
-    - g++-arm-linux-gnueabi
-    - gcc-arm-linux-gnueabi
-    - gcc-arm-none-eabi
-    - glade
-    - gnupg
-    - swig
-    - texlive-extra-utils
-    - texlive-lang-portuguese
-    - python3-pip
-    - htop
-    - net-tools
-    - fping
-    - libpcre++-dev
-    - python3-tk
-    - chrony
-    - avahi-daemon
-    - graphviz
-    - avahi-utils
-    - wireless-tools
-    - pcaputils
-    - rfkill
-    - strace
-    - ltrace
-    - twinkle
-  when: ansible_os_family == 'Debian'
-
-- name: Reinicia servico resolvconf
-  ansible.builtin.service:
-    name: networking
-    state: restarted
-  changed_when: False
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
-
-- name: Instalar pacotes de ferramentas "conhecidas" padroes de laboratorios - Debian 10
-  ansible.builtin.apt:
-    state: latest
-    pkg:
-    - mysql-client
-    - python-rope
-    - gir1.2-appindicator3-0.1
-    - snmp-mibs-downloader
-    - firmware-amd-graphics
-    - firmware-misc-nonfree
-    - firmware-linux
-    - linux-headers-{{ ansible_kernel }}
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
-
-- name: Instalar lista de pacotes pedida pelo Marcelo Sobral Chamado IFSC#2023052310000814 - Linux
-  ansible.builtin.apt:
-    state: latest
-    pkg:
-    - firmware-ath9k-htc
-    - firmware-atheros
-    - firmware-realtek
-    - firmware-misc-nonfree
-  tags: sobral
-  when: ansible_os_family == 'Debian'
-
-- name: Instalar lista de pacotes pedida pelo Roberto de Matos Chamado IFSC#2019030810001087 - Linux
-  ansible.builtin.apt:
-    state: latest
-    pkg:
-    - binutils-avr
-    - gcc-avr
-    - gdb-avr
-    - avr-libc
-    - avrdude
-    - avarice
-  when: ansible_os_family == 'Debian'
-
-- name: Instalar lista de pacotes pedida pelo Emerson Mello - Linux
-  ansible.builtin.apt:
-    state: latest
-    pkg:
-    - sqlite3
-    - sqlitebrowser
-    - rabbitmq-server
-    - maven
-    - python-dev
-    - python3
-    - python3-dev
-    - libzmq3-dev
-    - distcc
-    - distccmon-gnome
-    - ttf-ancient-fonts
-    - android-tools-adb
-    - python3-venv
-    - figlet
-    - valgrind
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
-
-- name: Adiciona roles
-  ansible.builtin.include_role:
-    name: '{{ roles_lin }}'
-  loop:
-  - gradle
-  - eclipse
-  loop_control:
-    loop_var: roles_lin
-  when: ansible_os_family == 'Debian'
-
-# - name: Instalar lista de pacotes pedida pelo Arliones - Linux
-#   ansible.builtin.apt: name={{ packages }} state=latest
-#   vars:
-#     packages:
-#     - cmake
-#     - pkg-config
-#     - libavcodec-dev
-#     - libavformat-dev
-#     - libswscale-dev
-#     - python-numpy
-#     - libtbb2
-#     - libtbb-dev
-#     - libjpeg-dev
-#     - libjasper-dev
-#     - libdc1394-22-dev
-#     - libopencv-*
-#     - qemu-system-x86
-#     - qemu-utils
-#     - qemu-common
-#     - libxt6:i386
-#     - libdbus-glib-1-2:i386
-#     - libasound2:i386
-#     - libxpm4:i386
-#     - libusb-0.1-4:i386
-#   when: ansible_os_family == 'Debian'
-
-# - name: Instalar lista de pacotes pedida pelo Arliones - Linux
-#   ansible.builtin.apt: name={{ packages }} state=latest
-#   vars:
-#     packages:
-#     - libcppunit-dev
-#     - cxxtest
-#     - libcunit1
-#     - libcunit1-dev
-#   when: ansible_os_family == 'Debian'
-
-# - name: Instala flask com python pip  - Linux
-#   ansible.builtin.pip:
-#     state: latest
-#     name:
-#       - flask
-#       - flask-httpauth
-#   when: ansible_os_family == 'Debian'
-
-### Inicio pacotes necessarios para o Quartus
-
-- name: Instalar lista de pacotes necessarios para o quartus no Debian - Linux
-  ansible.builtin.apt:
-    state: latest
-    pkg:
-    - libbz2-1.0:i386
-    - libsm6:i386
-    - libc6:i386
-    - libpng16-16:i386
-    - libncurses5:i386
-    - libstdc++6:i386
-    - libxft2:i386
-    - libxext6:i386
-    - lib32z1
-    - libxrender1:i386
-    - libfreetype6:i386
-    - libfontconfig1:i386
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'bullseye')
-
-- name: Enable i386 architecture for debian 11
+- name: Enable i386 architecture
   command: dpkg --add-architecture i386
-  changed_when: False
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
-
-- name: Ensure apt cache is up to date for debian 11
-  apt: update_cache=yes
-  changed_when: False
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
-
-- name: Instalar lista de pacotes necessarios para o quartus no Debian - Debian 11
-  ansible.builtin.apt:
-    state: latest
-    pkg:
-    - lib32z1
-    - libc6-dev-i386
-    - libc6:i386
-    - libfontconfig1:i386
-    - libfreetype6:i386
-    - libgtk2.0-0:i386
-    - libncurses5
-    - libncurses5:i386
-    - libsm6:i386
-    - libstdc++6:i386
-    - libxext6:i386
-    - libxft2
-    - libxft2:i386
-    - libxi6:i386
-    - libxrender1:i386
-    - libxtst6:i386
-    - docker-compose-plugin
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
-
-# - name: Install a .deb libpng12:i386 - Linux Debian
-#   ansible.builtin.apt:
-#     deb: http://mirrors.kernel.org/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1_i386.deb
-#   when: ansible_os_family == 'Debian'
-
-# - name: Install a .deb libpng12 - Linux Debian
-#   ansible.builtin.apt:
-#     deb: http://mirrors.kernel.org/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1_amd64.deb
-#   when: ansible_os_family == 'Debian'
-
-- name: Instalar lista de pacotes necessarios para o Matlab no Debian - Linux
-  ansible.builtin.apt:
-    state: latest
-    pkg:
-    - libglu1-mesa
-    - libasound2
-    - libgl1-mesa-dri
   when: ansible_os_family == 'Debian'
 
-### Fim pacotes necessarios para o Quartus
-
-### Comentado pois não tem mais o repositorio
-# - name: Instalar dependência para cmake atualizado do stretch-backports
-#   ansible.builtin.apt:
-#     default_release: stretch-backports-sloppy
-#     state: latest
-#     pkg:
-#     - libarchive13
-#   when: ansible_os_family == 'Debian'
-
-# - name: Instalar pacotes do cmake atualizado do stretch-backports
-#   ansible.builtin.apt:
-#     default_release: stretch-backports
-#     state: latest
-#     pkg:
-#     - cmake
-#   when: ansible_os_family == 'Debian'
+- name: Instalar pacotes
+  ansible.builtin.apt:
+    update_cache: true
+    pkg:
+      - abntex
+      - android-tools-adb
+      - apt-transport-https
+      - as31
+      - audacity
+      - avahi-daemon
+      - avahi-utils
+      - avarice
+      - avrdude
+      - avr-libc
+      - binutils-avr
+      - chrony
+      - chrpath
+      - cmake
+      - cutecom
+      - dia
+      - diffstat
+      - distcc
+      - distccmon-gnome
+      - dnsutils
+      - ethtool
+      - figlet
+      - firmware-amd-graphics
+      - firmware-ath9k-htc
+      - firmware-atheros
+      - firmware-linux
+      - firmware-misc-nonfree
+      - firmware-realtek
+      - fish
+      - flameshot
+      - fping
+      - fritzing
+      - gcc-arm-none-eabi
+      - gcc-avr
+      - gdb
+      - gdb-avr
+      - geany
+      - gedit
+      - gimp
+      - git
+      - glade
+      - gnupg
+      - google-chrome-stable
+      - graphviz
+      - htop
+      - inkscape
+      - ipcalc
+      - iperf
+      - ipython3
+      - kalzium
+      - kdenlive
+      - kicad
+      - kolourpaint
+      - konsole
+      - latexila
+      - lib32z1
+      - libasound2
+      - libbz2-1.0:i386
+      - libc6-dev-i386
+      - libc6:i386
+      - libfontconfig1:i386
+      - libfreetype6:i386
+      - libgl1-mesa-dri
+      - libglu1-mesa
+      - libgtk2.0-0:i386
+      - libncurses5
+      - libncurses5:i386
+      - libpng16-16:i386
+      - libreoffice
+      - libreoffice-l10n-pt-br
+      - libsm6:i386
+      - libstdc++6:i386
+      - libxext6:i386
+      - libxft2
+      - libxft2:i386
+      - libxi6:i386
+      - libxrender1:i386
+      - libxtst6:i386
+      - libzmq3-dev
+      - linux-headers-{{ ansible_kernel }}
+      - logisim
+      - ltrace
+      - mariadb-client
+      - mate-applet-brisk-menu
+      - maven
+      - mcu8051ide
+      - minicom
+      - mosquitto-clients
+      - net-tools
+      - nmap
+      - nodejs
+      - ntfs-3g
+      - okular
+      - pcaputils
+      - pdfsam
+      - python3
+      - python3-dev
+      - python3-pip
+      - python3-tk
+      - python3-venv
+      - qalc
+      - rabbitmq-server
+      - resolvconf
+      - rfkill
+      - snapd
+      - snmp-mibs-downloader
+      - sqlite3
+      - sqlitebrowser
+      - strace
+      - subversion
+      - swig
+      - tcpdump
+      - texlive-extra-utils
+      - texlive-lang-portuguese
+      - traceroute
+      - tree
+      - ttf-ancient-fonts
+      - twinkle
+      - u-boot-tools
+      - unrar
+      - uuid-dev
+      - valgrind
+      - vim
+      - vlc
+      - vokoscreen
+      - whois
+      - wireless-tools
+      - wxmaxima
+      - x2goclient
+      - xournal
+      - xpdf
+      - xterm
+  when: ansible_os_family == 'Debian'
 
 - name: Remover programas  - Linux
   ansible.builtin.apt:
     state: absent
     pkg:
-    - transmission
-    - transmission-common
-    - zoiper5
+      - transmission
+      - transmission-common
+      - zoiper5
   when: ansible_os_family == 'Debian'
 
 # Windows --------------------------------------------------------------------------------------------------------------
-- name: Instalar pacotes padroes laboratorios - Windows
-  win_chocolatey: name={{ pkgs_win }} # state=latest timeout=9000
-  loop:
-  - googlechrome
-  - jre8
-  - firefox
-  - 7zip
-  - vlc
-  - cutepdf
-  - adobereader
-  - putty
-  # - adobeair
-  - librecad
-  - cadconverter
-  - subtitleworkshop
-  loop_control:
-    loop_var: pkgs_win
-  when: ansible_os_family == 'Windows'
-
-- name: Instalar o microsoftsecurityessentials - Windows 7
+- name: Install multiple packages
   win_chocolatey:
-    name: microsoftsecurityessentials
-    # version: latest
-  when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 7 Professional')
-
-########### Instalado manualmente uma versão bem mais nova ###########
-# - name: Instalar o LibreOffice Fresh - Windows
-#   win_chocolatey:
-#     # version: latest
-#     # force: yes
-#     name: libreoffice-fresh
-#   when: ansible_os_family == 'Windows'
-
-# - name: Instalar o Unity 2018.2.10 - Windows
-#   win_chocolatey:
-#     name: unity
-#     version: '2018.2.10'
-#   when: ansible_os_family == 'Windows'
-
-# Comentado porque nao estava funcionando
-# - name: Instalar o FreeCad 0.17 - Windows
-#   win_chocolatey:
-    # version: latest
-#     name: freecad
-#   when: ansible_os_family == 'Windows'
-
-# Windows atalhos --------------------------------------------------------------------------------------------------------------
-
-- name: Cria o atalho do LibreCad - Windows
-  win_shortcut:
-    src: '%ProgramFiles(x86)%\LibreCAD\LibreCAD.exe'
-    dest: '%Public%\Desktop\LibreCAD.lnk'
-    icon: '%ProgramFiles(x86)%\LibreCAD\LibreCAD.exe,0'
-  when: ansible_os_family == 'Windows'
-
-- name: Cria o atalho do CADConverter - Windows
-  win_shortcut:
-    src: '%ProgramFiles%\CoolUtils\TotalCADConverter\CADConverter.exe'
-    dest: '%Public%\Desktop\CADConverter.lnk'
-    icon: '%ProgramFiles%\CoolUtils\TotalCADConverter\CADConverter.exe,0'
-  when: ansible_os_family == 'Windows'
-
-- name: Cria o atalho do Subtitleworkshop - Windows
-  win_shortcut:
-    src: '%ProgramFiles(x86)%\Subtitle Workshop\SubtitleWorkshop.exe'
-    dest: '%Public%\Desktop\SUbtitleWorkshop.lnk'
-    icon: '%ProgramFiles(x86)%\Subtitle Workshop\SubtitleWorkshop.exe,0'
+    name:
+      - googlechrome
+      - jre8
+      - firefox
+      - 7zip
+      - vlc
+      - cutepdf
+      - adobereader
+      - putty
+      - librecad
+      - cadconverter
+    state: present
   when: ansible_os_family == 'Windows'
