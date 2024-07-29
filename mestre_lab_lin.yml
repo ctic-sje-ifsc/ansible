@@ -2,13 +2,15 @@
   hosts: laboratorios_lin
 
   roles:
- #   - flatpak
-    - virtualbox
-    - java21-oracle
-    - gradle_8.5
-    - jetbrains
+    - flatpak
     - docker
+    - gradle_8.5
+    - google_chrome
+    - java21-oracle
+    - jetbrains
+    - mysql_workbench
     - unattendedUpgrades_labs
+    - virtualbox
 
   tasks:
 
@@ -77,11 +79,250 @@
         backup: true
       when: ansible_os_family == 'Debian'
       tags: bashrc
-  
-- name: Configurações aplicadas somente para os alunos
-  hosts: laboratorios_lin:!lab_profs_lin
-  roles:
-    - lightdm-autologin
+
+    - name: Cria usuário aluno
+      ansible.builtin.user:
+        name: aluno
+        password: $6$B5dpvoG43l67q0sx$r0LDKV2TgNItf/kYx/76l89ZN4LhP/ksYIxp.SSVGttHoSZXLSoB6Hkg2A6y7M7aFJ8zEuauf5kS/yA/P61kN1
+        shell: /bin/bash
+        groups: plugdev,dialout
+        append: true
+      when: ansible_os_family == 'Debian'
+
+    - name: Adiciona porgramas para serem executados pelo sudo sem senha
+      ansible.builtin.copy:
+        content: |
+          ALL   ALL=(ALL) NOPASSWD: SETENV: /usr/sbin/ethtool,/usr/sbin/ifconfig,/usr/bin/tcpdump,\
+          /usr/sbin/route,/usr/bin/minicom,/usr/sbin/traceroute,/usr/bin/wireshark,/sbin/iwconfig,\
+          /usr/sbin/iwlist,/usr/sbin/iw,/etc/init.d/firewall.sh,/usr/sbin/dhclient,/usr/bin/MercurioIV_Linux_1.1.0.run,\
+          /etc/init.d/isc-dhcp-server,/etc/init.d/udev,/usr/bin/rpcgen,/usr/sbin/rfkill,/usr/bin/ip,\
+          /usr/bin/systemctl start NetworkManager,/usr/bin/systemctl stop NetworkManager,\
+          /usr/bin/systemctl start NetworkManager.service,/usr/bin/systemctl stop NetworkManager.service
+        dest: /etc/sudoers.d/packages
+        owner: root
+        group: root
+        mode: 0440
+      when: ansible_os_family == 'Debian'
+
+    - name: Mantem o estado do arquivo /etc/init.d/apagaAluno.sh - Debian 9 e 10
+      ansible.builtin.copy:
+        content: |
+          rm -rf /var/spool/cron/crontabs/aluno
+          rm -rf /home/aluno
+          tar -zxvf /opt/backup/aluno.tgz -C / --exclude=home/aluno/.ssh/known_hosts
+        dest: /etc/init.d/apagaAluno.sh
+        owner: root
+        group: root
+        mode: 0755
+      when: ansible_os_family == 'Debian'
+
+    - name: Mantem o estado do arquivo /lib/systemd/system/apagaAluno.service - Linux
+      ansible.builtin.copy:
+        content: |
+          [Unit]
+          Description=Usuário padrão
+          DefaultDependencies=no
+          Before=shutdown.target
+
+          [Service]
+          Type=oneshot
+          ExecStart=/etc/init.d/apagaAluno.sh
+
+          [Install]
+          WantedBy=reboot.target halt.target poweroff.target
+        dest: /lib/systemd/system/apagaAluno.service
+        owner: root
+        group: root
+        mode: 0644
+      when: ansible_os_family == 'Debian'
+
+    - name: Aplica o daemon-reload e o enable no servico apagaAluno - Linux
+      ansible.builtin.systemd:
+        enabled: true
+        daemon_reload: true
+        name: apagaAluno
+      when: ansible_os_family == 'Debian'
+
+    - name: Criando script WoL
+      ansible.builtin.copy:
+        content: |
+          [Unit]
+          Description=Configure Wake-up on LAN
+
+          [Service]
+          Type=oneshot
+          ExecStart=/sbin/ethtool -s eth0 wol g
+
+          [Install]
+          WantedBy=basic.target
+        dest: /lib/systemd/system/wol.service
+        owner: root
+        group: root
+        mode: 0644
+      when: ansible_os_family == 'Debian'
+
+    - name: Ativa o servico WoL
+      ansible.builtin.systemd:
+        enabled: true
+        daemon_reload: true
+        name: wol
+      when: ansible_os_family == 'Debian'
+
+    - name: Enable i386 architecture
+      command: dpkg --add-architecture i386
+      when: ansible_os_family == 'Debian'
+
+    - name: Instalar pacotes
+      ansible.builtin.apt:
+        update_cache: true
+        pkg:
+          - abntex
+          - android-tools-adb
+          - apt-transport-https
+          - as31
+          - audacity
+          - avahi-daemon
+          - avahi-utils
+          - avarice
+          - avrdude
+          - avr-libc
+          - binutils-avr
+          - chrony
+          - chrpath
+          - cmake
+          - cutecom
+          - dia
+          - diffstat
+          - distcc
+          - distccmon-gnome
+          - dnsutils
+          - ethtool
+          - figlet
+          - firmware-amd-graphics
+          - firmware-ath9k-htc
+          - firmware-atheros
+          - firmware-linux
+          - firmware-misc-nonfree
+          - firmware-realtek
+          - fish
+          - flameshot
+          - fping
+          - fritzing
+          - gcc-arm-none-eabi
+          - gcc-avr
+          - gdb
+          - gdb-avr
+          - geany
+          - gedit
+          - gimp
+          - git
+          - glade
+          - gnupg
+          - google-chrome-stable
+          - graphviz
+          - htop
+          - inkscape
+          - ipcalc
+          - iperf
+          - ipython3
+          - kalzium
+          - kdenlive
+          - kicad
+          - kolourpaint
+          - konsole
+          - latexila
+          - lib32z1
+          - libasound2
+          - libbz2-1.0:i386
+          - libc6-dev-i386
+          - libc6:i386
+          - libfontconfig1:i386
+          - libfreetype6:i386
+          - libgl1-mesa-dri
+          - libglu1-mesa
+          - libgtk2.0-0:i386
+          - libncurses5
+          - libncurses5:i386
+          - libpng16-16:i386
+          - libreoffice
+          - libreoffice-l10n-pt-br
+          - libsm6:i386
+          - libstdc++6:i386
+          - libxext6:i386
+          - libxft2
+          - libxft2:i386
+          - libxi6:i386
+          - libxrender1:i386
+          - libxtst6:i386
+          - libzmq3-dev
+          - linux-headers-{{ ansible_kernel }}
+          - logisim
+          - ltrace
+          - mariadb-client
+          - mate-applet-brisk-menu
+          - maven
+          - mcu8051ide
+          - minicom
+          - mosquitto-clients
+          - net-tools
+          - nmap
+          - nodejs
+          - ntfs-3g
+          - okular
+          - pcaputils
+          - pdfsam
+          - python3
+          - python3-dev
+          - python3-pip
+          - python3-tk
+          - python3-venv
+          - qalc
+          - rabbitmq-server
+          - resolvconf
+          - rfkill
+          - snapd
+          - snmp-mibs-downloader
+          - sqlite3
+          - sqlitebrowser
+          - strace
+          - subversion
+          - swig
+          - tcpdump
+          - texlive-extra-utils
+          - texlive-lang-portuguese
+          - traceroute
+          - tree
+          - ttf-ancient-fonts
+          - twinkle
+          - u-boot-tools
+          - unrar
+          - uuid-dev
+          - valgrind
+          - vim
+          - vlc
+          - vokoscreen
+          - whois
+          - wireless-tools
+          - wxmaxima
+          - x2goclient
+          - xournal
+          - xpdf
+          - xterm
+      when: ansible_os_family == 'Debian'
+
+    - name: Remover programas  - Linux
+      ansible.builtin.apt:
+        state: absent
+        pkg:
+          - transmission
+          - transmission-common
+          - zoiper5
+      when: ansible_os_family == 'Debian'
+
+    - name: Configurações aplicadas somente para os alunos
+      hosts: laboratorios_lin:!lab_profs_lin
+      roles:
+        - lightdm-autologin
 
  #Import de playbooks
 - import_playbook: labcad1.yml
