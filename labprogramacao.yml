@@ -5,7 +5,7 @@
       tipo: grub_lin
 
 - name: Computadores HP
-  hosts: sj-lin-prog-866459.maquinas.sj.ifsc.edu.br, sje-lin-prog-866460.maquinas.sj.ifsc.edu.br, sje-lin-prog-866461.maquinas.sj.ifsc.edu.br, sj-lin-prog-866462.maquinas.sj.ifsc.edu.br, sj-lin-prog-866463.maquinas.sj.ifsc.edu.br, sj-lin-prog-866464.maquinas.sj.ifsc.edu.br, sj-lin-prog-866465.maquinas.sj.ifsc.edu.br, sj-lin-prog-866466.maquinas.sj.ifsc.edu.br
+  hosts: sje-lin-prog-866459.maquinas.sj.ifsc.edu.br, sje-lin-prog-866460.maquinas.sj.ifsc.edu.br, sje-lin-prog-866461.maquinas.sj.ifsc.edu.br, sje-lin-prog-866462.maquinas.sj.ifsc.edu.br, sje-lin-prog-866463.maquinas.sj.ifsc.edu.br, sje-lin-prog-866464.maquinas.sj.ifsc.edu.br, sje-lin-prog-866465.maquinas.sj.ifsc.edu.br, sje-lin-prog-866466.maquinas.sj.ifsc.edu.br
   tasks:
     - name: Modulo video AMD - Linux
       ansible.builtin.apt:
