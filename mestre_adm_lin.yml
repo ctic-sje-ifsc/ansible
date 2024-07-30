@@ -3,6 +3,7 @@
 
   roles:
     - upgrade_11to12
+    - ingressa_ldap
 
   tasks:
     - name: Instala utilitários para o bash
