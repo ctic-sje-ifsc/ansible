@@ -1,6 +1,16 @@
 ---
+
+# - name: Servidor controlador
+#   hosts: controlador
+#   tasks:
+#     # USAR O CPF COMO USUÁRIO E A SENHA DEVE TER NO MÍNIMO 8 dígitos
+#     - name: Cria usuários para o IFSC-Terceirizados
+#       ansible.builtin.shell: "samba-tool user create {{ item.user }} {{ item.password }} --userou=OU=terceirizados && samba-tool user setexpiry --days=365 {{ item.user }}"
+#       loop:
+#         - { user: 12345678910, password: 87654321 }
+
 # ##### Criar e configurar a conta aluno em maquinas windows ############ ( não está funcionando )
-# - hosts:  sje-ctic-866467.maquinas.sj.ifsc.edu.br 
+# - hosts:  sje-ctic-866467.maquinas.sj.ifsc.edu.br
 #   roles:
 #     - create_user_aluno
 # - name: Manage local user aluno on a Windows remote host # ( ESTÁ funcionando )
@@ -42,7 +52,7 @@
 #       group:
 #         name: vboxusers
 #         state: present
-    
+
 #     - name: Criar usuário 'aluno'
 #       user:
 #         name: aluno
@@ -51,12 +61,12 @@
 #         shell: /bin/bash
 #         create_home: yes
 #       register: aluno_user
-    
+
 #     - name: Verificar se o usuário 'aluno' foi criado
 #       command: id aluno
 #       register: aluno_id
 #       ignore_errors: true
-    
+
 #     - name: Garantir que o diretório home /home/aluno existe
 #       file:
 #         path: /home/aluno
@@ -65,12 +75,12 @@
 #         group: aluno
 #         mode: '0755'
 #       when: aluno_user.changed
-    
+
 #     - name: Verificar se o diretório home /home/aluno foi criado
 #       stat:
 #         path: /home/aluno
 #       register: aluno_home
-    
+
 #     - name: Mensagem de sucesso se o usuário 'aluno' foi criado com sucesso
 #       debug:
 #         msg: "*** Conta Aluno criada com sucesso ****"
@@ -96,16 +106,6 @@
 #           - ServicePacks
 #         state: installed
 #         reboot: yes
-
-
-# - name: Servidor controlador
-#   hosts: controlador
-#   tasks:
-#     # USAR O CPF COMO USUÁRIO E A SENHA DEVE TER NO MÍNIMO 8 dígitos
-#     - name: Cria usuários para o IFSC-Terceirizados
-#       ansible.builtin.shell: "samba-tool user create {{ item.user }} {{ item.password }} --userou=OU=terceirizados && samba-tool user setexpiry --days=365 {{ item.user }}"
-#       loop:
-#         - { user: 12345678910, password: 87654321 }
 
 # - hosts: csfio_lin
 #   tasks:
