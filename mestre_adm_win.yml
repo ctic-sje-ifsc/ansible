@@ -1,0 +1,33 @@
+---
+- name: Install software on Windows 10
+  hosts: windows
+  tasks:
+    - name: Ensure Chocolatey is installed
+      win_chocolatey:
+        name: chocolatey
+        state: present
+
+    - name: Install Google Chrome
+      win_chocolatey:
+        name: googlechrome
+        state: present
+
+    - name: Install Firefox
+      win_chocolatey:
+        name: firefox
+        state: present
+
+    - name: Install Okular
+      win_chocolatey:
+        name: okular
+        state: present
+
+    - name: Install CutePDF Writer
+      win_chocolatey:
+        name: cutepdf
+        state: present
+
+    - name: Install Java JRE
+      win_chocolatey:
+        name: javaruntime
+        state: present
