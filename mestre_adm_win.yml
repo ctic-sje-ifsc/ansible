@@ -32,6 +32,11 @@
         name: javaruntime
         state: present
 
+    - name: Install LibreOffice
+      win_chocolatey:
+        name: libreoffice
+        state: present
+
     - name: Ensure PSWindowsUpdate module is installed
       win_psmodule:
         name: PSWindowsUpdate
