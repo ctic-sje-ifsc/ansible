@@ -2,6 +2,8 @@
   hosts: laboratorios_lin
 
   roles:
+    - auto_desligamento
+    - dconf
     - flatpak
     - docker
     - gradle_8.5
