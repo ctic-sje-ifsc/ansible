@@ -1,6 +1,6 @@
 ---
-- name: Install software on Windows 10
-  hosts: windows
+- name: Install software and update Windows 10
+  hosts: sj-almoxtele-38298.maquinas.sj.ifsc.edu.br
   tasks:
     - name: Ensure Chocolatey is installed
       win_chocolatey:
@@ -31,3 +31,22 @@
       win_chocolatey:
         name: javaruntime
         state: present
+
+    - name: Ensure PSWindowsUpdate module is installed
+      win_psmodule:
+        name: PSWindowsUpdate
+        state: present
+
+    - name: Import PSWindowsUpdate module
+      win_shell: |
+        Import-Module PSWindowsUpdate
+      args:
+        executable: PowerShell
+
+    - name: Run Windows Update and install all available updates
+      ansible.windows.win_shell: | 
+         Get-WindowsUpdate -Install -AcceptAll -AutoReboot
+      become: yes
+      become_method: runas
+      become_user: Ctic
+
