@@ -1,7 +1,18 @@
-#Linux
+# Linux
+
+- name: Desativa a hibernação
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    masked: true
+  loop:
+    - sleep.target
+    - suspend.target
+    - hibernate.target
+    - hybrid-sleep.target
+  when: ansible_os_family == 'Debian'
 
 - name: Tarefa para desligar computador - Linux
-  cron:
+  ansible.builtin.cron:
     name: "desligamento"
     minute: "0"
     hour: "23"
@@ -10,24 +21,23 @@
     state: present
   when: ansible_os_family == 'Debian'
 
-#Windows
-
+# Windows
 - name: Tarefa para desligar os computadores as 23h - Windows
-  win_scheduled_task:
+  community.windows.win_scheduled_task:
     name: desliga
     description: Desligar as 23h
     actions:
-    - path: shutdown.exe
-      arguments: -s -f -t 0
+      - path: shutdown.exe
+        arguments: -s -f -t 0
     triggers:
-    - type: daily
-      start_boundary: '23:00:00'
+      - type: "daily"
+        start_boundary: '23:00:00'
     username: SYSTEM
     state: present
-    enabled: yes
+    enabled: true
   when: ansible_os_family == 'Windows'
 
 - name: Altera plano de energia para alto desempenho (não hiberna)
-  win_power_plan:
+  community.windows.win_power_plan:
     name: alto desempenho
   when: ansible_os_family == 'Windows'
