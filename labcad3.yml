@@ -14,12 +14,12 @@
   #   when: ansible_os_family == 'Debian'
 
 - name: Computador dos alunos
-  hosts: cad3_lin:!sj-lin-cad3-744517.maquinas.sj.ifsc.edu.br
+  hosts: cad3_lin:!sje-lin-cad3-744517.maquinas.sj.ifsc.edu.br
   roles:
     - epoptes_client
 
 - name: Computador professor Linux
-  hosts: sj-lin-cad3-744517.maquinas.sj.ifsc.edu.br
+  hosts: sje-lin-cad3-744517.maquinas.sj.ifsc.edu.br
   roles:
     - epoptes_server
     - ingressa_ldap
