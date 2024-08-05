@@ -321,12 +321,12 @@
           - zoiper5
       when: ansible_os_family == 'Debian'
 
-    - name: Configurações aplicadas somente para os alunos
-      hosts: laboratorios_lin:!lab_profs_lin
-      roles:
-        - lightdm-autologin
+- name: Configurações aplicadas somente para os alunos
+  hosts: laboratorios_lin:!lab_profs_lin
+  roles:
+    - lightdm-autologin
 
- #Import de playbooks
+ # Import de playbooks
 - import_playbook: labcad1.yml
 - import_playbook: labcad2.yml
 - import_playbook: labcad3.yml
