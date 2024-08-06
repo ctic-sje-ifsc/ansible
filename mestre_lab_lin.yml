@@ -103,7 +103,7 @@
         dest: /etc/sudoers.d/packages
         owner: root
         group: root
-        mode: 0440
+        mode: '0440'
       when: ansible_os_family == 'Debian'
 
     - name: Mantem o estado do arquivo /etc/init.d/apagaAluno.sh - Debian 9 e 10
@@ -115,7 +115,7 @@
         dest: /etc/init.d/apagaAluno.sh
         owner: root
         group: root
-        mode: 0755
+        mode: '0755'
       when: ansible_os_family == 'Debian'
 
     - name: Mantem o estado do arquivo /lib/systemd/system/apagaAluno.service - Linux
@@ -135,7 +135,7 @@
         dest: /lib/systemd/system/apagaAluno.service
         owner: root
         group: root
-        mode: 0644
+        mode: '0644'
       when: ansible_os_family == 'Debian'
 
     - name: Aplica o daemon-reload e o enable no servico apagaAluno - Linux
@@ -160,7 +160,7 @@
         dest: /lib/systemd/system/wol.service
         owner: root
         group: root
-        mode: 0644
+        mode: '0644'
       when: ansible_os_family == 'Debian'
 
     - name: Ativa o servico WoL
@@ -171,7 +171,8 @@
       when: ansible_os_family == 'Debian'
 
     - name: Enable i386 architecture
-      command: dpkg --add-architecture i386
+      ansible.builtin.command: dpkg --add-architecture i386
+      changed_when: false
       when: ansible_os_family == 'Debian'
 
     - name: Instalar pacotes
