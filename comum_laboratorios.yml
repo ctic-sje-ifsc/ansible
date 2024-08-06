@@ -25,29 +25,6 @@
     - imunes
     - glpi_agent
 
-- hosts: laboratorios_lin
-  roles:
-  - role: gantsign.visual-studio-code-extensions
-    users:
-      - username: aluno
-        visual_studio_code_extensions:
-          - vscjava.vscode-java-pack
-          - richardwillis.vscode-gradle-extension-pack
-          - vscjava.vscode-lombok
-          - ms-azuretools.vscode-docker
-          - ms-vscode-remote.remote-containers
-          - VisualStudioExptTeam.vscodeintellicode
-          - James-Yu.latex-workshop
-          - yzhang.markdown-all-in-one
-          - bierner.markdown-preview-github-styles
-          - ms-python.python
-          - ms-python.vscode-pylance
-          - jeff-hykin.better-cpp-syntax
-          - ms-vscode.cpptools-extension-pack
-          - streetsidesoftware.code-spell-checker
-          - streetsidesoftware.code-spell-checker-portuguese-brazilian
-          - vscode-icons-team.vscode-icons
-
   ## Inclusao de roles apenas para WINDOWS
 - hosts: laboratorios_win
   #any_errors_fatal: true
