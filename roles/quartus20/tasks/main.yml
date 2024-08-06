@@ -1,5 +1,11 @@
+- name: Enable i386 architecture
+  ansible.builtin.command: dpkg --add-architecture i386
+  changed_when: false
+  when: ansible_os_family == 'Debian'
+
 - name: Instalar pacotes necessarios para o Quartus 20 - Linux Debian 11
   ansible.builtin.apt:
+    update_cache: true
     pkg:
       - libc6:i386
       - libncurses5:i386
@@ -26,7 +32,7 @@
     remote_src: true
     owner: root
     group: root
-    mode: 0755
+    mode: '0755'
   when: ansible_os_family == 'Debian'
 
 - name: Copiando o icone do modelsim - Debian 11
@@ -35,7 +41,7 @@
     dest: /opt/intelFPGA/20.1/modelsim_ae/modesim.png
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
   when: ansible_os_family == 'Debian'
 
 - name: Adiciona LOCALE en_US.UTF-8
@@ -47,15 +53,30 @@
   when: ansible_os_family == 'Debian'
 
 - name: Define o /usr/share/applications/{{ altera_desktop }}
-  copy:
+  ansible.builtin.copy:
     src: "{{ altera_desktop }}"
     dest: /usr/share/applications/
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
   loop:
     - quartus20.1.desktop
     - modelsim20.1.desktop
   loop_control:
     loop_var: altera_desktop
+  when: ansible_os_family == 'Debian'
+
+# Configuração das variáveis de licença
+- name: Adicionar entrada MGLS_LICENSE_FILE export no /etc/security/pam_env.conf - Linux
+  ansible.builtin.lineinfile:
+    regexp: '^MGLS_LICENSE_FILE'
+    path: /etc/security/pam_env.conf
+    line: 'MGLS_LICENSE_FILE   DEFAULT=1800@license-server.sj.ifsc.edu.br'
+  when: ansible_os_family == 'Debian'
+
+- name: Adicionar entrada LM_LICENSE_FILE export no /etc/security/pam_env.conf - Linux
+  ansible.builtin.lineinfile:
+    regexp: '^LM_LICENSE_FILE'
+    path: /etc/security/pam_env.conf
+    line: 'LM_LICENSE_FILE     DEFAULT=1800@license-server.sj.ifsc.edu.br'
   when: ansible_os_family == 'Debian'
