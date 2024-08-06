@@ -22,13 +22,23 @@
       - libxft2:i386
       - libc6-dev-i386
       - lib32z1
+      - xterm
+  when: ansible_os_family == 'Debian'
+
+- name: Create directory /opt/altera
+  ansible.builtin.file:
+    path: /opt/altera
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
   when: ansible_os_family == 'Debian'
 
 - name: Extraindo Quartus 20.1
   ansible.builtin.unarchive:
     src: http://ansiblefiles.sj.ifsc.edu.br/quartus_20.1.tgz
-    dest: /opt/
-    creates: /opt/intelFPGA
+    dest: /opt/altera
+    creates: /opt/altera/intelFPGA
     remote_src: true
     owner: root
     group: root
@@ -38,17 +48,15 @@
 - name: Copiando o icone do modelsim - Debian 11
   ansible.builtin.copy:
     src: modelsim.png
-    dest: /opt/intelFPGA/20.1/modelsim_ae/modesim.png
+    dest: /opt/altera/intelFPGA/20.1/modelsim_ae/modelsim.png
     owner: root
     group: root
     mode: '0644'
   when: ansible_os_family == 'Debian'
 
-- name: Adiciona LOCALE en_US.UTF-8
-  ansible.builtin.lineinfile:
-    path: /etc/locale.gen
-    insertafter: "# en_US.UTF-8 UTF-8"
-    line: en_US.UTF-8 UTF-8
+- name: Ensure a locale en_US.UTF-8 exists
+  community.general.locale_gen:
+    name: en_US.UTF-8
     state: present
   when: ansible_os_family == 'Debian'
 
@@ -79,4 +87,14 @@
     regexp: '^LM_LICENSE_FILE'
     path: /etc/security/pam_env.conf
     line: 'LM_LICENSE_FILE     DEFAULT=1800@license-server.sj.ifsc.edu.br'
+  when: ansible_os_family == 'Debian'
+
+- name: Script do jtagd
+  ansible.builtin.copy:
+    content: |
+      pkill -f jtagd -9; /opt/altera/intelFPGA/20.1/quartus/bin/jtagd --user-start;  /opt/altera/intelFPGA/20.1/quartus/bin/jtagconfig
+    dest: /usr/local/bin/jtagd
+    owner: root
+    group: root
+    mode: '0755'
   when: ansible_os_family == 'Debian'
