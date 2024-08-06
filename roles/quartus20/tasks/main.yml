@@ -98,3 +98,17 @@
     group: root
     mode: '0755'
   when: ansible_os_family == 'Debian'
+
+- name: Copia o arquivo altera-usb-blaster.rules - Linux
+  ansible.builtin.copy:
+    content: |
+      ATTR{idVendor}=="09fb", ATTR{idProduct}=="6001", MODE="666"
+      ATTR{idVendor}=="09fb", ATTR{idProduct}=="6002", MODE="666"
+      ATTR{idVendor}=="09fb", ATTR{idProduct}=="6003", MODE="666"
+      ATTR{idVendor}=="09fb", ATTR{idProduct}=="6010", MODE="666"
+      ATTR{idVendor}=="09fb", ATTR{idProduct}=="6810", MODE="666"
+    dest: /etc/udev/rules.d/altera-usb-blaster.rules
+    owner: root
+    group: root
+    mode: '0755'
+  when: ansible_os_family == 'Debian'
