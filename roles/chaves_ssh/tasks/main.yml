@@ -55,7 +55,7 @@
     user: root
     state: present
     key: "{{ lookup('file', 'sidi.id_rsa.pub') }}"
-  when: ansible_os_family == 'Debian' and (ansible_hostname is search("^sj-lin-sidi") or ansible_hostname is search("^sje-lin-sidi"))
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("^sje-lin-sidi")
 
 - name: Modifica o arquivo /root/.ssh/id_rsa do SIDI - lINUX
   ansible.builtin.copy:
@@ -64,7 +64,7 @@
     owner: root
     group: root
     mode: '0400'
-  when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-sidi-25")
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-sidi-918545")
 
 ## REDES
 - name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys do REDES - Linux

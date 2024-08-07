@@ -10,10 +10,10 @@
   ansible.builtin.lineinfile:
     regexp: '^SERVER'
     path: /etc/default/epoptes-client
-    line: 'SERVER=sje-lin-sidi-25.maquinas.sj.ifsc.edu.br'
+    line: 'SERVER=sje-lin-sidi-918545.maquinas.sj.ifsc.edu.br'
     create: true
     mode: '0644'
-  when: ansible_hostname is search("^sj-lin-sidi")
+  when: ansible_hostname is search("^sje-lin-sidi")
 
 - name: Adicionar entrada no /etc/default/epoptes-client sobre quem é o server do redes - Linux
   ansible.builtin.lineinfile:
