@@ -64,7 +64,7 @@
     owner: root
     group: root
     mode: '0644'
-  when: (ansible_distribution == 'Debian' and ansible_hostname == 'sje-lin-sidi-25')
+  when: (ansible_distribution == 'Debian' and ansible_hostname == 'sje-lin-sidi-918545')
   tags: epoptes_groups
 
 - name: Copia arquivo redes.json para máquina do professor

@@ -15,7 +15,7 @@
       when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
 
 - name: Computadores dos alunos
-  hosts: sidi_lin:!sje-lin-sidi-25.maquinas.sj.ifsc.edu.br
+  hosts: sidi_lin:!sje-lin-sidi-918545.maquinas.sj.ifsc.edu.br
   roles:
     - epoptes_client
   tasks:
@@ -28,7 +28,7 @@
       when: ansible_os_family == 'Debian'
 
 - name: Máquina do professor
-  hosts: sje-lin-sidi-25.maquinas.sj.ifsc.edu.br
+  hosts: sje-lin-sidi-918545.maquinas.sj.ifsc.edu.br
   roles:
     - epoptes_server
     - ingressa_ldap
@@ -55,6 +55,6 @@
       when: ansible_os_family == 'Windows'
 
 - name: Maquina do professor
-  hosts: sje-sidi-25.maquinas.sj.ifsc.edu.br
+  hosts: sje-sidi-918545.maquinas.sj.ifsc.edu.br
   roles:
     - ingressa_ldap

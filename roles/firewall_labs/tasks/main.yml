@@ -8,7 +8,7 @@
     group: root
     mode: 0755
   with_items:
-    - sidi-25
+    - sidi-918545
     - redes-906284
     - prog-744523
     - cad1-916082
@@ -24,7 +24,7 @@
     group: root
     mode: 0755
   with_items:
-    - sidi-25
+    - sidi-918545
     - redes-906284
     - prog-744523
     - cad1-916082
