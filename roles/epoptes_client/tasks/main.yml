@@ -37,19 +37,19 @@
   ansible.builtin.lineinfile:
     regexp: '^SERVER'
     path: /etc/default/epoptes-client
-    line: 'SERVER=sj-lin-cad1-916082.maquinas.sj.ifsc.edu.br'
+    line: 'SERVER=sje-lin-cad1-916082.maquinas.sj.ifsc.edu.br'
     create: true
     mode: '0644'
-  when: ansible_hostname is search("^sj-lin-cad1")
+  when: ansible_hostname is search("^sje-lin-cad1")
 
 - name: Adicionar entrada no /etc/default/epoptes-client sobre quem é o server do cad2 - Linux
   ansible.builtin.lineinfile:
     regexp: '^SERVER'
     path: /etc/default/epoptes-client
-    line: 'SERVER=sj-lin-cad2-905476.maquinas.sj.ifsc.edu.br'
+    line: 'SERVER=sje-lin-cad2-905476.maquinas.sj.ifsc.edu.br'
     create: true
     mode: '0644'
-  when: ansible_hostname is search("^sj-lin-cad2")
+  when: ansible_hostname is search("^sje-lin-cad2")
 
 - name: Adicionar entrada no /etc/default/epoptes-client sobre quem é o server do cad3 - Linux
   ansible.builtin.lineinfile:
@@ -58,7 +58,7 @@
     line: 'SERVER=sje-lin-cad3-744517.maquinas.sj.ifsc.edu.br'
     create: true
     mode: '0644'
-  when: (ansible_hostname is search("^sj-lin-cad3") or ansible_hostname is search("^sje-lin-cad3"))
+  when: ansible_hostname is search("^sje-lin-cad3")
 
 - name: Adicionar entrada no /etc/default/epoptes-client sobre quem é o server do informatica - Linux
   ansible.builtin.lineinfile:
