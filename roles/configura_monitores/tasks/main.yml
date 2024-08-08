@@ -15,7 +15,7 @@
     owner: root
     group: root
     mode: '0644'
-  when: (ansible_distribution_release == "bullseye" and (ansible_hostname is search("^sje-lin-sidi-918545") or ansible_hostname is search("^sj-lin-redes-906284") or ansible_hostname is search("^sje-lin-prog-744523") or ansible_hostname is search("^sj-lin-cad1-916082") or ansible_hostname is search("^sj-lin-cad2-905476") or ansible_hostname is search("^sj-lin-cad3-744517") or ansible_hostname is search("^sj-lin-meios") or ansible_hostname is search("^sj-lin-salaa" or "^sj-lin-salab") or ansible_hostname is search("^sj-lin-auditorio") or ansible_hostname is search("^sje-lin-info-895203")))
+  when: (ansible_distribution_release == "bullseye" and (ansible_hostname is search("^sje-lin-sidi-918545") or ansible_hostname is search("^sj-lin-redes-906284") or ansible_hostname is search("^sje-lin-prog-744523") or ansible_hostname is search("^sje-lin-cad1-916082") or ansible_hostname is search("^sje-lin-cad2-905476") or ansible_hostname is search("^sje-lin-cad3-744517") or ansible_hostname is search("^sj-lin-meios") or ansible_hostname is search("^sj-lin-salaa" or "^sj-lin-salab") or ansible_hostname is search("^sj-lin-auditorio") or ansible_hostname is search("^sje-lin-info-895203")))
   tags: servico_monitores
 
 - name: Configuracao dos monitores para o lab sidi - Linux
@@ -64,7 +64,7 @@
     owner: root
     group: root
     mode: '0755'
-  when: ansible_hostname is search("^sj-lin-cad1-916082")
+  when: ansible_hostname is search("^sje-lin-cad1-916082")
 
 - name: Configuracao dos monitores para o lab cad2 - Linux
   ansible.builtin.copy:
@@ -76,7 +76,7 @@
     owner: root
     group: root
     mode: '0755'
-  when: ansible_hostname is search("^sj-lin-cad2-905476")
+  when: ansible_hostname is search("^sje-lin-cad2-905476")
 
 - name: Configuracao dos monitores para o lab cad3 - Linux
   ansible.builtin.copy:
@@ -88,7 +88,7 @@
     owner: root
     group: root
     mode: '0755'
-  when: ansible_hostname is search("^sj-lin-cad3-744517")
+  when: ansible_hostname is search("^sje-lin-cad3-744517")
 
 - name: Configuracao dos monitores para o lab meios de transmissao - Linux
   ansible.builtin.copy:

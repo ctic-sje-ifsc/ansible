@@ -109,7 +109,7 @@
     owner: root
     group: root
     mode: '0644'
-  when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-cad1-916082")
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-cad1-916082")
 
 - name: Define arquivo hosts
   ansible.builtin.copy:
@@ -118,7 +118,7 @@
     owner: root
     group: root
     mode: '0644'
-  when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-cad2-905476")
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-cad2-905476")
 
 - name: Define arquivo hosts
   ansible.builtin.copy:
@@ -127,7 +127,7 @@
     owner: root
     group: root
     mode: '0644'
-  when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-cad3-744517")
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-cad3-744517")
 
 - name: Define arquivo hosts
   ansible.builtin.copy:
@@ -145,7 +145,7 @@
     owner: root
     group: root
     mode: '0644'
-  when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-info-895203")
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-info-895203")
 
 - name: Define arquivo hosts
   ansible.builtin.copy:

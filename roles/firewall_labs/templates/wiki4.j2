@@ -17,12 +17,12 @@
 -A OUTPUT -p tcp -d sje-lin-sidi-918545.maquinas.sj.ifsc.edu.br -j ACCEPT
 {% elif ansible_hostname is search("^sje-lin-prog.*") %}
 -A OUTPUT -p tcp -d sje-lin-prog-744523.maquinas.sj.ifsc.edu.br -j ACCEPT
-{% elif ansible_hostname is search("^sj-lin-cad1.*") %}
--A OUTPUT -p tcp -d sj-lin-cad1-916082.maquinas.sj.ifsc.edu.br -j ACCEPT
-{% elif ansible_hostname is search("^sj-lin-cad2.*") %}
--A OUTPUT -p tcp -d sj-lin-cad2-905476.maquinas.sj.ifsc.edu.br -j ACCEPT
-{% elif ansible_hostname is search("^sj-lin-cad3.*") %}
--A OUTPUT -p tcp -d sj-lin-cad3-744517.maquinas.sj.ifsc.edu.br -j ACCEPT
+{% elif ansible_hostname is search("^sje-lin-cad1.*") %}
+-A OUTPUT -p tcp -d sje-lin-cad1-916082.maquinas.sj.ifsc.edu.br -j ACCEPT
+{% elif ansible_hostname is search("^sje-lin-cad2.*") %}
+-A OUTPUT -p tcp -d sje-lin-cad2-905476.maquinas.sj.ifsc.edu.br -j ACCEPT
+{% elif ansible_hostname is search("^sje-lin-cad3.*") %}
+-A OUTPUT -p tcp -d sje-lin-cad3-744517.maquinas.sj.ifsc.edu.br -j ACCEPT
 {% endif %}
 -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 -A INPUT -j DROP
