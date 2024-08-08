@@ -3,7 +3,7 @@
 exec_cmd(){
   while true; do
     for line in ${maquinas[@]}; do
-      target=sj-lin-${lab}-${line}.maquinas.sj.ifsc.edu.br
+      target=sje-lin-${lab}-${line}.maquinas.sj.ifsc.edu.br
       timeout 0.1 nc -z -w5 ${target} 22  > /dev/null 2>&1
       if [ ${?} = "0" ] ; then
         ssh -o StrictHostKeyChecking=no -q root@${target} "iptables-restore < /var/${comando4} && ip6tables-restore < /var/${comando6}"&
