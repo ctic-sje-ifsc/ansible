@@ -89,7 +89,7 @@
     user: root
     state: present
     key: "{{ lookup('file', 'prog.id_rsa.pub') }}"
-  when: ansible_os_family == 'Debian' and (ansible_hostname is search("^sje-lin-prog") or ansible_hostname is search("^sje-lin-prog"))
+  when: ansible_os_family == 'Debian' and (ansible_hostname is search("^sj-lin-prog") or ansible_hostname is search("^sje-lin-prog"))
 
 - name: Modifica o arquivo /root/.ssh/id_rsa do PROG - lINUX
   ansible.builtin.copy:
@@ -99,3 +99,20 @@
     group: root
     mode: '0400'
   when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-prog-744523")
+
+## Informática
+- name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys do Informática - Linux
+  ansible.posix.authorized_key:
+    user: root
+    state: present
+    key: "{{ lookup('file', 'info.id_rsa.pub') }}"
+  when: ansible_os_family == 'Debian' and (ansible_hostname is search("^sje-lin-info"))
+
+- name: Modifica o arquivo /root/.ssh/id_rsa do Informática - lINUX
+  ansible.builtin.copy:
+    src: info.id_rsa
+    dest: /root/.ssh/id_rsa
+    owner: root
+    group: root
+    mode: '0400'
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-info-895203")
