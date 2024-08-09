@@ -99,7 +99,7 @@
     remote_src: true
     owner: root
     group: ansible
-    mode: '0640'
+    mode: '0440'
   when: ansible_os_family == 'Debian'
 
 - name: Define arquivo hosts
