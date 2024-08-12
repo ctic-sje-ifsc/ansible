@@ -221,6 +221,7 @@
           - git
           - glade
           - gnupg
+          - gnuradio
           - google-chrome-stable
           - graphviz
           - htop
@@ -325,6 +326,7 @@
 - name: Configurações aplicadas somente para os alunos
   hosts: laboratorios_lin:!lab_profs_lin
   roles:
+    - iptables_prof
     - lightdm-autologin
 
  # Import de playbooks
