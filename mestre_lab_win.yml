@@ -3,6 +3,8 @@
   hosts: laboratorios_win
   roles:
     - revit
+    - zoiper
+    - microsip
 
 - name: Configurações aplicadas somente para as maquinas dos professores
   hosts: lab_profs_win
