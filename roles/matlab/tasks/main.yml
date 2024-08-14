@@ -55,7 +55,7 @@
   ansible.builtin.unarchive:
     src: http://ansiblefiles.sj.ifsc.edu.br/matlab_r2015a_modificado.tgz
     dest: /opt/
-    creates: /opt/MATLAB/R2015a
+    creates: /opt/matlab/R2015a
     remote_src: true
     owner: root
     group: root
@@ -64,7 +64,7 @@
 
 - name: Cria link simbólico para o Matlab
   ansible.builtin.file:
-    src: /opt/MATLAB/R2015a/bin/matlab
+    src: /opt/matlab/R2015a/bin/matlab
     dest: /usr/local/bin/matlab
     state: link
   when: ansible_distribution == 'Debian'
