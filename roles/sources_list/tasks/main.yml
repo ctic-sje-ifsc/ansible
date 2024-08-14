@@ -9,7 +9,7 @@
     mode: '0644'
   when: ansible_distribution_release == 'stretch'
   notify:
-    - update apt cache
+    - Update apt cache
 
 # Linux Debian 10
 - name: Arquivo do source list - Debian buster
@@ -21,7 +21,7 @@
     mode: '0644'
   when: ansible_distribution_release == 'buster'
   notify:
-    - update apt cache
+    - Update apt cache
 
 # Linux Debian 11
 - name: Arquivo do source list - Debian bullseye
@@ -33,7 +33,7 @@
     mode: '0644'
   when: ansible_distribution_release == 'bullseye'
   notify:
-    - update apt cache
+    - Update apt cache
 
 # Linux Debian 12
 - name: Arquivo do source list - Debian bookworm
@@ -45,4 +45,4 @@
     mode: '0644'
   when: ansible_distribution_release == 'bookworm'
   notify:
-    - update apt cache
+    - Update apt cache
