@@ -1,36 +1,48 @@
 ---
-#Linux Debian 9
+# Linux Debian 9
 - name: Arquivo do source list - Debian stretch
-  copy:
+  ansible.builtin.copy:
     src: sources.stretch.list
     dest: /etc/apt/sources.list
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
   when: ansible_distribution_release == 'stretch'
   notify:
     - update apt cache
 
-#Linux Debian 10
+# Linux Debian 10
 - name: Arquivo do source list - Debian buster
-  copy:
+  ansible.builtin.copy:
     src: sources.buster.list
     dest: /etc/apt/sources.list
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
   when: ansible_distribution_release == 'buster'
   notify:
     - update apt cache
 
-#Linux Debian 11
+# Linux Debian 11
 - name: Arquivo do source list - Debian bullseye
-  copy:
+  ansible.builtin.copy:
     src: sources.bullseye.list
     dest: /etc/apt/sources.list
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
   when: ansible_distribution_release == 'bullseye'
+  notify:
+    - update apt cache
+
+# Linux Debian 12
+- name: Arquivo do source list - Debian bookworm
+  ansible.builtin.copy:
+    src: sources.bookworm.list
+    dest: /etc/apt/sources.list
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_distribution_release == 'bookworm'
   notify:
     - update apt cache
