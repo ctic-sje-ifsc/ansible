@@ -10,7 +10,9 @@
     - google_chrome
     - java21-oracle
     - jetbrains
+    - matlab
     - mysql_workbench
+    - quartus20
     - unattendedUpgrades_labs
     - virtualbox
 
