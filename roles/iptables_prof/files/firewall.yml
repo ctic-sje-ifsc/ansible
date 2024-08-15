@@ -2,6 +2,34 @@
   hosts: all
 
   tasks:
+    - name: Libera localhost IPv4
+      ansible.builtin.iptables:
+        chain: "{{ item }}"
+        protocol: all
+        ip_version: ipv4
+        destination: 127.0.0.0/8
+        table: filter
+        jump: ACCEPT
+      loop:
+        - OUTPUT
+        - INPUT
+      tags: wiki, moodle, sigaa, bloqueia, ifsc, ifsc-sje
+      when: ansible_os_family == 'Debian'
+
+    - name: Libera localhost IPv6
+      ansible.builtin.iptables:
+        chain: "{{ item }}"
+        protocol: all
+        ip_version: ipv6
+        destination: ::1
+        table: filter
+        jump: ACCEPT
+      loop:
+        - OUTPUT
+        - INPUT
+      tags: wiki, moodle, sigaa, bloqueia, ifsc, ifsc-sje
+      when: ansible_os_family == 'Debian'
+
     - name: Libera dns
       ansible.builtin.iptables:
         chain: "{{ item }}"
