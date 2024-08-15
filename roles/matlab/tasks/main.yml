@@ -68,3 +68,73 @@
     dest: /usr/local/bin/matlab
     state: link
   when: ansible_distribution == 'Debian'
+
+- name: Cria arquivo para resolver problemas de OpenGL
+  ansible.builtin.copy:
+    content: |
+      -Djogl.disable.openglarbcontext=1
+    dest: /opt/matlab/R2015a/bin/glnxa64/java.opts
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_distribution == 'Debian'
+  tags: matlab_correcao
+
+- name: Apaga arquivos para resolver problema do simulink
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - /opt/matlab/R2015a/bin/glnxa64/libfreetype.so.6
+    - /opt/matlab/R2015a/bin/glnxa64/libfreetype.so.6.11.1
+    - /opt/matlab/R2015a/sys/os/glnxa64/libfreetype.rights
+    - /opt/matlab/R2015a/sys/os/glnxa64/libstdc++.so.6
+  when: ansible_distribution == 'Debian'
+  tags: matlab_correcao
+
+- name: Copia log do Matlab
+  ansible.builtin.copy:
+    src: matlab_logo_preview.png
+    dest: /opt/matlab/
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_distribution == 'Debian'
+
+- name: Mantem o estado do arquivo /usr/share/applications/matlab2015a.desktop - Linux
+  ansible.builtin.copy:
+    content: |
+      [Desktop Entry]
+      Version=1.0
+      Encoding=UTF-8
+      Type=Application
+      Icon=/opt/matlab/matlab_logo_preview.png
+      Name=Matlab 2015a
+      Comment=Start MATLAB 2015a - The Language of Technical Computing
+      Exec=/opt/matlab/R2015a/bin/matlab -desktop -nosplash
+      Terminal=false
+      Categories=Development;
+    dest: /usr/share/applications/matlab2015a.desktop
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+
+- name: Mantem o estado do arquivo /usr/share/applications/matlab2015a.desktop - Linux
+  ansible.builtin.copy:
+    content: |
+      [Desktop Entry]
+      Version=1.0
+      Encoding=UTF-8
+      Type=Application
+      Icon=/opt/matlab/matlab_logo_preview.png
+      Name=Matlab 2015a - Software OpenGL
+      Comment=Start MATLAB 2015a - The Language of Technical Computing
+      Exec=/opt/matlab/R2015a/bin/matlab -desktop -nosplash -softwareopengl
+      Terminal=false
+      Categories=Development;
+    dest: /usr/share/applications/matlab2015a-softwareopengl.desktop
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
