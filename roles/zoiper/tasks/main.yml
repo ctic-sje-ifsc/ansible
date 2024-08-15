@@ -5,10 +5,25 @@
   ansible.builtin.apt:
     deb: http://ansiblefiles.sj.ifsc.edu.br/Zoiper5_5.5.15_x86_64.deb
   when: ansible_os_family == 'Debian'
-# Windows
 
-- name: Instalar o Zoiper 5 - Windows 7
-  chocolatey.chocolatey.win_chocolatey:
-    name: zoiper
-    # version: 5.5.10
+# Windows
+- name: Baixar e instalar o Zoiper 5.6.4 - Windows
+  ansible.windows.win_package:
+    path: http://ansiblefiles.sj.ifsc.edu.br/Zoiper_Installer_5.6.4.exe
+    product_id: "Zoiper5"
+    arguments:
+      - --mode
+      - unattended
+      - --unattendedmodeui
+      - minimal
+    state: present
   when: ansible_os_family == 'Windows'
+
+# - name: Atalho para o SR2015
+#   community.windows.win_shortcut:
+#     description: Atalho para o SR2015
+#     src: 'C:\Program Files (x86)\SR 2015\SR2015.exe'
+#     dest: '%Public%\Desktop\SR 2015.lnk'
+#     icon: 'C:\Program Files (x86)\SR 2015\SR2015.exe,0'
+#     state: present
+#   when: ansible_os_family == 'Windows'
