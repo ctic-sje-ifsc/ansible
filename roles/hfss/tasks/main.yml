@@ -34,4 +34,4 @@
   with_items:
     - C:\Windows\Temp\hfss.zip
     - C:\instaladores\HFSS
-  when: ansible_os_family == 'Windows' and hfss_info.stat.exists != False
+  when: ansible_os_family == 'Windows'
