@@ -116,3 +116,37 @@
     group: root
     mode: '0400'
   when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-info-895203")
+
+## Meios de transmissão
+- name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys Meios de transmissão - Linux
+  ansible.posix.authorized_key:
+    user: root
+    state: present
+    key: "{{ lookup('file', 'mtrans.id_rsa.pub') }}"
+  when: ansible_os_family == 'Debian' and (ansible_hostname is search("^sje-lin-mtrans-"))
+
+- name: Modifica o arquivo /root/.ssh/id_rsa Meios de transmissão - lINUX
+  ansible.builtin.copy:
+    src: mtrans.id_rsa
+    dest: /root/.ssh/id_rsa
+    owner: root
+    group: root
+    mode: '0400'
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-mtrans-926158")
+
+## Comunicação sem fio
+- name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys do Comunicação sem fio - Linux
+  ansible.posix.authorized_key:
+    user: root
+    state: present
+    key: "{{ lookup('file', 'csfio.id_rsa.pub') }}"
+  when: ansible_os_family == 'Debian' and (ansible_hostname is search("^sje-lin-csfio"))
+
+- name: Modifica o arquivo /root/.ssh/id_rsa do Comunicação sem fio - lINUX
+  ansible.builtin.copy:
+    src: csfio.id_rsa
+    dest: /root/.ssh/id_rsa
+    owner: root
+    group: root
+    mode: '0400'
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-csfio-744536")
