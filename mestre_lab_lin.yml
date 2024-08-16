@@ -3,6 +3,7 @@
 
   roles:
     - auto_desligamento
+    - chaves_ssh
     - dconf
     - flatpak
     - docker
@@ -322,12 +323,12 @@
         pkg:
           - transmission
           - transmission-common
-          - zoiper5
       when: ansible_os_family == 'Debian'
 
 - name: Configurações aplicadas somente para os alunos
   hosts: laboratorios_lin:!lab_profs_lin
   roles:
+    - configura_monitores
     - iptables_prof
     - lightdm-autologin
 
