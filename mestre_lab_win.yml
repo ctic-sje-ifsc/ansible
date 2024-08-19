@@ -1,4 +1,3 @@
----
 - name: Laboratórios Windows
   hosts: laboratorios_win
   roles:
@@ -10,3 +9,9 @@
   hosts: lab_profs_win
   roles:
     - ingressa_ldap
+
+######################## ORDEM ALFABÉTICA ########################
+- name: Laboratório de Comunicação sem fio
+  hosts: csfio_win
+  roles:
+    - hfss
