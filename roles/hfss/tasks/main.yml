@@ -10,13 +10,13 @@
   ansible.windows.win_get_url:
     url: http://ansiblefiles.sj.ifsc.edu.br/hfss.zip
     dest: C:\Windows\Temp
+    url_timeout: 60
   when: ansible_os_family == 'Windows' and hfss_info.stat.exists == False
 
 - name: Extrai o HFSS em C:\instaladores
   community.windows.win_unzip:
     src: C:\Windows\Temp\hfss.zip
     dest: C:\instaladores
-    creates: C:\instaladores\HFSS
   when: ansible_os_family == 'Windows' and hfss_info.stat.exists == False
 
 - name: Instalar o HFSS - Windows
