@@ -1,16 +1,17 @@
 - name: Adicionar a chave do repositório do AnyDesk
-  apt_key:
+  ansible.builtin.apt_key:
     url: https://keys.anydesk.com/repos/DEB-GPG-KEY
     state: present
+    keyring: /etc/apt/trusted.gpg.d/anydesk.gpg
   when: ansible_os_family == 'Debian'
 
 - name: Adicionar repositório AnyDesk
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: deb http://deb.anydesk.com/ all main
   when: ansible_os_family == 'Debian'
 
 - name: Instala AnyDesk
-  apt:
+  ansible.builtin.apt:
     pkg:
-    - anydesk
+      - anydesk
   when: ansible_os_family == 'Debian'
