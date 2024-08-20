@@ -9,6 +9,11 @@
 #       loop:
 #         - { user: 12345678910, password: 87654321 }
 
+# - name: Token_GD_Starsign_Role
+#   hosts: localhost
+#   roles:
+#     - name: token_gd_starsign
+
 # ##### Criar e configurar a conta aluno em maquinas windows ############ ( não está funcionando )
 # - hosts:  sje-ctic-866467.maquinas.sj.ifsc.edu.br
 #   roles:
