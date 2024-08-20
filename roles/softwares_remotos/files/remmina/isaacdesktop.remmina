@@ -23,6 +23,6 @@ ssh_enabled=0
 username=
 sharefolder=
 console=0
-domain=CEFETSC
+domain=REITORIA
 server=wts01.ifsc.edu.br
 colordepth=32
