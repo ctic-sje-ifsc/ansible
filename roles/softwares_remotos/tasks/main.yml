@@ -1,79 +1,51 @@
----
-#Linux
-
 # Debian
-- name: Adicionar repositório remmina
-  apt_repository:
-    repo: deb http://ftp.debian.org/debian jessie main
-    state: absent
-    update_cache: yes
-  when: ansible_distribution == 'Debian'
-
-# #pode ser removido depois que aplicar a todos os computadores.
-# - name: Reverte versão do libssh-4 para stable
-#   apt: name=libssh-4=0.7.3-2+deb9u1 state=present force=yes
-
-# Debian 9
-- name: Instalar pacotes necessarios para o remmina - Debian 9 e Ubuntu
-  apt:
-    state: present
-    default_release: jessie
-    force: yes
-    pkg:
-    - remmina=1.1.1-2
-    - remmina-common=1.1.1-2
-    - remmina-plugin-rdp=1.1.1-2
-    - libfreerdp-plugins-standard
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'jessie')
-
-# Debian 10 e 11
-- name: Instalar pacotes necessarios para o remmina - Debian 10 e 11
-  apt:
+- name: Instalar pacotes necessarios para o remmina - Linux Debian
+  ansible.builtin.apt:
     state: present
     pkg:
-    - remmina
-    - remmina-common
-    - remmina-plugin-rdp
-    # - libfreerdp-plugins-standard
-  when: (ansible_os_family == 'Debian' and (ansible_distribution_release != 'buster' or ansible_distribution_release != 'bullseye'))
+      - remmina
+      - remmina-common
+      - remmina-plugin-rdp
+  when: ansible_os_family == 'Debian'
 
 - name: Faz hold no remmina
-  dpkg_selections:
+  ansible.builtin.dpkg_selections:
     name: remmina
     selection: hold
   when: ansible_os_family == 'Debian'
 
-# Cria o diretório softwares_remotos se não existe
-- file:
+- name: Cria o diretório softwares_remotos se não existe
+  ansible.builtin.file:
     path: /var/softwares_remotos
     state: directory
-    mode: 0777
+    mode: '0777'
   when: ansible_os_family == 'Debian'
 
 - name: Copiando os arquivos remmina
-  copy:
+  ansible.builtin.copy:
     src: remmina/{{ item }}.remmina
     dest: /var/softwares_remotos/{{ item }}.remmina
     owner: root
     group: root
-    mode: 0777
-  with_items: "{{apps}}"
+    mode: '0777'
+  with_items: "{{ apps }}"
   when: ansible_os_family == 'Debian'
 
 - name: Copiando os arquivos desktop
-  copy:
+  ansible.builtin.copy:
     src: desktop/remmina_{{ item }}.desktop
     dest: /usr/share/applications/remmina_{{ item }}.desktop
     owner: root
     group: root
-    mode: 0777
-  with_items: "{{apps}}"
+    mode: '0777'
+  with_items: "{{ apps }}"
   when: ansible_os_family == 'Debian'
 
 # Copiado os icones
 
 - name: Copiando os icones jpeg
-  copy:
+  ansible.builtin.copy:
     src: icon/
     dest: /var/softwares_remotos/
+    mode: '0777'
   when: ansible_os_family == 'Debian'
