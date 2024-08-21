@@ -172,7 +172,7 @@
     owner: root
     group: root
     mode: '0644'
-  when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-redes-906284")
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-redes-906284")
 
 - name: Define arquivo hosts
   ansible.builtin.copy:
