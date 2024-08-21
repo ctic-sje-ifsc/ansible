@@ -94,7 +94,7 @@
         append: true
       when: ansible_os_family == 'Debian'
 
-    - name: Adiciona porgramas para serem executados pelo sudo sem senha
+    - name: Adiciona programas para serem executados pelo sudo sem senha
       ansible.builtin.copy:
         content: |
           ALL   ALL=(ALL) NOPASSWD: SETENV: /usr/sbin/ethtool,/usr/sbin/ifconfig,/usr/bin/tcpdump,\
@@ -109,9 +109,10 @@
         mode: '0440'
       when: ansible_os_family == 'Debian'
 
-    - name: Mantem o estado do arquivo /etc/init.d/apagaAluno.sh - Debian 9 e 10
+    - name: Mantem o estado do arquivo /etc/init.d/apagaAluno.sh - Debian
       ansible.builtin.copy:
         content: |
+          #!/bin/bash
           rm -rf /var/spool/cron/crontabs/aluno
           rm -rf /home/aluno
           tar -zxvf /opt/backup/aluno.tgz -C / --exclude=home/aluno/.ssh/known_hosts
