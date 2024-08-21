@@ -4,7 +4,7 @@
     user: root
     state: present
     key: "{{ lookup('file', 'cad1.id_rsa.pub') }}"
-  when: ansible_os_family == 'Debian' and (ansible_hostname is search("^sje-lin-cad1") or ansible_hostname is search("^sje-lin-cad1"))
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("^sje-lin-cad1")
 
 - name: Modifica o arquivo /root/.ssh/id_rsa do CAD1 - lINUX
   ansible.builtin.copy:
@@ -21,7 +21,7 @@
     user: root
     state: present
     key: "{{ lookup('file', 'cad2.id_rsa.pub') }}"
-  when: ansible_os_family == 'Debian' and (ansible_hostname is search("^sje-lin-cad2") or ansible_hostname is search("^sje-lin-cad2"))
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("^sje-lin-cad2")
 
 - name: Modifica o arquivo /root/.ssh/id_rsa do CAD2 - lINUX
   ansible.builtin.copy:
@@ -38,7 +38,7 @@
     user: root
     state: present
     key: "{{ lookup('file', 'cad3.id_rsa.pub') }}"
-  when: ansible_os_family == 'Debian' and (ansible_hostname is search("^sje-lin-cad3") or ansible_hostname is search("^sje-lin-cad3"))
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("^sje-lin-cad3")
 
 - name: Modifica o arquivo /root/.ssh/id_rsa do CAD3 - lINUX
   ansible.builtin.copy:
