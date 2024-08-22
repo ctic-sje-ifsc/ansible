@@ -81,7 +81,7 @@
     owner: root
     group: root
     mode: '0400'
-  when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-redes-906284")
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-redes-906284")
 
 ## PROG
 - name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys do PROG - Linux
