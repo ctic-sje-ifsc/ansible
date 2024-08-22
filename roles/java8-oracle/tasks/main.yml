@@ -1,59 +1,60 @@
 #### Baixa e configura o Java 8 da Oracle. Esta versão funciona com o https://hod.serpro.gov.br
 
 - name: Cria diretório /usr/lib/jvm
-  file:
+  ansible.builtin.file:
     path: /usr/lib/jvm
     state: directory
     owner: root
     group: root
     mode: '0755'
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
+  when: ansible_os_family == 'Debian'
 
 - name: Baixando e extraindo o java - Linux Debian
-  unarchive:
-    src: jre-8u241-linux-x64.tar.gz
+  ansible.builtin.unarchive:
+    src: http://ansiblefiles.sj.ifsc.edu.br/jre-8u421-linux-x64.tar.gz
     dest: /usr/lib/jvm
-    creates: /usr/lib/jvm/jre1.8.0_241
+    creates: /usr/lib/jvm/jre1.8.0_421
+    remote_src: true
     owner: root
     group: root
     mode: '0755'
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
+  when: ansible_os_family == 'Debian'
 
 - name: Fazendo do java a opção padrão
-  alternatives:
+  community.general.alternatives:
     link: /usr/bin/java
     name: java
-    path: /usr/lib/jvm/jre1.8.0_241/bin/java
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
+    path: /usr/lib/jvm/jre1.8.0_421/bin/java
+  when: ansible_os_family == 'Debian'
 
 - name: Fazendo do javaws a opção padrão
-  alternatives:
+  community.general.alternatives:
     link: /usr/bin/javaws
     name: javaws
-    path: /usr/lib/jvm/jre1.8.0_241/bin/javaws
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
+    path: /usr/lib/jvm/jre1.8.0_421/bin/javaws
+  when: ansible_os_family == 'Debian'
 
 - name: Cria atalho do Java ControlPanel na lista de aplicativos
-  copy:
+  ansible.builtin.copy:
     content: |
       [Desktop Entry]
       Name=Java ControlPanel
-      Exec=/usr/lib/jvm/jre1.8.0_241/bin/jcontrol
+      Exec=/usr/lib/jvm/jre1.8.0_421/bin/jcontrol
       GenericName=Java ControlPanel
       Type=Application
       StartupNotify=true
       Categories=Settings;
-      Icon=/usr/lib/jvm/jre1.8.0_241/lib/desktop/icons/hicolor/48x48/apps/sun-java.png
+      Icon=/usr/lib/jvm/jre1.8.0_421/lib/desktop/icons/hicolor/48x48/apps/sun-java.png
       Comment=Oracle Java ControlPanel
       Terminal=false
     dest: /usr/share/applications/jcontrol.desktop
     owner: root
     group: root
-    mode: 0644
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
 
 - name: Cria atalho do Java Web Start na lista de aplicativos
-  copy:
+  ansible.builtin.copy:
     content: |
       [Desktop Entry]
       Name=Java Web Start
@@ -62,21 +63,12 @@
       Type=Application
       StartupNotify=true
       Categories=Settings;
-      Icon=/usr/lib/jvm/jre1.8.0_241/lib/desktop/icons/hicolor/48x48/apps/sun-java.png
+      Icon=/usr/lib/jvm/jre1.8.0_421/lib/desktop/icons/hicolor/48x48/apps/sun-java.png
       Comment=Oracle Java Web Start
       Terminal=false
       MimeType=application/x-java-jnlp-file;
     dest: /usr/share/applications/javaws.desktop
     owner: root
     group: root
-    mode: 0644
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'buster')
-
-- name: Remove OpenJDK11 e icedtea
-  apt:
-    state: absent
-    pkg:
-    - openjdk-11-jre-headless
-    - openjdk-11-jre
-    - icedtea-netx
+    mode: '0644'
   when: ansible_os_family == 'Debian'
