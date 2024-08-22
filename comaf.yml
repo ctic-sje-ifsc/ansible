@@ -1,5 +1,4 @@
 - hosts: sj-lin-comaf-037242.maquinas.sj.ifsc.edu.br # Vanessa
-  #any_errors_fatal: true
   roles:
     - savpdf
     - role: instala_impressora_cups
@@ -8,10 +7,12 @@
       cgp: 1
       pdf: 1
 
-- hosts: sj-lin-comaf-744525.maquinas.sj.ifsc.edu.br # Michael
-  #any_errors_fatal: true
+- name: Computador da Elaine
+  hosts: sj-lin-comaf-744525.maquinas.sj.ifsc.edu.br
   roles:
     - ingressa_ldap_sem_cups_client
+    - java8-oracle
+    - token_gd_starsign
     - savpdf
     - role: instala_impressora_cups
       install: 0
@@ -20,17 +21,14 @@
       pdf: 1
 
 - hosts: sj-lin-comaf-36867.maquinas.sj.ifsc.edu.br
-  #any_errors_fatal: true
   roles:
     - token_safenet
 
 - hosts: sj-lin-comaf-744518.maquinas.sj.ifsc.edu.br # Hanada
-  #any_errors_fatal: true
   roles:
     - token_gd_starsign
 
 - hosts: sj-lin-comaf-37250.maquinas.sj.ifsc.edu.br # Edson
-  #any_errors_fatal: true
   roles:
     - token_safenet
     - ingressa_ldap_sem_cups_client
@@ -41,7 +39,6 @@
       pdf: 1
 
 - hosts: sje-lin-financeiro-38109.maquinas.sj.ifsc.edu.br # Joarcir
-  #any_errors_fatal: true
   roles:
     - token_safenet
     - ingressa_ldap_sem_cups_client
