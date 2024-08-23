@@ -35,5 +35,5 @@
     - C:\Windows\Temp\hfss.zip
     - C:\instaladores\HFSS
   loop_control:
-    label: "{{ hsff }}"
+    loop_var: "{{ hsff }}"
   when: ansible_os_family == 'Windows'
