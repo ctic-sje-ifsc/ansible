@@ -1,4 +1,4 @@
-#Este arquivo eh gerado automaticamente pelo Puppet, nao adianta editar.
+#Este arquivo eh gerenciado pelo Ansible, nao editar.
 
 PermitRootLogin yes
 Banner /etc/issue.net.ifsc
@@ -8,4 +8,4 @@ X11Forwarding yes
 PrintMotd no
 AcceptEnv LANG LC_*
 Subsystem sftp /usr/lib/openssh/sftp-server
-AllowUsers root ctic rmartins humbertos gabriel.souza marcelo.muniz
+AllowUsers root ctic rmartins humbertos davi.iahn marcelo.muniz
