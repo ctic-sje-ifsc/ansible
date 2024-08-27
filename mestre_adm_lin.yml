@@ -4,13 +4,82 @@
   roles:
     - upgrade_11to12
     - ingressa_ldap
+    - sources_list
+    - openaudit
+    - acesso_remoto
+    - fonte_garamound
+    - unattendedUpgrades_adm
+    - glpi_agent
+    - auto_desligamento
+    - warsaw
+    - foxit
+    - cadeia_certificados
+    - java8-oracle
+    - role: grub
+      tipo: grub_soh_lin
 
   tasks:
+    - name: Add an Apt signing key to a specific keyring file
+      ansible.builtin.apt_key:
+        id: 4EB27DB2A3B88B8B
+        url: https://dl-ssl.google.com/linux/linux_signing_key.pub
+        keyring: /etc/apt/trusted.gpg.d/google-chrome.gpg
+      when: ansible_os_family == 'Debian'
+
     - name: Instala utilitários para o bash
       ansible.builtin.apt:
         pkg:
+          - apt-transport-https
+          - aptitude
           - bash-completion
+          - chrony
           - command-not-found
+          - dia
+          - dkms
+          - firmware-linux-free
+          - firmware-linux-nonfree
+          - gnome-terminal
+          - google-chrome-stable
+          - gscan2pdf
+          - icedtea-netx
+          - kdenlive
+          - kolourpaint4
+          - libcurl4
+          - network-manager
+          - network-manager-gnome
+          - nfs-common
+          - okular
+          - pdfshuffler
+          - ssh
+          - system-config-printer
+          - unrar
+          - vim
+          - vlc
+      when: ansible_os_family == 'Debian'
+
+    - name: Instala pacotes .deb
+      ansible.builtin.apt:
+        deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+      when: ansible_os_family == 'Debian'
+
+    - name: Remover programas  - Linux
+      ansible.builtin.apt:
+        state: absent
+        pkg:
+          - transmission
+          - transmission-common
+      when: ansible_os_family == 'Debian'
+
+    - name: Inclui o role do NTP do Linux
+      ansible.builtin.include_role:
+        name: geerlingguy.ntp
+      vars:
+        ntp_timezone: America/Sao_Paulo
+        ntp_manage_config: true
+        ntp_servers:
+          - "pool.ntp.br iburst"
+          - "ntp.cais.rnp.br iburst"
+          - "ntp.ufsc.br iburst"
       when: ansible_os_family == 'Debian'
 
     - name: Define conteúdo do /etc/bash.bashrc
