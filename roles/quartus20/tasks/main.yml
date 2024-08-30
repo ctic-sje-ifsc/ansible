@@ -112,3 +112,9 @@
     group: root
     mode: '0755'
   when: ansible_os_family == 'Debian'
+
+- name: Remove biblioteca libfreetype.so que conflita com o eclipse
+  ansible.builtin.file:
+    path: /opt/altera/intelFPGA/20.1/quartus/linux64/jre64/lib/amd64/libfreetype.so*
+    state: absent
+  when: ansible_os_family == 'Debian'
