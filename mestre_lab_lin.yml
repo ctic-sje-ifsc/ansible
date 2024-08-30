@@ -7,7 +7,7 @@
     - dconf
     - flatpak
     - docker
-    - gradle_8.5
+    - gradle_8.10
     - google_chrome
     - java21-oracle
     - jetbrains
