@@ -109,6 +109,16 @@
         mode: '0440'
       when: ansible_os_family == 'Debian'
 
+    - name: Permite dar um cat em todos os arquivos do /proc
+      ansible.builtin.copy:
+        content: |
+          ALL   ALL=(ALL) NOPASSWD: SETENV: /usr/bin/cat /proc/*
+        dest: /etc/sudoers.d/packages
+        owner: root
+        group: root
+        mode: '0440'
+      when: ansible_os_family == 'Debian'
+
     - name: Mantem o estado do arquivo /etc/init.d/apagaAluno.sh - Debian
       ansible.builtin.copy:
         content: |
