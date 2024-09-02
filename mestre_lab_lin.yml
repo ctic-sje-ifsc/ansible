@@ -339,9 +339,13 @@
 - name: Configurações aplicadas somente para os alunos
   hosts: laboratorios_lin:!lab_profs_lin
   roles:
+    - lightdm-autologin
+
+- name: Configurações aplicadas somente para as maquinas dos professores
+  hosts: lab_profs_lin:!laboratorios_lin
+  roles:
     - configura_monitores
     - iptables_prof
-    - lightdm-autologin
 
  # Import de playbooks
 - import_playbook: labcad1.yml
