@@ -47,6 +47,7 @@
   community.windows.win_user_profile:
     username: aluno
     state: absent
+  when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 10 Pro')
 
 - name: Instala Atualizações críticas e de segurança #### A máquina pode reiniciar
   ansible.windows.win_updates:
