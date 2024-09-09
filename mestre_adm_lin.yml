@@ -19,6 +19,7 @@
     - java8-oracle
     - token_gd_starsign
     - token_safenet
+    - hodprint
     - role: grub
       tipo: grub_soh_lin
 
@@ -151,183 +152,97 @@
       when: ansible_os_family == 'Debian'
       tags: bashrc
 
-    - name: Copia hodprint - Linux
+##########################################################
+################ CONFIGURAÇÕES INDIVIUAIS ################
+- name: Configuração salas de aula
+  hosts: salaa,salab
+  roles:
+    - configura_monitores
+    - remove_ldap
+    - flatpak
+    - geogebra
+  tasks:
+    - name: Adiciona linha do usuario aluno no passwd
+      ansible.builtin.blockinfile:
+        path: /etc/passwd
+        backup: true
+        block: |
+          aluno:x:1001:1001::/home/aluno:
+      when: ansible_os_family == 'Debian'
+
+    - name: Adiciona linha do usuario aluno no group
+      ansible.builtin.blockinfile:
+        path: /etc/group
+        backup: true
+        block: |
+          aluno:x:1001:
+      when: ansible_os_family == 'Debian'
+
+    - name: Cria usuário aluno com a senha aluno
+      ansible.builtin.user:
+        name: aluno
+        shell: /bin/bash
+        password: $6$B5dpvoG43l67q0sx$r0LDKV2TgNItf/kYx/76l89ZN4LhP/ksYIxp.SSVGttHoSZXLSoB6Hkg2A6y7M7aFJ8zEuauf5kS/yA/P61kN1
+        groups: aluno
+        append: true
+      when: ansible_os_family == 'Debian'
+
+    - name: Pacotes especiais
+      ansible.builtin.apt:
+        pkg:
+          - x2goclient
+          - wxmaxima
+          - python3-matplotlib
+          - python3-numpy
+          - python3-scipy
+          - python3-pandas
+          - python3-pip
+      tags: pacotes
+
+##### Configuração do script para apagar o home do aluno a cade inicialização
+    - name: Adiciona script para zerar o home do aluno
       ansible.builtin.copy:
         content: |
           #!/bin/bash
-          gtklp $1
-          rm -f $1
-        dest: /usr/bin/hodprint
+
+          ##Este arquivo eh gerado automaticamente pelo Ansible, nao adianta editar.
+
+          #Restaurar o usuario aluno quando manda desligar a maquina ou reiniciar.
+          rm -rf /var/spool/cron/crontabs/aluno
+          rm -rf /home/aluno
+          tar -zxvf /home/backup/aluno.tgz -C / --exclude=home/aluno/.ssh/known_hosts
+        dest: /etc/init.d/apagaAluno.sh
         owner: root
         group: root
         mode: '0755'
       when: ansible_os_family == 'Debian'
-    ##################### Fim impressao hodprint
+      tags: apagaAluno
 
-    ##################### Arquivos de configuração do HOD
-
-    - name: Cria diretório /home/hodfiles
-      ansible.builtin.file:
-        path: /home/hodfiles
-        state: directory
-        owner: root
-        group: root
-        mode: '0755'
-      when: ansible_os_family == 'Debian'
-
-    - name: Copia arquivos de configuração do HOD - cfg0.df
+    - name: Adiciona o arquivo /lib/systemd/system/apagaAluno.service
       ansible.builtin.copy:
         content: |
-          [HostPrintTerminal]
-          SSLCertificateHash=
+          [Unit]
+          Description=Usuário padrão
+          DefaultDependencies=no
+          Before=shutdown.target
 
-          [Icon]
-          frameXpos=0
-          frameWidth=968
-          frameHeight=992
-          isMaximized=true
-          uid=HOD358072
-          isIconified=false
-          frameYpos=0
+          [Service]
+          Type=oneshot
+          ExecStart=/etc/init.d/apagaAluno.sh
 
-          [Terminal]
-          disableKeyBuffer=false
-          PrtScrnJavaMode=false
-
-          [KeyRemap]
-          disableKeyBuffer=false
-
-          [ZipPrint]
-          usePDT=true
-          printFileName=/tmp/hodprint.* | hodprint $<
-          termTime=0
-          RTLFile=false
-          printerLUType=2
-          suppressAutoNewlineNL=false
-          viewJobInBrowser=false
-          formFeedPosition=true
-          useAdobePDF=true
-          pdfPaperSize=6
-          PrintCMSFile=false
-          useWindowsPrinter=false
-          intervTime=10
-          inheritParms=false
-          FFTakesPrintPos=true
-          maxLinesPerPage=48
-          useWindowsDefaultPrinter=true
-          printerName=/dev/lp0
-          tractor=false
-          numOfScreens=2
-          charsPerInch=12
-          windowsPrinterName=
-          pdfPaperOrientation=0
-          drawFieldAttr=0
-          printerFontCodePage=0
-          suppressNullLines=false
-          NumericSwap=true
-          SymmetricSwap=true
-          suppressAutoNewlineCR=false
-          PDTFile=/pdfpdt/LaserPCL.hodpdt
-          useMultiPrintPerPage=false
-          AppProfiles=OVNote\t1\t33\tVIEW THE NOTE\t2\t2\tFrom:\t-1\t31\tE N D  O F  N O T E\t5\t1\t20\t-1\t3\t1\t20\t-1\tPF10\tPF11\ttrue\rISPF\t3\t2\tEDIT\t5\t2\t****** ***************************** Top of Data ******************************\t-1\t2\t****** **************************** Bottom of Data ****************************\t6\t2\t24\t-1\t5\t2\t24\t-1\tPF8\tPF7\ttrue
-          concatTime=0
-          pdfFont=Courier
-          printNullsAsSpaces=true
-          printDestination=false
-          ignoreFFFirstPos=false
-          linesPerInch=6
-          PrintCustomProfile=false
-          bestFit=false
-          separateFiles=false
-          SCSSense=true
-          codePage=037
-          skipTRNData=false
-          ignoreAttr=false
-          maxCharsPerLine=80
-        dest: /home/hodfiles/cfg0.df
+          [Install]
+          WantedBy=reboot.target halt.target poweroff.target
+        dest: /lib/systemd/system/apagaAluno.service
         owner: root
         group: root
-        mode: 0644
+        mode: '0644'
       when: ansible_os_family == 'Debian'
+      tags: apagaAluno
 
-    - name: Copia arquivos de configuração do HOD - cfg1.df
-      ansible.builtin.copy:
-        content: |
-          [HostPrintTerminal]
-          useAdobePDF=true
-          printDestination=false
-          useWindowsPrinter=false
-          linesPerInch=8
-          sessionID=B
-          charsPerInch=17
-          printFileName=/tmp/hodprint.* | hodprint $<
-
-          [Icon]
-          frameXpos=745
-          frameWidth=420
-          frameHeight=422
-          uid=HOD611605
-          frameYpos=304
-        dest: /home/hodfiles/cfg1.df
-        owner: root
-        group: root
-        mode: 0644
+    - name: Aplica o daemon-reload e o enable no servico apagaAluno - Linux
+      ansible.builtin.systemd:
+        enabled: true
+        daemon_reload: true
+        name: apagaAluno
       when: ansible_os_family == 'Debian'
-
-    - name: Copia arquivos de configuração do HOD - cfg2.df
-      ansible.builtin.copy:
-        content: |
-          [HostPrintTerminal]
-          useAdobePDF=true
-          printDestination=false
-          useWindowsPrinter=false
-          linesPerInch=8
-          sessionID=B
-          charsPerInch=17
-          printFileName=/tmp/hodprint.* | hodprint $<
-
-          [Icon]
-          frameXpos=745
-          frameWidth=420
-          frameHeight=422
-          uid=HOD413191
-          frameYpos=304
-        dest: /home/hodfiles/cfg2.df
-        owner: root
-        group: root
-        mode: 0644
-      when: ansible_os_family == 'Debian'
-
-    - name: Copia arquivos de configuração do HOD - cfg3.df
-      ansible.builtin.copy:
-        content: |
-          [HostPrintTerminal]
-          useAdobePDF=true
-          printDestination=false
-          useWindowsPrinter=false
-          linesPerInch=8
-          sessionID=B
-          charsPerInch=17
-          printFileName=/tmp/hodprint.* | hodprint $<
-
-          [Icon]
-          uid=HOD772531
-          isIconified=false
-        dest: /home/hodfiles/cfg3.df
-        owner: root
-        group: root
-        mode: 0644
-      when: ansible_os_family == 'Debian'
-
-    - name: Cria o Leiame.txt
-      ansible.builtin.copy:
-        content: |
-          # Nesta pasta tem os arquivos de configuraçao do HOD com a Console configurado
-          e com a impressora de 132 colunas configurada para usar o hodprint
-          # Instalação
-          Basta copiar os arquvos de configuração (*.df) para a pasta /home/{USER}/HODData/hodcivws/
-        dest: /home/hodfiles/Leiame.txt
-        owner: root
-        group: root
-        mode: 0644
-      when: ansible_os_family == 'Debian'
+      tags: apagaAluno
