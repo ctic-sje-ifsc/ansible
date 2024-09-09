@@ -1,20 +1,8 @@
 # Linux
-- name: Chave repositório geogebra
-  ansible.builtin.apt_key:
-    url: https://static.geogebra.org/linux/office@geogebra.org.gpg.key
-    keyring: /etc/apt/trusted.gpg.d/geogebra.gpg
-  when: ansible_os_family == 'Debian'
-
-- name: Adiciona repositório geogebra
-  ansible.builtin.apt_repository:
-    repo: deb http://www.geogebra.net/linux/ stable main
-    filename: geogebra
-  when: ansible_os_family == 'Debian'
-
-- name: Instala geogebra5
-  ansible.builtin.apt:
-    pkg:
-      - geogebra5
+- name: Instalar geogebra - flatpak
+  community.general.flatpak:
+    name: org.geogebra.GeoGebra
+    state: present
   when: ansible_os_family == 'Debian'
 
 # Windows
