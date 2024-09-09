@@ -1,0 +1,180 @@
+- name: Copia hodprint - Linux
+  ansible.builtin.copy:
+    content: |
+      #!/bin/bash
+      gtklp $1
+      rm -f $1
+    dest: /usr/bin/hodprint
+    owner: root
+    group: root
+    mode: '0755'
+  when: ansible_os_family == 'Debian'
+##################### Fim impressao hodprint
+
+##################### Arquivos de configuração do HOD
+
+- name: Cria diretório /home/hodfiles
+  ansible.builtin.file:
+    path: /home/hodfiles
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  when: ansible_os_family == 'Debian'
+
+- name: Copia arquivos de configuração do HOD - cfg0.df
+  ansible.builtin.copy:
+    content: |
+      [HostPrintTerminal]
+      SSLCertificateHash=
+
+      [Icon]
+      frameXpos=0
+      frameWidth=968
+      frameHeight=992
+      isMaximized=true
+      uid=HOD358072
+      isIconified=false
+      frameYpos=0
+
+      [Terminal]
+      disableKeyBuffer=false
+      PrtScrnJavaMode=false
+
+      [KeyRemap]
+      disableKeyBuffer=false
+
+      [ZipPrint]
+      usePDT=true
+      printFileName=/tmp/hodprint.* | hodprint $<
+      termTime=0
+      RTLFile=false
+      printerLUType=2
+      suppressAutoNewlineNL=false
+      viewJobInBrowser=false
+      formFeedPosition=true
+      useAdobePDF=true
+      pdfPaperSize=6
+      PrintCMSFile=false
+      useWindowsPrinter=false
+      intervTime=10
+      inheritParms=false
+      FFTakesPrintPos=true
+      maxLinesPerPage=48
+      useWindowsDefaultPrinter=true
+      printerName=/dev/lp0
+      tractor=false
+      numOfScreens=2
+      charsPerInch=12
+      windowsPrinterName=
+      pdfPaperOrientation=0
+      drawFieldAttr=0
+      printerFontCodePage=0
+      suppressNullLines=false
+      NumericSwap=true
+      SymmetricSwap=true
+      suppressAutoNewlineCR=false
+      PDTFile=/pdfpdt/LaserPCL.hodpdt
+      useMultiPrintPerPage=false
+      AppProfiles=OVNote\t1\t33\tVIEW THE NOTE\t2\t2\tFrom:\t-1\t31\tE N D  O F  N O T E\t5\t1\t20\t-1\t3\t1\t20\t-1\tPF10\tPF11\ttrue\rISPF\t3\t2\tEDIT\t5\t2\t****** ***************************** Top of Data ******************************\t-1\t2\t****** **************************** Bottom of Data ****************************\t6\t2\t24\t-1\t5\t2\t24\t-1\tPF8\tPF7\ttrue
+      concatTime=0
+      pdfFont=Courier
+      printNullsAsSpaces=true
+      printDestination=false
+      ignoreFFFirstPos=false
+      linesPerInch=6
+      PrintCustomProfile=false
+      bestFit=false
+      separateFiles=false
+      SCSSense=true
+      codePage=037
+      skipTRNData=false
+      ignoreAttr=false
+      maxCharsPerLine=80
+    dest: /home/hodfiles/cfg0.df
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+
+- name: Copia arquivos de configuração do HOD - cfg1.df
+  ansible.builtin.copy:
+    content: |
+      [HostPrintTerminal]
+      useAdobePDF=true
+      printDestination=false
+      useWindowsPrinter=false
+      linesPerInch=8
+      sessionID=B
+      charsPerInch=17
+      printFileName=/tmp/hodprint.* | hodprint $<
+
+      [Icon]
+      frameXpos=745
+      frameWidth=420
+      frameHeight=422
+      uid=HOD611605
+      frameYpos=304
+    dest: /home/hodfiles/cfg1.df
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+
+- name: Copia arquivos de configuração do HOD - cfg2.df
+  ansible.builtin.copy:
+    content: |
+      [HostPrintTerminal]
+      useAdobePDF=true
+      printDestination=false
+      useWindowsPrinter=false
+      linesPerInch=8
+      sessionID=B
+      charsPerInch=17
+      printFileName=/tmp/hodprint.* | hodprint $<
+
+      [Icon]
+      frameXpos=745
+      frameWidth=420
+      frameHeight=422
+      uid=HOD413191
+      frameYpos=304
+    dest: /home/hodfiles/cfg2.df
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+
+- name: Copia arquivos de configuração do HOD - cfg3.df
+  ansible.builtin.copy:
+    content: |
+      [HostPrintTerminal]
+      useAdobePDF=true
+      printDestination=false
+      useWindowsPrinter=false
+      linesPerInch=8
+      sessionID=B
+      charsPerInch=17
+      printFileName=/tmp/hodprint.* | hodprint $<
+
+      [Icon]
+      uid=HOD772531
+      isIconified=false
+    dest: /home/hodfiles/cfg3.df
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+
+- name: Cria o Leiame.txt
+  ansible.builtin.copy:
+    content: |
+      # Nesta pasta tem os arquivos de configuraçao do HOD com a Console configurado
+      e com a impressora de 132 colunas configurada para usar o hodprint
+      # Instalação
+      Basta copiar os arquvos de configuração (*.df) para a pasta /home/{USER}/HODData/hodcivws/
+    dest: /home/hodfiles/Leiame.txt
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
