@@ -13,12 +13,13 @@
     - jetbrains
     - matlab
     - mysql_workbench
+    - sources_list
     - quartus20
     - unattendedUpgrades_labs
+    - npm
     - virtualbox
 
   tasks:
-
     - name: Instala utilitários para o bash
       ansible.builtin.apt:
         pkg:
@@ -273,7 +274,7 @@
           - libxrender1:i386
           - libxtst6:i386
           - libzmq3-dev
-          - linux-headers-{{ ansible_kernel }}
+          # - linux-headers-{{ ansible_kernel }}
           - logisim
           - ltrace
           - mariadb-client
@@ -334,6 +335,9 @@
         pkg:
           - transmission
           - transmission-common
+          - linux-image-6.5.0-0.deb12.4-amd64
+          - linux-headers-6.5.0-0.deb12.4-amd64
+          - linux-headers-6.5.0-0.deb12.4-common
       when: ansible_os_family == 'Debian'
 
 - name: Configurações aplicadas somente para os alunos
@@ -347,15 +351,43 @@
     - configura_monitores
     - iptables_prof
 
- # Import de playbooks
-- import_playbook: labcad1.yml
-- import_playbook: labcad2.yml
-- import_playbook: labcad3.yml
-- import_playbook: labcomex.yml
-- import_playbook: labprogramacao.yml
-- import_playbook: labredes.yml
-- import_playbook: labinfo.yml
-- import_playbook: labsidi.yml
-- import_playbook: labmeios.yml
-- import_playbook: lab_alunos.yml
-- import_playbook: biblio.yml
+
+########### INDIVIDUALIDADE DOS LABORATÓRIOS ###########
+- name: Laboratório de Informática
+  hosts: info_lin
+  roles:
+    - google_earth
+    - tracker
+    - scidavis
+    - role: grub
+      tipo: grub_soh_lin
+  tasks:
+    - name: Cria o arquivo tcp_rmem chamado IFSC#2023050410000449
+      ansible.builtin.copy:
+        content: |
+          10000 10000 10000
+        dest: /proc/sys/net/ipv4/tcp_rmem
+        owner: root
+        group: root
+        mode: '0644'
+        unsafe_writes: true
+      when: ansible_os_family == 'Debian'
+
+    - name: Instala tiled via SNAP
+      community.general.snap:
+        name:
+          - tiled
+      when: ansible_os_family == 'Debian'
+      tags: tiled
+
+ # Import de playbooks ###ISSO VAI MORRER###
+# - import_playbook: labcad1.yml
+# - import_playbook: labcad2.yml
+# - import_playbook: labcad3.yml
+# - import_playbook: labcomex.yml
+# - import_playbook: labprogramacao.yml
+# - import_playbook: labredes.yml
+# - import_playbook: labsidi.yml
+# - import_playbook: labmeios.yml
+# - import_playbook: lab_alunos.yml
+# - import_playbook: biblio.yml
