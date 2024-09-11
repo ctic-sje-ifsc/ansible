@@ -1,3 +1,13 @@
+- name: Administrativo Linux -salas
+  hosts: administrativos_lin,!sala
+  roles:
+    - ingressa_ldap
+    - acesso_remoto
+    - cadeia_certificados
+    - token_gd_starsign
+    - token_safenet
+    - hodprint
+    
 - name: Administrativo Linux
   hosts: administrativos_lin
 
@@ -5,21 +15,15 @@
 ##################### INCLUSÃO DE ROLES #####################
   roles:
     - upgrade_11to12
-    - ingressa_ldap
     - sources_list
     - openaudit
-    - acesso_remoto
     - fonte_garamound
     - unattendedUpgrades_adm
     - glpi_agent
     - auto_desligamento
     - warsaw
     - foxit
-    - cadeia_certificados
     - java8-oracle
-    - token_gd_starsign
-    - token_safenet
-    - hodprint
     - role: grub
       tipo: grub_soh_lin
 
@@ -155,7 +159,7 @@
 ##########################################################
 ################ CONFIGURAÇÕES INDIVIUAIS ################
 - name: Configuração salas de aula
-  hosts: salaa,salab
+  hosts: sala
   roles:
     - configura_monitores
     - remove_ldap
