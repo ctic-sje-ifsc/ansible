@@ -380,6 +380,14 @@
       when: ansible_os_family == 'Debian'
       tags: tiled
 
+
+- name: Laboratório de Meios de Transmissão
+  hosts: meios_lin
+  roles:
+    - role: grub
+      tipo: grub_soh_lin
+
+
  # Import de playbooks ###ISSO VAI MORRER###
 # - import_playbook: labcad1.yml
 # - import_playbook: labcad2.yml
