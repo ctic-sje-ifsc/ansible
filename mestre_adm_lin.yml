@@ -7,7 +7,7 @@
     - token_gd_starsign
     - token_safenet
     - hodprint
-    
+
 - name: Administrativo Linux
   hosts: administrativos_lin
 
@@ -165,6 +165,7 @@
     - remove_ldap
     - flatpak
     - geogebra
+    - aluno
   tasks:
     - name: Adiciona linha do usuario aluno no passwd
       ansible.builtin.blockinfile:
@@ -214,7 +215,7 @@
           #Restaurar o usuario aluno quando manda desligar a maquina ou reiniciar.
           rm -rf /var/spool/cron/crontabs/aluno
           rm -rf /home/aluno
-          tar -zxvf /home/backup/aluno.tgz -C / --exclude=home/aluno/.ssh/known_hosts
+          tar -zxvf /opt/backup/aluno.tgz -C / --exclude=home/aluno/.ssh/known_hosts
         dest: /etc/init.d/apagaAluno.sh
         owner: root
         group: root
