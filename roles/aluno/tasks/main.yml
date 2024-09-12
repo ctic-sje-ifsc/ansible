@@ -7,11 +7,68 @@
     group: root
   when: ansible_os_family == 'Debian'
 
-- name: aluno tgz
+- name: Copia aluno tgz
   ansible.builtin.copy:
     src: aluno.tgz
     dest: /opt/backup/aluno.tgz
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+
+- name: Configuracao aba anonima chrome - Linux
+  ansible.builtin.copy:
+    content: |
+      [Desktop Entry]
+      Version=1.0
+      Name=Google Chrome
+      GenericName=Web Browser
+      GenericName[pt_BR]=Navegador da Internet
+      Exec=/usr/bin/google-chrome-stable %U --incognito
+      StartupNotify=true
+      Terminal=false
+      Icon=google-chrome
+      Type=Application
+      Categories=Network;WebBrowser;
+      MimeType=application/pdf;application/rdf+xml;application/rss+xml;application/xhtml+xml;application/xhtml_xml;application/xml;image/gif;image/jpeg;image/png;image/webp;text/html;text/xml;x-scheme-handler/http;x-scheme-handler/https;
+      Actions=new-window;new-private-window;
+
+      [Desktop Action new-window]
+      Name[pt_BR]=Nova janela
+      Exec=/usr/bin/google-chrome-stable --incognito
+
+      [Desktop Action new-private-window]
+      Name=New Incognito Window
+      Name[pt_BR]=Nova janela anônima
+      Exec=/usr/bin/google-chrome-stable --incognito
+
+    dest: /usr/share/applications/google-chrome.desktop
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+
+
+- name: Configuracao aba anonima firefox - Linux
+  ansible.builtin.copy:
+    content: |
+      [Desktop Entry]
+      Name=Firefox ESR
+      Name[pt_BR]=Firefox ESR
+      Comment[pt_BR]=Navegue na Internet
+      GenericName[pt_BR]=Navegador Web
+      X-GNOME-FullName[pt_BR]=Navegador Web Firefox ESR
+      Exec=/usr/lib/firefox-esr/firefox-esr %u --private-window
+      Terminal=false
+      X-MultipleArgs=false
+      Type=Application
+      Icon=firefox-esr
+      Categories=Network;WebBrowser;
+      MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/vnd.mozilla.xul+xml;application/rss+xml;application/rdf+xml;image/gif;image/jpeg;image/png;x-scheme-handler/http;x-scheme-handler/https;
+      StartupWMClass=Firefox-esr
+      StartupNotify=true
+    dest: /usr/share/applications/firefox-esr.desktop
+    owner: root
+    group: root
+    mode: '0644'
   when: ansible_os_family == 'Debian'
