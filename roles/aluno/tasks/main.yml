@@ -16,6 +16,31 @@
     mode: '0644'
   when: ansible_os_family == 'Debian'
 
+- name: Adiciona linha do usuario aluno no passwd
+  ansible.builtin.blockinfile:
+    path: /etc/passwd
+    backup: true
+    block: |
+      aluno:x:1001:1001::/home/aluno:
+  when: ansible_os_family == 'Debian'
+
+- name: Adiciona linha do usuario aluno no group
+  ansible.builtin.blockinfile:
+    path: /etc/group
+    backup: true
+    block: |
+      aluno:x:1001:
+  when: ansible_os_family == 'Debian'
+
+- name: Cria usuário aluno com a senha aluno
+  ansible.builtin.user:
+    name: aluno
+    shell: /bin/bash
+    password: $6$B5dpvoG43l67q0sx$r0LDKV2TgNItf/kYx/76l89ZN4LhP/ksYIxp.SSVGttHoSZXLSoB6Hkg2A6y7M7aFJ8zEuauf5kS/yA/P61kN1
+    groups: aluno
+    append: true
+  when: ansible_os_family == 'Debian'
+
 - name: Configuracao aba anonima chrome - Linux
   ansible.builtin.copy:
     content: |
@@ -48,7 +73,6 @@
     mode: '0644'
   when: ansible_os_family == 'Debian'
 
-
 - name: Configuracao aba anonima firefox - Linux
   ansible.builtin.copy:
     content: |
@@ -72,3 +96,51 @@
     group: root
     mode: '0644'
   when: ansible_os_family == 'Debian'
+
+##### Configuração do script para apagar o home do aluno a cade inicialização
+- name: Adiciona script para zerar o home do aluno
+  ansible.builtin.copy:
+    content: |
+      #!/bin/bash
+
+      ##Este arquivo eh gerado automaticamente pelo Ansible, nao adianta editar.
+
+      #Restaurar o usuario aluno quando manda desligar a maquina ou reiniciar.
+      rm -rf /var/spool/cron/crontabs/aluno
+      rm -rf /home/aluno
+      tar -zxvf /opt/backup/aluno.tgz -C / --exclude=home/aluno/.ssh/known_hosts
+    dest: /etc/init.d/apagaAluno.sh
+    owner: root
+    group: root
+    mode: '0755'
+  when: ansible_os_family == 'Debian'
+  tags: apagaAluno
+
+- name: Adiciona o arquivo /lib/systemd/system/apagaAluno.service
+  ansible.builtin.copy:
+    content: |
+      [Unit]
+      Description=Usuário padrão
+      DefaultDependencies=no
+      Before=shutdown.target
+
+      [Service]
+      Type=oneshot
+      ExecStart=/etc/init.d/apagaAluno.sh
+
+      [Install]
+      WantedBy=reboot.target halt.target poweroff.target
+    dest: /lib/systemd/system/apagaAluno.service
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+  tags: apagaAluno
+
+- name: Aplica o daemon-reload e o enable no servico apagaAluno - Linux
+  ansible.builtin.systemd:
+    enabled: true
+    daemon_reload: true
+    name: apagaAluno
+  when: ansible_os_family == 'Debian'
+  tags: apagaAluno
