@@ -43,49 +43,6 @@
     mode: '0755'
   when: ( ansible_os_family == 'Debian' and  install == 1 and argox == 1 )
 
-- name: Cria diretório /usr/share/cups/model/Brother/ - Linux
-  ansible.builtin.file:
-    path: /usr/share/cups/model/Brother/
-    state: directory
-    owner: root
-    group: root
-    mode: '0755'
-  when: ( ansible_os_family == 'Debian' and  install == 1 and brother == 1 )
-
-- name: Copia os arquivos ppd Brother - Linux Debian
-  ansible.builtin.copy:
-    src: ppd/brother_ql700_printer_en.ppd
-    dest: /usr/share/cups/model/Brother/
-    owner: root
-    group: root
-    mode: '0644'
-  when: ( ansible_os_family == 'Debian' and  install == 1 and brother == 1 )
-
-- name: Copia os drivers da brother - Linux Debian
-  ansible.builtin.copy:
-    src: brother
-    dest: /opt
-    owner: root
-    group: root
-    mode: '0644'
-  when: ( ansible_os_family == 'Debian' and  install == 1 and brother == 1 )
-
-- name: Cria link
-  ansible.builtin.file:
-    src: /opt/brother/PTouch/ql700/cupswrapper/brother_lpdwrapper_ql700
-    dest: /usr/lib/cups/filter/brother_lpdwrapper_ql700
-    state: link
-  when: ( ansible_os_family == 'Debian' and  install == 1 and brother == 1 )
-
-- name: Copia os arquivos ppd Brother para /etc/cups/ppd/  - Linux Debian
-  ansible.builtin.copy:
-    src: ppd/brother_ql700_printer_en.ppd
-    dest: /etc/cups/ppd/QL700.ppd
-    owner: root
-    group: lp
-    mode: '0640'
-  when: ( ansible_os_family == 'Debian' and  install == 1 and brother == 1 )
-
 - name: Cria diretório /usr/share/cups/model/zebra/ - Linux
   ansible.builtin.file:
     path: /usr/share/cups/model/zebra/
@@ -147,59 +104,6 @@
       ErrorPolicy retry-job
       </Printer>
   when: ( ansible_os_family == 'Debian' and  install == 1 and argox == 1 )
-
-- name: Instala a impressora Brother - Linux
-  ansible.builtin.blockinfile:
-    path: /etc/cups/printers.conf
-    marker: "# {mark} ANSIBLE MANAGED BLOCK - Brother"
-    content: |
-      <Printer Brother-QL-700>
-      UUID urn:uuid:542ab5f1-a2ea-3489-52f6-f7656b78c5b8
-      Info Brother QL-700
-      Location sj-lin-labmeios-744520
-      MakeModel Brother QL-700 CUPS
-      DeviceURI usb://Brother/QL-700?serial=000L4Z138068
-      State Idle
-      StateTime 1567797965
-      ConfigTime 1567797959
-      Type 8392772
-      Accepting Yes
-      Shared Yes
-      JobSheets none none
-      QuotaPeriod 0
-      PageLimit 0
-      KLimit 0
-      OpPolicy default
-      ErrorPolicy retry-job
-      </Printer>
-  when: ( ansible_os_family == 'Debian' and  install == 1 and brother == 1 )
-
-- name: Instala a impressora ImpCompras - Linux
-  ansible.builtin.blockinfile:
-    path: /etc/cups/printers.conf
-    marker: "# {mark} ANSIBLE MANAGED BLOCK ImpCompras"
-    content: |
-      <Printer ImpCompras>
-      PrinterId 2
-      UUID urn:uuid:1101979c-312e-3bf2-7b77-3d4e37848272
-      Info Lexmark MX622adhe
-      Location Impressora Compras
-      MakeModel Lexmark MX610 Series
-      DeviceURI ipp://cups/printers/ImpCompras
-      State Idle
-      StateTime 1474292804
-      ConfigTime 1496336591
-      Type 6
-      Accepting Yes
-      Shared No
-      JobSheets none none
-      QuotaPeriod 0
-      PageLimit 0
-      KLimit 0
-      OpPolicy default
-      ErrorPolicy abort-job
-      </Printer>
-  when: ( ansible_os_family == 'Debian' and  install == 1 and compras == 1 )
 
 - name: Instala a impressora reprografia_reserva - Linux
   ansible.builtin.blockinfile:
@@ -509,15 +413,10 @@
       </Printer>
   when: ( ansible_os_family == 'Debian' and  install == 1 and biblioteca == 1 )
 
-- name: Instalar o cups-pdf - Linux Ubuntu e Debian menos buster
-  ansible.builtin.apt:
-    name: cups-pdf
-  when: ( ansible_os_family == 'Debian' and ansible_distribution_release != 'buster' and install == 1 and pdf == 1 )
-
 - name: Instalar o cups-pdf - Debian buster
   ansible.builtin.apt:
     name: printer-driver-cups-pdf
-  when: ( ansible_os_family == 'Debian' and ansible_distribution_release == 'buster' and  install == 1 and pdf == 1 )
+  when: ( ansible_os_family == 'Debian' and install == 1 and pdf == 1 )
 
 - name: Instala a impressora PDF - Linux
   ansible.builtin.blockinfile:
@@ -542,3 +441,10 @@
       ErrorPolicy stop-printer
       </Printer>
   when: ( ansible_os_family == 'Debian' and  install == 1 and pdf == 1 )
+
+- name: Apaga arquivo cups-client
+  ansible.builtin.file:
+    path: /etc/cups/client.conf
+    state: absent
+  when: ( ansible_os_family == 'Debian' and  install == 1 )
+  notify: Restart_cups
