@@ -274,7 +274,7 @@
           - libxrender1:i386
           - libxtst6:i386
           - libzmq3-dev
-          # - linux-headers-{{ ansible_kernel }}
+          - linux-headers-{{ ansible_kernel }}
           - logisim
           - ltrace
           - mariadb-client
@@ -386,7 +386,14 @@
   roles:
     - role: grub
       tipo: grub_soh_lin
+    - dbeaver
+    - sqlitestudio
 
+- name: Laboratório de Programação
+  hosts: programacao_lin
+  roles:
+    - dbeaver
+    - sqlitestudio
 
  # Import de playbooks ###ISSO VAI MORRER###
 # - import_playbook: labcad1.yml
