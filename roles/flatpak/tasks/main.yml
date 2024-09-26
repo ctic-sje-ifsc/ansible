@@ -1,5 +1,6 @@
 - name: Instala flatpak
   ansible.builtin.apt:
+    update_cache: true
     pkg:
       - flatpak
   when: ansible_os_family == 'Debian'
