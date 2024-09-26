@@ -1,0 +1,30 @@
+- name: Instala sqlitestudio via flatpak
+  ansible.builtin.unarchive:
+    src: http://ansiblefiles.sj.ifsc.edu.br/sqlitestudio-3.4.4.tar.xz
+    dest: /opt
+    remote_src: true
+    creates: /opt/SQLiteStudio
+  when: ansible_os_family == 'Debian'
+
+- name: Instala pacotes
+  ansible.builtin.apt:
+    pkg:
+      - qt5dxcb-plugin
+  when: ansible_os_family == 'Debian'
+
+- name: Cria atalho
+  ansible.builtin.copy:
+    content: |
+      [Desktop Entry]
+      Name=SQLiteStudio
+      Comment=SQLiteStudio
+      Exec=/opt/SQLiteStudio/sqlitestudio
+      Icon=/opt/SQLiteStudio/assets/appicon.svg
+      Terminal=false
+      Type=Application
+      Categories=Development;
+    dest: /usr/share/applications/sqlitestudio.desktop
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
