@@ -1,0 +1,4 @@
+- name: Instala dbeaver via flatpak
+  community.general.flatpak:
+    name: io.dbeaver.DBeaverCommunity
+  when: ansible_os_family == 'Debian'
