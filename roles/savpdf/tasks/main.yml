@@ -1,27 +1,36 @@
-#renomeia os arquivos salvos com a impressora cups-pdf
+# Renomeia os arquivos salvos com a impressora cups-pdf
 - name: Copia savpdf - Linux
-  copy:
+  ansible.builtin.copy:
     src: savpdf
     dest: /usr/local/bin/savpdf
     owner: root
     group: root
-    mode: 0755
+    mode: '0755'
   when: ansible_os_family == 'Debian'
 
 - name: Copia run_savpdf - Linux
-  copy:
+  ansible.builtin.copy:
     src: run_savpdf
     dest: /etc/X11/Xsession.d/99run_savpdf
     owner: root
     group: root
-    mode: 0755
+    mode: '0755'
   when: ansible_os_family == 'Debian'
 
 - name: Copia savpdf.desktop - Linux
-  copy:
+  ansible.builtin.copy:
     src: savpdf.desktop
     dest: /usr/share/applications/savpdf.desktop
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+
+- name: Instala pacotes necessários
+  ansible.builtin.apt:
+    pkg:
+      - printer-driver-cups-pdf
+      - python3-gi
+      - python3-gi-cairo
+      - gir1.2-gtk-3.0
   when: ansible_os_family == 'Debian'
