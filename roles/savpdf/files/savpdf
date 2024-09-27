@@ -1,58 +1,55 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import pygtk
-pygtk.require('2.0')
-import gtk
-if gtk.pygtk_version < (2,8):
-   print "PyGtk 2.8 or later required"
-   raise SystemExit
-
+# atualizado para Python 3 usando chatgpt - 27/09/2024
+import gi
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk
 import shutil
 from os.path import expanduser
-from glob import *
+from glob import glob
 import os
 import sys
 import time
-# savpdf v0.002
+
+# savpdf v0.002 (atualizado)
 # Holger Rückershäuser 2014
 class savpdf:
     def __init__(self):
-        self.dialog = gtk.FileChooserDialog(title="Save as",action=gtk.FILE_CHOOSER_ACTION_SAVE,
-                                  buttons=(gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_SAVE,gtk.RESPONSE_OK))
+        self.dialog = Gtk.FileChooserDialog(title="Save as", action=Gtk.FileChooserAction.SAVE,
+                                            buttons=(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+                                                     Gtk.STOCK_SAVE, Gtk.ResponseType.OK))
 
-        self.dialog.set_default_response(gtk.RESPONSE_OK)
+        self.dialog.set_default_response(Gtk.ResponseType.OK)
         self.dialog.set_do_overwrite_confirmation(True)
-        filter = gtk.FileFilter()
-        filter.set_name("pdf files")
-        filter.add_pattern("*.pdf")
-        self.dialog.add_filter(filter)
+
+        file_filter = Gtk.FileFilter()
+        file_filter.set_name("PDF files")
+        file_filter.add_pattern("*.pdf")
+        self.dialog.add_filter(file_filter)
         self.dialog.set_current_name(fname)
         res = self.dialog.run()
 
-        if res == gtk.RESPONSE_OK:
-           try:
-               nome = self.dialog.get_filename() + ".pdf"
-               shutil.copy(docn, nome)
-               #shutil.copy(docn, self.dialog.get_current_folder())
-               os.remove(docn)
-
-           except:
-               msge = "%s" % sys.exc_info()[1]
-               parent = None
-               md = gtk.MessageDialog(parent,
-                   gtk.DIALOG_DESTROY_WITH_PARENT, gtk.MESSAGE_ERROR,
-                   gtk.BUTTONS_CLOSE, msge)
-               md.run()
-               md.destroy()
+        if res == Gtk.ResponseType.OK:
+            try:
+                nome = self.dialog.get_filename() + ".pdf"
+                shutil.copy(docn, nome)
+                os.remove(docn)
+            except Exception as e:
+                msge = str(e)
+                parent = None
+                md = Gtk.MessageDialog(parent, Gtk.DialogFlags.DESTROY_WITH_PARENT, Gtk.MessageType.ERROR,
+                                       Gtk.ButtonsType.CLOSE, msge)
+                md.run()
+                md.destroy()
         else:
-               os.remove(docn)
+            os.remove(docn)
 
         self.dialog.destroy()
-        while gtk.events_pending():
-            gtk.main_iteration(False)
+        while Gtk.events_pending():
+            Gtk.main_iteration_do(False)
 
 if __name__ == "__main__":
-    #path to pdf-file ($HOME/PDF)
+    # Caminho para o arquivo PDF ($HOME/PDF)
     pdf_path = expanduser("~") + '/PDF'
 
     while True:
@@ -62,7 +59,7 @@ if __name__ == "__main__":
         try:
             docn = doc[0]
             fname = docn[docn.rfind('/')+1:]
-        except:
+        except IndexError:
             pass
 
         if doc:
