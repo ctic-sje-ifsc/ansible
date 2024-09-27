@@ -1,9 +1,9 @@
-- name: restart_cups
-  service:
+- name: Restart_cups
+  ansible.builtin.service:
     name: cups
     state: restarted
 
-- name: restart_apparmor
-  service:
+- name: Restart_apparmor
+  ansible.builtin.service:
     name: apparmor
     state: restarted
