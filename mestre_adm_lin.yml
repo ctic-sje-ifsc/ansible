@@ -184,3 +184,12 @@
   roles:
     - configura_wifi
     - aluno
+
+- name: Computadores Financeiro
+  hosts: financeiro
+  roles:
+    - savpdf
+    - role: instala_impressora_cups
+      install: 0
+      financeiro: 1
+      cgp: 1
