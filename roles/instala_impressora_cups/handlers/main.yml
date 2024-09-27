@@ -2,3 +2,8 @@
   ansible.builtin.service:
     name: cups
     state: restarted
+
+- name: Restart_cups-browsed
+  ansible.builtin.service:
+    name: cups-browsed
+    state: restarted

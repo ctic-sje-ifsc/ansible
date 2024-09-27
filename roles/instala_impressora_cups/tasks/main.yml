@@ -1,3 +1,11 @@
+- name: Instalar o cups-pdf
+  ansible.builtin.apt:
+    update_cache: true
+    pkg:
+      - cups
+      - printer-driver-cups-pdf
+  when: ( ansible_os_family == 'Debian' and install == 1)
+
 - name: Copia o arquivo cups-browsed.conf com a pesquisa de impressoras desativada- Linux Debian
   ansible.builtin.copy:
     src: cups-browsed.conf
@@ -6,6 +14,7 @@
     group: root
     mode: '0644'
   when: ( ansible_os_family == 'Debian' and  install == 1 )
+  notify: Restart_cups-browsed
 
 - name: Cria diretório /usr/share/cups/model/argox/ - Linux
   ansible.builtin.file:
@@ -78,6 +87,7 @@
     group: lp
     mode: '0600'
   when: ( ansible_os_family == 'Debian' and  install == 1)
+  notify: Restart_cups
 
 - name: Instala a impressora Argox - Linux
   ansible.builtin.blockinfile:
@@ -111,7 +121,6 @@
     marker: "# {mark} ANSIBLE MANAGED BLOCK reprografia_reserva "
     content: |
       <Printer reprografia_reserva>
-      PrinterId 9
       UUID urn:uuid:aa0cf28d-3e7b-3723-70bf-da3cc8a1df02
       Info Kyocera Taskalfa 5003i
       Location Reprografia
@@ -137,7 +146,6 @@
     marker: "# {mark} ANSIBLE MANAGED BLOCK reprografia_principal"
     content: |
       <Printer reprografia_principal>
-      PrinterId 10
       UUID urn:uuid:d0430e96-df34-3b84-7ac2-e69ad2abb9f6
       Info Kyocera Taskalfa 5501i
       Location Reprografia
@@ -169,7 +177,6 @@
     marker: "# {mark} ANSIBLE MANAGED BLOCK ImpCGP"
     content: |
       <Printer ImpCGP>
-      PrinterId 1
       UUID urn:uuid:d715e5dc-7178-3e8d-5f44-7012443466bc
       Info Lexmark MX611dhe
       Location CGP
@@ -225,7 +232,6 @@
     marker: "# {mark} ANSIBLE MANAGED BLOCK ImpDirecao"
     content: |
       <Printer ImpDirecaoColor>
-      PrinterId 3
       UUID urn:uuid:a24181f7-e0c1-3ce6-541d-9cc52ee9f9f2
       Info Lexmark CX725dhe
       Location Direcao
@@ -252,7 +258,6 @@
     marker: "# {mark} ANSIBLE MANAGED BLOCK ImpFinanceiro"
     content: |
       <Printer ImpFinanceiro>
-      PrinterId 4
       UUID urn:uuid:ab4361e0-c24c-3b1e-4307-22d869620253
       Info Lexmark MX611dhe
       Location Financeiro
@@ -279,7 +284,6 @@
     marker: "# {mark} ANSIBLE MANAGED BLOCK ImpSecretaria"
     content: |
       <Printer ImpSecretaria>
-      PrinterId 6
       UUID urn:uuid:81f5a635-f301-3630-452f-ed201b33e272
       Info Lexmark MX611dhe
       Location Secretaria
@@ -423,14 +427,15 @@
     path: /etc/cups/printers.conf
     marker: "# {mark} ANSIBLE MANAGED BLOCK pdf"
     content: |
-      <Printer PDF>
-      UUID urn:uuid:5e5a92d6-9406-322e-5788-90f9ed3eb6b5
+      <DefaultPrinter PDF>
+      UUID urn:uuid:180416ee-24f1-36dc-4ae6-85ebd679e4ec
       Info PDF
-      MakeModel Generic CUPS-PDF Printer
+      MakeModel Generic CUPS-PDF Printer (w/ options)
       DeviceURI cups-pdf:/
       State Idle
-      StateTime 1489769514
-      Type 8388612
+      StateTime 1727447925
+      ConfigTime 1727447924
+      Type 8450124
       Accepting Yes
       Shared No
       JobSheets none none
@@ -438,8 +443,9 @@
       PageLimit 0
       KLimit 0
       OpPolicy default
-      ErrorPolicy stop-printer
-      </Printer>
+      ErrorPolicy retry-job
+      Option pdftops-renderer pdftocairo
+      </DefaultPrinter>
   when: ( ansible_os_family == 'Debian' and  install == 1 and pdf == 1 )
 
 - name: Apaga arquivo cups-client
