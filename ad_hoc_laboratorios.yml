@@ -13,6 +13,7 @@
 # - hosts:  sje-ctic-866467.maquinas.sj.ifsc.edu.br
 #   roles:
 #     - create_user_aluno
+
 # - name: Manage local user aluno on a Windows remote host # ( ESTÁ funcionando )
 #   hosts: sje-ctic-866467.maquinas.sj.ifsc.edu.br
 #   gather_facts: no
@@ -42,6 +43,12 @@
 # - hosts:  sj-lin-ciehu-710790.maquinas.sj.ifsc.edu.br
 #   roles:
 #     - remove_ldap
+
+# ## #### Update 11_to_12 Debian #########
+
+# - hosts: sj-lin-dire-38132.maquinas.sj.ifsc.edu.br
+#   roles:
+#     - upgrade_11to12
 
 # ###### Criar e configurar a conta aluno em maquinas Linux ##############
 # - name: Criar conta de usuário 'aluno' e configurar ambiente
