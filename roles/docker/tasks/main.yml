@@ -38,30 +38,21 @@
       - gnome-terminal
   when: ansible_os_family == 'Debian'
 
-- name: Desativa o docker
+- name: Ativa o docker - nencessário para o IMUNES
   ansible.builtin.systemd:
     name: "{{ item }}"
-    enabled: false
+    enabled: true
   loop:
     - docker.service
     - docker.socket
   when: ansible_os_family == 'Debian'
+  tags: services
 
 - name: Link para docker-compose
   ansible.builtin.file:
     src: /usr/lib/docker/cli-plugins/docker-compose
     dest: /usr/local/bin/docker-compose
     state: link
-  when: ansible_os_family == 'Debian'
-
-- name: Adiciona usuários no grupo docker
-  ansible.builtin.user:
-    name: "{{ item }}"
-    groups: docker
-    append: true
-  with_items:
-    - aluno
-    - mello
   when: ansible_os_family == 'Debian'
 
 - name: Docker rootless
