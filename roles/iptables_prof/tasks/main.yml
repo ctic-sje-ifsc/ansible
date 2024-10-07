@@ -2,7 +2,7 @@
   ansible.builtin.apt:
     pkg:
       - ansible
-  when: ansible_os_family == 'Debian'
+  when: (ansible_os_family == 'Debian' and ansible_hostname == 'lab_profs_lin')
 
 - name: Cria diretório
   ansible.builtin.file:
@@ -11,7 +11,7 @@
     owner: root
     group: root
     mode: '0755'
-  when: ansible_os_family == 'Debian'
+  when: (ansible_os_family == 'Debian' and ansible_hostname == 'lab_profs_lin')
 
 - name: Cria firewall.yml
   ansible.builtin.copy:
@@ -20,7 +20,7 @@
     owner: root
     group: root
     mode: '0644'
-  when: ansible_os_family == 'Debian'
+  when: (ansible_os_family == 'Debian' and ansible_hostname == 'lab_profs_lin')
 
 - name: Desativa StrictHostKeyChecking
   ansible.builtin.copy:
@@ -30,7 +30,7 @@
     owner: root
     group: root
     mode: '0644'
-  when: ansible_os_family == 'Debian'
+  when: (ansible_os_family == 'Debian' and ansible_hostname == 'lab_profs_lin')
 
 - name: Adiciona aliases no /etc/bash.bashrc
   ansible.builtin.lineinfile:
@@ -44,13 +44,13 @@
     - alias firewall_ifsc='/usr/bin/ansible-playbook -u root -f 50 --private-key /etc/ansible/id_rsa /etc/ansible/firewall.yml -t ifsc'
     - alias firewall_ifsc-sje='/usr/bin/ansible-playbook -u root -f 50 --private-key /etc/ansible/id_rsa /etc/ansible/firewall.yml -t ifsc-sje'
     - alias firewall_libera='/usr/bin/ansible-playbook -u root -f 50 --private-key /etc/ansible/id_rsa /etc/ansible/firewall.yml -t libera'
-  when: ansible_os_family == 'Debian'
+  when: (ansible_os_family == 'Debian' and ansible_hostname == 'lab_profs_lin')
 
 - name: Cria grupo ansible
   ansible.builtin.group:
     name: ansible
     system: true
-  when: ansible_os_family == 'Debian'
+  when: (ansible_os_family == 'Debian' and ansible_hostname == 'lab_profs_lin')
 
 - name: Adiciona usuários no grupo epoptes
   ansible.builtin.user:
@@ -90,7 +90,7 @@
     - joao.carlos
     - tallys.barbosa
     - ramon.hugo
-  when: ansible_distribution == 'Debian'
+  when: (ansible_os_family == 'Debian' and ansible_hostname == 'lab_profs_lin')
 
 - name: Copia chave privada
   ansible.builtin.copy:
@@ -100,7 +100,7 @@
     owner: root
     group: ansible
     mode: '0440'
-  when: ansible_os_family == 'Debian'
+  when: (ansible_os_family == 'Debian' and ansible_hostname == 'lab_profs_lin')
 
 - name: Define arquivo hosts
   ansible.builtin.copy:
