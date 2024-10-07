@@ -172,6 +172,7 @@
     - flatpak
     - geogebra
     - aluno
+    - scrcpy
   tasks:
     - name: Pacotes especiais
       ansible.builtin.apt:
