@@ -24,8 +24,8 @@
     - warsaw
     - foxit
     - java8-oracle
-    - role: grub
-      tipo: grub_soh_lin
+    # - role: grub
+    #   tipo: grub_soh_lin
 
   tasks:
     - name: Add an Apt signing key to a specific keyring file
@@ -54,6 +54,8 @@
           - kdenlive
           - kolourpaint4
           - libcurl4
+          - linux-image-amd64
+          - linux-headers-amd64
           - network-manager
           - network-manager-gnome
           - nfs-common
@@ -81,7 +83,11 @@
         pkg:
           - transmission
           - transmission-common
+          - linux-image-6.5.0-0.deb12.4-amd64
+          - linux-headers-6.5.0-0.deb12.4-amd64
+          - linux-headers-6.5.0-0.deb12.4-common
       when: ansible_os_family == 'Debian'
+      tags: remove
 
 #########################################################
 ##################### CONFIGURAÇÕES #####################
