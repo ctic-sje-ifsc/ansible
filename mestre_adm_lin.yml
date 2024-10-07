@@ -164,7 +164,7 @@
 
 ##########################################################
 ################ CONFIGURAÇÕES INDIVIUAIS ################
-- name: Configuração salas de aula
+- name: Configuração salas de aula, se der problema comentar o scrcpy # e depois descomentar de novo
   hosts: sala
   roles:
     - configura_monitores
@@ -184,6 +184,7 @@
           - python3-scipy
           - python3-pandas
           - python3-pip
+          - snapd
       tags: pacotes
 
 - name: Configuração dos notebooks da turno
