@@ -1,0 +1,26 @@
+- name: Baixando e extraindo qucsstudio
+  ansible.builtin.unarchive:
+    src: https://qucsstudio.de/wp-content/uploads/2023/01/QucsStudio-4.3.1.zip
+    dest: /opt/
+    creates: /opt/QucsStudio
+    remote_src: true
+    owner: root
+    group: root
+  when: ansible_os_family == 'Debian'
+
+- name: Cria atalho
+  ansible.builtin.copy:
+    content: |
+      [Desktop Entry]
+      Name=QucsStudio
+      Comment=QucsStudio
+      Exec=wine /opt/QucsStudio/bin/qucs.exe
+      Terminal=false
+      Type=Application
+      Categories=Development;
+    dest: /usr/share/applications/qucsstudio.desktop
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+  tags: atalho
