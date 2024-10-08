@@ -1,0 +1,16 @@
+- name: Enable i386 architecture
+  ansible.builtin.command: dpkg --add-architecture i386
+  changed_when: false
+  when: ansible_os_family == 'Debian'
+
+- name: Install wine32 and wine64
+  ansible.builtin.apt:
+    update_cache: true
+    name:
+      - wine
+      - wine32
+      - wine64
+      - libwine
+      - libwine:i386
+      - fonts-wine
+  when: ansible_os_family == 'Debian'
