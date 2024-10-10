@@ -111,10 +111,14 @@
 
 
 - name: Copiando arquivo /etc/security/pam_mount.conf.xml
-  ansible.builtin.file:
-    path: /etc/security/pam_mount.conf.xml
-    state: absent
+  ansible.builtin.copy:
+    src: pam_mount.conf.xml
+    dest: /etc/security/pam_mount.conf.xml
+    owner: root
+    group: root
+    mode: '0644'
   when: ansible_os_family == 'Debian'
+  tags: pam_mount.conf
 
 - name: Instala cups-client
   ansible.builtin.apt:
