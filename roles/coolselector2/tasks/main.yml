@@ -1,0 +1,63 @@
+### Comando em powershell para mostrar product_id
+### get-wmiobject Win32_Product | Format-Table IdentifyingNumber, Name, LocalPackage -AutoSize
+### Localizacao do productid 32 bits: HKLM:Software\Microsoft\Windows\CurrentVersion\Uninstall
+### Localizacao do productid 64 bits: HKLM:Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall
+
+
+
+########INACABADO##############
+##Windows
+
+# - name: Verifica se CoolSelector está instalado
+#   ansible.windows.win_stat:
+#     path: C:\Program Files\CoolSelector2
+#   register: cool_info
+#   changed_when: false
+#   when: ansible_os_family == 'Windows'
+
+# - name: Verifica versao do CoolSelector
+#   ansible.windows.win_command: Get-Command https://www.danfoss.com/pt-br/service-and-support/downloads/dcs/coolselector-2/#tab-overview |grep "versão" |cut -d' ' -f4 |cut -d':' -f1 -s
+#   register: versao_coolselector
+#   changed_when: False
+#   when: ansible_os_family == 'Windows'
+
+- name: Baixar zip do CoolSelector.
+  ansible.windows.win_get_url:
+    url: https://coolselector.danfoss.com/Coolselector2/setup.zip
+    dest: 'C:\instaladores\Coolselector2.zip'
+    force: false
+    timeout: 300 # 5 minutos
+  when: ansible_os_family == 'Windows'
+
+- name: Extrai o CoolSelector.
+  community.windows.win_unzip:
+    src: C:\instaladores\Coolselector2.zip
+    dest: C:\instaladores
+  when: ansible_os_family == 'Windows'
+
+###site para ver versão https://www.danfoss.com/pt-br/service-and-support/downloads/dcs/coolselector-2/#tab-overview
+### arquivo de dosnload https://coolselector.danfoss.com/Coolselector2/setup.zip
+####Não está funcionando
+- name: Instalar o CoolSelector 2 - Windows
+  ansible.windows.win_package:
+    path: C:/instaladores/setup.exe
+    arguments:
+      # - /SILENT
+      # - /SUPRESSMSGBOXES
+      # - /NORESTART
+      - /DIR="C:\Arquivos de Programas\coolselector2"
+    # product_id: '{2427809E-E557-47DF-813D-22A52BC0E646}'
+    state: present
+  when: ansible_os_family == 'Windows'
+
+
+# - name: Remove arquivo baixado
+#   ansible.windows.win_file:
+#     path: "{{ revit_files }}"
+#     state: absent
+#   loop:
+#     - C:\instaladores\Revit_2024.zip
+#     # - C:\instaladores\Revit 2024
+#   loop_control:
+#     loop_var: revit_files
+#   when: ansible_os_family == 'Windows'
