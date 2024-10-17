@@ -1,102 +1,42 @@
-## módulo que precisa de ser instalado na imagem padrão, pois precisa de interação manual
-
-- name: Instala snapd - Linux
-  apt: name={{ packages }} state=latest
-  vars:
-    packages:
-    - snapd
+- name: Install AndroidStudio softwares from flathub
+  community.general.flatpak:
+    name:
+      - com.google.AndroidStudio
   when: ansible_os_family == 'Debian'
-
-- name: Instala android studio via SNAP
-  command: /usr/bin/snap install android-studio --classic
-  args:
-    creates: /snap/android-studio
-  when: ansible_os_family == 'Debian'
-
-# - name: Atualiza Android Studio via SNAP
-#   command: /usr/bin/snap refresh
-#   when: ansible_os_family == 'Debian'
 
 - name: Instalar pacotes pra aceleração de hardware - Linux
-  apt: name={{ packages }} state=latest
-  vars:
-    packages:
-    - qemu-kvm
-    - bridge-utils
-    - libvirt-daemon
+  ansible.builtin.apt:
+    name:
+      - qemu-system
+      - bridge-utils
+      - libvirt-daemon
   when: ansible_os_family == 'Debian'
+  tags: packages
 
-- file:
-    path: /home/aluno
+- name: Cria diretórios
+  ansible.builtin.file:
+    path: '{{ item }}'
     state: directory
-    mode: 0755
+    mode: '0777'
     owner: aluno
     group: '1001'
+  loop:
+    - /opt/android-studio/
+    - /opt/android-studio/Android
+    - /opt/android-studio/AndroidStudioProjects
+    - /opt/android-studio/.android
   when: ansible_os_family == 'Debian'
 
-#Cria diretórios onde ficará os arquivos que ficariam na pasta do usuário -  Linux
-- file:
-    path: /opt/android-studio
-    state: directory
-    mode: 0777
-    owner: root
-    group: root
-  when: ansible_os_family == 'Debian'
-
-- file:
-    path: /opt/android-studio/Android
-    state: directory
-    mode: 0777
-    owner: root
-    group: root
-  when: ansible_os_family == 'Debian'
-
-- file:
-    path: /opt/android-studio/.android
-    state: directory
-    mode: 0777
-    owner: root
-    group: root
-  when: ansible_os_family == 'Debian'
-
-- file:
-    path: /opt/android-studio/.AndroidStudio3.2
-    state: directory
-    mode: 0777
-    owner: root
-    group: root
-  when: ansible_os_family == 'Debian'
-
-- file:
-    path: /opt/android-studio/.gradle
-    state: directory
-    mode: 0777
-    owner: root
-    group: root
-  when: ansible_os_family == 'Debian'
-
-# Descomentar para gerar a imagem
-
-- file:
-    src: /opt/android-studio/Android
-    dest: /home/aluno/Android
+- name: Cria links
+  ansible.builtin.file:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
     state: link
-  when: ansible_os_family == 'Debian'
-
-- file:
-    src: /opt/android-studio/.android
-    dest: /home/aluno/.android
-    state: link
-  when: ansible_os_family == 'Debian'
-
-- file:
-    src: /opt/android-studio/.AndroidStudio3.2
-    dest: /home/aluno/.AndroidStudio3.2
-    state: link
-  when: ansible_os_family == 'Debian'
-
-- file:
-    src: /opt/android-studio/.gradle
-    dest: /home/aluno/.gradle
-    state: link
+  loop:
+    - { src: /opt/android-studio/Android,
+        dest: /home/aluno/Android, }
+    - { src: /opt/android-studio/AndroidStudioProjects,
+        dest: /home/aluno/AndroidStudioProjects, }
+    - { src: /opt/android-studio/.android,
+        dest: /home/aluno/.android, }
   when: ansible_os_family == 'Debian'
