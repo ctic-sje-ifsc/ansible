@@ -1,11 +1,9 @@
-#Linux
-
+# Linux
 - name: Instalar pacotes para o Wireshark - Linux
   ansible.builtin.apt:
-    state: latest
     pkg:
-    - wireshark
-    - wireshark-doc
+      - wireshark
+      - wireshark-doc
   when: ansible_os_family == 'Debian'
 
 - name: Set CAP_NET_RAW+eip on /usr/bin/dumpcap for Wireshark - Linux
@@ -13,8 +11,7 @@
     path: /usr/bin/dumpcap
     capability: CAP_NET_RAW+eip
     state: present
-  changed_when: False
-
+  changed_when: false
   when: ansible_os_family == 'Debian'
 
 - name: Set CAP_NET_ADMIN+eip on /usr/bin/dumpcap for Wireshark - Linux
@@ -22,12 +19,11 @@
     path: /usr/bin/dumpcap
     capability: CAP_NET_ADMIN+eip
     state: present
-  changed_when: False
+  changed_when: false
   when: ansible_os_family == 'Debian'
 
-#Windows
+# Windows
 - name: Instalar o Wireshark - Windows
   chocolatey.chocolatey.win_chocolatey:
     name: wireshark
-    # state: latest
   when: ansible_os_family == 'Windows'
