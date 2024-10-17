@@ -15,7 +15,7 @@
 - name: Correct java version selected
   community.general.alternatives:
     name: java
-    path: /usr/lib/jvm/jdk-21.0.4-oracle-x64/bin/java
+    path: /usr/lib/jvm/jdk-21.0.5-oracle-x64/bin/java
   when: (ansible_os_family == 'Debian')
 
 - name: Cria atalho do Java ControlPanel na lista de aplicativos
