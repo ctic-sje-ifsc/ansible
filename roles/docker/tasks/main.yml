@@ -23,13 +23,9 @@
     filename: docker
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bookworm')
 
-- name: Instala Docker Desktop no Linux
-  ansible.builtin.apt:
-    deb: https://desktop.docker.com/linux/main/amd64/docker-desktop-amd64.deb
-  when: ansible_os_family == 'Debian'
-
 - name: Instala pacotes necessários para o funcionamento do rootless
   ansible.builtin.apt:
+    update_cache: true
     pkg:
       - docker-ce-rootless-extras
       - slirp4netns
@@ -37,6 +33,7 @@
       - docker-ce
       - gnome-terminal
   when: ansible_os_family == 'Debian'
+  tags: docker
 
 - name: Ativa o docker - nencessário para o IMUNES
   ansible.builtin.systemd:
@@ -50,7 +47,7 @@
 
 - name: Link para docker-compose
   ansible.builtin.file:
-    src: /usr/lib/docker/cli-plugins/docker-compose
+    src: /usr/libexec/docker/cli-plugins/docker-compose
     dest: /usr/local/bin/docker-compose
     state: link
   when: ansible_os_family == 'Debian'
@@ -120,4 +117,13 @@
   ansible.builtin.lineinfile:
     line: 'export DOCKER_HOST=unix:///run/user/1000/docker.sock'
     dest: /home/aluno/.bashrc
+    state: absent
   when: ansible_os_family == 'Debian'
+  tags: bashrc
+
+- name: Adiciona linha no .bashrc do aluno
+  ansible.builtin.lineinfile:
+    line: 'export DOCKER_HOST=unix:///run/user/1001/docker.sock'
+    dest: /home/aluno/.bashrc
+  when: ansible_os_family == 'Debian'
+  tags: bashrc
