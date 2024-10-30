@@ -30,7 +30,6 @@
   tasks:
     - name: Add an Apt signing key to a specific keyring file
       ansible.builtin.apt_key:
-        id: 4EB27DB2A3B88B8B
         url: https://dl-ssl.google.com/linux/linux_signing_key.pub
         keyring: /etc/apt/trusted.gpg.d/google-chrome.gpg
       when: ansible_os_family == 'Debian'
