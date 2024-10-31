@@ -1,17 +1,9 @@
-- name: Install AndroidStudio softwares from flathub
+- name: Remove AndroidStudio softwares from flathub
   community.general.flatpak:
     name:
       - com.google.AndroidStudio
+    state: absent
   when: ansible_os_family == 'Debian'
-
-- name: Instalar pacotes pra aceleração de hardware - Linux
-  ansible.builtin.apt:
-    name:
-      - qemu-system
-      - bridge-utils
-      - libvirt-daemon
-  when: ansible_os_family == 'Debian'
-  tags: packages
 
 - name: Cria diretórios
   ansible.builtin.file:
@@ -39,4 +31,35 @@
         dest: /home/aluno/AndroidStudioProjects, }
     - { src: /opt/android-studio/.android,
         dest: /home/aluno/.android, }
+  when: ansible_os_family == 'Debian'
+
+- name: Baixando e extraindo AndroidStudio - Linux Debian
+  ansible.builtin.unarchive:
+    src: http://ansiblefiles.sj.ifsc.edu.br/android-studio-2024.1.2.12-linux.tar.gz
+    dest: /opt/
+    creates: /opt/android-studio/bin/studio.sh
+    remote_src: true
+    owner: root
+    group: root
+    mode: '0755'
+  when: ansible_os_family == 'Debian'
+
+- name: Cria atalho do AndroidStudio na lista de aplicativos
+  ansible.builtin.copy:
+    content: |
+      [Desktop Entry]
+      Version=1.0
+      Type=Application
+      Name=Android Studio
+      Icon=/opt/android-studio/bin/studio.svg
+      Exec="/opt/android-studio/bin/studio.sh" %f
+      Comment=The Drive to Develop
+      Categories=Development;IDE;
+      Terminal=false
+      StartupWMClass=jetbrains-studio
+      StartupNotify=true
+    dest: /usr/share/applications/jetbrains-studio.desktop
+    owner: root
+    group: root
+    mode: '0644'
   when: ansible_os_family == 'Debian'
