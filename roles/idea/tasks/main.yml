@@ -77,3 +77,14 @@
 #     mode: 0775
 #     recurse: yes
 #   when: ansible_os_family == 'Debian'
+
+- name: Remove plugin full line # #[GLPI #0009112] Problemas com o IntelliJ Ultimate nos laboratórios (9455)
+  ansible.builtin.file:
+    path: /var/lib/flatpak/app/com.jetbrains.IntelliJ-IDEA-Ultimate/x86_64/stable/{{ fullline_arq }}
+    state: absent
+  loop:
+    - f5afb718fe0333ee5709e816158ee43278ac018a3439ae18e469aff60ae6cf8b/files/extra/IIU/plugins/fullLine
+    - .d780f1d5db77306a170f8f75418cb303c0ecffd53e09c5422b216d572fc08b69-YRuaHR/files/extra/IDEA-U/plugins/fullLine
+  loop_control:
+    loop_var: fullline_arq
+  when: ansible_os_family == 'Debian'
