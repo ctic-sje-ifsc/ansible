@@ -1,57 +1,61 @@
----
-- name: Install software and update Windows 10
-  hosts: sj-almoxtele-38298.maquinas.sj.ifsc.edu.br
+- name: Configuração padrão Windows ADM
+  hosts: administrativos_win:!sj-almoxtele-38298.maquinas.sj.ifsc.edu.br,!win10
+  roles:
+    - ingressa_ldap
+
+- name: Programas para computadores que não estão no domínio
+  hosts: sj-almoxtele-38298.maquinas.sj.ifsc.edu.br,win10
   tasks:
-    - name: Ensure Chocolatey is installed
-      win_chocolatey:
-        name: chocolatey
+    - name: Install multiple packages sequentially
+      chocolatey.chocolatey.win_chocolatey:
+        name: '{{ item }}'
         state: present
-
-    - name: Install Google Chrome
-      win_chocolatey:
-        name: googlechrome
-        state: present
-
-    - name: Install Firefox
-      win_chocolatey:
-        name: firefox
-        state: present
-
-    - name: Install Okular
-      win_chocolatey:
-        name: okular
-        state: present
-
-    - name: Install CutePDF Writer
-      win_chocolatey:
-        name: cutepdf
-        state: present
-
-    - name: Install Java JRE
-      win_chocolatey:
-        name: javaruntime
-        state: present
-
-    - name: Install LibreOffice
-      win_chocolatey:
-        name: libreoffice
-        state: present
+      loop:
+        - chocolatey
+        - googlechrome
+        - firefox
+        - okular
+        - cutepdf
+        - javaruntime
+        - libreoffice
+      when: ansible_os_family == 'Windows'
 
     - name: Ensure PSWindowsUpdate module is installed
-      win_psmodule:
+      community.windows.win_psmodule:
         name: PSWindowsUpdate
         state: present
+      when: ansible_os_family == 'Windows'
 
     - name: Import PSWindowsUpdate module
-      win_shell: |
+      ansible.windows.win_shell: |
         Import-Module PSWindowsUpdate
       args:
         executable: PowerShell
+      when: ansible_os_family == 'Windows'
 
     - name: Run Windows Update and install all available updates
-      ansible.windows.win_shell: | 
+      ansible.windows.win_shell: |
          Get-WindowsUpdate -Install -AcceptAll -AutoReboot
-      become: yes
-      become_method: runas
-      become_user: Ctic
+      become: true
+      when: ansible_os_family == 'Windows'
 
+- name: Computadores manutenção
+  hosts: manut_win
+  tasks:
+    - name: Instalar o TS print - relatórios no Volare - Windows
+      chocolatey.chocolatey.win_chocolatey:
+        name: tsprintclient
+        state: present
+      when: ansible_os_family == 'Windows'
+
+- name: Máquina do professor Romulo
+  hosts: sj-gerac-725865.maquinas.sj.ifsc.edu.br
+  roles:
+    - ingressa_ldap
+  tasks:
+    - name: Instala o Home assistance
+      chocolatey.chocolatey.win_chocolatey:
+        name: homeassistant
+    - name: Instala o Virtualbox
+      chocolatey.chocolatey.win_chocolatey:
+        name: virtualbox
