@@ -307,7 +307,7 @@
     - lightdm-autologin
 
 - name: Configurações aplicadas somente para as maquinas dos professores
-  hosts: lab_profs_lin:!laboratorios_lin
+  hosts: lab_profs_lin
   roles:
     - configura_monitores
     - iptables_prof
@@ -362,16 +362,3 @@
           - tiled
       when: ansible_os_family == 'Debian'
       tags: tiled
-
-
-# Import de playbooks ###ISSO VAI MORRER###
-# - import_playbook: labcad1.yml
-# - import_playbook: labcad2.yml
-# - import_playbook: labcad3.yml
-# - import_playbook: labcomex.yml
-# - import_playbook: labprogramacao.yml
-# - import_playbook: labredes.yml
-# - import_playbook: labsidi.yml
-# - import_playbook: labmeios.yml
-# - import_playbook: lab_alunos.yml
-# - import_playbook: biblio.yml
