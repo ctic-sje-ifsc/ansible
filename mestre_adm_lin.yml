@@ -160,3 +160,14 @@
       install: 0
       financeiro: 1
       cgp: 1
+
+- name: Computadores meios de RAC
+  hosts: mrac_lin
+  roles:
+    - role: grub
+      tipo: grub_win
+
+- name: Notebook acer
+  hosts: sje-lin-dae-926476.maquinas.sj.ifsc.edu.br
+  roles:
+    - remove_ldap
