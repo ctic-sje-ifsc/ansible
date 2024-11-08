@@ -1,5 +1,0 @@
-- hosts: cotel
-  #any_errors_fatal: true
-  roles:
-    - packettracer
-    - kile

@@ -1,8 +1,0 @@
----
-- hosts: reg
-  #any_errors_fatal: true
-  roles:
-    - role: softwares_remotos
-      apps:
-        - isaacdesktop
-        - sisaca

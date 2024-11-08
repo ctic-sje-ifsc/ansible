@@ -1,7 +1,0 @@
----
-
-- hosts: note
-  #any_errors_fatal: true
-  roles:
-    - role: grub
-      tipo: grub_soh_lin

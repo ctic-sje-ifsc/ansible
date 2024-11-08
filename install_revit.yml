@@ -1,3 +1,0 @@
-- hosts: win_humberto
-  roles:
-    - revit

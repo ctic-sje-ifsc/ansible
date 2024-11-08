@@ -1,5 +1,0 @@
-- hosts: labfisica
-  #any_errors_fatal: true
-  roles: 
-    - role: grub
-      tipo: grub_lin
