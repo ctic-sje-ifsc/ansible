@@ -1,8 +1,0 @@
-- hosts: cotur_sinal
-  #any_errors_fatal: true
-  roles:
-    - sinal
-
-- hosts: sj-lin-cotur-38129.maquinas.sj.ifsc.edu.br
-  roles:
-    - configura_wifi

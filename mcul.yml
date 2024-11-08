@@ -1,6 +1,0 @@
-- hosts: mcul
-  #any_errors_fatal: true
-  roles: 
-    - qgis
-    - role: grub
-      tipo: grub_lin
