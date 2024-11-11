@@ -8,13 +8,13 @@
   when: ansible_os_family == 'Debian'
 
 - name: Copia aluno tgz
-  ansible.builtin.copy:
-    src: aluno.tgz
+  ansible.builtin.get_url:
+    url: http://ansiblefiles.sj.ifsc.edu.br/aluno.tgz
     dest: /opt/backup/aluno.tgz
     owner: root
     group: root
     mode: '0644'
-  when: ansible_os_family == 'Debian'
+  when: ansible_distribution == 'Debian'
 
 - name: Adiciona linha do usuario aluno no passwd
   ansible.builtin.blockinfile:
