@@ -2,7 +2,7 @@
 
 ##### 4nec2 V. 5.9.3
 - name: Baixar o 4nec2 - Windows
-  win_get_url:
+  ansible.windows.win_get_url:
     url: 'https://discovirtual.ifsc.edu.br/index.php/s/keafBcqKLRLeRGl/download'
     dest: 'C:\instaladores\4nec2.exe'
     timeout: 120
@@ -18,7 +18,7 @@
 
 ##### EZNEC V. 7.0.1
 - name: Baixar o EZNEC - Windows
-  win_get_url:
+  ansible.windows.win_get_url:
     url: 'https://discovirtual.ifsc.edu.br/index.php/s/ebClP852jVR0MSx/download'
     dest: 'C:\instaladores\eznec.exe'
     timeout: 120
