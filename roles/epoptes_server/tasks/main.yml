@@ -20,40 +20,41 @@
     groups: epoptes
     append: true
   loop:
-    - davi.iahn
-    - humbertos
-    - rmartins
-    - marcelo.muniz
-    - ctic
-    - eraldo
-    - moecke
-    - niltons
-    - saul
-    - sclima
-    - volnei
-    - odilson
-    - elen
-    - tisemp
-    - mdoniak
-    - msobral
-    - mello
-    - noronha
-    - casagrande
-    - silvianac
     - andrealves
-    - etorresini
-    - diegomedeiros
-    - deise.arndt
-    - fabiosouza
-    - roberto.matos
     - arliones.hoeller
-    - roberto.nobrega
-    - ramon.mayor
+    - carlyle.camara
+    - casagrande
     - clayrton.henrique
     - cleber.amaral
-    - joao.carlos
+    - ctic
+    - davi.iahn
+    - deise.arndt
+    - diegomedeiros
+    - elen
+    - eraldo
+    - etorresini
+    - fabiosouza
     - fernanda.cherem
+    - humbertos
+    - joao.carlos
+    - marcelo.muniz
+    - mdoniak
+    - mello
+    - moecke
+    - msobral
+    - niltons
+    - noronha
+    - odilson
+    - ramon.mayor
+    - rmartins
+    - roberto.matos
+    - roberto.nobrega
+    - saul
+    - sclima
+    - silvianac
     - tallys.barbosa
+    - tisemp
+    - volnei
   when: ansible_distribution == 'Debian'
   tags: epoptes
 
