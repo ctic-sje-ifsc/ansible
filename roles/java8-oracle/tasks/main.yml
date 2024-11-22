@@ -11,9 +11,9 @@
 
 - name: Baixando e extraindo o java - Linux Debian
   ansible.builtin.unarchive:
-    src: http://ansiblefiles.sj.ifsc.edu.br/jre-8u421-linux-x64.tar.gz
+    src: http://ansiblefiles.sj.ifsc.edu.br/jre-8u431-linux-x64.tar.gz
     dest: /usr/lib/jvm
-    creates: /usr/lib/jvm/jre1.8.0_421
+    creates: /usr/lib/jvm/jre1.8.0_431
     remote_src: true
     owner: root
     group: root
@@ -24,14 +24,14 @@
   community.general.alternatives:
     link: /usr/bin/java
     name: java
-    path: /usr/lib/jvm/jre1.8.0_421/bin/java
+    path: /usr/lib/jvm/jre1.8.0_431/bin/java
   when: ansible_os_family == 'Debian'
 
 - name: Fazendo do javaws a opção padrão
   community.general.alternatives:
     link: /usr/bin/javaws
     name: javaws
-    path: /usr/lib/jvm/jre1.8.0_421/bin/javaws
+    path: /usr/lib/jvm/jre1.8.0_431/bin/javaws
   when: ansible_os_family == 'Debian'
 
 - name: Cria atalho do Java ControlPanel na lista de aplicativos
@@ -39,12 +39,12 @@
     content: |
       [Desktop Entry]
       Name=Java ControlPanel
-      Exec=/usr/lib/jvm/jre1.8.0_421/bin/jcontrol
+      Exec=/usr/lib/jvm/jre1.8.0_431/bin/jcontrol
       GenericName=Java ControlPanel
       Type=Application
       StartupNotify=true
       Categories=Settings;
-      Icon=/usr/lib/jvm/jre1.8.0_421/lib/desktop/icons/hicolor/48x48/apps/sun-java.png
+      Icon=/usr/lib/jvm/jre1.8.0_431/lib/desktop/icons/hicolor/48x48/apps/sun-java.png
       Comment=Oracle Java ControlPanel
       Terminal=false
     dest: /usr/share/applications/jcontrol.desktop
@@ -63,7 +63,7 @@
       Type=Application
       StartupNotify=true
       Categories=Settings;
-      Icon=/usr/lib/jvm/jre1.8.0_421/lib/desktop/icons/hicolor/48x48/apps/sun-java.png
+      Icon=/usr/lib/jvm/jre1.8.0_431/lib/desktop/icons/hicolor/48x48/apps/sun-java.png
       Comment=Oracle Java Web Start
       Terminal=false
       MimeType=application/x-java-jnlp-file;
