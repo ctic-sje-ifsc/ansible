@@ -29,11 +29,11 @@
 
 - name: Remove arquivo baixado
   ansible.windows.win_file:
-    path: "{{ hfss }}"
+    path: "{{ hfss_item }}"
     state: absent
   loop:
     - C:\Windows\Temp\hfss.zip
     - C:\instaladores\HFSS
   loop_control:
-    loop_var: "{{ hfss }}"
+    loop_var: hfss_item
   when: ansible_os_family == 'Windows'
