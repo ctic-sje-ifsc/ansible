@@ -34,8 +34,14 @@
         keyring: /etc/apt/trusted.gpg.d/google-chrome.gpg
       when: ansible_os_family == 'Debian'
 
+    - name: Run the equivalent of "apt-get clean" as a separate step
+      ansible.builtin.apt:
+        clean: true
+      when: ansible_os_family == 'Debian'
+
     - name: Instala utilitários para o bash
       ansible.builtin.apt:
+        update_cache: true
         pkg:
           - apt-transport-https
           - aptitude

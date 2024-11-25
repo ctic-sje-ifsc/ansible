@@ -150,6 +150,11 @@
       changed_when: false
       when: ansible_os_family == 'Debian'
 
+    - name: Run the equivalent of "apt-get clean" as a separate step
+      ansible.builtin.apt:
+        clean: true
+      when: ansible_os_family == 'Debian'
+
     - name: Instalar pacotes
       ansible.builtin.apt:
         update_cache: true
