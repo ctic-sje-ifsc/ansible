@@ -14,7 +14,11 @@
       Unattended-Upgrade::Origins-Pattern {
         "o=*";
       };
+      Unattended-Upgrade::AutoFixInterruptedDpkg "true";
+      Unattended-Upgrade::MinimalSteps "true";
+      Unattended-Upgrade::Remove-Unused-Kernel-Packages "true";
       Unattended-Upgrade::Remove-Unused-Dependencies "true";
+      Unattended-Upgrade::Remove-New-Unused-Dependencies "true";
     dest: /etc/apt/apt.conf.d/50unattended-upgrades
     owner: 'root'
     group: 'root'
@@ -26,6 +30,7 @@
     content: |
       APT::Periodic::Update-Package-Lists "1";
       APT::Periodic::Unattended-Upgrade "1";
+      APT::Periodic::AutocleanInterval "1";
     dest: /etc/apt/apt.conf.d/20auto-upgrades
     owner: 'root'
     group: 'root'
