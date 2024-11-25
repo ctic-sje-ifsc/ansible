@@ -21,19 +21,19 @@
 
 - name: Instalar o HFSS - Windows
   ansible.windows.win_package:
-    path: C:/instaladores/HFSS/Setup.exe
+    path: C:/instaladores/HFSS/AnsysEMSV/Setup.exe
     arguments: -silent
     product_id: '{2427809E-E557-47DF-813D-22A52BC0E646}'
     state: present
   when: ansible_os_family == 'Windows' and hfss_info.stat.exists == False
 
-- name: Remove arquivo baixado
-  ansible.windows.win_file:
-    path: "{{ hfss_item }}"
-    state: absent
-  loop:
-    - C:\Windows\Temp\hfss.zip
-    - C:\instaladores\HFSS
-  loop_control:
-    loop_var: hfss_item
-  when: ansible_os_family == 'Windows'
+# - name: Remove arquivo baixado
+#   ansible.windows.win_file:
+#     path: "{{ hfss_item }}"
+#     state: absent
+#   loop:
+#     - C:\Windows\Temp\hfss.zip
+#     - C:\instaladores\HFSS
+#   loop_control:
+#     loop_var: hfss_item
+#   when: ansible_os_family == 'Windows'
