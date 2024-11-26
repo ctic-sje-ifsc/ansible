@@ -1,4 +1,4 @@
-#Windows
+# Windows
 - name: Verifica se HFSS foi instalado
   ansible.windows.win_stat:
     path: C:\Program Files\AnsysEM\Shared Files
@@ -27,13 +27,13 @@
     state: present
   when: ansible_os_family == 'Windows' and hfss_info.stat.exists == False
 
-# - name: Remove arquivo baixado
-#   ansible.windows.win_file:
-#     path: "{{ hfss_item }}"
-#     state: absent
-#   loop:
-#     - C:\Windows\Temp\hfss.zip
-#     - C:\instaladores\HFSS
-#   loop_control:
-#     loop_var: hfss_item
-#   when: ansible_os_family == 'Windows'
+- name: Remove arquivo baixado
+  ansible.windows.win_file:
+    path: "{{ hfss_item }}"
+    state: absent
+  loop:
+    - C:\Windows\Temp\hfss.zip
+    - C:\instaladores\HFSS
+  loop_control:
+    loop_var: hfss_item
+  when: ansible_os_family == 'Windows'
