@@ -1,6 +1,3 @@
----
-#Linux
-
 # Debian e Ubuntu
 - name: Adicionar a chave do repositório do vscode - Linux
   ansible.builtin.apt_key:
@@ -12,48 +9,15 @@
   ansible.builtin.apt_repository:
     filename: vscode
     repo: deb [arch=amd64] http://packages.microsoft.com/repos/vscode stable main
-    state: present
-    update_cache: yes
+    update_cache: true
   when: ansible_os_family == 'Debian'
 
-- name: Instalar o vscode - Linux
+- name: Instalar o vscode
   ansible.builtin.apt:
     name: code
-    state: latest
   when: ansible_os_family == 'Debian'
 
-- name: Remove source list duplicado do code
-  ansible.builtin.file:
-    path: /etc/apt/sources.list.d/packages_microsoft_com_repos_vscode.list
-    state: absent
-  when: ansible_os_family == 'Debian'
-
-- name: Adicionar extensoes vscode - Linux
-  include_role:
-    name: gantsign.visual-studio-code-extensions
-  vars:
-    users:
-      - username: aluno
-        visual_studio_code_extensions:
-          - bierner.markdown-preview-github-styles
-          - James-Yu.latex-workshop
-          - jeff-hykin.better-cpp-syntax
-          - ms-azuretools.vscode-docker
-          - ms-python.python
-          - ms-python.vscode-pylance
-          - ms-vscode-remote.remote-containers
-          - ms-vscode.cpptools-extension-pack
-          - richardwillis.vscode-gradle-extension-pack
-          - streetsidesoftware.code-spell-checker
-          - streetsidesoftware.code-spell-checker-portuguese-brazilian
-          - VisualStudioExptTeam.vscodeintellicode
-          - vscjava.vscode-java-pack
-          - vscjava.vscode-lombok
-          - vscode-icons-team.vscode-icons
-          - yzhang.markdown-all-in-one
-  when: ansible_os_family == 'Debian'
-
-#Windows
+# Windows
 - name: Instalar o Visual Studio Code - Windows
   chocolatey.chocolatey.win_chocolatey:
     name: vscode
