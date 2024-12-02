@@ -97,7 +97,7 @@
     mode: '0644'
   when: ansible_os_family == 'Debian'
 
-##### Configuração do script para apagar o home do aluno a cade inicialização
+##### Configuração do script para apagar o home do aluno quando desliga ou reinicia
 - name: Adiciona script para zerar o home do aluno
   ansible.builtin.copy:
     content: |
@@ -144,3 +144,49 @@
     name: apagaAluno
   when: ansible_os_family == 'Debian'
   tags: apagaAluno
+
+- name: Script que apaga alguns arquivos na inicialização
+  ansible.builtin.copy:
+    content: |
+      #!/bin/bash
+      rm -rf /home/aluno/.bash_history
+      rm -rf /home/aluno/.gitconfig
+      rm -rf /home/aluno/.gradle
+      rm -rf /home/aluno/.ssh
+      rm -rf /home/aluno/.vscode
+      rm -rf /home/aluno/.config/Code
+      rm -rf /home/aluno/.mozilla
+    dest: /etc/init.d/apagaArquivosAluno.sh
+    owner: root
+    group: root
+    mode: '0755'
+  when: ansible_os_family == 'Debian'
+  tags: apagaArquivosAluno
+
+- name: Adiciona o arquivo /lib/systemd/system/apagaArquivosAluno.service
+  ansible.builtin.copy:
+    content: |
+      [Unit]
+      Description=Executa o script apagaArquivosAluno.sh
+
+      [Service]
+      Type=oneshot
+      ExecStart=/etc/init.d/apagaArquivosAluno.sh
+      StandardOutput=journal
+
+      [Install]
+      WantedBy=multi-user.target
+    dest: /lib/systemd/system/apagaArquivosAluno.service
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+  tags: apagaArquivosAluno
+
+- name: Aplica o daemon-reload e o enable no servico apagaAluno - Linux
+  ansible.builtin.systemd:
+    enabled: true
+    daemon_reload: true
+    name: apagaArquivosAluno
+  when: ansible_os_family == 'Debian'
+  tags: apagaArquivosAluno
