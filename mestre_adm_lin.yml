@@ -177,3 +177,10 @@
   hosts: sje-lin-dae-926476.maquinas.sj.ifsc.edu.br
   roles:
     - remove_ldap
+
+- name: Computadores da biblioteca
+  hosts: biblio
+  roles:
+    - role: softwares_remotos
+      apps:
+        - sophiaslade
