@@ -346,7 +346,6 @@
       when: ansible_os_family == 'Debian'
       tags: tiled
 
-
 - name: Laboratório de Meios de Transmissão
   hosts: meios_lin
   roles:
@@ -367,3 +366,9 @@
           - tiled
       when: ansible_os_family == 'Debian'
       tags: tiled
+
+- name: Laboratório de CAD1, CAD2 e CAD3
+  hosts: cad1_lin,cad2_lin,cad3_lin
+  roles:
+    - role: grub
+      tipo: grub_win
