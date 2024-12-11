@@ -306,6 +306,18 @@
     mode: '0755'
   when: ansible_hostname is search("^sje-lin-sala-879466")
 
+- name: Configuracao dos monitores da Sala 15 - Linux
+  ansible.builtin.copy:
+    content: |
+      #!/bin/sh
+      xrandr --output HDMI-1 --mode 1440x900 --pos 0x0 --rotate normal --output DP-1 --off --output HDMI-2 --off --output DP-2 --primary --mode 1440x900 --pos 0x0 --rotate normal --output HDMI-3 --off
+
+    dest: /usr/local/bin/configura_monitores.sh
+    owner: root
+    group: root
+    mode: '0755'
+  when: ansible_hostname is search("^sje-lin-sala-879484")
+
 - name: Configuracao dos monitores da Sala 16 - Linux
   ansible.builtin.copy:
     content: |
