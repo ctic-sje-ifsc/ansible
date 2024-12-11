@@ -127,6 +127,7 @@
       [Service]
       Type=oneshot
       ExecStart=/etc/init.d/apagaAluno.sh
+      StandardOutput=journal
 
       [Install]
       WantedBy=reboot.target halt.target poweroff.target
