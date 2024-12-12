@@ -4,6 +4,29 @@
     - revit
     - zoiper
     - microsip
+  tasks:
+    - name: Configura servidor NTP
+      ansible.windows.win_regedit:
+        path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DateTime\Servers
+        name: "1"
+        data: pool.ntp.br
+      when: ansible_os_family == 'Windows'
+      tags: config_hora
+
+    - name: Configuracao para UTC
+      ansible.windows.win_regedit:
+        path: HKLM:\System\CurrentControlSet\Control\TimeZoneInformation
+        name: RealTimeIsUniversal
+        data: "1"
+        type: dword
+      when: ansible_os_family == 'Windows'
+      tags: config_hora
+
+    - name: Set timezime to Pacific Standard time and disable Daylight Saving time adjustments
+      community.windows.win_timezone:
+        timezone: E. South America Standard Time_dstoff
+      when: ansible_os_family == 'Windows'
+      tags: config_hora
 
 - name: Configurações aplicadas somente para as maquinas dos professores
   hosts: lab_profs_win
