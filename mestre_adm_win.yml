@@ -1,61 +1,61 @@
-- name: Configuração padrão Windows ADM
-  hosts: administrativos_win:!sj-almoxtele-38298.maquinas.sj.ifsc.edu.br,!win10
+- name: Adiciona computadores no domínio
+  hosts: administrativos_win:!sj-almoxtele-38298.maquinas.sj.ifsc.edu.br,!win11
   roles:
     - ingressa_ldap
 
-- name: Programas para computadores que não estão no domínio
-  hosts: sj-almoxtele-38298.maquinas.sj.ifsc.edu.br,win10
+- name: Configuração padrão Windows ADM
+  hosts: administrativos_win:!sj-almoxtele-38298.maquinas.sj.ifsc.edu.br
   tasks:
+    - name: Configura servidor NTP
+      ansible.windows.win_regedit:
+        path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DateTime\Servers
+        name: 1
+        data: pool.ntp.br
+      when: ansible_os_family == 'Windows'
+      tags: config_hora
+
+    - name: Configuracao para UTC
+      ansible.windows.win_regedit:
+        path: HKLM:\System\CurrentControlSet\Control\TimeZoneInformation
+        name: RealTimeIsUniversal
+        data: 1
+        type: dword
+      when: ansible_os_family == 'Windows'
+      tags: config_hora
+
+    - name: Set timezime to Pacific Standard time and disable Daylight Saving time adjustments
+      community.windows.win_timezone:
+        timezone: E. South America Standard Time_dstoff
+      when: ansible_os_family == 'Windows'
+      tags: config_hora
+
     - name: Install multiple packages sequentially
       chocolatey.chocolatey.win_chocolatey:
-        name: '{{ item }}'
-        state: present
-      loop:
-        - chocolatey
-        - googlechrome
-        - firefox
-        - okular
-        - cutepdf
-        - javaruntime
-        - libreoffice
+        name:
+          - chocolatey
+          - googlechrome
+          - firefox
+          - okular
+          - cutepdf
+          - javaruntime
+          - libreoffice
       when: ansible_os_family == 'Windows'
 
-    - name: Ensure PSWindowsUpdate module is installed
-      community.windows.win_psmodule:
-        name: PSWindowsUpdate
-        state: present
-      when: ansible_os_family == 'Windows'
-
-    - name: Import PSWindowsUpdate module
-      ansible.windows.win_shell: |
-        Import-Module PSWindowsUpdate
-      args:
-        executable: PowerShell
-      when: ansible_os_family == 'Windows'
-
-    - name: Run Windows Update and install all available updates
-      ansible.windows.win_shell: |
-         Get-WindowsUpdate -Install -AcceptAll -AutoReboot
-      become: true
-      when: ansible_os_family == 'Windows'
-
-- name: Computadores manutenção
+- name: Programa específico para computadores da manutenção
   hosts: manut_win
   tasks:
     - name: Instalar o TS print - relatórios no Volare - Windows
       chocolatey.chocolatey.win_chocolatey:
-        name: tsprintclient
-        state: present
+        name:
+          - tsprintclient
       when: ansible_os_family == 'Windows'
 
 - name: Máquina do professor Romulo
   hosts: sj-gerac-725865.maquinas.sj.ifsc.edu.br
-  roles:
-    - ingressa_ldap
   tasks:
     - name: Instala o Home assistance
       chocolatey.chocolatey.win_chocolatey:
-        name: homeassistant
-    - name: Instala o Virtualbox
-      chocolatey.chocolatey.win_chocolatey:
-        name: virtualbox
+        name:
+          - homeassistant
+          - virtualbox
+      when: ansible_os_family == 'Windows'
