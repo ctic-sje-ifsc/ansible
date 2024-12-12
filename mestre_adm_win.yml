@@ -12,7 +12,6 @@
         name: 1
         data: pool.ntp.br
       when: ansible_os_family == 'Windows'
-      tags: config_hora
 
     - name: Configuracao para UTC
       ansible.windows.win_regedit:
@@ -21,25 +20,24 @@
         data: 1
         type: dword
       when: ansible_os_family == 'Windows'
-      tags: config_hora
 
     - name: Set timezime to Pacific Standard time and disable Daylight Saving time adjustments
       community.windows.win_timezone:
         timezone: E. South America Standard Time_dstoff
       when: ansible_os_family == 'Windows'
-      tags: config_hora
 
     - name: Install multiple packages sequentially
       chocolatey.chocolatey.win_chocolatey:
         name:
           - chocolatey
+          - ghostscript
           - googlechrome
           - firefox
           - okular
-          - cutepdf
           - javaruntime
           - libreoffice
       when: ansible_os_family == 'Windows'
+      tags: packages  
 
 - name: Programa específico para computadores da manutenção
   hosts: manut_win
