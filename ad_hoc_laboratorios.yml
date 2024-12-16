@@ -9,11 +9,6 @@
 #       loop:
 #         - { user: 12345678910, password: 87654321 }
 
-# ##### Criar e configurar a conta aluno em maquinas windows ############ ( não está funcionando )
-# - hosts:  sje-ctic-866467.maquinas.sj.ifsc.edu.br
-#   roles:
-#     - create_user_aluno
-
 # - name: Manage local user aluno on a Windows remote host # ( ESTÁ funcionando )
 #   hosts: sje-ctic-866467.maquinas.sj.ifsc.edu.br
 #   gather_facts: no
@@ -50,54 +45,6 @@
 #   roles:
 #     - upgrade_11to12
 
-# ###### Criar e configurar a conta aluno em maquinas Linux ##############
-# - name: Criar conta de usuário 'aluno' e configurar ambiente
-#   hosts: sj-lin-ciehu-710790.maquinas.sj.ifsc.edu.br
-#   become: yes
-#   tasks:
-#     - name: Criar grupo vboxusers se não existir
-#       group:
-#         name: vboxusers
-#         state: present
-
-#     - name: Criar usuário 'aluno'
-#       user:
-#         name: aluno
-#         password: "{{ 'aluno' | password_hash('sha512', 'mysalt') }}"  # Substitua 'mysalt' por um valor seguro
-#         groups: vboxusers
-#         shell: /bin/bash
-#         create_home: yes
-#       register: aluno_user
-
-#     - name: Verificar se o usuário 'aluno' foi criado
-#       command: id aluno
-#       register: aluno_id
-#       ignore_errors: true
-
-#     - name: Garantir que o diretório home /home/aluno existe
-#       file:
-#         path: /home/aluno
-#         state: directory
-#         owner: aluno
-#         group: aluno
-#         mode: '0755'
-#       when: aluno_user.changed
-
-#     - name: Verificar se o diretório home /home/aluno foi criado
-#       stat:
-#         path: /home/aluno
-#       register: aluno_home
-
-#     - name: Mensagem de sucesso se o usuário 'aluno' foi criado com sucesso
-#       debug:
-#         msg: "*** Conta Aluno criada com sucesso ****"
-#       when: aluno_id.rc == 0 and aluno_home.stat.exists
-
-#     - name: Mostrar detalhes se o usuário 'aluno' não foi criado com sucesso
-#       debug:
-#         msg: "Erro: Falha ao criar conta de aluno"
-#       when: aluno_id.rc != 0 or not aluno_home.stat.exists
-
 ######### Executar o Windows Update em Hosts windows remotos
 
 # - name: Executar o Windows Update em Hosts windows remotos
@@ -114,20 +61,6 @@
 #         state: installed
 #         reboot: yes
 
-# - hosts: csfio_lin
-#   tasks:
-#     - name: Mantem o estado do arquivo /etc/network/interfaces - Linux
-#       ansible.builtin.copy:
-#         content: |
-#           search sj.ifsc.edu.br
-#           nameserver 191.36.8.66
-#           nameserver 191.36.8.90
-#           nameserver 191.36.15.200
-#         dest: /etc/resolv.conf
-#         owner: root
-#         group: root
-#         mode: 0644
-
 # - hosts: laboratorios_lin
 #   tasks:
 #     - name: Copia um arquivo para as maquinas - Linux
@@ -137,7 +70,7 @@
 #         owner: root
 #         group: root
 #         mode: 0644
-#       with_items:
+#       loop:
 #         - google-chrome.desktop
 #         - firefox-esr.desktop
 
@@ -158,23 +91,6 @@
     # - firewall_labs
     # - final_semestre
     #  - gradle
-  # roles:
-  #   - role: atualiza_mac
-  #     play: 1
-      # play: 0 desativa
-      # play: 1 ativa
-
-# - hosts: sj-lin-dire-38132.maquinas.sj.ifsc.edu.br
-
-#   tasks:
-#     - name: Configura printers.conf
-#       ansible.builtin.copy:
-#         content: |
-#           ServerName 191.36.8.74
-#         dest: /etc/cups/client.conf
-#         owner: 'root'
-#         group: 'root'
-#         mode: '0644'
 
 # - hosts: all
 #   tasks:
@@ -280,60 +196,6 @@
 #         - 3-Grafico
 #         - 4-Grafico
 
-# #
-# ## Utilizado para fazer o hold do linux-image e linux-headers e reinstalar o virtualbox-dkms
-# #
-# - hosts: laboratorios_lin
-#   tasks:
-
-#     - name: apaga /etc/apt/sources.list.d/ftp_debian_org_debian.list
-#       file:
-#         path: /etc/apt/sources.list.d/ftp_debian_org_debian.list
-#         state: absent
-#       when: ansible_os_family == 'Debian'
-
-#     - name: Run the equivalent of "apt-get update" as a separate step
-#       apt:
-#         update_cache: yes
-#       when: ansible_os_family == 'Debian'
-
-#     - name: Upgrade all packages to the latest version
-#       apt:
-#         name: "*"
-#         state: latest
-#       when: ansible_os_family == 'Debian'
-
-#     - name: seleciona a entrada grub 0 para o próximo boot
-#       shell: grub-reboot 0
-#       when: ansible_os_family == 'Debian'
-
-#     - name: Unconditionally reboot the machine with all defaults
-#       reboot:
-#       when: ansible_os_family == 'Debian'
-
-#     - name: instala kernel headers atual
-#       apt:
-#         name: "linux-headers-{{ ansible_kernel }}"
-#       when: ansible_os_family == 'Debian'
-
-#     # Quando quiser atualizar precisar alterar o selection para "install"
-#     - name: Faz hold no linux-image
-#       dpkg_selections:
-#         name: "linux-image-{{ ansible_kernel }}"
-#         selection: hold
-#       when: ansible_os_family == 'Debian'
-
-#     # Quando quiser atualizar precisar alterar o selection para "install"
-#     - name: Faz hold no linux-image
-#       dpkg_selections:
-#         name: "linux-headers-{{ ansible_kernel }}"
-#         selection: hold
-#       when: ansible_os_family == 'Debian'
-
-#     - name: reinstala virtualbox-dkms
-#       shell:  aptitude reinstall virtualbox-dkms
-#       when: ansible_os_family == 'Debian'
-
 # - hosts: all
 #   tasks:
 #     - name: Get the MAC address
@@ -346,32 +208,6 @@
 # - name: Install HPLIP on Debian
 #   hosts: sj-lin-biblio-36076.maquinas.sj.ifsc.edu.br
 #   become: yes
-
-#   tasks:
-#     - name: Update apt cache
-#       apt:
-#         update_cache: yes
-
-#     - name: Install required packages
-#       apt:
-#         name: "{{ item }}"
-#         state: present
-#       with_items:
-#         - hplip
-#         - hplip-gui
-
-#     - name: Ensure the cups service is running
-#       service:
-#         name: cups
-#         state: started
-#         enabled: yes
-#
-######################### Instala Gnome Online Accounts no debian ##############
-#
-#     - name: Install gnome-online-accounts
-#       apt:
-#        name: gnome-online-accounts
-#        state: present
 
 ################### Limpar home do aluno no windows ###################
 # - name: Remove conta do aluno
