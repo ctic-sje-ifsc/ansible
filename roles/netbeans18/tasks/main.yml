@@ -1,5 +1,0 @@
----
-- name: Baixar e instalar Netbeans Apache 18 - Linux
-  ansible.builtin.apt:
-    deb: https://dlcdn.apache.org/netbeans/netbeans-installers/18/apache-netbeans_18-1_all.deb
-  when: ansible_os_family == 'Debian'
