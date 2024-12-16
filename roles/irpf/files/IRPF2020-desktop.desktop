@@ -1,6 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Type=Application
-Name=IRPF2020 - Declaração de Ajuste Anual, Final de Espólio e Saída Definitiva do País
-Exec=/usr/bin/java -Xms128M -Xmx512M -jar /usr/local/IRPF2020/irpf.jar
-Icon=/usr/local/IRPF2020/RFB.png
