@@ -1,9 +1,0 @@
-[Desktop Entry]
-Encoding=UTF-8
-Name=VMD
-Comment=Visual Molecular Dynamics
-Exec=/usr/local/bin/vmd
-Icon=/opt/vmd-1.9.3/vmd.png
-Terminal=true
-Type=Application
-Categories=Utility
