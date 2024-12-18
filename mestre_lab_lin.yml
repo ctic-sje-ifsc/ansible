@@ -2,6 +2,7 @@
   hosts: laboratorios_lin
 
   roles:
+    - arduino
     - auto_desligamento
     - chaves_ssh
     - dconf
