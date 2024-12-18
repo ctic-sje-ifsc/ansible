@@ -1,40 +1,76 @@
 #Linux
 
-- name: Baixando e extraindo o arduino - Linux Debian
-  unarchive:
-    src: https://downloads.arduino.cc/arduino-1.8.19-linux64.tar.xz
-    dest: /opt/
-    creates: /opt/arduino-1.8.19
-    remote_src: yes
+- name: Removendo versão antiga do arduino - Debian
+  ansible.builtin.file:
+    path: /opt/arduino-1.8.19
+    state: absent
+  when: ansible_os_family == 'Debian'
+
+- name: Criar pasta para o arduino 2.3.4 - Debian
+  ansible.builtin.file:
+    path: /opt/arduino-2.3.4
+    state: directory
     owner: root
     group: root
-    mode: 0755
+    mode: "0755"
+  when: ansible_os_family == 'Debian'
+
+- name: Baixando e extraindo o arduino - Linux Debian
+  ansible.builtin.unarchive:
+    src: https://downloads.arduino.cc/arduino-ide/arduino-ide_2.3.4_Linux_64bit.zip
+    dest: /opt/arduino-2.3.4
+    creates: /opt/arduino-2.3.4/arduino-ide
+    remote_src: true
+    owner: root
+    group: root
+    mode: "0755"
+  when: ansible_os_family == 'Debian'
+
+- name: Copiando imagem do arduino - Debian
+  ansible.builtin.copy:
+    src: arduino.png
+    dest: /opt/arduino-2.3.4/arduino.png
+    owner: root
+    group: root
+    mode: "0755"
   when: ansible_os_family == 'Debian'
 
 - name: Criando o arquivo arduino.desktop - Linux Debian
-  copy:
-    src: arduino.desktop
+  ansible.builtin.copy:
+    content: |
+      [Desktop Entry]
+      Type=Application
+      Name=Arduino 2.3.4 IDE
+      GenericName=Integrated Development Environment
+      Comment=An IDE for Arduino-compatible electronics prototyping platforms
+      Exec=/opt/arduino-2.3.4/arduino-ide
+      Icon=/opt/arduino-2.3.4/arduino.png
+      Terminal=false
+      Categories=Development;IDE;Electronics;
+      MimeType=text/x-arduino
+      Keywords=embedded electronics;electronics;avr;microcontroller;
     dest: /usr/share/applications/arduino.desktop
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
   when: ansible_os_family == 'Debian'
 
 # Permissao para gravar na placa
 - name: Adiciona no grupo dialout
-  user:
+  ansible.builtin.user:
     name: "{{ grupodialout }}"
     groups: dialout
     append: true
   loop:
     - elen
+    - etorresini
   loop_control:
     loop_var: grupodialout
   when: ansible_os_family == 'Debian'
 
 #Windows
 - name: Instalar o Arduino - Windows
-  win_chocolatey:
+  chocolatey.chocolatey.win_chocolatey:
     name: arduino
     # state: latest
   when: ansible_os_family == 'Windows'
