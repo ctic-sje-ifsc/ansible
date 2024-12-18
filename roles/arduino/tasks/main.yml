@@ -68,6 +68,16 @@
     loop_var: grupodialout
   when: ansible_os_family == 'Debian'
 
+- name: Criando o arquivo 99-arduino - Linux Debian
+  ansible.builtin.copy:
+    content: |
+      SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", GROUP="plugdev", MODE="0666"
+    dest: /etc/udev/rules.d/99-arduino.rules
+    owner: root
+    group: root
+    mode: '0664'
+  when: ansible_os_family == 'Debian'
+
 #Windows
 - name: Instalar o Arduino - Windows
   chocolatey.chocolatey.win_chocolatey:
