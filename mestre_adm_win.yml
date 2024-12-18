@@ -37,7 +37,7 @@
           - javaruntime
           - libreoffice
       when: ansible_os_family == 'Windows'
-      tags: packages  
+      tags: packages
 
 - name: Programa específico para computadores da manutenção
   hosts: manut_win
