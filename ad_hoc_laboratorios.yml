@@ -44,10 +44,15 @@
 # - hosts:  sj-lin-ciehu-710790.maquinas.sj.ifsc.edu.br
 #   roles:
 #     - remove_ldap
+#
+# ## Instala Impressoras CUPS ##############
 
+# - hosts:  sj-lin-estagio-38141.maquinas.sj.ifsc.edu.br
+#   roles:
+#     - instala_impressora_cups
 # ## #### Update 11_to_12 Debian #########
 
-# - hosts: sj-lin-dire-38132.maquinas.sj.ifsc.edu.br
+# - hosts: sj-lin-estagio-38141.maquinas.sj.ifsc.edu.br
 #   roles:
 #     - upgrade_11to12
 
