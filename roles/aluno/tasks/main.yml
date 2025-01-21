@@ -111,7 +111,7 @@
       [Unit]
       Description=Usuário padrão
       DefaultDependencies=no
-      Before=shutdown.target
+      Before=shutdown.target reboot.target halt.target poweroff.target
 
       [Service]
       Type=oneshot
@@ -119,7 +119,7 @@
       StandardOutput=journal
 
       [Install]
-      WantedBy=reboot.target halt.target poweroff.target
+      WantedBy=shutdown.target reboot.target halt.target poweroff.target
     dest: /lib/systemd/system/apagaAluno.service
     owner: root
     group: root
