@@ -1,5 +1,6 @@
 - name: Configuração salas de aula
-  hosts: salaa,salab
+#  hosts: salaa,salab
+  hosts: sala
   roles:
     - configura_monitores
     - remove_ldap
