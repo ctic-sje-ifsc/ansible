@@ -50,7 +50,7 @@
   ansible.builtin.group:
     name: ansible
     system: true
-  when: (ansible_os_family == 'Debian' and ansible_hostname is 'lab_profs_lin')
+  when: "'lab_profs_lin' in group_names"
 
 - name: Adiciona usuários no grupo epoptes
   ansible.builtin.user:
