@@ -149,4 +149,4 @@
     owner: root
     group: root
     mode: '0400'
-  when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-csfio-744536")
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-csfio-744536")
