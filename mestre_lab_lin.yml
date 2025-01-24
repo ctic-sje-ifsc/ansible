@@ -369,6 +369,12 @@
       when: ansible_os_family == 'Debian'
       tags: tiled
 
+- name: Laboratório de comunicação sem fio
+  hosts: csfio_lin
+  roles:
+    - role: grub
+      tipo: grub_lin
+
 - name: Laboratório de CAD1, CAD2 e CAD3
   hosts: cad1_lin,cad2_lin,cad3_lin
   roles:
