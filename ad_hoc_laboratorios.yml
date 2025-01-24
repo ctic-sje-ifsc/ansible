@@ -56,6 +56,25 @@
 #   roles:
 #     - upgrade_11to12
 
+# - hosts: sje-lin-prog-744523.maquinas.sj.ifsc.edu.br
+#   roles:
+#     - epoptes_server
+
+# - name: Desligar todos os computadores de um  grupo 
+#   hosts: programacao_lin
+#   tasks:
+#     - name: Enviar comando de desligamento
+#       ansible.builtin.command:
+#         cmd: /sbin/shutdown -h now
+#       ignore_errors: true
+#       register: shutdown_result
+
+#     - name: Mostrar status do desligamento
+#       ansible.builtin.debug:
+#         var: shutdown_result
+
+
+
 ######### Executar o Windows Update em Hosts windows remotos
 
 # - name: Executar o Windows Update em Hosts windows remotos
