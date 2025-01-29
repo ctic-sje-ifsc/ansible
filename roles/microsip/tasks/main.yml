@@ -3,5 +3,5 @@
 - name: Instalar o MicroSIP - Windows
   chocolatey.chocolatey.win_chocolatey:
     name: microsip
-    # version: 3.21.4
+    version: 3.21.5
   when: ansible_os_family == 'Windows'
