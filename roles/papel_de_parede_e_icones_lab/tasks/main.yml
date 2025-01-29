@@ -34,7 +34,7 @@
 
 - name: Criando registro chamado UseDefaultTile dentro do Explorer - Windows
   win_regedit:
-    path: HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer
+    path: HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer
     name: UseDefaultTile
     data: 1
   when: ansible_os_family == 'Windows'
