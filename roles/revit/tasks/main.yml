@@ -4,8 +4,7 @@
 ### Localizacao do productid 64 bits: HKLM:Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall
 
 
-##Windows
-
+## Windows
 - name: Verifica se o Revit 21 está instalado
   ansible.windows.win_stat:
     path: C:\Program Files\Autodesk\Revit 2021
@@ -18,12 +17,11 @@
     path: C:\Program Files\Autodesk\Revit 2024
   register: revit24_info
   changed_when: false
-  tags: revit24
   when: ansible_os_family == 'Windows'
 
 - name: Remove o Revit 2021 - Windows
   ansible.windows.win_package:
-    product_id:  "{{ productIDs }}"
+    product_id: "{{ productIDs }}"
     state: absent
   loop:
     - '{1aa4d703-a089-48e4-b1d0-ae8e867add5f}'
@@ -69,17 +67,14 @@
     dest: 'C:\instaladores\Revit_2024.zip'
     force: false
     timeout: 300 # 5 minutos
-  # tags: revit24
   when: ansible_os_family == 'Windows' and not revit24_info.stat.exists
 
 - name: Extrai o Revit 24
   community.windows.win_unzip:
     src: C:\instaladores\Revit_2024.zip
     dest: C:\instaladores
-  # tags: revit24
   when: ansible_os_family == 'Windows' and not revit24_info.stat.exists
 
-###Não está funcionando
 - name: Instalar o Revit 2024 - Windows
   ansible.windows.win_package:
     path: C:/instaladores/Revit 2024/Setup.exe
@@ -90,7 +85,6 @@
       - basic
     product_id: '{2427809E-E557-47DF-813D-22A52BC0E646}'
     state: present
-  tags: revit24
   when: ansible_os_family == 'Windows' and not revit24_info.stat.exists
 
 - name: Remove arquivos antigos
