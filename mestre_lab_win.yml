@@ -4,6 +4,7 @@
     - revit
     - zoiper
     - microsip
+    - papel_de_parede_e_icones_lab
   tasks:
     - name: Configura servidor NTP
       ansible.windows.win_regedit:
@@ -27,6 +28,11 @@
         timezone: E. South America Standard Time_dstoff
       when: ansible_os_family == 'Windows'
       tags: config_hora
+
+    - name: Run Windows Update
+      ansible.windows.win_updates:
+        reboot: true
+      when: ansible_os_family == 'Windows'
 
 - name: Configurações aplicadas somente para as maquinas dos professores
   hosts: lab_profs_win
