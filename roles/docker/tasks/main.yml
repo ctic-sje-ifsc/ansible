@@ -32,6 +32,7 @@
       - iptables
       - docker-ce
       - gnome-terminal
+      - uidmap
   when: ansible_os_family == 'Debian'
   tags: docker
 
@@ -50,6 +51,31 @@
     src: /usr/libexec/docker/cli-plugins/docker-compose
     dest: /usr/local/bin/docker-compose
     state: link
+  when: ansible_os_family == 'Debian'
+
+- name: Configura subuid e subgid
+  ansible.builtin.copy:
+    content: |
+      aluno:100000:65536
+    dest: /etc/subuid
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+
+- name: Configura subgid
+  ansible.builtin.copy:
+    content: |
+      aluno:100000:65536
+    dest: /etc/subgid
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+
+- name: Remove usuário aluno do grupo docker
+  ansible.builtin.command:
+    cmd: usermod -rG docker aluno
   when: ansible_os_family == 'Debian'
 
 - name: Docker rootless
@@ -112,14 +138,6 @@
     dest: /home/aluno/.config/systemd/user/default.target.wants/docker.service
     state: link
   when: ansible_os_family == 'Debian'
-
-- name: Adiciona linha no .bashrc do aluno
-  ansible.builtin.lineinfile:
-    line: 'export DOCKER_HOST=unix:///run/user/1000/docker.sock'
-    dest: /home/aluno/.bashrc
-    state: absent
-  when: ansible_os_family == 'Debian'
-  tags: bashrc
 
 - name: Adiciona linha no .bashrc do aluno
   ansible.builtin.lineinfile:
