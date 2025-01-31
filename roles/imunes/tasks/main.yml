@@ -31,7 +31,7 @@
   changed_when: false
   when: ansible_os_family == 'Debian'
 
-- name: Criando o arquivo vmd.desktop - Linux Debian
+- name: Criando o arquivo imunes.desktop - Linux Debian
   ansible.builtin.copy:
     content: |
         [Desktop Entry]
@@ -54,7 +54,7 @@
   changed_when: false
   args:
     executable: /bin/bash
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'jessie')
+  when: ansible_os_family == 'Debian'
 
 - name: Criar arquivo /home/.Xresources que personaliza Xterm
   ansible.builtin.copy:
