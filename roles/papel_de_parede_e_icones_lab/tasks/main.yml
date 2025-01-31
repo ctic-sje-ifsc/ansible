@@ -31,7 +31,7 @@
     dest: /home/fundo_ifsc_sj.jpg
     owner: root
     group: root
-    mode: 0755
+    mode: '0755'
   when: ansible_os_family == 'Debian'
 
 - name: Cria o script que modifica o papel de parede - Linux
@@ -40,5 +40,5 @@
     dest: /etc/profile.d/trocaplanodefundo.sh
     owner: root
     group: root
-    mode: 0755
+    mode: '0755'
   when: ansible_os_family == 'Debian'
