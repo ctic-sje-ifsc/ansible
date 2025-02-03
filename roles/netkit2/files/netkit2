@@ -1,2 +1,0 @@
-#Este arquivo eh gerado automaticamente pelo Ansible, nao adianta editar.
-ALL   ALL=(ALL) NOPASSWD: SETENV: /usr/local/netkit2/bin/tap.py
