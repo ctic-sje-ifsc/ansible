@@ -1,9 +1,0 @@
-[Desktop Entry]
-Encoding=UTF-8
-Name=Astah Community
-Comment=Astah Community
-Exec=/opt/astah_community/astah
-Icon=/opt/astah_community/astah.ico
-Terminal=false
-Type=Application
-Categories=Application;Development
