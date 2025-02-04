@@ -363,6 +363,7 @@
     - google_earth
     - tracker
     - scidavis
+    - qgis
     - role: grub
       tipo: grub_soh_lin
   tasks:
