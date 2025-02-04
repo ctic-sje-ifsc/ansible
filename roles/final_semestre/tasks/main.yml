@@ -37,21 +37,15 @@
 #     group: aluno
 #   when: ansible_os_family == 'Debian'
 
-- name: apagar pastas
-  ansible.builtin.shell: rm -rf /media/aluno/trabalhos/*
-  when: ansible_os_family == 'Debian'
-
 # Windows
 
 - name: Remove a profile for a still valid account
   community.windows.win_user_profile:
     username: aluno
     state: absent
-  when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 10 Pro')
+  when: ansible_os_family == 'Windows'
 
-- name: Instala Atualizações críticas e de segurança #### A máquina pode reiniciar
+- name: Instala todas as Atualizações #### A máquina pode reiniciar
   ansible.windows.win_updates:
-    category_names:
-      - SecurityUpdates
-      - CriticalUpdates
-  when: (ansible_os_family == 'Windows' and ansible_os_name == 'Microsoft Windows 10 Pro')
+    category_names: '*'
+  when: ansible_os_family == 'Windows'

@@ -1,17 +1,16 @@
-# Debian e Ubuntu
+# Debian
 
 - name: Instalar os pacotes para o qgis
-  apt:
-    state: latest
+  ansible.builtin.apt:
     pkg:
-    - qgis
-    - python3-qgis
-    - qgis-plugin-grass
+      - qgis
+      - python3-qgis
+      - qgis-plugin-grass
   when: ansible_os_family == 'Debian'
 
-  #Windows
+# Windows
 - name: Install qgis - Windows
-  win_chocolatey:
+  chocolatey.chocolatey.win_chocolatey:
     name: qgis
     # state: latest
   when: ansible_os_family == 'Windows'

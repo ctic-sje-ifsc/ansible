@@ -51,7 +51,7 @@
 
 ##################  Maquina do RICARDO  ##################
 # Não executar o Mestre.yml, executar apenas o ctic.yml #
-- hosts: sj-lin-ctic-744521.maquinas.sj.ifsc.edu.br,sj-lin-ctic-38319.maquinas.sj.ifsc.edu.br
+- hosts: sje-lin-ctic-38319.maquinas.sj.ifsc.edu.br
   #any_errors_fatal: true
   roles:
     - kubernetes
@@ -101,6 +101,31 @@
       - usbutils
       - sshfs
       - net-tools
+  - name: Configuração do Ansible
+    ansible.builtin.copy:
+      content: |
+        [defaults]
+        forks          = 50
+        gathering = implicit
+        host_key_checking = False
+        remote_user = root
+        vault_password_file = /home/rmartins/.ssh/v
+
+      owner: rmartins
+      group: rmartins
+      mode: '0644'
+      dest: /home/rmartins/.ansible.cfg
+
+  - name: Configuração do ssh
+    ansible.builtin.lineinfile:
+      path: /etc/ssh/ssh_config
+      insertafter: "^#   StrictHostKeyChecking ask"
+      firstmatch: true
+      regexp: "{{ item.regexp }}"
+      line: "{{ item.line }}"
+    loop:
+      - { regexp: "StrictHostKeyChecking ask", line: "StrictHostKeyChecking no"}
+      - { regexp: "#   UserKnownHostsFile ~/.ssh/known_hosts.d/%k", line: "UserKnownHostsFile=/dev/null"}
 ##########################################################
 
 # Windows Ricardo
