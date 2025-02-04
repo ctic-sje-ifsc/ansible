@@ -3,7 +3,7 @@
   roles:
     - revit
     - zoiper
-    - microsip
+#      - microsip
   tasks:
     - name: Configura servidor NTP
       ansible.windows.win_regedit:
@@ -33,8 +33,24 @@
   roles:
     - ingressa_ldap
 
-######################## ORDEM ALFABÉTICA ########################
-- name: Laboratório de Comunicação sem fio
-  hosts: csfio_win
-  roles:
-    - hfss
+- name: Atualizar computadores Windows do grupo laboratorios_win
+  hosts: laboratorios_win
+  tasks:
+    - name: Verificar e instalar atualizações do Windows Update
+      win_updates:
+        category_names:
+          - CriticalUpdates
+          - SecurityUpdates
+        reboot: yes
+
+    - name: Reiniciar o computador se necessário
+      win_reboot:
+        msg: "Reiniciando após aplicar atualizações do Windows Update."
+        timeout: 300
+
+
+# ######################## ORDEM ALFABÉTICA ########################
+# - name: Laboratório de Comunicação sem fio
+#   hosts: csfio_win
+#   roles:
+#     - hfss
