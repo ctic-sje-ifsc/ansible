@@ -1,0 +1,8 @@
+#### Linux
+#### EM FASE DE TESTES, NÃO ESTÁ FUNCIONANDO AINDA
+
+  - name: Criando maquina virtual com base no arquivo OVA - Linux
+    ansible.builtin.shell: "vboxmanage import '{{ item.imagem }}' --vsys 0 --vmname '{{ item.vm }}' --vsys 0 --unit 11 --disk /home/VMDK/'{{ item.vm }}'-disk1.vmdk --vsys 0 --unit 12 --disk /home/VMDK/'{{ item.vm }}'-disk2.vmdk" '{{ item.usuario }}'
+    loop:
+      - { imagem: '/home/imagens/Ubuntu-Grafico.ova', vm: '1-Grafico', usuario: 'aluno' }
+    when: ansible_os_family == 'Debian'
