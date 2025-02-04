@@ -34,9 +34,17 @@
 
 - name: Criando registro chamado UseDefaultTile dentro do Explorer - Windows
   win_regedit:
-    path: HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer
+    path: HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer
     name: UseDefaultTile
     data: 1
+  when: ansible_os_family == 'Windows'
+
+- name: Bloqueando a alteração do papel de parede - Windows
+  win_regedit:
+    path: HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\ActiveDesktop
+    name: NoChangingWallPaper
+    data: 1
+    type: dword
   when: ansible_os_family == 'Windows'
 
 # Debian

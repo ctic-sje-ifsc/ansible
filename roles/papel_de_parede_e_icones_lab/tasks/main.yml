@@ -1,60 +1,44 @@
----
-#Windows
-- name: Copiando papel de parede - Windows
-  win_copy:
-    src: fundo_ifsc_sj_novo.jpg
-    dest: C:\Users\
+# Windows
+- name: Copiando arquivos do wallpaper e icones - Windows
+  ansible.windows.win_copy:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+  loop:
+    - { src: 'fundo_ifsc_sj_novo.jpg', dest: 'C:\Users\' }
+    - { src: 'Icone_ifsc.bmp', dest: 'C:\ProgramData\Microsoft\User Account Pictures\Icone_ifsc.bmp' }
+    - { src: 'user.bmp', dest: 'C:\ProgramData\Microsoft\User Account Pictures\user.bmp' }
   when: ansible_os_family == 'Windows'
 
-- name: Copiando icone ifsc - Windows
-  win_copy:
-    src: Icone_ifsc.bmp
-    dest: C:\ProgramData\Microsoft\User Account Pictures\Icone_ifsc.bmp
-  when: ansible_os_family == 'Windows'
-
-- name: Copiando icone ctic - Windows
-  win_copy:
-    src: user.bmp
-    dest: C:\ProgramData\Microsoft\User Account Pictures\user.bmp
-  when: ansible_os_family == 'Windows'
-
-- name: Criando registro chamado Wallpaper dentro do System - Windows
-  win_regedit:
-    path: HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System
-    name: Wallpaper
-    data: C:\Users\fundo_ifsc_sj_novo.jpg
-  when: ansible_os_family == 'Windows'
-
-- name: Criando registro chamado WallpaperStyle dentro do System - Windows
-  win_regedit:
-    path: HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System
-    name: WallpaperStyle
-    data: 4
-  when: ansible_os_family == 'Windows'
-
-- name: Criando registro chamado UseDefaultTile dentro do Explorer - Windows
-  win_regedit:
-    path: HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer
-    name: UseDefaultTile
-    data: 1
+- name: Forçando wallpaper específico - Windows
+  ansible.windows.win_regedit:
+    path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP
+    name: "{{ item.name }}"
+    data: "{{ item.data }}"
+  loop:
+    - { name: 'LockScreenImagePath', data: 'C:\Users\fundo_ifsc_sj_novo.jpg' }
+    - { name: 'LockScreenImageUrl', data: 'C:\Users\fundo_ifsc_sj_novo.jpg' }
+    - { name: 'DesktopImageUrl', data: 'C:\Users\fundo_ifsc_sj_novo.jpg' }
+    - { name: 'DesktopImagePath', data: 'C:\Users\fundo_ifsc_sj_novo.jpg' }
+    - { name: 'LockScreenImageStatus', data: 1 }
+    - { name: 'PersonalizationCSP', data: 1 }
+    - { name: 'DesktopImageStatus', data: 1 }
   when: ansible_os_family == 'Windows'
 
 # Debian
-
 - name: Copiando o plano de fundo para a máquina - Linux
-  copy:
+  ansible.builtin.copy:
     src: fundo_ifsc_sj_novo.jpg
     dest: /home/fundo_ifsc_sj.jpg
     owner: root
     group: root
-    mode: 0755
+    mode: '0755'
   when: ansible_os_family == 'Debian'
 
 - name: Cria o script que modifica o papel de parede - Linux
-  copy:
+  ansible.builtin.copy:
     src: trocaplanodefundo.sh
     dest: /etc/profile.d/trocaplanodefundo.sh
     owner: root
     group: root
-    mode: 0755
+    mode: '0755'
   when: ansible_os_family == 'Debian'
