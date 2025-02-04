@@ -18,20 +18,11 @@
 # - name: Manage local user aluno on a Windows remote host # ( ESTÁ funcionando )
 #   hosts: sje-ctic-866467.maquinas.sj.ifsc.edu.br
 #   gather_facts: no
-
 #   vars:
 #     ansible_winrm_transport: basic
 #     ansible_winrm_server_cert_validation: ignore
 
 #   tasks:
-#     - name: Ensure user "aluno" exists and set password
-#       win_user:
-#         name: aluno
-#         password: aluno
-#         password_never_expires: yes
-#         user_cannot_change_password: yes
-#         state: present
-
 #     - name: Add user "aluno" to local group "Usuários"
 #       win_group_membership:
 #         name: Usuários
@@ -47,20 +38,7 @@
 #
 # ## Instala Impressoras CUPS ##############
 
-# - hosts:  sj-lin-estagio-38141.maquinas.sj.ifsc.edu.br
-#   roles:
-#     - instala_impressora_cups
-# ## #### Update 11_to_12 Debian #########
-
-# - hosts: sj-lin-estagio-38141.maquinas.sj.ifsc.edu.br
-#   roles:
-#     - upgrade_11to12
-
-# - hosts: sje-lin-prog-744523.maquinas.sj.ifsc.edu.br
-#   roles:
-#     - epoptes_server
-
-# - name: Desligar todos os computadores de um  grupo 
+# - name: Desligar todos os computadores de um  grupo
 #   hosts: programacao_lin
 #   tasks:
 #     - name: Enviar comando de desligamento
@@ -68,12 +46,9 @@
 #         cmd: /sbin/shutdown -h now
 #       ignore_errors: true
 #       register: shutdown_result
-
 #     - name: Mostrar status do desligamento
 #       ansible.builtin.debug:
 #         var: shutdown_result
-
-
 
 ######### Executar o Windows Update em Hosts windows remotos
 
@@ -105,7 +80,7 @@
 #         - firefox-esr.desktop
 
 # - name: Executa alguma coisa
-#   hosts: sj-ctic-1bw10.maquinas.sj.ifsc.edu.br
+#   hosts: laboratorios_win
 #   tasks:
 #     - name: Desativa o início rápido para o WOL funcionar
 #       ansible.windows.win_regedit:
@@ -115,7 +90,7 @@
 #         type: dword
 
 ## Executar no final do semestre
-# - hosts: programacao_lin
+# - hosts: laboratorios_lin
 #   roles:
     # - chaves_ssh
     # - firewall_labs
@@ -234,10 +209,6 @@
 #       local_action: shell echo "{{ hostvars[inventory_hostname].ansible_default_ipv4.macaddress }}" >> /tmp/output
 
 # - win_shell: netsh interface ip add wins name=LAN addr=172.18.109.10 index=0
-
-# - name: Install HPLIP on Debian
-#   hosts: sj-lin-biblio-36076.maquinas.sj.ifsc.edu.br
-#   become: yes
 
 ################### Limpar home do aluno no windows ###################
 # - name: Remove conta do aluno
