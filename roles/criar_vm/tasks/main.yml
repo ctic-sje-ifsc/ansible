@@ -1,8 +1,25 @@
 #### Linux
 #### EM FASE DE TESTES, NÃO ESTÁ FUNCIONANDO AINDA
+- name: Cria diretório /opt/OVA
+  ansible.builtin.file:
+    path: /opt/OVA
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  when: ansible_os_family == 'Debian'
 
-  - name: Criando maquina virtual com base no arquivo OVA - Linux
-    ansible.builtin.shell: "vboxmanage import '{{ item.imagem }}' --vsys 0 --vmname '{{ item.vm }}' --vsys 0 --unit 11 --disk '{{ item.vm }}'-disk1.vmdk --vsys 0 --unit 12 --disk /home/VMDK/'{{ item.vm }}'-disk2.vmdk" '{{ item.usuario }}'
-    loop:
-      - { imagem: '/opt/backup/OVA/Grafico.ova', vm: '/home/VMDK/1-Grafico', usuario: 'aluno' }
-    when: ansible_os_family == 'Debian'
+- name: Baixa imagens OVA
+  ansible.builtin.get_url:
+    url: http://ansiblefiles.sj.ifsc.edu.br/{{ item }}
+    dest: /opt/OVA
+  loop:
+    - Ubuntu.ova
+    # - Grafico.ova
+  when: ansible_os_family == 'Debian'
+
+- name: Criando maquina virtual com base no arquivo OVA - Linux
+  ansible.builtin.shell: "sudo -u {{ item.usuario }} vboxmanage import {{ item.imagem }} --vsys 0 --vmname {{ item.vm }} --vsys 0 --unit 14 --disk /opt/OVA/{{ item.disco }}-disk1.vmdk --vsys 0 --unit 15 --disk /home/VMDK/'{{ item.disco }}'-disk2.vmdk"
+  loop:
+    - { imagem: '/opt/OVA/Ubuntu.ova', vm: '1-Servidor', disco: 1-Servidor, usuario: 'rmartins' }
+  when: ansible_os_family == 'Debian'
