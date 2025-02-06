@@ -32,9 +32,9 @@
 #
 # ## Remover do LDAP ##############
 
-# - hosts:  sj-lin-ciehu-710790.maquinas.sj.ifsc.edu.br
-#   roles:
-#     - remove_ldap
+- hosts:  sje-lin-ctic-38319.maquinas.sj.ifsc.edu.br
+  roles:
+    - criar_vm
 #
 # ## Instala Impressoras CUPS ##############
 
