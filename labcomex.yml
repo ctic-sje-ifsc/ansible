@@ -1,7 +1,7 @@
 # Linux
-
-- hosts: comex_lin,!sje-lin-comex-879470.maquinas.sj.ifsc.edu.br
-  #any_errors_fatal: true
+- name: Roles do laboratório de Comunicação e expressão
+  hosts: comex_lin,!sje-lin-comex-879470.maquinas.sj.ifsc.edu.br
+  # any_errors_fatal: true
   roles:
     - remove_ldap
     - role: grub
@@ -10,7 +10,7 @@
     - name: Adiciona linha do usuario aluno no passwd
       ansible.builtin.blockinfile:
         path: /etc/passwd
-        backup: yes
+        backup: true
         block: |
           aluno:x:1001:1001::/home/aluno:
       when: ansible_os_family == 'Debian'
@@ -18,7 +18,7 @@
     - name: Adiciona linha do usuario aluno no group
       ansible.builtin.blockinfile:
         path: /etc/group
-        backup: yes
+        backup: true
         block: |
           aluno:x:1001:
       when: ansible_os_family == 'Debian'
@@ -29,12 +29,12 @@
         shell: /bin/bash
         password: $6$B5dpvoG43l67q0sx$r0LDKV2TgNItf/kYx/76l89ZN4LhP/ksYIxp.SSVGttHoSZXLSoB6Hkg2A6y7M7aFJ8zEuauf5kS/yA/P61kN1
         groups: aluno
-        append: yes
+        append: true
       when: ansible_os_family == 'Debian'
 
     - name: Cria diretório /home/backup
       ansible.builtin.file:
-        path: /home/backup
+        path: /opt/backup
         state: directory
         owner: root
         group: root
@@ -44,7 +44,10 @@
     - name: Copia aluno.tgz para a máquina
       ansible.builtin.get_url:
         url: http://ansiblefiles.sj.ifsc.edu.br/aluno_adm.tgz
-        dest: /home/backup/aluno.tgz
+        dest: /opt/backup/aluno.tgz
+        owner: root
+        group: root
+        mode: '0755'
       when: ansible_os_family == 'Debian'
 
 ##### Configuração do script para apagar o home do aluno a cade inicialização
@@ -96,10 +99,3 @@
       tags: apagaAluno
 
 ###################### Fim do ApagaAluno
-
-# Windows
-
-- hosts: comex_win
-  #any_errors_fatal: true
-  roles:
-    - ingressa_ldap
