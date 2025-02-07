@@ -418,3 +418,9 @@
   roles:
     - role: grub
       tipo: grub_win
+
+- name: Computadores da biblioteca para alunos
+  hosts: biblio_aluno_lin
+  roles:
+    - role: grub
+      tipo: grub_lin
