@@ -19,7 +19,7 @@
   when: ansible_os_family == 'Debian'
 
 - name: Criando maquina virtual com base no arquivo OVA - Linux
-  ansible.builtin.shell: "sudo -u {{ item.usuario }} vboxmanage import {{ item.imagem }} --vsys 0 --vmname {{ item.vm }} --vsys 0 --unit 14 --disk /opt/OVA/{{ item.disco }}-disk1.vmdk --vsys 0 --unit 15 --disk /home/VMDK/'{{ item.disco }}'-disk2.vmdk"
+  ansible.builtin.command: "sudo -u {{ item.usuario }} vboxmanage import {{ item.imagem }} --vsys 0 --vmname {{ item.vm }} --vsys 0 --unit 14 --disk /opt/OVA/{{ item.disco }}-disk1.vmdk --vsys 0 --unit 15 --disk /home/VMDK/'{{ item.disco }}'-disk2.vmdk"
   loop:
     - { imagem: '/opt/OVA/Ubuntu.ova', vm: '1-Servidor', disco: 1-Servidor, usuario: 'rmartins' }
   when: ansible_os_family == 'Debian'
