@@ -1,5 +1,5 @@
 #### Linux
-#### EM FASE DE TESTES, NÃO ESTÁ FUNCIONANDO AINDA
+
 - name: Cria diretório /opt/OVA
   ansible.builtin.file:
     path: /opt/OVA
@@ -9,24 +9,25 @@
     mode: '0755'
   when: ansible_os_family == 'Debian'
 
-- name: Baixa imagens OVA
-  ansible.builtin.get_url:
-    url: http://ansiblefiles.sj.ifsc.edu.br/{{ item }}
-    dest: /opt/OVA
+- name: Baixa imagens OVA - Linux Debian
+  ansible.builtin.unarchive:
+    src: http://ansiblefiles.sj.ifsc.edu.br/{{ item }}
+    dest: /opt/OVA/
+    creates: /opt/OVA/Grafico.ova
+    remote_src: true
     owner: root
     group: root
     mode: '0755'
   loop:
-    - Ubuntu.ova
-    # - Grafico.ova
+    - server.bz
+    - grafico.bz
   when: ansible_os_family == 'Debian'
 
 - name: Criando maquina virtual com base no arquivo OVA - Linux
-  ansible.builtin.shell: "sudo -u {{ item.usuario }} vboxmanage import {{ item.imagem }} --vsys 0 --vmname {{ item.vm }} --vsys 0 --unit 14 --disk {{ item.disco }}_disk1.vmdk --vsys 0 --unit 15 --disk {{ item.disco }}_disk2.vmdk"
+  ansible.builtin.command: "sudo -u {{ item.usuario }} vboxmanage import {{ item.imagem }} --vsys 0 --vmname {{ item.vm }} --vsys 0 --unit 14 --disk /opt/vdi/{{ item.vm }}/{{ item.vm }}-disk1.vmdk --vsys 0 --unit 15 --disk /opt/vdi/{{ item.vm }}/{{ item.vm }}-disk2.vmdk"
   loop:
-    - { imagem: '/opt/OVA/Ubuntu.ova', vm: '10-Servidor', disco: /opt/vdi/10-Servidor/10-Servidor.vmdk, usuario: 'aluno' } # Máquina servidor
-    # - { imagem: '/opt/OVA/Grafico.ova', vm: '10-Grafico', disco: /opt/vdi/10-Grafico/10-Grafico.vmdk, usuario: 'aluno' } # Máquina grafica
+    - { imagem: '/opt/OVA/Ubuntu.ova', vm: 'X-Servidor', usuario: 'aluno' } # Máquina servidor
+    - { imagem: '/opt/OVA/Grafico.ova', vm: 'X-Grafico', usuario: 'aluno' } # Máquina grafica
   args:
-    chdir: /opt/vdi/
-    creates: '{{ item.disco }}'
+    creates: /opt/vdi/{{ item.vm }}
   when: ansible_os_family == 'Debian'
