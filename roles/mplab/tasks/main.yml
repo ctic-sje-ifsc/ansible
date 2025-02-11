@@ -9,7 +9,7 @@
   ansible.builtin.file:
     state: absent
     path: /opt/microchip/
-  when: ansible_os_family == 'Debian' # and result_mplab.stdout.find('6.10') == -1)
+  when: (ansible_os_family == 'Debian' and result_mplab.stdout.find('6.10') == -1)
 
 - name: Apagando links mplab - Linux
   ansible.builtin.file:
@@ -21,7 +21,7 @@
     - mdb
   loop_control:
     loop_var: old_mplab_link
-  when: ansible_os_family == 'Debian' # and result_mplab.stdout.find('6.10') == -1)
+  when: (ansible_os_family == 'Debian' and result_mplab.stdout.find('6.10') == -1)
 
 - name: Baixa e extrai mplab 6.10 - Debian
   ansible.builtin.unarchive:
