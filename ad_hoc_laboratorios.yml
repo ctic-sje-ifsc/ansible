@@ -32,9 +32,9 @@
 #
 # ## Remover do LDAP ##############
 
-- hosts:  sje-lin-ctic-38319.maquinas.sj.ifsc.edu.br
-  roles:
-    - criar_vm
+# - hosts: laboratorios_lin
+#   roles:
+#     - mplab
 #
 # ## Instala Impressoras CUPS ##############
 
