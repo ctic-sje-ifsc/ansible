@@ -1,5 +1,5 @@
 - name: Adiciona computadores no domínio
-  hosts: administrativos_win:!sj-almoxtele-38298.maquinas.sj.ifsc.edu.br,!win11
+  hosts: administrativos_win:!sj-almoxtele-38298.maquinas.sj.ifsc.edu.br
   roles:
     - ingressa_ldap
 
@@ -57,3 +57,8 @@
           - homeassistant
           - virtualbox
       when: ansible_os_family == 'Windows'
+
+- name: Máquina do professor Saul
+  hosts: sje-des1-744935.maquinas.sj.ifsc.edu.br
+  roles:
+    - hfss
