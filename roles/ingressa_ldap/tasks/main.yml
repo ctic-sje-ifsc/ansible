@@ -191,14 +191,10 @@
   when: ansible_os_family == 'Windows'
 
 - name: Ingressa no dominio - Windows
-  ansible.windows.win_domain_membership:
+  microsoft.ad.membership:
     dns_domain_name: cefetsc.edu.br
     domain_admin_user: "{{ domain_admin_user }}"
     domain_admin_password: "{{ domain_admin_password }}"
     state: domain
-  register: domain_state
-  when: (ansible_os_family == 'Windows' and ansible_windows_domain_member == false)
-
-- name: Reinicia o computador
-  ansible.windows.win_reboot:
-  when: (ansible_os_family == 'Windows' and ansible_windows_domain_member == false and domain_state.reboot_required)
+    reboot: true
+  when: ansible_os_family == 'Windows'
