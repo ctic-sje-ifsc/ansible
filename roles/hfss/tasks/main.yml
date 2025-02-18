@@ -1,7 +1,7 @@
 # Windows
 - name: Verifica se HFSS foi instalado
   ansible.windows.win_stat:
-    path: C:\Program Files\AnsysEM\Shared Files
+    path: C:\Program Files\AnsysEM\Shared Files\
   register: hfss_info
   changed_when: false
   when: ansible_os_family == 'Windows'
@@ -11,13 +11,13 @@
     url: http://ansiblefiles.sj.ifsc.edu.br/hfss.zip
     dest: C:\Windows\Temp
     url_timeout: 60
-  when: ansible_os_family == 'Windows' and hfss_info.stat.exists
+  when: ansible_os_family == 'Windows' and not hfss_info.stat.exists
 
 - name: Extrai o HFSS em C:\instaladores
   community.windows.win_unzip:
     src: C:\Windows\Temp\hfss.zip
     dest: C:\instaladores
-  when: ansible_os_family == 'Windows' and hfss_info.stat.exists
+  when: ansible_os_family == 'Windows' and not hfss_info.stat.exists
 
 - name: Instalar o HFSS - Windows
   ansible.windows.win_package:
@@ -25,7 +25,7 @@
     arguments: -silent
     product_id: '{2427809E-E557-47DF-813D-22A52BC0E646}'
     state: present
-  when: ansible_os_family == 'Windows' and hfss_info.stat.exists
+  when: ansible_os_family == 'Windows' and not hfss_info.stat.exists
 
 - name: Remove arquivo baixado
   ansible.windows.win_file:
