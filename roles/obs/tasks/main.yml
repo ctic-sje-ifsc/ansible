@@ -1,9 +1,8 @@
 - name: Instala o pacotes necessarios para o OBS - Linux
-  apt:
-    state: latest
+  ansible.builtin.apt:
     pkg:
-    - ffmpeg
-    - obs-studio
+      - ffmpeg
+      - obs-studio
   when: ansible_distribution == 'Debian'
 
 - name: Instalar OBS studio no Windows
