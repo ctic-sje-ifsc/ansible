@@ -2,36 +2,36 @@
 #Linux
 
 - name: Instalar os pacotes para o token SafeNet - Linux Debian 10 e debian 11
-  apt:
+  ansible.builtin.apt:
     state: latest
     pkg:
-    - libjbig0
-    - libtiff5
-    - fontconfig-config
-    - libfontconfig1
-    - libwxbase3.0-0v5
-    - libpcsclite1
-    - libccid
-    - pcscd
-    - opensc
+      - libjbig0
+      - libtiff5
+      - fontconfig-config
+      - libfontconfig1
+      - libwxbase3.0-0v5
+      - libpcsclite1
+      - libccid
+      - pcscd
+      - opensc
   when: ansible_distribution_release != 'stretch'
 
 - name: Copia para a maquina o Safenet Authenticator Client - Debian 10
-  copy:
+  ansible.builtin.copy:
     src: SafenetAuthenticationClient-BR-10.7.77-amd64.deb
     dest: /tmp
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
   when: ansible_distribution_release == 'buster'
 
 - name: Instala o Safenet Authenticator Client - Debian 10
-  apt:
+  ansible.builtin.apt:
     deb: /tmp/SafenetAuthenticationClient-BR-10.7.77-amd64.deb
   when: ansible_distribution_release == 'buster'
 
 - name: Cria link simbolico - Debian 10
-  file:
+  ansible.builtin.file:
     src: /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1
     dest: /usr/lib/libcrypto.so.6
     owner: root
@@ -43,19 +43,19 @@
   ansible.builtin.unarchive:
     src: https://www.globalsign.com/en/safenet-drivers/USB/10.7/Safenet_Linux_Installer_DEB_x64.zip
     dest: /tmp
-    remote_src: yes
+    remote_src: true
     owner: root
     group: root
-    mode: 0755
+    mode: '0755'
   when: ansible_distribution_release == 'bullseye'
 
 - name: Instala o Safenet Authenticator Client - Debian 11
   ansible.builtin.apt:
     deb: /tmp/safenetauthenticationclient_10.7.77_amd64.deb
   when: ansible_distribution_release == 'bullseye'
-  
+
 - name: Script para habilitar módulo no navegador
-  copy:
+  ansible.builtin.copy:
     content: |
       #!/bin/bash
 
@@ -76,11 +76,11 @@
       read input
 
     dest: /usr/local/bin/habilita_token_safenet.sh
-    mode: 0755
+    mode: '0755'
   when: ansible_distribution_release == 'buster'
 
 - name: Cria lançador do script para habilitar módulo no navegador
-  copy:
+  ansible.builtin.copy:
     content: |
       [Desktop Entry]
       Version=1.0
@@ -92,4 +92,5 @@
       Type=Application
       Categories=Application;
     dest: /usr/share/applications/habilita_token_safenet.desktop
+    mode: '0755'
   when: ansible_os_family == 'Debian'
