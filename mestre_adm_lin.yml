@@ -35,6 +35,11 @@
       changed_when: false
       when: ansible_os_family == 'Debian'
 
+    - name: Upgrade the packages (apt full-upgrade)
+      ansible.builtin.apt:
+        upgrade: full
+      when: ansible_os_family == 'Debian'
+
     - name: Run the equivalent of "apt-get clean" as a separate step
       ansible.builtin.apt:
         clean: true
