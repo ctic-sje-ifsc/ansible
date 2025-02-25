@@ -19,4 +19,3 @@
     name: microsip
     version: 3.21.5
   when: ansible_os_family == 'Windows'
->>>>>>> e31fcd7fffc093c3e5eb6f4811ee7f79dbe59ff9
