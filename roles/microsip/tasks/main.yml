@@ -1,6 +1,6 @@
 ---
 # Windows
-<<<<<<< HEAD
+# <<<<<<< HEAD
 # - name: Instalar o MicroSIP - Windows
 #   chocolatey.chocolatey.win_chocolatey:
 #     name: microsip
