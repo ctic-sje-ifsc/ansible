@@ -33,24 +33,19 @@
   roles:
     - ingressa_ldap
 
-- name: Atualizar computadores Windows do grupo laboratorios_win
-  hosts: laboratorios_win
-  tasks:
-    - name: Verificar e instalar atualizações do Windows Update
-      win_updates:
-        category_names:
-          - CriticalUpdates
-          - SecurityUpdates
-        reboot: yes
-
-    - name: Reiniciar o computador se necessário
-      win_reboot:
-        msg: "Reiniciando após aplicar atualizações do Windows Update."
-        timeout: 300
+# - name: Atualizar computadores Windows do grupo laboratorios_win
+#   hosts: laboratorios_win
+#   tasks:
+#     - name: Verificar e instalar atualizações do Windows Update
+#       ansible.windows.win_updates:
+#         category_names:
+#           - CriticalUpdates
+#           - SecurityUpdates
+#         reboot: true
 
 
-# ######################## ORDEM ALFABÉTICA ########################
-# - name: Laboratório de Comunicação sem fio
-#   hosts: csfio_win
-#   roles:
-#     - hfss
+######################## ORDEM ALFABÉTICA ########################
+- name: Laboratório de Comunicação sem fio
+  hosts: csfio_win
+  roles:
+    - hfss
