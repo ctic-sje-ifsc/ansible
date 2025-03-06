@@ -45,7 +45,37 @@
     state: absent
   when: ansible_os_family == 'Windows'
 
-- name: Instala todas as Atualizações #### A máquina pode reiniciar
-  ansible.windows.win_updates:
-    category_names: '*'
+- name: Remove conta do aluno
+  win_user:
+    name: aluno
+    state: absent
   when: ansible_os_family == 'Windows'
+
+- name: Remove profile do aluno
+  win_user_profile:
+    name: aluno
+    state: absent
+    remove_multiple: yes
+  when: ansible_os_family == 'Windows'
+
+- name: Remove a pasta do aluno
+  win_file:
+    path: C:\Users\aluno
+    state: absent
+  when: ansible_os_family == 'Windows'
+
+- name: cria usuário aluno
+  win_user:
+    name: aluno
+    password: aluno
+    password_expired: no
+    state: present
+    user_cannot_change_password: yes
+    groups:
+      - "Usuários"
+  when: ansible_os_family == 'Windows'
+
+  # - name: Instala todas as Atualizações #### A máquina pode reiniciar
+  # ansible.windows.win_updates:
+  #   category_names: '*'
+  # when: ansible_os_family == 'Windows'
