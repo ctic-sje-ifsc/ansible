@@ -1,19 +1,39 @@
 # Token Safenet 5110
 
-Esta role é utilizada para instalar o pacote SafenetAuthenticationClient versão 9.1.7 no Debian Buster.
+Esta role é utilizada para instalar o pacote SafenetAuthenticationClient versão 10.7.77 no Debian 12 Bookworm.
 Esse pacote é necessário para o funcionamento do [Token Safenet 5110](https://www.serpro.gov.br/links-fixos-superiores/pss-serpro/drivers_token/).
 
+## Configuração automática
 
-## Firefox
+**Inicialmente é preciso abrir os navegadores para que os diretórios sejam criados e depois fechá-los.** <br>
+Existem duas opções:
 
-Após a instalação é necessário adicionar ao Mozilla Firefox (68.6.0esr-1) é preciso carregar o módulo:
+### 1 - Através do lançador de aplicações, procurar por: 
+    Habilita módulo Safenet nos navegadores
 
-Menu > Preferências > Privacidade e Segurança > Dispositivos de segurança... > Carregar
+Em caso de sucesso aparecerá a seguinte mensagem:
 
-Nome do módulo: safenet (ou outro de sua escolha)
+    Cadeias e modulo SafeSign instalados no Mozilla Firefox do usuario <USER>.
+    Cadeias e modulo SafeSign instalados no Google Chrome do usuario <USER>.
+    Pressione <ENTER> para sair
+
+
+### 2 - Executar no terminal do usuário (NÃO USAR A CONTA ROOT):
+
+    /usr/local/bin/habilita_token_safenet.sh
+
+## Configuração manual
+
+### Firefox
+
+Após a instalação é preciso carregar o módulo:
+
+Menu > Configurações > Privacidade e Segurança > Dispositivos de segurança... > Carregar
+
+Nome do módulo: safenet (ou outro de sua escolha) <br>
 Nome do arquivo do módulo: /usr/lib/libeTPkcs11.so
 
-## Chrome ou Chromium
+### Chrome ou Chromium
 
 Para carregar o módulo no Chrome ou Chromium execute com o usuário (não como root):
 
@@ -23,20 +43,3 @@ Para carregar o módulo no Chrome ou Chromium execute com o usuário (não como 
 Para listar os dispositivos e módulos de segurança:
 
     modutil -dbdir sql:.pki/nssdb/ -list
-
-
-## Libreoffice
-
-O Libreoffice pode ser utulizado para assinar documentos. A versão atual do repositório stable (6.1.5-3+10u3) não funcionou. Foi preciso instalar a versão do repositório buster-backports (6.4.1-1~bpo10+1).
-
-O Libreoffice utiliza o mesmo módulo do dispositivo de segurança do Firefox, porém é necessário realizar a seguinte configuração:
-
-###Utilizar a configuração do Firefox
-Ferramentas > Opções > LibreOffice > Segurança > Certificado... e selecionar o Perfil firefox:default-esr.
-
-###Utilizar a configuração do Chrome ou Chromium
-Ferramentas > Opções > LibreOffice > Segurança > Certificado... Selecionar caminho do NSS... e selecionar o diretório ~/.pki/nssdb
-
-Dentro dos dois diretórios o arquivo pkcs11.txt aponta para a biblioteca correta.
-
-Obs: Ao apagar o outro perfil não foi mais possível selecionar o certificado para assinar.
