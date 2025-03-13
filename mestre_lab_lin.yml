@@ -396,6 +396,11 @@
     - dbeaver
     - sqlitestudio
 
+- name: Laboratório de Meios da cultura geral
+  hosts: meios_cult_lin
+  roles:
+    - ingressa_ldap
+
 - name: Laboratório de Programação
   hosts: programacao_lin
   roles:

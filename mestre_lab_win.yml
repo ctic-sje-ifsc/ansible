@@ -29,7 +29,7 @@
       tags: config_hora
 
 - name: Configurações aplicadas somente para as maquinas dos professores
-  hosts: lab_profs_win
+  hosts: lab_profs_win,meios_cult_win
   roles:
     - ingressa_ldap
 
