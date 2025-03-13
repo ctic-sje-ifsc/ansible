@@ -15,6 +15,20 @@
 #       loop:
 #         - { user: 12345678910, password: 87654321 }
 
+######### Correção das máquinas virtuais ############
+# - hosts: laboratorios_lin
+#   tasks:
+#     - name: Remove arquivos da pasta Virtualbox
+#       raw: rm -rf /opt/vms/'VirtualBox VMs'/*
+#     - name: Remove configurações das máquinas virtuais
+#       raw: rm -rf /opt/vms/.config/VirtualBox/*
+#   roles:
+#     - criar_vm
+# - hosts: laboratorios_lin
+#   tasks:
+#     - name: Reinicia o computador
+#       raw: reboot
+
 # - name: Manage local user aluno on a Windows remote host # ( ESTÁ funcionando )
 #   hosts: sje-ctic-866467.maquinas.sj.ifsc.edu.br
 #   gather_facts: no
