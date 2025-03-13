@@ -27,8 +27,8 @@
 - name: Criando maquina virtual com base no arquivo OVA - Linux
   ansible.builtin.command: "sudo -u {{ item.usuario }} vboxmanage import {{ item.imagem }} --vsys 0 --vmname {{ item.vm }} --vsys 0 --cpus {{ item.cpu }} --vsys 0 --memory {{ item.memoria }} --vsys 0 --unit 14 --disk /opt/vms/'VirtualBox VMs'/{{ item.vm }}/{{ item.vm }}-disk1.vmdk --vsys 0 --unit 15 --disk /opt/vms/'VirtualBox VMs'/{{ item.vm }}/{{ item.vm }}-disk2.vmdk"
   loop:
-    - { imagem: '/opt/OVA/Ubuntu.ova', vm: 'DISCIPLINA-Prof', usuario: 'aluno', cpu: 2, memoria: 2048 } # Máquina servidor
-    - { imagem: '/opt/OVA/Grafico.ova', vm: 'DISCIPLINA-Prof', usuario: 'aluno', cpu: 2, memoria: 2048 } # Máquina grafica
+    - { imagem: '/opt/OVA/Ubuntu.ova', vm: 'Servidor-livre', usuario: 'aluno', cpu: 2, memoria: 2048 } # Máquina servidor
+    - { imagem: '/opt/OVA/Grafico.ova', vm: 'Grafico-livre', usuario: 'aluno', cpu: 2, memoria: 2048 } # Máquina grafica
   args:
     creates: /opt/vdi/{{ item.vm }}
   when: ansible_os_family == 'Debian'
