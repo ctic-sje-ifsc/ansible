@@ -30,7 +30,6 @@
   ansible.builtin.user:
     name: aluno
     groups: [vboxusers]
-    password: $6$B5dpvoG43l67q0sx$r0LDKV2TgNItf/kYx/76l89ZN4LhP/ksYIxp.SSVGttHoSZXLSoB6Hkg2A6y7M7aFJ8zEuauf5kS/yA/P61kN1
     append: true
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bookworm')
 
