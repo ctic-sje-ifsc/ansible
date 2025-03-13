@@ -2,32 +2,33 @@
 #Linux
 
 # Debian e Ubuntu
-- name: Extrair as máquinas virtuais - Linux
-  ansible.builtin.unarchive:
-    src: /opt/backup/{{ vms_bz }}
-    dest: /
-    remote_src: true
-  loop:
-    - 1-Grafico.bz
-    - 2-Grafico.bz
-    - 3-Grafico.bz
-    - 4-Grafico.bz
-    - 1-Servidor.bz
-    - 2-Servidor.bz
-    - 3-Servidor.bz
-    - 4-Servidor.bz
-    - 5-Servidor.bz
-    - 6-Servidor.bz
-    - 7-Servidor.bz
-  loop_control:
-    loop_var: vms_bz
-  when: ansible_os_family == 'Debian'
-
-# - name: Zerando pasta compartilhada entre sistemas - Linux
-#   file:
-#     state: absent
-#     path: /media/aluno/trabalhos/
+# - name: Extrair as máquinas virtuais - Linux
+#   ansible.builtin.unarchive:
+#     src: /opt/backup/{{ vms_bz }}
+#     dest: /
+#     remote_src: true
+#   loop:
+#     - 1-Grafico.bz
+#     - 2-Grafico.bz
+#     - 3-Grafico.bz
+#     - 4-Grafico.bz
+#     - 1-Servidor.bz
+#     - 2-Servidor.bz
+#     - 3-Servidor.bz
+#     - 4-Servidor.bz
+#     - 5-Servidor.bz
+#     - 6-Servidor.bz
+#     - 7-Servidor.bz
+#   loop_control:
+#     loop_var: vms_bz
 #   when: ansible_os_family == 'Debian'
+
+- name: Zerando maquinas virtuais e os backups delas  - Linux
+  ansible.builtin.shell: "{{ item }}"
+  loop:
+    - /usr/bin/rm -rf /opt/vdi/*
+    - /usr/bin/rm -rf /opt/backup/*.bz
+  when: ansible_os_family == 'Debian'
 
 # - name: Cria pasta compartilhada entre sistemas - Linux
 #   file:
