@@ -253,4 +253,48 @@
 #     groups:
 #       - "Usuários"
 #   when: ansible_os_family == 'Windows'
+#
+#
+#
+- name: Forçar logoff em todas as máquinas do grupo programacao_win
+  hosts: programacao_win
+  gather_facts: no
+  tasks:
+    - name: Forçar logoff da sessão ativa
+      ansible.windows.win_shell: |
+        query session | findstr "Active" | for /F "tokens=3" %i in ('more') do logoff %i
+      register: logoff_result
+      ignore_errors: yes
+
+    - name: Exibir saída do logoff
+      debug:
+        var: logoff_result.stdout_lines
+
+ 
+
+# - name: Executar Windows Update (baixar e instalar todas as atualizações)
+#   win_updates:
+#     category_names: 
+#       - SecurityUpdates
+#       - CriticalUpdates
+#       - UpdateRollups
+#       - DefinitionUpdates
+#       - Updates
+#     reboot: yes
+#
+#
+# - name: Modificar /etc/default/grub para ativar OS Prober ( Dual bot grub / Windows Boot Manager )
+#   hosts: programacao_lin
+#   become: yes
+#   tasks:
+#     - name: Garantir que GRUB_DISABLE_OS_PROBER=false está descomentado
+#       lineinfile:
+#         path: /etc/default/grub
+#         regexp: '^#?GRUB_DISABLE_OS_PROBER='
+#         line: 'GRUB_DISABLE_OS_PROBER=false'
+#         backrefs: yes
+
+#     - name: Atualizar GRUB
+#       command: update-grub
+
 #######################################################################
