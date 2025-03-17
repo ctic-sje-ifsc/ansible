@@ -17,17 +17,20 @@
 
 ######### Correção das máquinas virtuais ############
 # - hosts: laboratorios_lin
+#   1 - Executar primeiro
 #   tasks:
 #     - name: Remove arquivos da pasta Virtualbox
 #       raw: rm -rf /opt/vms/'VirtualBox VMs'/*
 #     - name: Remove configurações das máquinas virtuais
 #       raw: rm -rf /opt/vms/.config/VirtualBox/*
 #   roles:
-#     - criar_vm
-# - hosts: laboratorios_lin
+#     - aluno #### 2 - Depois executar apenas isso
+# 3 - Depois executar apenas isso
 #   tasks:
 #     - name: Reinicia o computador
 #       raw: reboot
+#   roles:
+#     - criar_vm #### 4 - Por último executar isso
 
 # - name: Manage local user aluno on a Windows remote host # ( ESTÁ funcionando )
 #   hosts: sje-ctic-866467.maquinas.sj.ifsc.edu.br
@@ -256,25 +259,23 @@
 #
 #
 #
-- name: Forçar logoff em todas as máquinas do grupo programacao_win
-  hosts: programacao_win
-  gather_facts: no
-  tasks:
-    - name: Forçar logoff da sessão ativa
-      ansible.windows.win_shell: |
-        query session | findstr "Active" | for /F "tokens=3" %i in ('more') do logoff %i
-      register: logoff_result
-      ignore_errors: yes
+# - name: Forçar logoff em todas as máquinas do grupo programacao_win
+#   hosts: programacao_win
+#   gather_facts: no
+#   tasks:
+#     - name: Forçar logoff da sessão ativa
+#       ansible.windows.win_shell: |
+#         query session | findstr "Active" | for /F "tokens=3" %i in ('more') do logoff %i
+#       register: logoff_result
+#       ignore_errors: yes
 
-    - name: Exibir saída do logoff
-      debug:
-        var: logoff_result.stdout_lines
-
- 
+#     - name: Exibir saída do logoff
+#       debug:
+#         var: logoff_result.stdout_lines
 
 # - name: Executar Windows Update (baixar e instalar todas as atualizações)
 #   win_updates:
-#     category_names: 
+#     category_names:
 #       - SecurityUpdates
 #       - CriticalUpdates
 #       - UpdateRollups
