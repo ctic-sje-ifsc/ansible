@@ -20,6 +20,7 @@
     groups: epoptes
     append: true
   loop:
+    - ana.scharf
     - andrealves
     - arliones.hoeller
     - carlyle.camara
