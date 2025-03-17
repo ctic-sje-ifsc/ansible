@@ -1,4 +1,18 @@
-- name: Instala o Google Chrome
+- name: Adiciona chave para o 'Debian'
+  ansible.builtin.apt_key:
+    url: https://dl.google.com/linux/linux_signing_key.pub
+    state: present
+  when: ansible_os_family == 'Debian'
+
+- name: Adiciona repositório para o 'Debian'
+  ansible.builtin.apt_repository:
+    repo: deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
+    state: present
+    filename: google-chrome
+  when: ansible_os_family == 'Debian'
+
+- name: Instala google-chrome do repositorio
   ansible.builtin.apt:
-    deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    name: google-chrome-stable
+    state: present
   when: ansible_os_family == 'Debian'
