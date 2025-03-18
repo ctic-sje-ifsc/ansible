@@ -73,7 +73,7 @@
 #   hosts: sj-labter-614120.maquinas.sj.ifsc.edu.br
 #   tasks:
 #     - name: Run Windows Update
-#       win_updates:
+#       ansible.windows.win_updates:
 #         category_names:
 #           - CriticalUpdates
 #           - SecurityUpdates
@@ -81,7 +81,7 @@
 #           - FeaturePacks
 #           - ServicePacks
 #         state: installed
-#         reboot: yes
+#         reboot: true
 
 # - hosts: laboratorios_lin
 #   tasks:
@@ -109,10 +109,7 @@
 ## Executar no final do semestre
 # - hosts: laboratorios_lin
 #   roles:
-    # - chaves_ssh
-    # - firewall_labs
-    # - final_semestre
-    #  - gradle
+#     - final_semestre
 
 # - hosts: all
 #   tasks:
@@ -161,15 +158,6 @@
 #       # play: 0 desativa
 #       # play: 1 ativa
 
-# # ATUALIZA MAC
-# # SEMPRE VERIFICAR O HOST QUE QUER ATINGIR
-# - hosts: laboratorios_lin
-#   roles:
-#     - role: atualiza_mac
-#       play: 0
-#       # play: 0 desativa
-#       # play: 1 ativa
-
 ## DESCOMENTAR PARA CORRIGIR O EPOPTES, PEGAR AS CHAVES DO SERVER. COMENTAR NOVAMENTE DEPOIS.
 ## LEMBRAR DE RODAR COM A OPÇÃO -l GRUPO_DO_LAB
 # - hosts: laboratorios_lin
@@ -197,27 +185,6 @@
 #     - name: Turn off computers
 #       raw: reboot
 
-# - hosts: laboratorios_lin
-#   roles:
-#     - role: restaura_vms
-#       nome_vms:
-#         - 1-Servidor
-#         - 2-Servidor
-#         - 3-Servidor
-#         - 4-Servidor
-#         - 5-Servidor
-#         - 6-Servidor
-#         - 7-Servidor
-
-# - hosts: laboratorios_lin
-#   roles:
-#     - role: restaura_vms_grafico
-#       nome_vms:
-#         - 1-Grafico
-#         - 2-Grafico
-#         - 3-Grafico
-#         - 4-Grafico
-
 # - hosts: all
 #   tasks:
 #     - name: Get the MAC address
@@ -227,38 +194,6 @@
 
 # - win_shell: netsh interface ip add wins name=LAN addr=172.18.109.10 index=0
 
-################### Limpar home do aluno no windows ###################
-# - name: Remove conta do aluno
-#   win_user:
-#     name: aluno
-#     state: absent
-#   when: ansible_os_family == 'Windows'
-
-# - name: Remove profile do aluno
-#   win_user_profile:
-#     name: aluno
-#     state: absent
-#     remove_multiple: yes
-#   when: ansible_os_family == 'Windows'
-
-# - name: Remove a pasta do aluno
-#   win_file:
-#     path: C:\Users\aluno
-#     state: absent
-#   when: ansible_os_family == 'Windows'
-
-# - name: cria usuário aluno
-#   win_user:
-#     name: aluno
-#     password_expired: no
-#     state: present
-#     user_cannot_change_password: yes
-#     groups:
-#       - "Usuários"
-#   when: ansible_os_family == 'Windows'
-#
-#
-#
 # - name: Forçar logoff em todas as máquinas do grupo programacao_win
 #   hosts: programacao_win
 #   gather_facts: no
