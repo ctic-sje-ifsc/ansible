@@ -1,26 +1,21 @@
----
-- name: Configurar repositório e instalar Insync
-  hosts: all
-  become: yes
-  tasks:
-    - name: Adicionar chave GPG do repositório Insync
-      ansible.builtin.command:
-        cmd: "apt-key adv --keyserver keyserver.ubuntu.com --recv-keys ACCAF35C"
-      changed_when: false
+- name: Adicionar chave GPG do repositório Insync
+  ansible.builtin.command:
+    cmd: "apt-key adv --keyserver keyserver.ubuntu.com --recv-keys ACCAF35C"
+  changed_when: false
 
-    - name: Criar arquivo de repositório Insync
-      ansible.builtin.copy:
-        dest: "/etc/apt/sources.list.d/insync.list"
-        content: "deb http://apt.insync.io/debian bookworm non-free contrib"
-        owner: root
-        group: root
-        mode: '0644'
+- name: Criar arquivo de repositório Insync
+  ansible.builtin.copy:
+    dest: "/etc/apt/sources.list.d/insync.list"
+    content: "deb http://apt.insync.io/debian bookworm non-free contrib"
+    owner: root
+    group: root
+    mode: '0644'
 
-    - name: Atualizar lista de pacotes
-      ansible.builtin.apt:
-        update_cache: yes
+- name: Atualizar lista de pacotes
+  ansible.builtin.apt:
+    update_cache: yes
 
-    - name: Instalar Insync
-      ansible.builtin.apt:
-        name: insync
-        state: present
+- name: Instalar Insync
+  ansible.builtin.apt:
+    name: insync
+    state: present
