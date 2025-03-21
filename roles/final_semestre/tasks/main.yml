@@ -1,7 +1,7 @@
 ---
 #Linux
 
-- name: Recursively remove directory
+- name: Removentos todas as VMs da máquina
   ansible.builtin.file:
     path: "{{ item }}"
     state: absent
