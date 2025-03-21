@@ -1,0 +1,75 @@
+#### Linux
+
+- name: Garante que o pacote quota está instalado
+  ansible.builtin.apt:
+    name: quota
+    state: present
+  when: ansible_os_family == 'Debian'
+
+- name: Configura /etc/fstab
+  ansible.builtin.replace:
+    path: /etc/fstab
+    backup: true
+    regexp: 'errors=remount-ro'
+    replace: 'defaults,usrquota,grpquota,errors=remount-ro'
+  when: ansible_os_family == 'Debian'
+
+- name: Remount a mounted volume and append exec to the existing options
+  ansible.posix.mount:
+    path: /
+    state: remounted
+    # opts: exec
+  when: ansible_os_family == 'Debian'
+# - name: Permissão para o script ser executado
+#   ansible.builtin.lineinfile:
+#     path: /etc/apparmor.d/usr.sbin.cupsd
+#     regexp: '/var/spool/cups-pdf/'
+#     line: '  /usr/local/bin/cups-pdf-rename uxr,'
+#     backup: true
+#   when: ansible_os_family == 'Debian'
+
+
+
+
+# ############ Exemplos
+# - name: Cria diretório /opt/OVA
+#   ansible.builtin.file:
+#     path: /opt/OVA
+#     state: directory
+#     owner: root
+#     group: root
+#     mode: '0755'
+#   when: ansible_os_family == 'Debian'
+
+# - name: Baixa imagens OVA - Linux Debian
+#   ansible.builtin.unarchive:
+#     src: http://ansiblefiles.sj.ifsc.edu.br/{{ item }}
+#     dest: /opt/OVA/
+#     creates: /opt/OVA/Grafico.ova
+#     remote_src: true
+#     owner: root
+#     group: root
+#     mode: '0755'
+#   loop:
+#     - server.bz
+#     - grafico.bz
+#   when: ansible_os_family == 'Debian'
+
+# - name: Garante que tem as pastas do VirtualBox
+#   ansible.builtin.file:
+#     path: "{{ item }}"
+#     state: directory
+#     recurse: true
+#   loop:
+#     - /opt/vms/VirtualBox VMs/
+#     - /opt/vms/.config/VirtualBox/
+#   when: ansible_os_family == 'Debian'
+# ##### É possível alterar certas configurações na criação da VM, como memória, CPU, etc.
+# - name: Criando maquina virtual com base no arquivo OVA - Linux
+#   ansible.builtin.command: "sudo -u {{ item.usuario }} vboxmanage import {{ item.imagem }} --vsys 0 --vmname {{ item.vm }} --vsys 0 --cpus {{ item.cpu }} --vsys 0 --memory {{ item.memoria }} --vsys 0 --unit 14 --disk /opt/vms/'VirtualBox VMs'/{{ item.vm }}/{{ item.vm }}-disk1.vmdk --vsys 0 --unit 15 --disk /opt/vms/'VirtualBox VMs'/{{ item.vm }}/{{ item.vm }}-disk2.vmdk"
+#   loop: ######## SUGESTÃO DE NOME PARA AS MÁQUINAS VIRTUAIS MATERIA-PROF, ex.: RCO-Marcelo
+#     - { imagem: '/opt/OVA/Ubuntu.ova', vm: 'Servidor-livre', usuario: 'aluno', cpu: 2, memoria: 2048 } # Máquina servidor
+#     # - { imagem: '/opt/OVA/Grafico.ova', vm: 'Grafico-livre', usuario: 'aluno', cpu: 2, memoria: 2048 } # Máquina grafica
+#   args: ######## SUGESTÃO DE NOME PARA AS MÁQUINAS VIRTUAIS MATERIA-PROF, ex.: RCO-Marcelo
+#     creates: /opt/vms/VirtualBox VMs/{{ item.vm }}
+#   when: ansible_os_family == 'Debian'
