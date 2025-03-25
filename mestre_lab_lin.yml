@@ -7,20 +7,20 @@
     - auto_desligamento
     - chaves_ssh
     - dconf
-    - flatpak
     - docker
+    - flatpak
     - gradle_8.10
     - google_chrome
     - java21-oracle
     - jetbrains
     - matlab
     - mysql_workbench
-    - sources_list
-    - quartus20
-    - unattendedUpgrades_labs
     - npm
-    - virtualbox
     - papel_de_parede_e_icones
+    - quartus20
+    - sources_list
+    - unattendedUpgrades_labs
+    - virtualbox
 
   tasks:
     - name: Instala utilitários para o bash
