@@ -80,6 +80,7 @@
     group: root
     mode: '0644'
   when: ansible_os_family == 'Debian'
+  tags: calc
 
 - name: Atualiza as configurações do dconf
   ansible.builtin.command: dconf update
