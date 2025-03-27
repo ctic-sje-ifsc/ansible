@@ -25,6 +25,7 @@
     - foxit
     - java8-oracle
     - papel_de_parede_e_icones
+    - flatpak
     # - role: grub
     #   tipo: grub_soh_lin
 
@@ -89,6 +90,13 @@
         loop_var: deb_pkgs
       when: ansible_os_family == 'Debian'
 
+    - name: Instala qpdf tools - Compressão de PDF
+      community.general.flatpak:
+        name:
+          - br.eng.silas.qpdftools
+      when: ansible_os_family == 'Debian'
+      tags: qpdf
+
     - name: Remover programas  - Linux
       ansible.builtin.apt:
         state: absent
@@ -130,7 +138,6 @@
   roles:
     - configura_monitores
     - remove_ldap
-    - flatpak
     - geogebra
     - aluno
     - scrcpy
