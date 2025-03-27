@@ -1,25 +1,72 @@
 #### Linux
 
-- name: Garante que o pacote quota está instalado
+- name: Garante que o pacote quota esteja instalado
   ansible.builtin.apt:
-    name: quota
+    name: "{{ item }}"
     state: present
+  loop:
+    - quota
+    # - libpam-modules
   when: ansible_os_family == 'Debian'
 
 - name: Configura /etc/fstab
   ansible.builtin.replace:
     path: /etc/fstab
-    backup: true
-    regexp: 'errors=remount-ro'
-    replace: 'defaults,usrquota,grpquota,errors=remount-ro'
+    after: 'ext4'
+    before: "0"
+    regexp: '^.*errors=remount-ro.*$'
+    replace: '  defaults,usrquota,grpquota,errors=remount-ro  '
   when: ansible_os_family == 'Debian'
 
 - name: Remount a mounted volume and append exec to the existing options
   ansible.posix.mount:
     path: /
     state: remounted
-    # opts: exec
+    opts: defaults,usrquota,grpquota,errors=remount-ro
   when: ansible_os_family == 'Debian'
+
+# - name: Adicionar cota no arquivo common-session
+#   ansible.builtin.lineinfile:
+#     path: /etc/pam.d/common-session
+#     line: 'session required pam_setquota.so fs=/home bsoftlimit=1024 bhardlimit=204800'
+#     backup: true
+#     state: present
+#   when: ansible_os_family == 'Debian'
+
+# - name: Criando arquivo de cota
+#   ansible.builtin.copy:
+#     content: |
+#       Name: Setar cota no /home no primeiro login
+#       Default: no
+#       Priority: 120
+#       Session-Type: Additional
+#       Session-Interactive-Only: no
+#       Session:
+#           required  pam_setquota.so fs=/home bsoftlimit=1024 bhardlimit=204800
+#     dest: /usr/share/pam-configs/setquota-home
+#     owner: root
+#     group: root
+#     mode: '0644'
+#   when: ansible_os_family == 'Debian'
+
+- name: Criação de cotas e ativação
+  ansible.builtin.shell: quotacheck -cugmv / ; quotaon /
+  ignore_errors: true
+  when: ansible_os_family == 'Debian'
+
+# - name: Obter lista de usuários
+#   ansible.builtin.shell: "cut -d: -f1 /etc/passwd"
+#   register: users_list
+
+# - name: Setando cota para todos os usuários
+#   ansible.builtin.command: "setquota -u aluno {{ soft }} {{ hard }} 0 0 /"
+#   # loop: "{{ users_list.stdout_lines }}"
+#   vars:
+#     soft: '1G'
+#     hard: '20G'
+#   when: ansible_os_family == 'Debian'
+
+
 # - name: Permissão para o script ser executado
 #   ansible.builtin.lineinfile:
 #     path: /etc/apparmor.d/usr.sbin.cupsd
