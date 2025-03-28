@@ -9,6 +9,7 @@
     - dconf
     - docker
     - flatpak
+    - gnome-calculator
     - gradle_8.10
     - google_chrome
     - java21-oracle
@@ -346,6 +347,7 @@
           - linux-image-6.5.0-0.deb12.4-amd64
           - linux-headers-6.5.0-0.deb12.4-amd64
           - linux-headers-6.5.0-0.deb12.4-common
+          - gnome-calculator
       when: ansible_os_family == 'Debian'
 
 - name: Configurações aplicadas somente para os alunos
