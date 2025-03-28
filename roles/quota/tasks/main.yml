@@ -1,12 +1,10 @@
 #### Linux
 
-- name: Garante que o pacote quota esteja instalado
+- name: Instala pacotes
   ansible.builtin.apt:
-    name: "{{ item }}"
-    state: present
-  loop:
-    - quota
-    # - libpam-modules
+    pkg:
+      - quota
+      - libpam-modules
   when: ansible_os_family == 'Debian'
 
 - name: Configura /etc/fstab
@@ -25,98 +23,34 @@
     opts: defaults,usrquota,grpquota,errors=remount-ro
   when: ansible_os_family == 'Debian'
 
-# - name: Adicionar cota no arquivo common-session
-#   ansible.builtin.lineinfile:
-#     path: /etc/pam.d/common-session
-#     line: 'session required pam_setquota.so fs=/home bsoftlimit=1024 bhardlimit=204800'
-#     backup: true
-#     state: present
-#   when: ansible_os_family == 'Debian'
-
-# - name: Criando arquivo de cota
-#   ansible.builtin.copy:
-#     content: |
-#       Name: Setar cota no /home no primeiro login
-#       Default: no
-#       Priority: 120
-#       Session-Type: Additional
-#       Session-Interactive-Only: no
-#       Session:
-#           required  pam_setquota.so fs=/home bsoftlimit=1024 bhardlimit=204800
-#     dest: /usr/share/pam-configs/setquota-home
-#     owner: root
-#     group: root
-#     mode: '0644'
-#   when: ansible_os_family == 'Debian'
-
-- name: Criação de cotas e ativação
-  ansible.builtin.shell: quotacheck -cugmv / ; quotaon /
-  ignore_errors: true
+- name: Configura /etc/pam.d/common-session
+  ansible.builtin.lineinfile:
+    path: /etc/pam.d/common-session
+    line: 'session  required   pam_setquota.so bsoftlimit=10000000 bhardlimit=12000000 startuid=1002 enduid=0 fs=/'
+    backup: true
+    state: present
   when: ansible_os_family == 'Debian'
 
-# - name: Obter lista de usuários
-#   ansible.builtin.shell: "cut -d: -f1 /etc/passwd"
-#   register: users_list
+- name: Executar quotaon -ap e registrar a saída
+  ansible.builtin.command: quotaon -ap
+  register: quotaon_output
+  ignore_errors: true
+  when: ansible_os_family == 'Debian'
+  tags: quotaon
 
-# - name: Setando cota para todos os usuários
-#   ansible.builtin.command: "setquota -u aluno {{ soft }} {{ hard }} 0 0 /"
-#   # loop: "{{ users_list.stdout_lines }}"
-#   vars:
-#     soft: '1G'
-#     hard: '20G'
-#   when: ansible_os_family == 'Debian'
+- name: Exibir a saída do comando quotaon
+  ansible.builtin.debug:
+    var: quotaon_output.stdout_lines
+  when: ansible_os_family == 'Debian'
+  tags: quotaon
 
+- name: Cria e ativa quotas e reinicia o sistema
+  ansible.builtin.command: quotacheck -cuM /
+  register: quotacheck_output
+  when: "'user quota on / (/dev/sda1) is off' in quotaon_output.stdout_lines"
+  tags: quotaon
 
-# - name: Permissão para o script ser executado
-#   ansible.builtin.lineinfile:
-#     path: /etc/apparmor.d/usr.sbin.cupsd
-#     regexp: '/var/spool/cups-pdf/'
-#     line: '  /usr/local/bin/cups-pdf-rename uxr,'
-#     backup: true
-#   when: ansible_os_family == 'Debian'
-
-
-
-
-# ############ Exemplos
-# - name: Cria diretório /opt/OVA
-#   ansible.builtin.file:
-#     path: /opt/OVA
-#     state: directory
-#     owner: root
-#     group: root
-#     mode: '0755'
-#   when: ansible_os_family == 'Debian'
-
-# - name: Baixa imagens OVA - Linux Debian
-#   ansible.builtin.unarchive:
-#     src: http://ansiblefiles.sj.ifsc.edu.br/{{ item }}
-#     dest: /opt/OVA/
-#     creates: /opt/OVA/Grafico.ova
-#     remote_src: true
-#     owner: root
-#     group: root
-#     mode: '0755'
-#   loop:
-#     - server.bz
-#     - grafico.bz
-#   when: ansible_os_family == 'Debian'
-
-# - name: Garante que tem as pastas do VirtualBox
-#   ansible.builtin.file:
-#     path: "{{ item }}"
-#     state: directory
-#     recurse: true
-#   loop:
-#     - /opt/vms/VirtualBox VMs/
-#     - /opt/vms/.config/VirtualBox/
-#   when: ansible_os_family == 'Debian'
-# ##### É possível alterar certas configurações na criação da VM, como memória, CPU, etc.
-# - name: Criando maquina virtual com base no arquivo OVA - Linux
-#   ansible.builtin.command: "sudo -u {{ item.usuario }} vboxmanage import {{ item.imagem }} --vsys 0 --vmname {{ item.vm }} --vsys 0 --cpus {{ item.cpu }} --vsys 0 --memory {{ item.memoria }} --vsys 0 --unit 14 --disk /opt/vms/'VirtualBox VMs'/{{ item.vm }}/{{ item.vm }}-disk1.vmdk --vsys 0 --unit 15 --disk /opt/vms/'VirtualBox VMs'/{{ item.vm }}/{{ item.vm }}-disk2.vmdk"
-#   loop: ######## SUGESTÃO DE NOME PARA AS MÁQUINAS VIRTUAIS MATERIA-PROF, ex.: RCO-Marcelo
-#     - { imagem: '/opt/OVA/Ubuntu.ova', vm: 'Servidor-livre', usuario: 'aluno', cpu: 2, memoria: 2048 } # Máquina servidor
-#     # - { imagem: '/opt/OVA/Grafico.ova', vm: 'Grafico-livre', usuario: 'aluno', cpu: 2, memoria: 2048 } # Máquina grafica
-#   args: ######## SUGESTÃO DE NOME PARA AS MÁQUINAS VIRTUAIS MATERIA-PROF, ex.: RCO-Marcelo
-#     creates: /opt/vms/VirtualBox VMs/{{ item.vm }}
-#   when: ansible_os_family == 'Debian'
+- name: Reiniciar o sistema
+  ansible.builtin.command: /sbin/reboot
+  when: "'user quota on / (/dev/sda1) is off' in quotaon_output.stdout_lines"
+  tags: quotaon
