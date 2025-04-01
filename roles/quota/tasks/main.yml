@@ -69,4 +69,4 @@
 - name: Fazendo cópia da quota padrão para todos os usuários
   ansible.builtin.shell: "edquota -p quota $(awk -F: '$3 > 1002 {print $1}' /etc/passwd)"
   changed_when: False
-  when: ansible_os_family == 'Debian' and inventory_hostname in groups["lab_profs_lin"] and inventory_hostname in groups["lab_profs_lin"]
+  when: ansible_os_family == 'Debian' and inventory_hostname in groups["lab_profs_lin"]
