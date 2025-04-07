@@ -26,7 +26,6 @@
     name: aluno
     shell: /bin/bash
     password: $6$B5dpvoG43l67q0sx$r0LDKV2TgNItf/kYx/76l89ZN4LhP/ksYIxp.SSVGttHoSZXLSoB6Hkg2A6y7M7aFJ8zEuauf5kS/yA/P61kN1
-    append: true
     local: true
   when: ansible_os_family == 'Debian'
 
