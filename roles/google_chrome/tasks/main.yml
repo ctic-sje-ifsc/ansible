@@ -5,10 +5,13 @@
   when: ansible_os_family == 'Debian'
 
 - name: Adiciona repositório para o 'Debian'
-  ansible.builtin.apt_repository:
-    repo: deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
-    state: present
-    filename: google-chrome
+  ansible.builtin.copy:
+    content: |
+      deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main
+    dest: /etc/apt/sources.list.d/google-chrome.list
+    owner: root
+    group: root
+    mode: '0644'
   when: ansible_os_family == 'Debian'
 
 - name: Instala google-chrome do repositorio
