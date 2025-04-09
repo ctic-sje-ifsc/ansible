@@ -9,7 +9,7 @@
     - hodprint
 
 - name: Administrativo Linux
-  hosts: administrativos_lin
+  hosts: administrativos_lin,sje-lin-gremio-38857.maquinas.sj.ifsc.edu.br
 
 #############################################################
 ##################### INCLUSÃO DE ROLES #####################
