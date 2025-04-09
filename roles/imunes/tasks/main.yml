@@ -1,26 +1,37 @@
 - name: Instalar pacotes necessarios - Linux
   ansible.builtin.apt:
     pkg:
-      - apt-transport-https
-      - ca-certificates
+      - git
       - curl
       - gnupg2
-      - software-properties-common
-      - openvswitch-switch
-      - xterm
       - imagemagick
-      - tk
-      - tcllib
-      - util-linux
+      - jq
       - make
+      - openvswitch-switch
       - socat
+      - software-properties-common
+      - tcllib
+      - tk
+      - util-linux
+      - xterm
+  when: ansible_os_family == 'Debian'
+
+- name: Prune everything (including non-dangling images)
+  community.docker.docker_prune:
+    containers: true
+    images: true
+    images_filters:
+      dangling: false
+    networks: true
+    volumes: true
+    builder_cache: true
   when: ansible_os_family == 'Debian'
 
 - name: Baixa repositorio no git do IMUNES
   ansible.builtin.git:
     repo: 'https://github.com/imunes/imunes.git'
     dest: /opt/imunes
-    version: v2.5.0
+    version: v2.6.0
   when: ansible_os_family == 'Debian'
 
 - name: Executa o make install
@@ -108,7 +119,7 @@
     owner: root
     group: root
     mode: '0644'
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'jessie')
+  when: ansible_os_family == 'Debian'
 
 - name: Criar arquivo /etc/xdg/autostart/xrdb-autostart.desktop para caregar automaticamente a personalizalização do Xterm
   ansible.builtin.copy:
@@ -125,7 +136,7 @@
     owner: root
     group: root
     mode: '0644'
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'jessie')
+  when: ansible_os_family == 'Debian'
 
 - name: Adiciona porgramas para serem executados pelo sudo sem senha
   ansible.builtin.copy:
@@ -152,21 +163,21 @@
     owner: root
     group: root
     mode: '0440'
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'jessie')
+  when: ansible_os_family == 'Debian'
 
 - name: Clona repositorio no git do IMUNES-EXAMPLES
   ansible.builtin.git:
     repo: 'https://github.com/imunes/imunes-examples.git'
     dest: /opt/imunes-examples
     version: master
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'jessie')
+  when: ansible_os_family == 'Debian'
 
 - name: Clona repositorio no git do IMUNES-SECURITY
   ansible.builtin.git:
     repo: 'https://github.com/imunes/imunes-security.git'
     dest: /opt/imunes-security
     version: master
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release != 'jessie')
+  when: ansible_os_family == 'Debian'
 
 - name: Instala o Wireshark
   ansible.builtin.apt:

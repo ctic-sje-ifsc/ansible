@@ -12,6 +12,7 @@
     - gnome-calculator
     - gradle_8.10
     - google_chrome
+    - imunes
     - java21-oracle
     - jetbrains
     - matlab
@@ -22,6 +23,7 @@
     - sources_list
     - unattendedUpgrades_labs
     - virtualbox
+    - wireshark
 
   tasks:
     - name: Instala utilitários para o bash
