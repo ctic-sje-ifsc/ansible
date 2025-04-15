@@ -1,22 +1,31 @@
----
-#Windows
-
 - name: Copia o arquivo de configuracao do LTSpice - Windows
-  win_copy:
+  ansible.windows.win_copy:
     src: LTC.zip
     dest: C:\instaladores\LTC.zip
   when: ansible_os_family == 'Windows'
 
 - name: Extrai o LTC LTspice em C:\Program Files\
-  win_unzip:
+  community.windows.win_unzip:
     src: C:\instaladores\LTC.zip
     dest: C:\Program Files\
     creates: C:\Program Files\LTC
   when: ansible_os_family == 'Windows'
 
 - name: Cria o atalho do Ltspice - Windows
-  win_shortcut:
+  community.windows.win_shortcut:
     src: C:\Program Files\LTC\LTspiceXVII\XVIIx64.exe
     dest: C:\Users\Public\Desktop\LTspiceXVII.lnk
     icon: C:\Program Files\LTC\LTspiceXVII\XVIIx64.exe,0
+  when: ansible_os_family == 'Windows'
+
+- name: Copia arquivo LM741.lib
+  ansible.windows.win_copy:
+    src: LM741.lib
+    dest: C:\Program Files\LTC\LTspiceXVII\lib\sub\LM741.lib
+  when: ansible_os_family == 'Windows'
+
+- name: Copia arquivo LM741.asy
+  ansible.windows.win_copy:
+    src: LM741.asy
+    dest: C:\Program Files\LTC\LTspiceXVII\lib\sym\Opamps\LM741.asy
   when: ansible_os_family == 'Windows'
