@@ -2,7 +2,7 @@
 
 - name: Baixar e instalar o Pack Calculation PRO - Windows
   win_package:
-    path: https://www.ipu.dk/wp-content/uploads/2022/05/packcalculationpro-5250.exe
+    path: https://www.ipu.dk/wp-content/uploads/2025/03/packcalculationpro-5630.exe
     arguments:
     - /VERYSILENT
     - /SUPRESSMSGBOXES
@@ -26,7 +26,7 @@
 
 - name: Baixar e instalar o SecCool - Windows
   win_package:
-    path: https://www.ipu.dk/wp-content/uploads/2018/10/seccool-v133.exe
+    path: https://www.ipu.dk/wp-content/uploads/2024/06/seccool-x64-2020.exe
     arguments:
     - /VERYSILENT
     - /SUPRESSMSGBOXES
@@ -36,9 +36,9 @@
     state: present
   when: ansible_os_family == 'Windows'
 
-- name: Baixar e instalar o Simple one-stage CO2 - Windows
+- name: Baixar e instalar o Simple one-stage CO2  (Transcritical CO2 cycles)- Windows
   win_package:
-    path: https://www.ipu.dk/wp-content/uploads/2018/10/simpleonestage-v240.exe
+    path: https://www.ipu.dk/wp-content/uploads/2024/09/simpleonestage-302.exe
     arguments:
     - /VERYSILENT
     - /SUPRESSMSGBOXES
