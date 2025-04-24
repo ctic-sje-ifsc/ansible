@@ -1,49 +1,49 @@
 #Windows
 
 - name: Baixar e instalar o Pack Calculation PRO - Windows
-  win_package:
+  ansible.windows.win_package:
     path: https://www.ipu.dk/wp-content/uploads/2025/03/packcalculationpro-5630.exe
     arguments:
-    - /VERYSILENT
-    - /SUPRESSMSGBOXES
-    - /NORESTART
-    - /SP-
+      - /VERYSILENT
+      - /SUPRESSMSGBOXES
+      - /NORESTART
+      - /SP-
     product_id: 'Pack Calculation Pro_is1'
     state: present
   when: ansible_os_family == 'Windows'
 
 - name: Baixar e instalar o CoolPack - Windows
-  win_package:
+  ansible.windows.win_package:
     path: https://www.ipu.dk/wp-content/uploads/2018/10/coolpack-v150.exe
     arguments:
-    - /VERYSILENT
-    - /SUPRESSMSGBOXES
-    - /NORESTART
-    - /SP-
+      - /VERYSILENT
+      - /SUPRESSMSGBOXES
+      - /NORESTART
+      - /SP-
     product_id: 'CoolPack_is1'
     state: present
   when: ansible_os_family == 'Windows'
 
 - name: Baixar e instalar o SecCool - Windows
-  win_package:
+  ansible.windows.win_package:
     path: https://www.ipu.dk/wp-content/uploads/2024/06/seccool-x64-2020.exe
     arguments:
-    - /VERYSILENT
-    - /SUPRESSMSGBOXES
-    - /NORESTART
-    - /SP-
+      - /VERYSILENT
+      - /SUPRESSMSGBOXES
+      - /NORESTART
+      - /SP-
     product_id: 'SecCool_is1'
     state: present
   when: ansible_os_family == 'Windows'
 
 - name: Baixar e instalar o Simple one-stage CO2  (Transcritical CO2 cycles)- Windows
-  win_package:
+  ansible.windows.win_package:
     path: https://www.ipu.dk/wp-content/uploads/2024/09/simpleonestage-302.exe
     arguments:
-    - /VERYSILENT
-    - /SUPRESSMSGBOXES
-    - /NORESTART
-    - /SP-
+      - /VERYSILENT
+      - /SUPRESSMSGBOXES
+      - /NORESTART
+      - /SP-
     product_id: 'Simple One Stage CO2 Cycle_is1'
     state: present
   when: ansible_os_family == 'Windows'
