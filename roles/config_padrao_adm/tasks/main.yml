@@ -179,13 +179,14 @@
     key: "{{ lookup('file', 'marcelo.id_rsa.pub') }}"
   when: ansible_os_family == 'Debian'
 
-################# Copiar Chave pub Davi
-- name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys do Davi - Linux
+################# Copiar Chave pub bolctic.sje
+- name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys do Bolctic - Linux
   ansible.posix.authorized_key:
     user: root
     state: present
-    key: "{{ lookup('file', 'davi.id_rsa.pub') }}"
+    key: "{{ lookup('file', 'bolctic.pub') }}"
   when: ansible_os_family == 'Debian'
+  tags: bolctic
 
 - name: Atualiza PATH no profile - Linux Debian 10 buster
   ansible.builtin.replace:
