@@ -1,42 +1,26 @@
-#Linux
-
-# Necessário para testes, depois vai ficar no programas_padroes_labs
-# - name: Instalar os pacotes default Java openjdk - Linux
-#   apt:
-#     state: latest
-#     pkg:
-#     - default-jdk
-#     - default-jre
-#   when: ansible_os_family == 'Debian'
+# Linux
 
 - name: Adiciona apt key do r-cran
-  apt_key:
+  ansible.builtin.apt_key:
     keyserver: keyserver.ubuntu.com
     id: 95C0FAF38DB3CCAD0C080A7BDC78B2DDEABC47B7
   when: ansible_os_family == 'Debian'
 
-- name: Adicionar repositório r-cran - Linux Debian 9
-  apt_repository:
-    repo: deb http://cran-r.c3sl.ufpr.br/bin/linux/debian stretch-cran35/
-    filename: cran-r
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'stretch')
-
 - name: Adicionar repositório r-cran - Linux Debian 12
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: deb http://cloud.r-project.org/bin/linux/debian bookworm-cran40/
     filename: cran-r
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bookworm')
 
 - name: Instalar os pacotes para o r-project - Linux
-  apt:
-    state: latest
+  ansible.builtin.apt:
     pkg:
-    - r-base
-    - r-base-dev
-    - libxml2-dev
-    - libatlas3-base
-    - r-cran-rjava
-    - libjpeg62
+      - r-base
+      - r-base-dev
+      - libxml2-dev
+      - libatlas3-base
+      - r-cran-rjava
+      - libjpeg62
   when: ansible_os_family == 'Debian'
 
 
@@ -51,57 +35,63 @@
 #   when: ansible_os_family == 'Debian'
 
 - name: Verifica versao do RWeka
-  shell: GET https://cran.r-project.org/src/contrib |grep RWeka| cut -d'"' -f8| cut -d'"' -f1| head -n 1
+  ansible.builtin.shell: GET https://cran.r-project.org/src/contrib |grep RWeka| cut -d'"' -f8| cut -d'"' -f1| head -n 1
   register: versao_rweka
-  changed_when: False
+  changed_when: false
   when: ansible_os_family == 'Debian'
 
 - name: Verifica versao do RWekajars
-  shell: GET https://cran.r-project.org/src/contrib |grep RWekajars| cut -d'"' -f8| cut -d'"' -f1| head -n 1
+  ansible.builtin.shell: GET https://cran.r-project.org/src/contrib |grep RWekajars| cut -d'"' -f8| cut -d'"' -f1| head -n 1
   register: versao_rwekajars
-  changed_when: False
+  changed_when: false
   when: ansible_os_family == 'Debian'
 
 - name: Verifica versao do rJava
-  shell: GET https://cran.r-project.org/src/contrib |grep rJava| cut -d'"' -f8| cut -d'"' -f1| head -n 1
+  ansible.builtin.shell: GET https://cran.r-project.org/src/contrib |grep rJava| cut -d'"' -f8| cut -d'"' -f1| head -n 1
   register: versao_rjava
-  changed_when: False
+  changed_when: false
   when: ansible_os_family == 'Debian'
 
-- name: Baixa Biblioteca RWeka e Rwekajars - Linux
-  get_url:
-    url: https://cran.r-project.org/src/contrib/{{ baixaweka }}
-    dest: /var/{{ baixaweka }}
-  loop:
-    - "{{ versao_rjava.stdout }}"
-    - "{{ versao_rwekajars.stdout }}"
-    - "{{ versao_rweka.stdout }}"
-  loop_control:
-    loop_var: baixaweka
-  when: ansible_os_family == 'Debian'
+# - name: Baixa Biblioteca RWeka e Rwekajars - Linux
+#   ansible.builtin.get_url:
+#     url: https://cran.r-project.org/src/contrib/{{ baixaweka }}
+#     dest: /var/{{ baixaweka }}
+#   loop:
+#     - "{{ versao_rjava.stdout }}"
+#     - "{{ versao_rwekajars.stdout }}"
+#     - "{{ versao_rweka.stdout }}"
+#   loop_control:
+#     loop_var: baixaweka
+#   when: ansible_os_family == 'Debian'
 
-- name: Instala Biblioteca RWeka e Rwekajars - Linux
-  command: /usr/bin/R CMD INSTALL /var/{{ instalaweka }}
-  args:
-    creates: /usr/local/lib/R/site-library/RWeka
-  loop:
-    - "{{ versao_rjava.stdout }}"
-    - "{{ versao_rwekajars.stdout }}"
-    - "{{ versao_rweka.stdout }}"
-  loop_control:
-    loop_var: instalaweka
+# - name: Instala Biblioteca RWeka e Rwekajars - Linux
+#   ansible.builtin.command: /usr/bin/R CMD INSTALL /var/{{ instalaweka }}
+#   args:
+#     creates: /usr/local/lib/R/site-library/RWeka
+#   loop:
+#     - "{{ versao_rjava.stdout }}"
+#     - "{{ versao_rwekajars.stdout }}"
+#     - "{{ versao_rweka.stdout }}"
+#   loop_control:
+#     loop_var: instalaweka
+#   when: ansible_os_family == 'Debian'
+
+#### Instalação do RStudio - Linux
+- name: Instalar o RStudio - Linux
+  ansible.builtin.apt:
+    deb: https://download1.rstudio.org/electron/jammy/amd64/rstudio-2024.12.1-563-amd64.deb
   when: ansible_os_family == 'Debian'
 
 #Windows
 - name: Verifica versao do R
-  win_shell: "(choco search R.Project | findstr R.Project).substring(10,5)"
+  ansible.windows.win_shell: "(choco search R.Project | findstr R.Project).substring(10,5)"
   register: versao_R
-  ignore_errors: True
-  changed_when: False
+  ignore_errors: true
+  changed_when: false
   when: ansible_os_family == 'Windows'
 
 - name: Instalar o R versao {{ versao_R.stdout |trim}} - Windows
-  win_chocolatey:
+  chocolatey.chocolatey.win_chocolatey:
     name: "{{ instala_r }}"
     state: latest
     ignore_checksums: true
@@ -114,7 +104,7 @@
   tags: rstudio
 
 - name: Atalho para o r-project versao {{ versao_R.stdout | trim}} - Windows
-  win_shortcut:
+  community.windows.win_shortcut:
     description: Atalho para o r-project
     src: '%ProgramFiles%\R\R-{{ versao_R.stdout |trim }}\bin\x64\Rgui.exe'
     dest: '%Public%\Desktop\R.lnk'
@@ -124,7 +114,7 @@
   when: ansible_os_family == 'Windows'
 
 - name: Atalho para o RStudio - Windows
-  win_shortcut:
+  community.windows.win_shortcut:
     description: Atalho para o RStudio
     src: '%ProgramFiles%\RStudio\bin\rstudio.exe'
     dest: '%Public%\Desktop\RStudio.lnk'
