@@ -187,3 +187,8 @@
     - role: softwares_remotos
       apps:
         - sophiaslade
+
+- name: Adiciona software scanner Epson
+  hosts: sje-lin-almox-756044.maquinas.sj.ifsc.edu.br
+  roles:
+    - scanner
