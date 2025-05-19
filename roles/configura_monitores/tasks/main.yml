@@ -208,7 +208,7 @@
     owner: root
     group: root
     mode: '0755'
-  when: ansible_hostname is search("^sje-lin-sala-879495")
+  when: ansible_hostname is search("^sje-lin-sala-879488")
 
 - name: Configuracao dos monitores da Sala 7 - Linux
   ansible.builtin.copy:
@@ -340,7 +340,7 @@
     owner: root
     group: root
     mode: '0755'
-  when: ansible_hostname is search("^sje-lin-sala-879488")
+  when: ansible_hostname is search("^sje-lin-sala-879495")
 
 - name: Configuracao dos monitores da Sala 18 - Linux
   ansible.builtin.copy:
