@@ -199,16 +199,27 @@
 
 - name: Configura servidor NTP para o Windows 1
   ansible.windows.win_regedit:
-    path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DateTime\Servers
-    name: "1"
-    data: gps.ntp.br
+    path: HKLM:\SYSTEM\Microsoft\CurrentControlSet\Services\W32Time\Parameters
+    name: "Type"
+    data: NTP
+  tags: w32
   when: ansible_os_family == 'Windows'
 
-- name: Configura servidor NTP para o Windows 2
+- name: Configura servidor NTP para o Windows 1
   ansible.windows.win_regedit:
-    path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DateTime\Servers
-    name: "2"
+    path: HKLM:\SYSTEM\CurrentControlSet\Services\tzautoupdate
+    name: Start
+    data: "3"
+    type: dword
+  tags: w32
+  when: ansible_os_family == 'Windows'
+
+- name: Configura servidor NTP para o Windows 1
+  ansible.windows.win_regedit:
+    path: HKLM:\SYSTEM\ControlSet001\Services\W32Time\Parameters
+    name: NtpServer
     data: a.st1.ntp.br
+  tags: w32
   when: ansible_os_family == 'Windows'
 
 - name: Configuracao no registro necessaria para UTC - Windows
