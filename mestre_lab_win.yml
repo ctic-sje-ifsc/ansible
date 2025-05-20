@@ -4,15 +4,32 @@
     - revit
     - zoiper
     - papel_de_parede_e_icones
-#      - microsip
+    - microsip
   tasks:
-    - name: Configura servidor NTP
+    - name: Ativa servidor NTP para o Windows
       ansible.windows.win_regedit:
-        path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DateTime\Servers
-        name: "1"
-        data: pool.ntp.br
+        path: HKLM:\SYSTEM\Microsoft\CurrentControlSet\Services\W32Time\Parameters
+        name: "Type"
+        data: NTP
+      tags: w32
       when: ansible_os_family == 'Windows'
-      tags: config_hora
+
+    - name: Ativa atualização automática servidor NTP para o Windows
+      ansible.windows.win_regedit:
+        path: HKLM:\SYSTEM\CurrentControlSet\Services\tzautoupdate
+        name: Start
+        data: "3"
+        type: dword
+      tags: w32
+      when: ansible_os_family == 'Windows'
+
+    - name: Configura servidor NTP para o Windows
+      ansible.windows.win_regedit:
+        path: HKLM:\SYSTEM\ControlSet001\Services\W32Time\Parameters
+        name: NtpServer
+        data: a.st1.ntp.br
+      tags: w32
+      when: ansible_os_family == 'Windows'
 
     - name: Configuracao para UTC
       ansible.windows.win_regedit:
