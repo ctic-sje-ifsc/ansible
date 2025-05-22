@@ -198,6 +198,8 @@
   roles:
     - savpdf
     - role: instala_impressora_cups
-      install: 1
+      install: 0
+      reprografia_reserva: 1
+      reprografia_principal: 1
       almoxarifado_3920: 1
       pdf: 1
