@@ -188,7 +188,16 @@
       apps:
         - sophiaslade
 
-- name: Adiciona software scanner Epson
+- name: Adiciona software scanner Epson Almoxarifado - Everson
   hosts: sje-lin-almox-756044.maquinas.sj.ifsc.edu.br
   roles:
     - scanner
+
+- name: Adiciona impressora local Almoxarifado - Eduardo
+  hosts: sje-lin-almox-933436.maquinas.sj.ifsc.edu.br
+  roles:
+    - savpdf
+    - role: instala_impressora_cups
+      install: 1
+      almoxarifado_3920: 1
+      pdf: 1
