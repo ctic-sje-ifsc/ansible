@@ -165,12 +165,20 @@
     mode: '0440'
   when: ansible_os_family == 'Debian'
 
+- name: Apaga diretório /opt/imunes-examples
+  ansible.builtin.file:
+    state: absent
+    path: /opt/imunes-examples
+  when: ansible_os_family == 'Debian'
+  tags: imunes-examples
+
 - name: Clona repositorio no git do IMUNES-EXAMPLES
   ansible.builtin.git:
     repo: 'https://github.com/imunes/imunes-examples.git'
     dest: /opt/imunes-examples
     version: master
   when: ansible_os_family == 'Debian'
+  tags: imunes-examples
 
 - name: Clona repositorio no git do IMUNES-SECURITY
   ansible.builtin.git:
@@ -178,6 +186,7 @@
     dest: /opt/imunes-security
     version: master
   when: ansible_os_family == 'Debian'
+  tags: imunes-security
 
 - name: Instala o Wireshark
   ansible.builtin.apt:
