@@ -2,5 +2,6 @@
 
 - name: Instala Google Earth
   ansible.builtin.apt:
-    deb: https://dl.google.com/dl/linux/direct/google-earth-pro-stable_7.3.6_amd64.deb
+    deb: https://dl.google.com/dl/earth/client/current/google-earth-pro-stable_current_amd64.deb
   when: ansible_os_family == 'Debian'
+  tags: google-earth
