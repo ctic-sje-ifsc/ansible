@@ -1,5 +1,6 @@
 .DS_Store
 .gitignore
+.gitmodules
 *.retry
 testes.*
 ad_hoc_laboratorios*
