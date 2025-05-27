@@ -1,0 +1,6 @@
+[submodule "ansible"]
+	path = ansible
+	url = git@github.com:ctic-sje-ifsc/ansible.git
+[submodule "CIULS"]
+	path = CIULS
+	url = git@github.com:ctic-sje-ifsc/CIULS.git
