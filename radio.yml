@@ -1,13 +1,8 @@
-- name: Configuração salas de aula
-#  hosts: salaa,salab
-  hosts: sala
-  roles:
-    - configura_monitores
-    - remove_ldap
-    - geogebra
+- name: Instalação spotyfy
+  hosts: sje-lin-radio-926196.maquinas.sj.ifsc.edu.br
   tasks:
-    - name: Adiciona linha do usuario aluno no passwd
-      ansible.builtin.blockinfile:
+    - name: Baixar vhave GPG do Spotify
+      ansible.builtin.shell:
         path: /etc/passwd
         backup: true
         block: |
