@@ -1,0 +1,4 @@
+- name: Instala Postman via flatpak
+  community.general.flatpak:
+    name: com.getpostman.Postman
+  when: ansible_os_family == 'Debian'
