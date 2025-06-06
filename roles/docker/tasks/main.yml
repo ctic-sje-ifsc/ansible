@@ -59,6 +59,7 @@
       aluno:100000:65536
       mello:165536:65536
       msobral:231072:65536
+      ana.scharf:296608:65536
     dest: "{{ item }}"
     owner: root
     group: root
