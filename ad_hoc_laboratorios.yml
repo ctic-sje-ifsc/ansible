@@ -5,55 +5,9 @@
 # Deve-se adicionar aqui os roles que perceberem que necessitam atualizações
 # - Atualizar os patrimonio do role configura_monitores
 #######################################################################
-
-# - name: Instalar Google Chrome, LibreOffice, VLC e Okular
-#   hosts: sje-lin-cnpq.maquinas.sj.ifsc.edu.br 
-#   become: yes  # Executar como root
-#   tasks:
-
-#     - name: Atualizar cache do APT
-#       apt:
-#         update_cache: yes
-
-#     - name: Instalar LibreOffice, VLC e Okular
-#       apt:
-#         name:
-#           - libreoffice
-#           - vlc
-#           - okular
-#         state: present
-
-#     - name: Adicionar chave GPG do Google Chrome
-#       ansible.builtin.apt_key:
-#         url: https://dl.google.com/linux/linux_signing_key.pub
-#         state: present
-
-#     - name: Adicionar repositório do Google Chrome
-#       ansible.builtin.apt_repository:
-#         repo: "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
-#         state: present
-
-#     - name: Atualizar cache do APT (após adicionar repositório)
-#       apt:
-#         update_cache: yes
-
-#     - name: Instalar Google Chrome
-#       apt:
-#         name: google-chrome-stable
-#         state: present
-
-#     - name: Criar usuário "aluno" com diretório home em /home/aluno
-#       user:
-#         name: aluno
-#         home: /home/aluno
-#         shell: /bin/bash
-#         password: "{{ 'aluno' | password_hash('sha512') }}"
-#         state: present
-
-
-
+#
 # - name: Servidor controlador
-#   hosts: controlador
+#   hosts: controlador1
 #   tasks:
 #     # USAR O CPF COMO USUÁRIO E A SENHA DEVE TER NO MÍNIMO 8 dígitos
 #     - name: Cria usuários para o IFSC-Terceirizados
