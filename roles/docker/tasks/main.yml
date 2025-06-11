@@ -57,21 +57,18 @@
   ansible.builtin.copy:
     content: |
       aluno:100000:65536
-    dest: /etc/subuid
+      mello:165536:65536
+      msobral:231072:65536
+      ana.scharf:296608:65536
+    dest: "{{ item }}"
     owner: root
     group: root
     mode: '0644'
+  loop:
+    - /etc/subuid
+    - /etc/subgid
   when: ansible_os_family == 'Debian'
-
-- name: Configura subgid
-  ansible.builtin.copy:
-    content: |
-      aluno:100000:65536
-    dest: /etc/subgid
-    owner: root
-    group: root
-    mode: '0644'
-  when: ansible_os_family == 'Debian'
+  tags: uidmap
 
 - name: Remove usuário aluno do grupo docker
   ansible.builtin.command:

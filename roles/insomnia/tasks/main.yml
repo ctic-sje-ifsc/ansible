@@ -1,0 +1,4 @@
+- name: Instala Insomnia via flatpak
+  community.general.flatpak:
+    name: rest.insomnia.Insomnia
+  when: ansible_os_family == 'Debian'
