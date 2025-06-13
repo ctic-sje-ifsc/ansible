@@ -286,6 +286,7 @@
           - libzmq3-dev
           - linux-image-amd64
           - linux-headers-amd64
+          - lldpd
           - logisim
           - ltrace
           - mariadb-client
