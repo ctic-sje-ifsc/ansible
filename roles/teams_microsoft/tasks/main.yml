@@ -1,6 +1,0 @@
----
-# #Linux
-- name: Instalar o .deb Microsoft teams - Linux
-  ansible.builtin.apt:
-    deb: https://packages.microsoft.com/repos/ms-teams/pool/main/t/teams/teams_1.5.00.23861_amd64.deb
-  when: ansible_os_family == 'Debian'

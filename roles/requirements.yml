@@ -1,6 +1,0 @@
-- src: geerlingguy.ntp
-#- src: tersmitten.apt
-#- src: debops.grub
-- src: geerlingguy.nfs
-- src: hudecof.grub-password
-- src: gantsign.visual-studio-code-extensions

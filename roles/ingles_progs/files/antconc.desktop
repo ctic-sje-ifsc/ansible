@@ -1,7 +1,0 @@
-[Desktop Entry]
-Name=AntConc
-Comment=A freeware corpus analysis toolkit for concordancing and text analysis 
-Exec=/opt/antconc/AntConc_64bit
-Icon=/opt/antconc/antconc_icon.png
-Type=Application
-Categories=Education

@@ -1,9 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Name=ModelSim-Altera Edition 20.1.1
-Comment=ModelSim simulation software for Altera FPGA's
-Exec=xterm -iconic -geometry 0x0 -b 0 -class widget /opt/altera/intelFPGA/20.1/modelsim_ae/bin/vsim
-Icon=/opt/altera/intelFPGA/20.1/modelsim_ae/modelsim.png
-Terminal=false
-Type=Application
-Categories=Development

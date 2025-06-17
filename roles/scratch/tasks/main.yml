@@ -1,9 +1,0 @@
-#Windows
-
-- name: Baixar e instalar o Scratch 2 - Windows
-  win_package:
-    path: https://scratch.mit.edu/scratchr2/static/sa/Scratch-461.exe
-    arguments: -silent -eulaAccepted -desktopShortcut -allowDownload
-    product_id: '{6E988774-5309-E02E-7EA8-F19CB65C2063}'
-    state: present
-  when: ansible_os_family == 'Windows'

@@ -1,9 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Name=Quartus Prime v20.1.1
-Comment=Quartus Prime design software for Altera FPGA's
-Exec=/opt/altera/intelFPGA/20.1/quartus/bin/quartus --64bit
-Icon=/opt/altera/intelFPGA/20.1/quartus/adm/quartusii.png
-Terminal=false
-Type=Application
-Categories=Development

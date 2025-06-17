@@ -1,4 +1,0 @@
-- name: Restart fusioninventory
-  ansible.builtin.systemd:
-    name: fusioninventory-agent.service
-    state: restarted

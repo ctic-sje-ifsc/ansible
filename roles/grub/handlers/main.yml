@@ -1,2 +1,0 @@
-- name: update grub
-  shell: "/usr/sbin/update-grub"
