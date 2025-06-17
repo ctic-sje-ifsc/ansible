@@ -47,7 +47,7 @@
         clean: true
       when: ansible_os_family == 'Debian'
 
-    - name: Instala utilitários para o bash
+    - name: Instala pacotes
       ansible.builtin.apt:
         update_cache: true
         pkg:
@@ -69,6 +69,7 @@
           - libcurl4
           - linux-image-amd64
           - linux-headers-amd64
+          - lldpd
           - network-manager
           - network-manager-gnome
           - nfs-common
