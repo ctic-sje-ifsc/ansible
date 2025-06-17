@@ -110,7 +110,7 @@
 # - hosts: laboratorios_lin
 #   roles:
 #     - final_semestre
-
+#
 # - hosts: all
 #   tasks:
 #     - name: enable TLSv1.2 support
