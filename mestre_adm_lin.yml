@@ -69,6 +69,7 @@
           - libcurl4
           - linux-image-amd64
           - linux-headers-amd64
+          - lldpd
           - network-manager
           - network-manager-gnome
           - nfs-common
