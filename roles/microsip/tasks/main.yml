@@ -3,10 +3,5 @@
 - name: Instalar o MicroSIP - Windows
   chocolatey.chocolatey.win_chocolatey:
     name: microsip
+    ignore_checksums: true
   when: ansible_os_family == 'Windows'
-
-# - name: Instalar o MicroSIP via Chocolatey ignorando checksums
-#   win_chocolatey:
-#     name: microsip
-#     state: present
-#     params: '--ignore-checksums'
