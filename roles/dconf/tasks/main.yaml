@@ -70,10 +70,6 @@
     mode: '0644'
   when: ansible_os_family == 'Debian'
 
-- name: Atualiza as configurações do dconf
-  ansible.builtin.command: dconf update
-  when: ansible_os_family == 'Debian'
-
 # https://help.gnome.org/admin/system-admin-guide/stable/desktop-lockscreen.html.en
 - name: Copiando o plano de fundo para a máquina
   ansible.builtin.copy:
