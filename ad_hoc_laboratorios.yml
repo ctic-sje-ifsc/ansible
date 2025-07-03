@@ -232,5 +232,33 @@
 
 #     - name: Atualizar GRUB
 #       command: update-grub
+#
+############### Instala Softwares_Rac ###################
+# - name: Instalar CoolSelector 2 e Zanotti Software 2 nos laboratórios Windows
+#   hosts: cad1_win
+#   gather_facts: no
 
+#   collections:
+#     - community.windows
+#     - ansible.windows
+
+#   vars:
+#     # === CoolSelector 2 ===
+#     coolselector_zip_url: https://coolselector.danfoss.com/Coolselector2/setup.zip
+#     coolselector_zip_path: C:\instaladores\Coolselector2.zip
+#     coolselector_exe_path: C:\instaladores\setup.exe
+#     coolselector_dir: C:\Program Files\CoolSelector2
+#     coolselector_exe_final: C:\Program Files\CoolSelector2\CoolSelector2.exe
+
+#     # === Zanotti Software 2 ===
+#     download_url: "http://ansiblefiles/Zanotti%20Software%202.zip"
+#     dl_dir:       "C:\\instaladores"
+#     zip_file:     "{{ dl_dir }}\\Zanotti Software 2.zip"
+#     install_dir:  "C:\\Users\\Public\\Sofwares Publicos"
+#     exe_dir:      "{{ install_dir }}\\Zanotti Software 2"
+#     exe_path:     "{{ exe_dir }}\\ZanottiSw.exe"
+#     shortcut_path: "C:\\Users\\Public\\Desktop\\Zanotti Software 2.lnk"
+
+#   roles:
+#     - softwares_rac
 #######################################################################
