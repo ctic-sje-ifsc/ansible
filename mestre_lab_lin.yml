@@ -247,8 +247,10 @@
           - gnupg
           - gnuradio
           - google-chrome-stable
+          - gr-osmosdr
           - graphviz
           - grub2
+          - hackrf
           - htop
           - inkscape
           - ipcalc
@@ -261,6 +263,7 @@
           - konsole
           - latexila
           - lib32z1
+          - libairspy-dev
           - libasound2
           - libbz2-1.0:i386
           - libc6-dev-i386
@@ -270,6 +273,7 @@
           - libgl1-mesa-dri
           - libglu1-mesa
           - libgtk2.0-0:i386
+          - libhackrf-dev
           - libncurses5
           - libncurses5:i386
           - libpng16-16:i386
@@ -342,6 +346,7 @@
           - xpdf
           - xterm
       when: ansible_os_family == 'Debian'
+      tags: instala
 
     - name: Remover programas  - Linux
       ansible.builtin.apt:
