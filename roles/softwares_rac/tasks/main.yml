@@ -1,0 +1,69 @@
+# === CoolSelector 2 ===
+
+- name: Verifica se o CoolSelector 2 está instalado (verificando o executável)
+  win_stat:
+    path: "{{ coolselector_exe_final }}"
+  register: coolselector_instalado
+
+- name: Cria diretório C:\instaladores se não existir
+  win_file:
+    path: C:\instaladores
+    state: directory
+
+- name: Baixa o instalador do CoolSelector 2 (ZIP)
+  win_get_url:
+    url: "{{ coolselector_zip_url }}"
+    dest: "{{ coolselector_zip_path }}"
+    force: false
+    timeout: 300
+  when: not coolselector_instalado.stat.exists | default(false)
+
+- name: Extrai o instalador do CoolSelector 2
+  win_unzip:
+    src: "{{ coolselector_zip_path }}"
+    dest: C:\instaladores
+    remove: no
+  when: not coolselector_instalado.stat.exists | default(false)
+
+- name: Instala o CoolSelector 2 em modo silencioso
+  win_package:
+    path: "{{ coolselector_exe_path }}"
+    arguments: /VERYSILENT /SUPPRESSMSGBOXES /NORESTART "/DIR={{ coolselector_dir }}"
+    state: present
+  when: not coolselector_instalado.stat.exists | default(false)
+
+# === Zanotti Software 2 ===
+
+- name: Garante o diretório de download
+  win_file:
+    path: "{{ dl_dir }}"
+    state: directory
+  tags: zanotti
+
+- name: Baixa o ZIP do Zanotti Software 2
+  win_get_url:
+    url:  "{{ download_url }}"
+    dest: "{{ zip_file }}"
+    force: yes
+  tags: zanotti
+
+- name: Extrai o ZIP para {{ install_dir }}
+  win_unzip:
+    src:   "{{ zip_file }}"
+    dest:  "{{ install_dir }}"
+    creates: "{{ exe_path }}"
+  tags: zanotti
+
+- name: Cria atalho público direto para o ZanottiSw.exe (sem elevação)
+  win_shortcut:
+    src:  "{{ exe_path }}"
+    dest: "{{ shortcut_path }}"
+    icon: "{{ exe_path }}"
+    description: "Inicia Zanotti Software 2"
+  tags: zanotti
+
+- name: (Opcional) Remove o ZIP após a instalação
+  win_file:
+    path: "{{ zip_file }}"
+    state: absent
+  tags: zanotti
