@@ -1,0 +1,12 @@
+# Linux
+- name: Instalar Tiled - flatpak
+  community.general.flatpak:
+    name: org.mapeditor.Tiled
+    state: present
+  when: ansible_os_family == 'Debian'
+
+# Windows
+- name: Baixar e instalar Tiled - Windows
+  chocolatey.chocolatey.win_chocolatey:
+    name: tiled
+  when: ansible_os_family == 'Windows'
