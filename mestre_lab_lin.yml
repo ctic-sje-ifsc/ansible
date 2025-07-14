@@ -317,7 +317,6 @@
           - rabbitmq-server
           - resolvconf
           - rfkill
-          - snapd
           - snmp-mibs-downloader
           - sqlite3
           - sqlitebrowser
@@ -380,6 +379,7 @@
     - tracker
     - scidavis
     - qgis
+    - tiled
     - role: grub
       tipo: grub_soh_lin
   tasks:
@@ -393,13 +393,6 @@
         mode: '0644'
         unsafe_writes: true
       when: ansible_os_family == 'Debian'
-
-    - name: Instala tiled via SNAP
-      community.general.snap:
-        name:
-          - tiled
-      when: ansible_os_family == 'Debian'
-      tags: tiled
 
 - name: Laboratório de Meios de Transmissão
   hosts: meios_lin
@@ -419,13 +412,7 @@
   roles:
     - dbeaver
     - sqlitestudio
-  tasks:
-    - name: Instala tiled via SNAP
-      community.general.snap:
-        name:
-          - tiled
-      when: ansible_os_family == 'Debian'
-      tags: tiled
+    - tiled
 
 - name: Laboratório de comunicação sem fio
   hosts: csfio_lin
