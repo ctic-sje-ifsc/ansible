@@ -35,7 +35,7 @@
 
 - name: Baixando e extraindo AndroidStudio - Linux Debian
   ansible.builtin.unarchive:
-    src: http://ansiblefiles.sj.ifsc.edu.br/android-studio-2024.1.2.12-linux.tar.gz
+    src: http://ansiblefiles.sj.ifsc.edu.br/android-studio-2025.1.1.13-linux.tar.gz
     dest: /opt/
     creates: /opt/android-studio/bin/studio.sh
     remote_src: true
