@@ -1,0 +1,81 @@
+# - name: Remove Intellij-IDEA softwares from flathub
+#   community.general.flatpak:
+#     name:
+#       - com.jetbrains.IntelliJ-IDEA-Ultimate
+#     state: absent
+#   when: ansible_os_family == 'Debian'
+
+- name: Baixando e extraindo Intellij - Linux Debian
+  ansible.builtin.unarchive:
+    src: https://download.jetbrains.com/idea/ideaIU-2025.1.3.tar.gz?_gl=1*r58afp*_gcl_au*NzY2NTE3OTM0LjE3NTI1ODE2ODY.*FPAU*NzY2NTE3OTM0LjE3NTI1ODE2ODY.*_ga*NDkxOTY4ODYuMTc1MjU4MTY4OQ..*_ga_9J976DJZ68*czE3NTI4NDQ1NDgkbzIkZzEkdDE3NTI4NDQ1NjYkajQyJGwwJGgw
+    dest: /opt
+    creates: /opt/ideaIU/bin/idea.sh
+    remote_src: true
+    owner: root
+    group: root
+    mode: '0755'
+    extra_opts:
+      - --transform
+      - 's:^[^/]*:ideaIU:'
+  when: ansible_os_family == 'Debian'
+
+- name: Cria atalho do intellij na lista de aplicativos
+  ansible.builtin.copy:
+    content: |
+      [Desktop Entry]
+      Version=1.0
+      Type=Application
+      Name=Intellij IDEA
+      Icon=/opt/ideaIU/bin/idea.png
+      Exec="/opt/ideaIU/bin/idea.sh" %f
+      Comment=Capable and Ergonomic IDE for the Java Virtual Machine
+      Categories=Development;IDE;
+      Terminal=false
+    dest: /usr/share/applications/intellij-IDEA.desktop
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+
+- name: Baixando e extraindo os plugins do Intellij - Linux Debian
+  ansible.builtin.unarchive:
+    src: http://ansiblefiles.sj.ifsc.edu.br/plugins-intellij.gz
+    dest: /opt/ideaIU
+    remote_src: true
+    creates: /opt/ideaIU/JetBrains/IntelliJIdea2025.1
+  when: ansible_os_family == 'Debian'
+
+- name: Criando link simbólico para os plugins do Intellij - Linux Debian
+  ansible.builtin.file:
+    src: /opt/ideaIU/JetBrains
+    dest: /home/setic25/.cache/JetBrains
+    owner: setic25
+    group: setic25
+    state: link
+  when: ansible_os_family == 'Debian'
+
+########## Apesar de instalar, não está mostrando que está instalado
+# - name: Instala plugins do intellij - Linux
+#   ansible.builtin.shell:
+#     cmd: /opt/ideaIU/bin/idea.sh installPlugins '{{ item }}'
+#     chdir: /home/setic25
+#   loop:
+#     - https://plugins.jetbrains.com/plugin/22989-android/versions/stable/797872
+#     - https://plugins.jetbrains.com/plugin/22990-android-design-tools/versions/stable/797986
+#     - https://plugins.jetbrains.com/plugin/18409-jetpack-compose/versions/stable/797983
+#     # - https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform/versions/stable/781762 ### Não compatível com o intellij IDEA ultimate
+#   when: ansible_os_family == 'Debian'
+
+# - name: Cria links
+#   ansible.builtin.file:
+#     src: '{{ item.src }}'
+#     dest: '{{ item.dest }}'
+#     state: link
+#   loop:
+#     - { src: /opt/android-studio/Android,
+#         dest: /home/aluno/Android, }
+#     - { src: /opt/android-studio/AndroidStudioProjects,
+#         dest: /home/aluno/AndroidStudioProjects, }
+#     - { src: /opt/android-studio/.android,
+#         dest: /home/aluno/.android, }
+#   when: ansible_os_family == 'Debian'

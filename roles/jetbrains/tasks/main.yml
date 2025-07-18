@@ -19,13 +19,11 @@
     path: "{{ item }}"
   with_items:
     - /usr/share/applications/clion_clion.desktop
-    - /usr/share/applications/intellij-idea-ultimate.desktop
   when: ansible_os_family == 'Debian'
 
 - name: Install jetbrains softwares from flathub
   community.general.flatpak:
     name:
       - com.jetbrains.PyCharm-Professional
-      - com.jetbrains.IntelliJ-IDEA-Ultimate
       - com.jetbrains.CLion
   when: ansible_os_family == 'Debian'
