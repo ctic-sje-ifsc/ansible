@@ -63,22 +63,10 @@
       tags: wiki, moodle, sigaa, bloqueia, ifsc, ifsc-sje
       when: ansible_os_family == 'Debian'
 
-    # - name: Definir o valor do source com base no nome do host
-    #   ansible.builtin.set_fact:
-    #     epoptes_server: sje-lin-sidi-918545.maquinas.sj.ifsc.edu.br
-    #   tags: wiki, moodle, sigaa, bloqueia, ifsc, ifsc-sje
-    #   when: ansible_hostname.startswith("sj-lin-sidi")
-
-    # - name: Definir o valor do source com base no nome do host
-    #   ansible.builtin.set_fact:
-    #     epoptes_server: 192.168.3.162
-    #   tags: wiki, moodle, sigaa, bloqueia, ifsc, ifsc-sje
-    #   when: ansible_hostname.startswith("debian12-")
-
     - name: Definir o valor do epoptes_server
       ansible.builtin.set_fact:
         epoptes_server: >
-          {%- if ansible_hostname.startswith("sj-lin-sidi") -%}
+          {%- if ansible_hostname.startswith("sje-lin-sidi") -%}
             sje-lin-sidi-918545.maquinas.sj.ifsc.edu.br
           {%- elif ansible_hostname.startswith("sje-lin-redes") -%}
             sje-lin-redes-906284.maquinas.sj.ifsc.edu.br
@@ -185,15 +173,15 @@
       tags: wiki, moodle, sigaa, bloqueia, ifsc, ifsc-sje
       when: ansible_os_family == 'Debian'
 
-    # - name: Libera license-server.sj.ifsc.edu.br
-    #   ansible.builtin.iptables:
-    #     chain: OUTPUT
-    #     protocol: tcp
-    #     destination: license-server.sj.ifsc.edu.br
-    #     table: filter
-    #     jump: ACCEPT
-    #   tags: wiki, moodle, sigaa, bloqueia, ifsc, ifsc-sje
-    #   when: ansible_os_family == 'Debian'
+    - name: Libera license-server.sj.ifsc.edu.br
+      ansible.builtin.iptables:
+        chain: OUTPUT
+        protocol: tcp
+        destination: license-server.sj.ifsc.edu.br
+        table: filter
+        jump: ACCEPT
+      tags: wiki, moodle, sigaa, bloqueia, ifsc, ifsc-sje
+      when: ansible_os_family == 'Debian'
 
     - name: Libera wiki.sj.ifsc.edu.br
       ansible.builtin.iptables:
