@@ -1,6 +1,6 @@
 ######### Linux
 
-- name: Copy a file
+- name: Copia arquivo de senha
   ansible.builtin.copy:
     src: grub-debian
     dest: /etc/grub.d/40_custom
@@ -25,6 +25,17 @@
     regexp: '--class os \\'
     replace: '--class os --unrestricted \\'
     backup: true
+  when: ansible_os_family == 'Debian'
+  notify:
+    - update grub
+
+- name: Modifica o arquivo /etc/default/grub - Debian
+  ansible.builtin.copy:
+    src: "{{ tipo }}"
+    dest: /etc/default/grub
+    owner: root
+    group: root
+    mode: '0644'
   when: ansible_os_family == 'Debian'
   notify:
     - update grub
