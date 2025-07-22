@@ -3,28 +3,28 @@
 # - name: Instalação spotyfy
 #   hosts: sje-lin-radio-926196.maquinas.sj.ifsc.edu.br
 #   tasks:
-#     - name: Baixar vhave GPG do Spotify
+#     - name: Baixar chave GPG do Spotify
 #       ansible.builtin.shell:
 #         path: /etc/passwd
 #         backup: true
 #         block: |
-#           aluno:x:1001:1001::/home/aluno:
+#           radio:x:1001:1001::/home/radio:
 #       when: ansible_os_family == 'Debian'
 
-#     - name: Adiciona linha do usuario aluno no group
+#     - name: Adiciona linha do usuario radio no group
 #       ansible.builtin.blockinfile:
 #         path: /etc/group
 #         backup: true
 #         block: |
-#           aluno:x:1001:
+#           radio:x:1001:radio
 #       when: ansible_os_family == 'Debian'
 
-#     - name: Cria usuário aluno com a senha aluno
+#     - name: Cria usuário radio com a senha radio
 #       ansible.builtin.user:
-#         name: aluno
+#         name: radio
 #         shell: /bin/bash
 #         password: $6$B5dpvoG43l67q0sx$r0LDKV2TgNItf/kYx/76l89ZN4LhP/ksYIxp.SSVGttHoSZXLSoB6Hkg2A6y7M7aFJ8zEuauf5kS/yA/P61kN1
-#         groups: aluno
+#         groups: radio
 #         append: true
 #       when: ansible_os_family == 'Debian'
 
@@ -40,8 +40,8 @@
 #           - python3-pip
 #       tags: pacotes
 
-# ##### Configuração do script para apagar o home do aluno a cade inicialização
-#     - name: Adiciona script para zerar o home do aluno
+# ##### Configuração do script para apagar o aluno do radio a cade inicialização
+#     - name: Adiciona script para zerar o aluno do radio
 #       ansible.builtin.copy:
 #         content: |
 #           #!/bin/bash
@@ -52,14 +52,14 @@
 #           rm -rf /var/spool/cron/crontabs/aluno
 #           rm -rf /home/aluno
 #           tar -zxvf /home/backup/aluno.tgz -C / --exclude=home/aluno/.ssh/known_hosts
-#         dest: /etc/init.d/apagaAluno.sh
+#         dest: /etc/init.d/apagaaluno.sh
 #         owner: root
 #         group: root
 #         mode: '0755'
 #       when: ansible_os_family == 'Debian'
-#       tags: apagaAluno
+#       tags: apagaaluno
 
-#     - name: Adiciona o arquivo /lib/systemd/system/apagaAluno.service
+#     - name: Adiciona o arquivo /lib/systemd/system/apagaaluno.service
 #       ansible.builtin.copy:
 #         content: |
 #           [Unit]
@@ -69,23 +69,23 @@
 
 #           [Service]
 #           Type=oneshot
-#           ExecStart=/etc/init.d/apagaAluno.sh
+#           ExecStart=/etc/init.d/apagaaluno.sh
 
 #           [Install]
 #           WantedBy=reboot.target halt.target poweroff.target
-#         dest: /lib/systemd/system/apagaAluno.service
+#         dest: /lib/systemd/system/apagaaluno.service
 #         owner: root
 #         group: root
 #         mode: '0644'
 #       when: ansible_os_family == 'Debian'
-#       tags: apagaAluno
+#       tags: apagaaluno
 
-#     - name: Aplica o daemon-reload e o enable no servico apagaAluno - Linux
+#     - name: Aplica o daemon-reload e o enable no servico apagaaluno - Linux
 #       ansible.builtin.systemd:
 #         enabled: true
 #         daemon_reload: true
-#         name: apagaAluno
+#         name: apagaaluno
 #       when: ansible_os_family == 'Debian'
-#       tags: apagaAluno
+#       tags: apagaaluno
 
-# ###################### Fim do ApagaAluno
+# ###################### Fim do Apagaaluno
