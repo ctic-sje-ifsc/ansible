@@ -1,31 +1,62 @@
----
-#Linux
-- name: Modifica o arquivo /etc/default/grub - Debian stretch
-  copy:
-    src: "{{tipo}}"
-    dest: /etc/default/grub
+######### Linux
+
+- name: Copy a file
+  ansible.builtin.copy:
+    src: grub-debian
+    dest: /etc/grub.d/40_custom
     owner: root
     group: root
-    mode: 0644
+    mode: '0700'
+  when: ansible_os_family == 'Debian'
+
+- name: Aplica unrestricted no arquivo /etc/grub.d/10_linux - Linux
+  ansible.builtin.replace:
+    path: /etc/grub.d/10_linux
+    regexp: '--class os"'
+    replace: '--class os --unrestricted"'
+    backup: true
   when: ansible_os_family == 'Debian'
   notify:
     - update grub
 
-- name: Configura senha para edição do grub - Linux
-  include_role:
-    name: hudecof.grub-password
-  vars:
-    grub_password_v2_admin: ctic
-    grub_password_v2_passwd: grub.pbkdf2.sha512.10000.0DCDF87B6E55D6D77C2102BF2DB2DE5B562879E5F50DB5206B177599935ED9C06F76128CB5E08303CADA8AAA7DC6D0B723ED06E70AA65E678925D6BE3AEC984E.D99462728C8FBD20E87DCB393A342D45CE5195C9BC70811BC45F2468B147C0CFFD97773406BAE4E227A0B75A6072365D8CD931095AA97A4F5E9CAD6598DAAA72
-    grub_password_v2_unrestricted: true
-  when: ansible_os_family == 'Debian'
-
-- name: Aplica unrestricted no arquivo /etc/grub.d/30_os-prober para Windows no grub - Linux
-  replace:
+- name: Aplica unrestricted no arquivo /etc/grub.d/30_os-prober para o windows - Linux
+  ansible.builtin.replace:
     path: /etc/grub.d/30_os-prober
     regexp: '--class os \\'
     replace: '--class os --unrestricted \\'
-    backup: yes
+    backup: true
   when: ansible_os_family == 'Debian'
   notify:
     - update grub
+
+# ---
+# #Linux
+# - name: Modifica o arquivo /etc/default/grub - Debian stretch
+#   copy:
+#     src: "{{tipo}}"
+#     dest: /etc/default/grub
+#     owner: root
+#     group: root
+#     mode: 0644
+#   when: ansible_os_family == 'Debian'
+#   notify:
+#     - update grub
+
+# - name: Configura senha para edição do grub - Linux
+#   include_role:
+#     name: hudecof.grub-password
+#   vars:
+#     grub_password_v2_admin: ctic
+#     grub_password_v2_passwd: grub.pbkdf2.sha512.10000.0DCDF87B6E55D6D77C2102BF2DB2DE5B562879E5F50DB5206B177599935ED9C06F76128CB5E08303CADA8AAA7DC6D0B723ED06E70AA65E678925D6BE3AEC984E.D99462728C8FBD20E87DCB393A342D45CE5195C9BC70811BC45F2468B147C0CFFD97773406BAE4E227A0B75A6072365D8CD931095AA97A4F5E9CAD6598DAAA72
+#     grub_password_v2_unrestricted: true
+#   when: ansible_os_family == 'Debian'
+
+# - name: Aplica unrestricted no arquivo /etc/grub.d/30_os-prober para Windows no grub - Linux
+#   replace:
+#     path: /etc/grub.d/30_os-prober
+#     regexp: '--class os \\'
+#     replace: '--class os --unrestricted \\'
+#     backup: yes
+#   when: ansible_os_family == 'Debian'
+#   notify:
+#     - update grub
