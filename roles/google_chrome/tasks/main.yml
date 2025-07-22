@@ -17,5 +17,5 @@
 - name: Instala google-chrome do repositorio
   ansible.builtin.apt:
     name: google-chrome-stable
-    state: present
+    update_cache: true
   when: ansible_os_family == 'Debian'
