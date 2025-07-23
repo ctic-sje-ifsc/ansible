@@ -10,7 +10,7 @@
     - docker
     - flatpak
     - gnome-calculator
-    - gradle_8.10
+    - gradle_8.14.3
     - google_chrome
     - imunes
     - insomnia
