@@ -5,18 +5,33 @@
     state: absent
   when: ansible_os_family == 'Debian'
 
+- name: Instala pacotes performance Android
+  ansible.builtin.apt:
+    name:
+      - android-sdk-common
+      - qemu-kvm
+      - libvirt-daemon-system
+      - libvirt-clients
+      - bridge-utils
+  when: ansible_os_family == 'Debian'
+
+- name: Configura grupos secundários para aluno
+  ansible.builtin.user:
+    name: aluno
+    groups: plugdev, libvirt, kvm
+    append: true
+  when: ansible_os_family == 'Debian'
+
 - name: Cria diretórios
   ansible.builtin.file:
     path: '{{ item }}'
     state: directory
-    mode: '0777'
+    mode: '0755'
     owner: aluno
     group: '1001'
   loop:
-    - /opt/android-studio/
-    - /opt/android-studio/Android
-    - /opt/android-studio/AndroidStudioProjects
-    - /opt/android-studio/.android
+    - /opt/aluno/Android
+    - /opt/aluno/AndroidStudioProjects
   when: ansible_os_family == 'Debian'
 
 - name: Cria links
@@ -25,19 +40,17 @@
     dest: '{{ item.dest }}'
     state: link
   loop:
-    - { src: /opt/android-studio/Android,
+    - { src: /opt/aluno/Android,
         dest: /home/aluno/Android, }
-    - { src: /opt/android-studio/AndroidStudioProjects,
+    - { src: /opt/aluno/AndroidStudioProjects,
         dest: /home/aluno/AndroidStudioProjects, }
-    - { src: /opt/android-studio/.android,
-        dest: /home/aluno/.android, }
   when: ansible_os_family == 'Debian'
 
 - name: Baixando e extraindo AndroidStudio - Linux Debian
   ansible.builtin.unarchive:
-    src: http://ansiblefiles.sj.ifsc.edu.br/android-studio-2025.1.1.13-linux.tar.gz
+    src: http://ansiblefiles.sj.ifsc.edu.br/android-studio-2025.1.1.14-linux.tar.gz
     dest: /opt/
-    creates: /opt/android-studio/bin/studio.sh
+    creates: /opt/android-studio/bin/studio
     remote_src: true
     owner: root
     group: root
@@ -52,7 +65,7 @@
       Type=Application
       Name=Android Studio
       Icon=/opt/android-studio/bin/studio.svg
-      Exec="/opt/android-studio/bin/studio.sh" %f
+      Exec="/opt/android-studio/bin/studio" %f
       Comment=The Drive to Develop
       Categories=Development;IDE;
       Terminal=false
