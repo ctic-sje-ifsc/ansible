@@ -18,6 +18,12 @@
     path: /usr/lib/jvm/jdk-21.0.8-oracle-x64/bin/java
   when: (ansible_os_family == 'Debian')
 
+- name: Define JAVA_HOME
+  ansible.builtin.lineinfile:
+    line: 'export JAVA_HOME=$(dirname $(dirname $(readlink -f  /usr/bin/java)))'
+    dest: /home/aluno/.bashrc
+  when: ansible_os_family == 'Debian'
+
 - name: Cria atalho do Java ControlPanel na lista de aplicativos
   ansible.builtin.copy:
     content: |
