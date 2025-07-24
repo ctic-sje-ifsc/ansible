@@ -24,7 +24,7 @@
 
 - name: Baixa e instala intellij-idea-ultimate
   ansible.builtin.unarchive:
-    src: http://ansiblefiles.sj.ifsc.edu.br/ideaIU-2025.1.3.tar.gz
+    src: http://ansiblefiles.sj.ifsc.edu.br/ideaIU-2025.1.4.tar.gz
     dest: /opt/
     remote_src: true
     creates: /opt/ideaIU/bin/idea
@@ -61,7 +61,7 @@
     line: "idea.plugins.path=${idea.config.path}/plugins"
   when: ansible_os_family == 'Debian'
 
-- name: Cria diretório /opt/aluno
+- name: Cria diretórios
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
