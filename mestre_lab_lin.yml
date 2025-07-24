@@ -3,6 +3,7 @@
 
   roles:
     - aluno
+    - android-studio
     - arduino
     - auto_desligamento
     - chaves_ssh
@@ -228,6 +229,7 @@
           - firmware-amd-graphics
           - firmware-ath9k-htc
           - firmware-atheros
+          - firmware-iwlwifi
           - firmware-linux
           - firmware-misc-nonfree
           - firmware-realtek
