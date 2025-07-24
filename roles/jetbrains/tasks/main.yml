@@ -26,4 +26,5 @@
     name:
       - com.jetbrains.PyCharm-Professional
       - com.jetbrains.CLion
+      - com.jetbrains.IntelliJ-IDEA-Ultimate
   when: ansible_os_family == 'Debian'
