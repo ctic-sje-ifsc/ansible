@@ -32,6 +32,7 @@
   loop:
     - /opt/aluno/Android
     - /opt/aluno/AndroidStudioProjects
+    - /opt/aluno/.android
   when: ansible_os_family == 'Debian'
 
 - name: Cria links
@@ -44,6 +45,8 @@
         dest: /home/aluno/Android, }
     - { src: /opt/aluno/AndroidStudioProjects,
         dest: /home/aluno/AndroidStudioProjects, }
+    - { src: /opt/aluno/.android,
+        dest: /home/aluno/.android, }
   when: ansible_os_family == 'Debian'
 
 - name: Baixando e extraindo AndroidStudio - Linux Debian
