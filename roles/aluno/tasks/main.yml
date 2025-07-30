@@ -29,6 +29,41 @@
     local: true
   when: ansible_os_family == 'Debian'
 
+- name: Cria diretórios
+  ansible.builtin.file:
+    path: '{{ item }}'
+    state: directory
+    mode: '0755'
+    owner: aluno
+    group: '1001'
+  loop:
+    - /opt/aluno/Android
+    - /opt/aluno/.gradle
+  when: ansible_os_family == 'Debian'
+
+- name: Cria links
+  ansible.builtin.file:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    state: link
+  loop:
+    - { src: /opt/aluno/Android,
+        dest: /home/aluno/Android, }
+    - { src: /opt/aluno/.gradle,
+        dest: /home/aluno/.gradle, }
+  when: ansible_os_family == 'Debian'
+
+- name: Apaga diretórios
+  ansible.builtin.file:
+    state: absent
+    path: '{{ item }}'
+  loop:
+    - /opt/aluno/.android
+    - /opt/aluno/AndroidStudioProjects
+    - /home/aluno/.android
+    - /home/aluno/AndroidStudioProjects
+  when: ansible_os_family == 'Debian'
+
 - name: Configuracao aba anonima chrome - Linux
   ansible.builtin.copy:
     content: |
@@ -140,7 +175,6 @@
       #!/bin/bash
       rm -rf /home/aluno/.bash_history
       rm -rf /home/aluno/.gitconfig
-      rm -rf /home/aluno/.gradle
       rm -rf /home/aluno/.ssh
       rm -rf /home/aluno/.vscode
       rm -rf /home/aluno/.config/Code
