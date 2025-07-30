@@ -1,8 +1,0 @@
-#Este arquivo eh gerado automaticamente pelo ANSIBLE, nao adianta editar.
-
-auto lo
-iface lo inet loopback
-
-auto wlan0
-iface wlan0 inet dhcp
-    wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
