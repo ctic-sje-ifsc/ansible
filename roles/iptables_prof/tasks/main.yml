@@ -46,59 +46,13 @@
     - alias firewall_libera='/usr/bin/ansible-playbook -u root -f 50 --private-key /etc/ansible/id_rsa /etc/ansible/firewall.yml -t libera'
   when: "'lab_profs_lin' in group_names"
 
-- name: Cria grupo ansible
-  ansible.builtin.group:
-    name: ansible
-    system: true
-  when: "'lab_profs_lin' in group_names"
-
-- name: Adiciona usuários no grupo epoptes
-  ansible.builtin.user:
-    name: "{{ item }}"
-    groups: ansible
-    append: true
-  loop:
-    - davi.iahn
-    - humbertos
-    - rmartins
-    - marcelo.muniz
-    - ctic
-    - eraldo
-    - moecke
-    - niltons
-    - saul
-    - sclima
-    - volnei
-    - odilson
-    - elen
-    - tisemp
-    - mdoniak
-    - msobral
-    - mello
-    - noronha
-    - casagrande
-    - etorresini
-    - diegomedeiros
-    - deise.arndt
-    - fabiosouza
-    - roberto.matos
-    - arliones.hoeller
-    - roberto.nobrega
-    - ramon.mayor
-    - clayrton.henrique
-    - cleber.amaral
-    - joao.carlos
-    - tallys.barbosa
-    - ramon.hugo
-  when: "'lab_profs_lin' in group_names"
-
 - name: Copia chave privada
   ansible.builtin.copy:
     src: /root/.ssh/id_rsa
     dest: /etc/ansible/id_rsa
     remote_src: true
     owner: root
-    group: ansible
+    group: epoptes
     mode: '0440'
   when: "'lab_profs_lin' in group_names"
 
