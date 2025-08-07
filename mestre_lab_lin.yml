@@ -3,7 +3,6 @@
 
   roles:
     - aluno
-    - android-studio
     - arduino
     - auto_desligamento
     - chaves_ssh
@@ -435,9 +434,15 @@
     - role: grub
       tipo: grub_lin
 
-- name: Configurações computador sala 14
+- name: Configurações computadores sala 14
   hosts: sala14_lin
   roles:
     - role: grub
       tipo: grub_lin
     - wpa_supplicant_sala14
+    - android-studio
+
+- name: Configurações computadores SiDi
+  hosts: sidi_lin
+  roles:
+    - android-studio
