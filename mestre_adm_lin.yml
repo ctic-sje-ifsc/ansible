@@ -159,7 +159,6 @@
 - name: Configuração dos notebooks da turno
   hosts: note
   roles:
-    - configura_wifi
     - aluno
 
 - name: Computadores Financeiro
