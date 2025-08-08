@@ -1,0 +1,46 @@
+- name: Apaga usuários e remove pasta home
+  ansible.builtin.user:
+    name: "{{ item }}"
+    state: absent
+    remove: true
+  loop:
+    - adriano.lima
+    - ana.scharf
+    - andrealves
+    - arliones.hoeller
+    - carlyle.camara
+    - casagrande
+    - claudiacastro
+    - clayrton.henrique
+    - cleber.amaral
+    - davi.iahn
+    - deise.arndt
+    - diegomedeiros
+    - elen
+    - eraldo
+    - etorresini
+    - fabiosouza
+    - fernanda.cherem
+    - humbertos
+    - joao.carlos
+    - marcelo.muniz
+    - mayara.sousa
+    - mdoniak
+    - mello
+    - moecke
+    - msobral
+    - niltons
+    - noronha
+    - odilson
+    - ramon.hugo
+    - ramon.mayor
+    - rmartins
+    - roberto.matos
+    - roberto.nobrega
+    - saul
+    - sclima
+    - silvianac
+    - tallys.barbosa
+    - tisemp
+    - volnei
+  when: ansible_os_family == 'Debian'
