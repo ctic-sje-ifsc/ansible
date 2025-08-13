@@ -3,7 +3,7 @@
   changed_when: false
   when: ansible_os_family == 'Debian'
 
-- name: Instalar pacotes necessarios para o Quartus 20 - Linux Debian 11
+- name: Instalar pacotes necessarios para o Quartus 20
   ansible.builtin.apt:
     update_cache: true
     pkg:
@@ -17,7 +17,6 @@
       - libxext6:i386
       - libxtst6:i386
       - libxi6:i386
-      - libgtk2.0-0:i386
       - libxft2
       - libxft2:i386
       - libc6-dev-i386
