@@ -3,14 +3,16 @@
   ansible.builtin.file:
     state: absent
     path: /etc/apt/sources.list.d/virtualbox.list.list
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bookworm')
+  when: (ansible_os_family == 'Debian' and (ansible_distribution_release == 'bookworm' or ansible_distribution_release == 'trixie'))
 
 - name: Adiciona uma chave para o virtualbox - Debian 12
-  ansible.builtin.apt_key:
+  ansible.builtin.get_url:
     url: https://www.virtualbox.org/download/oracle_vbox_2016.asc
-    state: present
-    keyring: /usr/share/keyrings/oracle-virtualbox-2016.gpg
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bookworm')
+    dest: /etc/apt/trusted.gpg.d/oracle-virtualbox-2016.asc
+    mode: '0644'
+    owner: root
+    group: root
+  when: (ansible_os_family == 'Debian' and (ansible_distribution_release == 'bookworm' or ansible_distribution_release == 'trixie'))
 
 - name: Adicionar repositório para Virtualbox - Linux Debian 12
   ansible.builtin.apt_repository:
@@ -18,20 +20,20 @@
     state: present
     filename: virtualbox
     update_cache: true
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bookworm')
+  when: (ansible_os_family == 'Debian' and (ansible_distribution_release == 'bookworm' or ansible_distribution_release == 'trixie'))
 
 - name: Instalar os pacotes para o Virtualbox do buster - Linux Debian 12
   ansible.builtin.apt:
     pkg:
       - virtualbox-7.0
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bookworm')
+  when: (ansible_os_family == 'Debian' and (ansible_distribution_release == 'bookworm' or ansible_distribution_release == 'trixie'))
 
 - name: Adiciona aluno ao grupo vboxusers
   ansible.builtin.user:
     name: aluno
     groups: [vboxusers]
     append: true
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bookworm')
+  when: (ansible_os_family == 'Debian' and (ansible_distribution_release == 'bookworm' or ansible_distribution_release == 'trixie'))
 
 - name: Cria diretórios para o VirtualBox
   ansible.builtin.file:

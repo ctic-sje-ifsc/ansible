@@ -9,19 +9,29 @@
   when: (ansible_os_family == 'Debian')
 
 - name: Adicionar a chave do repositório do docker no Debian
-  ansible.builtin.apt_key:
+  ansible.builtin.get_url:
     url: https://download.docker.com/linux/debian/gpg
-    state: present
-    keyring: /usr/share/keyrings/docker.gpg
+    dest: /etc/apt/trusted.gpg.d/docker.asc
+    mode: '0644'
+    owner: root
+    group: root
   when: ansible_os_family == 'Debian'
 
 - name: Adicionar repositório do docker no bookworm
   ansible.builtin.apt_repository:
-    repo: deb [arch=amd64 signed-by=/usr/share/keyrings/docker.gpg] https://download.docker.com/linux/debian bookworm stable
+    repo: deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/docker.asc] https://download.docker.com/linux/debian bookworm stable
     state: present
     update_cache: true
     filename: docker
   when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bookworm')
+
+- name: Adicionar repositório do docker no trixie
+  ansible.builtin.apt_repository:
+    repo: deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/docker.asc] https://download.docker.com/linux/debian trixie stable
+    state: present
+    update_cache: true
+    filename: docker
+  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'trixie')
 
 - name: Instala pacotes necessários para o funcionamento do rootless
   ansible.builtin.apt:
