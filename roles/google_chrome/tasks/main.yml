@@ -1,7 +1,10 @@
 - name: Adiciona chave para o 'Debian'
-  ansible.builtin.apt_key:
+  ansible.builtin.get_url:
     url: https://dl.google.com/linux/linux_signing_key.pub
-    state: present
+    dest: /etc/apt/trusted.gpg.d/google.asc
+    mode: '0644'
+    owner: root
+    group: root
   when: ansible_os_family == 'Debian'
 
 - name: Adiciona repositório para o 'Debian'
