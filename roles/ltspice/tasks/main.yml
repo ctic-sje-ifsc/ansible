@@ -1,3 +1,44 @@
+########## Linux ##########
+- name: Baixando e extraindo LTspice
+  ansible.builtin.unarchive:
+    src: LTC.zip
+    dest: /opt/
+    creates: /opt/LTC
+    owner: root
+    group: root
+  when: ansible_os_family == 'Debian'
+
+- name: Cria atalho
+  ansible.builtin.copy:
+    content: |
+      [Desktop Entry]
+      Name=LTspice XVII
+      Comment=LTspice
+      Exec=wine /opt/LTC/LTspiceXVII/XVIIx64.exe
+      Terminal=false
+      Type=Application
+      Categories=Development;
+    dest: /usr/share/applications/ltspice.desktop
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+
+- name: Copia os arquivo LM741.lib e LM741.asy
+  ansible.builtin.copy:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    owner: root
+    group: root
+    mode: '0644'
+  loop:
+    - { src: LM741.asy,
+        dest: /opt/LTC/LTspiceXVII/lib/sym/Opamps/LM741.asy, }
+    - { src: LM741.lib,
+        dest: /opt/LTC/LTspiceXVII/lib/sub/LM741.lib, }
+  when: ansible_os_family == 'Debian'
+
+########## Windows ##########
 - name: Copia o arquivo de configuracao do LTSpice - Windows
   ansible.windows.win_copy:
     src: LTC.zip
