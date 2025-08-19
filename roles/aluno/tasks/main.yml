@@ -49,8 +49,6 @@
   loop:
     - { src: /opt/aluno/Android,
         dest: /home/aluno/Android, }
-    - { src: /opt/aluno/.gradle,
-        dest: /home/aluno/.gradle, }
   when: ansible_os_family == 'Debian'
 
 - name: Apaga diretórios
@@ -60,6 +58,7 @@
   loop:
     - /opt/aluno/.android
     - /opt/aluno/AndroidStudioProjects
+    - /opt/aluno/.gradle
     - /home/aluno/.android
     - /home/aluno/AndroidStudioProjects
   when: ansible_os_family == 'Debian'
@@ -177,6 +176,7 @@
       rm -rf /home/aluno/.gitconfig
       rm -rf /home/aluno/.ssh
       rm -rf /home/aluno/.vscode
+      rm -rf /home/aluno/.gradle
       rm -rf /home/aluno/.config/Code
       rm -rf /home/aluno/.mozilla
     dest: /etc/init.d/apagaArquivosAluno.sh
