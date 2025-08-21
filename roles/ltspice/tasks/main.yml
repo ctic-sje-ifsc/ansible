@@ -24,6 +24,8 @@
     mode: '0644'
   when: ansible_os_family == 'Debian'
 
+######### OBS: Os arquivos antigos LM741.asy e LM741.lib já estão no arquivo zip
+
 ########## Windows ##########
 - name: Copia o arquivo de configuracao do LTSpice - Windows
   ansible.windows.win_copy:
