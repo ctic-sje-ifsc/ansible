@@ -226,7 +226,7 @@
   ansible.builtin.copy:
     content: |
       #!/bin/sh
-      xrandr --output HDMI-1 --mode 1024x768 --pos 0x0 --rotate normal --output DP-1 --off --output HDMI-2 --off --output DP-2 --primary --mode 1024x768 --pos 0x0 --rotate normal --output HDMI-3 --off
+      xrandr --output HDMI-1 --mode 1280x1024 --pos 0x0 --rotate normal --output DP-1 --off --output HDMI-2 --off --output DP-2 --primary --mode 1280x1024 --pos 0x0 --rotate normal --output HDMI-3 --off
 
     dest: /usr/local/bin/configura_monitores.sh
     owner: root
