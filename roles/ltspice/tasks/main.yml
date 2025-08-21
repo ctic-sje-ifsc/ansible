@@ -3,7 +3,7 @@
   ansible.builtin.unarchive:
     src: LTC.zip
     dest: /opt/
-    creates: /opt/LTC
+    creates: /opt/LTC/update
     owner: root
     group: root
   when: ansible_os_family == 'Debian'
@@ -24,20 +24,6 @@
     mode: '0644'
   when: ansible_os_family == 'Debian'
 
-- name: Copia os arquivo LM741.lib e LM741.asy
-  ansible.builtin.copy:
-    src: '{{ item.src }}'
-    dest: '{{ item.dest }}'
-    owner: root
-    group: root
-    mode: '0644'
-  loop:
-    - { src: LM741.asy,
-        dest: /opt/LTC/LTspiceXVII/lib/sym/Opamps/LM741.asy, }
-    - { src: LM741.lib,
-        dest: /opt/LTC/LTspiceXVII/lib/sub/LM741.lib, }
-  when: ansible_os_family == 'Debian'
-
 ########## Windows ##########
 - name: Copia o arquivo de configuracao do LTSpice - Windows
   ansible.windows.win_copy:
@@ -49,7 +35,7 @@
   community.windows.win_unzip:
     src: C:\instaladores\LTC.zip
     dest: C:\Program Files\
-    creates: C:\Program Files\LTC
+    creates: C:\Program Files\LTC\update
   when: ansible_os_family == 'Windows'
 
 - name: Cria o atalho do Ltspice - Windows
@@ -57,15 +43,4 @@
     src: C:\Program Files\LTC\LTspiceXVII\XVIIx64.exe
     dest: C:\Users\Public\Desktop\LTspiceXVII.lnk
     icon: C:\Program Files\LTC\LTspiceXVII\XVIIx64.exe,0
-  when: ansible_os_family == 'Windows'
-
-- name: Copia arquivo LM741.lib
-  ansible.windows.win_copy:
-    src: '{{ item.src }}'
-    dest: '{{ item.dest }}'
-  loop:
-    - { src: LM741.asy,
-        dest: C:\Program Files\LTC\LTspiceXVII\lib\sym\Opamps\LM741.asy, }
-    - { src: LM741.lib,
-        dest: C:\Program Files\LTC\LTspiceXVII\lib\sub\LM741.lib, }
   when: ansible_os_family == 'Windows'
