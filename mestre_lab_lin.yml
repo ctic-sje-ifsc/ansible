@@ -437,9 +437,10 @@
   hosts: sala14_lin
   roles:
     - role: grub
-      tipo: grub_lin
+      tipo: grub_soh_lin
     - wpa_supplicant_sala14
     - android-studio
+    - code
 
 - name: Configurações computadores SiDi
   hosts: sidi_lin
