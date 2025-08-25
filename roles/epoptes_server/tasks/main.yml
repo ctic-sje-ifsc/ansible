@@ -53,3 +53,13 @@
     mode: '0644'
   when: (ansible_distribution == 'Debian' and ansible_hostname == 'sje-lin-mtrans-926158')
   tags: epoptes_groups
+
+- name: Copia arquivo info.json para máquina do professor
+  ansible.builtin.copy:
+    src: info.json
+    dest: /etc/epoptes/groups.json
+    owner: root
+    group: root
+    mode: '0644'
+  when: (ansible_distribution == 'Debian' and ansible_hostname == 'sje-lin-info-895203')
+  tags: epoptes_groups
