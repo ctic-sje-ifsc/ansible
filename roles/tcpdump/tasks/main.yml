@@ -1,0 +1,20 @@
+# linux
+- name: Instalar pacotes para o tcpdump - Linux
+  ansible.builtin.apt:
+    pkg:
+      - tcpdump
+  when: ansible_os_family == 'Debian'
+
+- name: Set CAP_NET_RAW+eip on /usr/bin/tcpdump
+  community.general.capabilities:
+    path: /usr/bin/tcpdump
+    capability: CAP_NET_RAW+eip
+    state: present
+  when: ansible_os_family == 'Debian'
+
+- name: Set CAP_NET_ADMIN+eip on /usr/bin/tcpdump
+  community.general.capabilities:
+    path: /usr/bin/tcpdump
+    capability: CAP_NET_ADMIN+eip
+    state: present
+  when: ansible_os_family == 'Debian'
