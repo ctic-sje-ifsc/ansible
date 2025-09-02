@@ -26,8 +26,8 @@
     - java8-oracle
     - papel_de_parede_e_icones
     - flatpak
-    # - role: grub
-    #   tipo: grub_soh_lin
+    - role: grub
+      tipo: grub_soh_lin
 
   tasks:
     - name: Add an Apt signing key to a specific keyring file
@@ -203,3 +203,8 @@
       reprografia_principal: 1
       almoxarifado_3920: 1
       pdf: 1
+
+- name: Programas do Jorge Casagrande
+  hosts: sje-lin-des2-703872.maquinas.sj.ifsc.edu.br
+  roles:
+    - code
