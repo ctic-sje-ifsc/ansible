@@ -1,4 +1,4 @@
-- name: Instalar o lusermod
+- name: Instalar o libuser
   ansible.builtin.apt:
     name: libuser
   when: ansible_os_family == 'Debian'
