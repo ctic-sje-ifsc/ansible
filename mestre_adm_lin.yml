@@ -16,7 +16,6 @@
   roles:
     - upgrade_11to12
     - sources_list
-    - openaudit
     - fonte_garamound
     - unattendedUpgrades_adm
     - glpi_agent
