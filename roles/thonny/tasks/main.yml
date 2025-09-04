@@ -1,5 +1,5 @@
 # Linux
-- name: Instalar pacotes para o Wireshark - Linux
+- name: Instalar pacotes para o thonny - Linux
   ansible.builtin.apt:
     pkg:
       - thonny
