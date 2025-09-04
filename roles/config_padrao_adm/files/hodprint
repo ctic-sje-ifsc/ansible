@@ -1,3 +1,0 @@
-#!/bin/bash
-gtklp $1
-rm -f $1
