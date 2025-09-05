@@ -1,6 +1,0 @@
-# Linux
-- name: Instalar pacotes para o thonny - Linux
-  ansible.builtin.apt:
-    pkg:
-      - thonny
-  when: ansible_os_family == 'Debian'
