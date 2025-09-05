@@ -326,6 +326,7 @@
           - tcpdump
           - texlive-extra-utils
           - texlive-lang-portuguese
+          - thonny
           - traceroute
           - tree
           - ttf-ancient-fonts

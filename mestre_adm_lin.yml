@@ -4,8 +4,8 @@
     - ingressa_ldap
     - acesso_remoto
     - cadeia_certificados
-    - token_gd_starsign
-    - token_safenet
+    - token_gd_starsign   #necessario coreção para debian 13
+    - token_safenet   #necessario coreção para debian 13
     - hodprint
 
 - name: Administrativo Linux
@@ -20,8 +20,8 @@
     - unattendedUpgrades_adm
     - glpi_agent
     - auto_desligamento
-    - warsaw
-    - foxit
+    - warsaw    #necessario coreção para debian 13
+    - foxit    #necessario coreção para debian 13
     - java8-oracle
     - papel_de_parede_e_icones
     - flatpak
@@ -29,7 +29,7 @@
       tipo: grub_soh_lin
 
   tasks:
-    - name: Add an Apt signing key to a specific keyring file
+    - name: Add an Apt signing key to a specific keyring file  #necessario coreção para debian 13
       ansible.builtin.apt_key:
         url: https://dl-ssl.google.com/linux/linux_signing_key.pub
         keyring: /etc/apt/trusted.gpg.d/google-chrome.gpg
@@ -64,7 +64,7 @@
           - gtklp
           - icedtea-netx
           - kdenlive
-          - kolourpaint4
+          - kolourpaint4  #necessario coreção para debian 13
           - libcurl4
           - linux-image-amd64
           - linux-headers-amd64
@@ -73,15 +73,15 @@
           - network-manager-gnome
           - nfs-common
           - okular
-          - pdfshuffler
+          - pdfshuffler  #necessario coreção para debian 13
           - ssh
           - system-config-printer
-          - unrar
+          - unrar #necessario coreção para debian 13
           - vim
           - vlc
       when: ansible_os_family == 'Debian'
 
-    - name: Instala pacotes .deb
+    - name: Instala pacotes .deb   #necessario coreção para debian 13
       ansible.builtin.apt:
         deb: "{{ deb_pkgs }}"
       loop:
