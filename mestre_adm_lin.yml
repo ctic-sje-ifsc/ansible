@@ -25,17 +25,11 @@
     - java8-oracle
     - papel_de_parede_e_icones
     - flatpak
+    - google_chrome
     - role: grub
       tipo: grub_soh_lin
 
   tasks:
-    - name: Add an Apt signing key to a specific keyring file  #necessario coreção para debian 13
-      ansible.builtin.apt_key:
-        url: https://dl-ssl.google.com/linux/linux_signing_key.pub
-        keyring: /etc/apt/trusted.gpg.d/google-chrome.gpg
-      changed_when: false
-      when: ansible_os_family == 'Debian'
-
     - name: Upgrade the packages (apt full-upgrade)
       ansible.builtin.apt:
         upgrade: full
@@ -79,15 +73,6 @@
           - unrar #necessario coreção para debian 13
           - vim
           - vlc
-      when: ansible_os_family == 'Debian'
-
-    - name: Instala pacotes .deb   #necessario coreção para debian 13
-      ansible.builtin.apt:
-        deb: "{{ deb_pkgs }}"
-      loop:
-        - https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-      loop_control:
-        loop_var: deb_pkgs
       when: ansible_os_family == 'Debian'
 
     - name: Instala qpdf tools - Compressão de PDF
