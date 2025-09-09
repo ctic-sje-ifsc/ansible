@@ -19,7 +19,16 @@
     owner: root
     group: root
     mode: '0644'
-  when: ansible_distribution == 'Debian'
+  when: ( ansible_distribution == 'Debian' and not ansible_hostname is search("^sje-lin-mtrans") )
+
+- name: Copia aluno tgz Meios de transmissao
+  ansible.builtin.get_url:
+    url: http://ansiblefiles.sj.ifsc.edu.br/aluno_MT.tgz
+    dest: /opt/backup/aluno.tgz
+    owner: root
+    group: root
+    mode: '0644'
+  when: ( ansible_distribution == 'Debian' and ansible_hostname is search("^sje-lin-mtrans") )
 
 - name: Cria usuário aluno com a senha aluno
   ansible.builtin.user:
@@ -175,7 +184,6 @@
       rm -rf /home/aluno/.bash_history
       rm -rf /home/aluno/.gitconfig
       rm -rf /home/aluno/.ssh
-      rm -rf /home/aluno/.vscode
       rm -rf /home/aluno/.gradle
       rm -rf /home/aluno/.config/Code
       rm -rf /home/aluno/.mozilla
