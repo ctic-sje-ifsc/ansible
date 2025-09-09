@@ -6,12 +6,17 @@
   when: ansible_os_family == 'Debian'
 
 - name: Adicionar repositório AnyDesk
-  ansible.builtin.apt_repository:
-    repo: deb http://deb.anydesk.com/ all main
+  ansible.builtin.copy:
+    content: "deb http://deb.anydesk.com/ all main"
+    dest: /etc/apt/sources.list.d/anydesk.list
+    owner: root
+    group: root
+    mode: '0644'
   when: ansible_os_family == 'Debian'
 
 - name: Instala AnyDesk
   ansible.builtin.apt:
     pkg:
       - anydesk
+    update_cache: true
   when: ansible_os_family == 'Debian'

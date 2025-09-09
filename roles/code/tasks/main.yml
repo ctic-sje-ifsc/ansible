@@ -6,15 +6,18 @@
   when: ansible_os_family == 'Debian'
 
 - name: Adicionar repositório do vscode - Linux
-  ansible.builtin.apt_repository:
-    filename: vscode
-    repo: deb [arch=amd64] http://packages.microsoft.com/repos/vscode stable main
-    update_cache: true
+  ansible.builtin.copy:
+    content: "deb [arch=amd64] http://packages.microsoft.com/repos/vscode stable main"
+    dest: /etc/apt/sources.list.d/vscode.list
+    owner: root
+    group: root
+    mode: '0644'
   when: ansible_os_family == 'Debian'
 
 - name: Instalar o vscode
   ansible.builtin.apt:
     name: code
+    update_cache: true
   when: ansible_os_family == 'Debian'
 
 # Windows
