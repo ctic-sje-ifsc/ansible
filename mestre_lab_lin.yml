@@ -442,6 +442,7 @@
     - wpa_supplicant_sala14
     - android-studio
     - code
+    - scidavis
 
 - name: Configurações computadores SiDi
   hosts: sidi_lin
