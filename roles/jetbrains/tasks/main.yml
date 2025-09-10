@@ -1,26 +1,3 @@
-- name: Instala snapd - Linux
-  ansible.builtin.apt:
-    pkg:
-      - snapd
-  when: ansible_os_family == 'Debian'
-
-- name: Remove jetbrains softwares from snap
-  community.general.snap:
-    name:
-      - pycharm-professional
-      - intellij-idea-ultimate
-      - clion
-    state: absent
-  when: ansible_os_family == 'Debian'
-
-- name: Remove atalhos jetbrains
-  ansible.builtin.file:
-    state: absent
-    path: "{{ item }}"
-  with_items:
-    - /usr/share/applications/clion_clion.desktop
-  when: ansible_os_family == 'Debian'
-
 - name: Install jetbrains softwares from flathub
   community.general.flatpak:
     name:
@@ -28,3 +5,17 @@
       - com.jetbrains.CLion
       - com.jetbrains.IntelliJ-IDEA-Ultimate
   when: ansible_os_family == 'Debian'
+  tags: jetbrains
+
+- name: Instala versões específicas e bloqueia atualizações automáticas
+  ansible.builtin.shell:
+    cmd: "{{ item }}"
+  loop:
+    - flatpak -y update --commit=b7a22d13a984d8b179a6db7c3db2afbed94420020f34a9161d0a48d2d0ffffd7 com.jetbrains.PyCharm-Professional
+    - flatpak mask com.jetbrains.PyCharm-Professional
+    - flatpak -y update --commit=6544d2117ee97ba950eb0d3f5365a67d25d126d4ac54a5cea69b032fcf56b998 com.jetbrains.CLion
+    - flatpak mask com.jetbrains.CLion
+    - flatpak -y update --commit=10cdc7d9994778684af82592a63026c3dd1286faa5a0f894c2261391ec638a0f com.jetbrains.IntelliJ-IDEA-Ultimate
+    - flatpak mask com.jetbrains.IntelliJ-IDEA-Ultimate
+  when: ansible_os_family == 'Debian' and ansible_product_name in ["HP Compaq 6005 Pro SFF PC"]
+  tags: jetbrains_mask
