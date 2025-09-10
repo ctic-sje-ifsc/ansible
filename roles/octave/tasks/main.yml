@@ -1,24 +1,16 @@
-# Ubuntu
-- name: Adicionar repositório Octave - Linux Ubuntu
-  apt_repository:
-    repo: ppa:octave/stable
-  when: ansible_distribution == 'Ubuntu'
-
-# Debian e Ubuntu
+# Linux
 - name: Instalar os pacotes para o octave - Linux
-  apt:
-    state: latest
+  ansible.builtin.apt:
     pkg:
-    - octave
-    - octave-communications
-    - octave-control
-    - octave-signal
-    - octave-statistics
+      - octave
+      - octave-communications
+      - octave-control
+      - octave-signal
+      - octave-statistics
   when: ansible_os_family == 'Debian'
 
-#Windows
+# Windows
 - name: Baixar e instalar Octave - Windows
-  win_chocolatey:
+  chocolatey.chocolatey.win_chocolatey:
     name: octave
-    # state: latest
-  when: ( ansible_os_family == 'Windows' and ansible_system_vendor == 'Dell Inc.' and ansible_bios_version == '1.7.0')
+  when: ansible_os_family == 'Windows'
