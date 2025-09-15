@@ -415,7 +415,8 @@
     - dbeaver
     - sqlitestudio
     - tiled
-
+    - qucsstudio
+    
 - name: Laboratório de comunicação sem fio
   hosts: csfio_lin
   roles:
