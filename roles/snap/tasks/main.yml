@@ -1,0 +1,5 @@
+- name: Instalar snap # (A PRINCÍPIO SÓ PARA O MYSQL WORKBENCH)
+  ansible.builtin.apt:
+    pkg:
+      - snapd
+  when: ansible_os_family == 'Debian'
