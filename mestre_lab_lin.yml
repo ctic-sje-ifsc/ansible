@@ -416,7 +416,7 @@
     - sqlitestudio
     - tiled
     - qucsstudio
-    
+
 - name: Laboratório de comunicação sem fio
   hosts: csfio_lin
   roles:
@@ -448,4 +448,6 @@
 - name: Configurações computadores SiDi
   hosts: sidi_lin
   roles:
+    - role: grub
+      tipo: grub_lin
     - android-studio
