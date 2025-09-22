@@ -4,7 +4,7 @@
     - ingressa_ldap
     - acesso_remoto
     - cadeia_certificados
-    - token_gd_starsign   #necessario coreção para debian 13
+    - token_gd_starsign
     - token_safenet   #necessario coreção para debian 13
     - hodprint
 
