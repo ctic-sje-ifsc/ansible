@@ -20,8 +20,8 @@
     - unattendedUpgrades_adm
     - glpi_agent
     - auto_desligamento
-    - warsaw    #necessario coreção para debian 13
-    - foxit    #necessario coreção para debian 13
+    - warsaw
+    - foxit
     - java8-oracle
     - papel_de_parede_e_icones
     - flatpak
@@ -58,7 +58,7 @@
           - gtklp
           - icedtea-netx
           - kdenlive
-          - kolourpaint4  #necessario coreção para debian 13
+          - kolourpaint
           - libcurl4
           - linux-image-amd64
           - linux-headers-amd64
@@ -67,10 +67,10 @@
           - network-manager-gnome
           - nfs-common
           - okular
-          - pdfshuffler  #necessario coreção para debian 13
+          - pdfarranger
           - ssh
           - system-config-printer
-          - unrar #necessario coreção para debian 13
+          - unrar-free
           - vim
           - vlc
       when: ansible_os_family == 'Debian'
