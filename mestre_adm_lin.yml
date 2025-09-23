@@ -126,6 +126,7 @@
     - geogebra
     - aluno
     - scrcpy
+    - wine
   tasks:
     - name: Pacotes especiais
       ansible.builtin.apt:
