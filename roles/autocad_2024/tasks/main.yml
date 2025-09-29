@@ -1,0 +1,106 @@
+### Comando em powershell para mostrar product_id
+### get-wmiobject Win32_Product | Format-Table IdentifyingNumber, Name, LocalPackage -AutoSize
+### Localizacao do productid 32 bits: HKLM:Software\Microsoft\Windows\CurrentVersion\Uninstall
+### Localizacao do productid 64 bits: HKLM:Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall
+
+
+## Windows
+# - name: Verifica se o Revit 21 está instalado
+#   ansible.windows.win_stat:
+#     path: C:\Program Files\Autodesk\Revit 2021
+#   register: revit21_info
+#   changed_when: false
+#   when: ansible_os_family == 'Windows'
+
+# - name: Verifica se o Revit 24 está instalado
+#   ansible.windows.win_stat:
+#     path: C:\Program Files\Autodesk\Revit 2024
+#   register: revit24_info
+#   changed_when: false
+#   when: ansible_os_family == 'Windows'
+
+# - name: Remove o Revit 2021 - Windows
+#   ansible.windows.win_package:
+#     product_id: "{{ productIDs }}"
+#     state: absent
+#   loop:
+#     - '{1aa4d703-a089-48e4-b1d0-ae8e867add5f}'
+#     - '{435bd39b-3dd5-416c-92fa-3c74410c8ea0}'
+#     - '{cc2718e8-7490-46e0-b667-2d7b41238bc6}'
+#     - '{fb979c52-2114-496a-a7f6-af0ae79702c6}'
+#     - '{18fafc92-6f7a-4894-acd1-19ec6c4e639b}'
+#     - '{4477f08b-2101-0010-0000-9a09d83421a1}'
+#     - '{5063e738-2101-0010-0000-7b7b9ab021a1}'
+#     - '{583895d0-2021-0410-0000-9241ad002da5}'
+#     - '{6865122a-3762-2021-a6c8-89011772ada2}'
+#     - '{7346b4a0-2100-0510-0000-705c0d862004}'
+#     - '{80b2aae7-4b04-4bde-b545-da0298c548fd}'
+#     - '{82af00e4-2101-0010-0000-fce0f87021a1}'
+#     - '{848bace1-2021-1028-a981-1a6f0898e5bc}'
+#     - '{848bace1-2021-1029-a981-1a6f0898e5bc}'
+#     - '{848bace1-2021-1031-a981-1a6f0898e5bc}'
+#     - '{848bace1-2021-1033-a981-1a6f0898e5bc}'
+#     - '{848bace1-2021-1034-a981-1a6f0898e5bc}'
+#     - '{848bace1-2021-1036-a981-1a6f0898e5bc}'
+#     - '{848bace1-2021-1040-a981-1a6f0898e5bc}'
+#     - '{848bace1-2021-1041-a981-1a6f0898e5bc}'
+#     - '{848bace1-2021-1042-a981-1a6f0898e5bc}'
+#     - '{848bace1-2021-1045-a981-1a6f0898e5bc}'
+#     - '{848bace1-2021-1046-a981-1a6f0898e5bc}'
+#     - '{848bace1-2021-1049-a981-1a6f0898e5bc}'
+#     - '{848bace1-2021-2052-a981-1a6f0898e5bc}'
+#     - '{848bace1-2021-2057-a981-1a6f0898e5bc}'
+#     - '{899c4161-2021-4b30-9a42-8b3ec62729c5}'
+#     - '{9001ebb9-b3fe-4a10-ba1c-dcbe352fcc57}'
+#     - '{aa384be4-2101-0030-0000-97e7d7d021a3}'
+#     - '{cc7d1ed0-2021-0410-0000-1cc925969102}'
+#     - '{cdcc6f31-2021-4912-8e9b-d562b70697b6}'
+#     - '{aa3c5f33-570b-3989-8542-d5dc0f759221}'
+#     - '{7357F4C2-BA44-4FD9-88E4-96A55D0BBA59}'
+#   loop_control:
+#     loop_var: productIDs
+#   when: ansible_os_family == 'Windows' and revit21_info.stat.exists
+- name: Cria pasta para instaladores
+  ansible.windows.win_file:
+    path: C:\instaladores
+    state: directory
+  when: ansible_os_family == 'Windows'
+
+- name: Baixar zip do AutoCAD 2024
+  ansible.windows.win_get_url:
+    url: http://ansiblefiles.sj.ifsc.edu.br/AutoCAD_2024.exe
+    dest: 'C:\instaladores\AutoCAD_2024.exe'
+    force: false
+    timeout: 300 # 5 minutos
+  when: ansible_os_family == 'Windows'
+  tags: copia
+
+- name: Instalar o AutoCAD 2024 - Windows
+  ansible.windows.win_package:
+    path: C:/instaladores/AutoCAD_2024.exe
+    arguments:
+      - -q
+    # product_id: '{2427809E-E557-47DF-813D-22A52BC0E646}'
+    state: present
+  when: ansible_os_family == 'Windows'
+  tags: autocad
+
+- name: Executar Collection.xml
+  ansible.windows.win_command: 'C:\Autodesk\{78B472F6-3A2B-4C77-AC8B-3ECE56221111}\image\installer.exe -i deploy --offline_mode --ui_mode basic -o C:/Autodesk\{78B472F6-3A2B-4C77-AC8B-3ECE56221111}\image\Collection.xml --installer_version 2.18.0.111'
+  args:
+    chdir: C:\Autodesk\{78B472F6-3A2B-4C77-AC8B-3ECE56221111}\image
+  when: ansible_os_family == 'Windows'
+  tags: instalar
+
+# - name: Remove arquivos antigos
+#   ansible.windows.win_file:
+#     path: "{{ revit_files }}"
+#     state: absent
+#   loop:
+#     - C:\instaladores\Revit_2024.zip
+#     - C:\Program Files\Autodesk\Revit 2021
+#     - C:\instaladores\Revit_2021.exe
+#     - C:\Autodesk\{7357F4C2-BA44-4FD9-88E4-96A55D0BBA59}
+#   loop_control:
+#     loop_var: revit_files
+#   when: ansible_os_family == 'Windows'
