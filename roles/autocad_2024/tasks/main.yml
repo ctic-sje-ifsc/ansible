@@ -80,7 +80,7 @@
     path: C:/instaladores/AutoCAD_2024.exe
     arguments:
       - -q
-    # product_id: '{2427809E-E557-47DF-813D-22A52BC0E646}'
+    # product_id: '{28B89EEF-7101-0409-2102-CF3F3A09B77D}'
     state: present
   when: ansible_os_family == 'Windows'
   tags: autocad
