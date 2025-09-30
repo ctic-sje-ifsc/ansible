@@ -317,6 +317,8 @@
           - rabbitmq-server
           - resolvconf
           - rfkill
+          - rpcbind
+          - rpcsvc-proto
           - snmp-mibs-downloader
           - sqlite3
           - sqlitebrowser
