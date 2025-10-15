@@ -1,5 +1,5 @@
 # https://safesign.gdamericadosul.com.br/download
-- name: Copia pacotes
+- name: Copia pacotes do SafeSign para o Debian 11 e 12
   ansible.builtin.copy:
     src: "{{ item }}"
     dest: /tmp/
@@ -12,10 +12,10 @@
     - libtiff5_4.3.0-6ubuntu0.9_amd64.deb
     - libwxbase3.0-0v5_3.0.5.1+dfsg-4_amd64.deb
     - libwxgtk3.0-gtk3-0v5_3.0.5.1+dfsg-4_amd64.deb
-    - safesign_ubuntu2204_3.8.0.deb
-  when: ansible_os_family == 'Debian'
+    - safesign_ubuntu2204_4.2.1.0.deb
+  when: ansible_os_family == 'Debian' and (ansible_distribution_release == 'bullseye' or ansible_distribution_release == 'bookworm')
 
-- name: Instala pacotes
+- name: Instala o SafeSign no Debian 11 e 12
   ansible.builtin.apt:
     deb: "{{ item }}"
   loop:
@@ -24,5 +24,10 @@
     - /tmp/libtiff5_4.3.0-6ubuntu0.9_amd64.deb
     - /tmp/libwxbase3.0-0v5_3.0.5.1+dfsg-4_amd64.deb
     - /tmp/libwxgtk3.0-gtk3-0v5_3.0.5.1+dfsg-4_amd64.deb
-    - /tmp/safesign_ubuntu2204_3.8.0.deb
-  when: ansible_os_family == 'Debian'
+    - /tmp/safesign_ubuntu2204_4.2.1.0.deb
+  when: ansible_os_family == 'Debian' and (ansible_distribution_release == 'bullseye' or ansible_distribution_release == 'bookworm')
+
+- name: Instala o SafeSign no Debian 13
+  ansible.builtin.apt:
+    deb: http://ansiblefiles.sj.ifsc.edu.br/safesign_ubuntu2404_4.2.1.0.deb
+  when: ansible_os_family == 'Debian' and ansible_distribution_release == 'trixie'
