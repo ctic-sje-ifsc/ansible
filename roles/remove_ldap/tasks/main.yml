@@ -45,6 +45,18 @@
     mode: '0644'
   when: ansible_os_family == 'Debian'
 
+- name: Copiando arquivo /etc/pam.d/common-account
+  ansible.builtin.copy:
+    content: |
+      account [success=1 new_authtok_reqd=done default=ignore] pam_unix.so
+      account requisite     pam_deny.so
+      account required      pam_permit.so
+    dest: /etc/pam.d/common-account
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+
 - name: Cria arquivo /etc/pam.d/common-auth
   ansible.builtin.copy:
     content: |
@@ -57,15 +69,43 @@
     mode: '0644'
   when: ansible_os_family == 'Debian'
 
+- name: Copiando arquivo /etc/pam.d/common-password
+  ansible.builtin.copy:
+    content: |
+      password [success=1 default=ignore] pam_unix.so obscure yescrypt
+      password requisite pam_deny.so
+      password required pam_permit.so
+      password optional pam_gnome_keyring.so
+    dest: /etc/pam.d/common-password
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+
 - name: Cria arquivo /etc/pam.d/common-session
   ansible.builtin.copy:
     content: |
-      session [default=1]     pam_permit.so
-      session requisite       pam_deny.so
-      session required        pam_permit.so
-      session required        pam_unix.so
-      session optional        pam_systemd.so
+      session [default=1]   pam_permit.so
+      session requisite     pam_deny.so
+      session required      pam_permit.so
+      session optional      pam_umask.so
+      session required      pam_unix.so
+      session optional      pam_systemd.so
     dest: /etc/pam.d/common-session
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+
+- name: Copiando arquivo /etc/pam.d/common-session-noninteractive
+  ansible.builtin.copy:
+    content: |
+      session [default=1]   pam_permit.so
+      session requisite     pam_deny.so
+      session required      pam_permit.so
+      session optional      pam_umask.so
+      session required      pam_unix.so
+    dest: /etc/pam.d/common-session-noninteractive
     owner: root
     group: root
     mode: '0644'
