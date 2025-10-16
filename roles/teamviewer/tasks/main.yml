@@ -1,16 +1,25 @@
 - name: Adicionar a chave do repositório do TeamViewer
-  apt_key:
-    url: https://download.teamviewer.com/download/linux/signature/TeamViewer2017.asc
-    state: present
+  ansible.builtin.get_url:
+    url: https://linux.teamviewer.com/pubkey/TeamViewer2023.asc
+    dest: /etc/apt/trusted.gpg.d/teamviewer.asc
+    owner: root
+    group: root
+    mode: '0644'
   when: ansible_os_family == 'Debian'
 
 - name: Adicionar repositório TeamViewer
-  apt_repository:
-    repo: deb https://linux.teamviewer.com/deb stable main
+  ansible.builtin.copy:
+    content: |
+      deb [signed-by=/etc/apt/trusted.gpg.d/teamviewer.asc] https://linux.teamviewer.com/deb stable main
+    dest: /etc/apt/sources.list.d/teamviewer.list
+    owner: root
+    group: root
+    mode: '0644'
   when: ansible_os_family == 'Debian'
 
 - name: Instala TeamViewer
-  apt:
+  ansible.builtin.apt:
     pkg:
-    - teamviewer
+      - teamviewer
+    update_cache: true
   when: ansible_os_family == 'Debian'
