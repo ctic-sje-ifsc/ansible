@@ -3,6 +3,25 @@
     name: libuser
   when: ansible_os_family == 'Debian'
 
+- name: Adiciona aluno ao grupo vboxusers
+  ansible.builtin.user:
+    name: aluno
+    groups: [vboxusers]
+    append: true
+  when: ansible_os_family == 'Debian'
+
+- name: Cria diretórios para o VirtualBox
+  ansible.builtin.file:
+    path: '{{ item }}'
+    state: directory
+    owner: root
+    group: root
+    mode: '0777'
+  loop:
+    - /opt/vms/VirtualBox VMs
+    - /opt/vms/.config/VirtualBox
+  when: ansible_os_family == 'Debian'
+
 - name: Create a directory if it does not exist
   ansible.builtin.file:
     path: /opt/backup/
