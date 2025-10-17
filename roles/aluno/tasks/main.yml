@@ -66,7 +66,6 @@
     group: '1001'
   loop:
     - /opt/aluno/Android
-    - /opt/aluno/.gradle
   when: ansible_os_family == 'Debian'
 
 - name: Cria links
