@@ -173,6 +173,13 @@
       apps:
         - sophiaslade
 
+- name: Computadores da secretaria
+  hosts: secret
+  roles:
+    - role: softwares_remotos
+      apps:
+        - isaacdesktop
+
 - name: Adiciona software scanner Epson Almoxarifado - Everson
   hosts: sje-lin-almox-756044.maquinas.sj.ifsc.edu.br
   roles:
