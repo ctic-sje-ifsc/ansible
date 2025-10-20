@@ -91,8 +91,11 @@
       pagesize 500
       validnames /^.*$/
       referrals no
-      filter passwd (objectClass=*)
-      nss_initgroups_ignoreusers root, daemon, bin, sys, sync, games, man, lp, mail, news, uucp, proxy, www-data, backup, list, irc, gnats, nobody, _apt, systemd-timesync, systemd-network, systemd-resolve, tss, messagebus, usbmux, rtkit, sshd, avahi, pulse, saned, ifsc, systemd-coredump, uuidd, aluno, nslcd, colord
+      nss_initgroups_ignoreusers root, daemon, bin, sys, sync, games, man, lp, mail, news, uucp, proxy, www-data, backup, list, irc, gnats, nobody, _apt, systemd-timesync, systemd-network, systemd-resolve, tss, messagebus, usbmux, rtkit, sshd, avahi, pulse, saned, systemd-coredump, aluno, nslcd, colord
+      # Faz o mapeamento do shell para usuários LDAP
+      map passwd loginShell  uidNumber >= 1000 /bin/bash
+      # Permite login do usuário aluno depois de criado localmente
+      # filter passwd (objectClass=*)
     dest: /etc/nslcd.conf
     owner: root
     group: root
