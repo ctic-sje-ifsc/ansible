@@ -187,24 +187,3 @@
     version: master
   when: ansible_os_family == 'Debian'
   tags: imunes-security
-
-- name: Instala o Wireshark
-  ansible.builtin.apt:
-    pkg:
-      - wireshark
-      - wireshark-doc
-  when: ansible_os_family == 'Debian'
-
-- name: Set CAP_NET_RAW+eip on /usr/bin/dumpcap for Wireshark
-  ansible.builtin.capabilities:
-    path: /usr/bin/dumpcap
-    capability: CAP_NET_RAW+eip
-    state: present
-  when: ansible_os_family == 'Debian'
-
-- name: Set CAP_NET_ADMIN+eip on /usr/bin/dumpcap for Wireshark
-  ansible.builtin.capabilities:
-    path: /usr/bin/dumpcap
-    capability: CAP_NET_ADMIN+eip
-    state: present
-  when: ansible_os_family == 'Debian'
