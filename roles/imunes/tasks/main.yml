@@ -9,9 +9,10 @@
       - make
       - openvswitch-switch
       - socat
-      - software-properties-common
       - tcllib
       - tk
+      - python3-tk
+      - xauth
       - util-linux
       - xterm
   when: ansible_os_family == 'Debian'
@@ -49,7 +50,7 @@
         Encoding=UTF-8
         Name=IMUNES
         Comment=Integrated Multiprotocol Network Emulator/Simulator
-        Exec=sudo /usr/local/bin/imunes
+        Exec=sudo -E /usr/local/bin/imunes
         Icon=/opt/imunes/icons/imunes_logo128.png
         Terminal=false
         Type=Application
