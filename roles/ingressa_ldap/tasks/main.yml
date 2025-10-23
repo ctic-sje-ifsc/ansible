@@ -95,7 +95,7 @@
       # Faz o mapeamento do shell para usuários LDAP
       map passwd loginShell  uidNumber >= 1000 /bin/bash
       # Permite login do usuário aluno depois de criado localmente
-      # filter passwd (objectClass=*)
+      # filter passwd (objectClass=inetOrgPerson)
     dest: /etc/nslcd.conf
     owner: root
     group: root
