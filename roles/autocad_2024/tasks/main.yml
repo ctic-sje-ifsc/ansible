@@ -34,7 +34,16 @@
 
 ##### LOCALMENTE O COMANDO FUNCIONA, MAS NÃO FUNCIONA VIA ANSIBLE E NEM VIA SCRIPT LOCAL #####
 # - name: Comando para corrigir problema com a licença do AutoCAD 2024
-#   ansible.windows.win_command: "C:\Program Files (x86)\Common Files\Autodesk Shared\AdskLicensing\Current\helper\AdskLicensingInstHelper.exe" register --pk 001P1 --pv 2024.0.0.F --cf "C:\Autodesk\AutoCAD_2024_English_Win_64bit_dlm\x64\acadprivate\AutoCADConfig.pit" -el US --lic_server_type SINGLE --lic_servers license-server.sj.ifsc.edu.br
+#   ansible.windows.win_command:
+#   args:
+#     - "C:\Program Files (x86)\Common Files\Autodesk Shared\AdskLicensing\Current\helper\AdskLicensingInstHelper.exe"
+#     - register
+#     - --pk 001P1
+#     - --pv 2024.0.0.F
+#     - --cf "C:\Autodesk\AutoCAD_2024_English_Win_64bit_dlm\x64\acadprivate\AutoCADConfig.pit"
+#     - -el US
+#     - --lic_server_type SINGLE
+#     - --lic_servers license-server.sj.ifsc.edu.br
 #   when: ansible_os_family == 'Windows'
 
 - name: Reinicia o computador
