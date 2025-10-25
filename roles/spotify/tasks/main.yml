@@ -1,14 +1,16 @@
 - name: Adiciona chave para o 'Debian'
-  ansible.builtin.apt_key:
-    url: https://dl.google.com/linux/linux_signing_key.pub
-    state: present
-    dest: /etc/apt/trusted.gpg.d/spotify.gpg
+  ansible.builtin.get_url:
+    url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xC85668DF69375001
+    dest: /etc/apt/trusted.gpg.d/spotify.asc
+    owner: root
+    group: root
+    mode: '0644'
   when: ansible_os_family == 'Debian'
 
 - name: Adiciona repositório para o spotify
   ansible.builtin.copy:
     content: |
-      deb https://repository.spotify.com stable non-free
+      deb  https://repository.spotify.com stable non-free
     dest: /etc/apt/sources.list.d/spotify.list
     owner: root
     group: root
@@ -18,6 +20,5 @@
 - name: Instala spotify client
   ansible.builtin.apt:
     name: spotify-client
-    state: present
     update_cache: true
   when: ansible_os_family == 'Debian'
