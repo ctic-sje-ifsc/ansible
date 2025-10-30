@@ -5,7 +5,7 @@
     - acesso_remoto
     - cadeia_certificados
     - token_gd_starsign
-    - token_safenet   #necessario coreção para debian 13
+    - token_safenet
     - hodprint
 
 - name: Administrativo Linux
@@ -14,7 +14,6 @@
 #############################################################
 ##################### INCLUSÃO DE ROLES #####################
   roles:
-    - upgrade_11to12
     - sources_list
     - fonte_garamound
     - unattendedUpgrades_adm
@@ -40,7 +39,7 @@
         clean: true
       when: ansible_os_family == 'Debian'
 
-    - name: Instala utilitários para o bash
+    - name: Instala pacotes básicos - Linux
       ansible.builtin.apt:
         update_cache: true
         pkg:
@@ -56,7 +55,6 @@
           - gnome-terminal
           - gscan2pdf
           - gtklp
-          - icedtea-netx
           - kdenlive
           - kolourpaint
           - libcurl4
