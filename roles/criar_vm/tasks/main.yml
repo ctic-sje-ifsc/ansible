@@ -28,6 +28,9 @@
     path: "{{ item }}"
     state: directory
     recurse: true
+    owner: root
+    group: root
+    mode: '0777'
   loop:
     - /opt/vms/VirtualBox VMs/
     - /opt/vms/.config/VirtualBox/
