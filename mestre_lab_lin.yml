@@ -446,6 +446,17 @@
     - android-studio
     - code
     - scidavis
+  tasks:
+    - name: Adiciona linha solicitada no chamado GLPI#24493
+      ansible.builtin.blockinfile:
+        path: /etc/bash.bashrc
+        block: |
+          export ANDROID_HOME=$HOME/Android/Sdk
+          export PATH=$PATH:$ANDROID_HOME/emulator
+          export PATH=$PATH:$ANDROID_HOME/platform-tools
+        marker: "# {mark} ANSIBLE MANAGED BLOCK GLPI#24493"
+      tags: instala
+      when: ansible_os_family == 'Debian'
 
 - name: Configurações computadores SiDi
   hosts: sidi_lin
