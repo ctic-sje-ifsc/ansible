@@ -1,7 +1,7 @@
 - name: Laboratórios Windows
   hosts: laboratorios_win
   roles:
-    - coolselector2
+    # - coolselector2 ## Não aceita instalação silenciosa, apesar de constar na documentação
     - energyplus
     - geogebra
     - glpi_agent
@@ -54,6 +54,7 @@
       chocolatey.chocolatey.win_chocolatey:
         name:
           - chocolatey
+          - dotnet
           - googlechrome
           - firefox
           - libreoffice
