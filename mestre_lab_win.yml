@@ -5,6 +5,7 @@
     - zoiper
     - papel_de_parede_e_icones
     - microsip
+    - geogebra
   tasks:
     - name: Ativa servidor NTP para o Windows
       ansible.windows.win_regedit:
@@ -55,6 +56,7 @@
           - libreoffice
           - vlc
           - 7zip
+          - glpi-agent
       when: ansible_os_family == 'Windows'
 
 - name: Configurações aplicadas somente para as maquinas dos professores
