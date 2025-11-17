@@ -46,6 +46,17 @@
       when: ansible_os_family == 'Windows'
       tags: config_hora
 
+    - name: Install multiple packages sequentially
+      chocolatey.chocolatey.win_chocolatey:
+        name:
+          - chocolatey
+          - googlechrome
+          - firefox
+          - libreoffice
+          - vlc
+          - 7zip
+      when: ansible_os_family == 'Windows'
+
 - name: Configurações aplicadas somente para as maquinas dos professores
   hosts: lab_profs_win,meios_cult_win
   roles:
