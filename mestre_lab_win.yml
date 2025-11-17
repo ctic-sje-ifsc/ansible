@@ -1,11 +1,14 @@
 - name: Laboratórios Windows
   hosts: laboratorios_win
   roles:
+    - coolselector2
+    - energyplus
+    - geogebra
+    - glpi_agent
+    - microsip
+    - papel_de_parede_e_icones
     - revit
     - zoiper
-    - papel_de_parede_e_icones
-    - microsip
-    - geogebra
   tasks:
     - name: Ativa servidor NTP para o Windows
       ansible.windows.win_regedit:
