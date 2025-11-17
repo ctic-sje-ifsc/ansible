@@ -10,14 +10,14 @@
     path: C:\Program Files\Autodesk\Revit 2021
   register: revit21_info
   changed_when: false
-  when: ansible_os_family == 'Windows'
+  when: ansible_os_name == 'Microsoft Windows 10 Pro'
 
 - name: Verifica se o Revit 24 está instalado
   ansible.windows.win_stat:
     path: C:\Program Files\Autodesk\Revit 2024
   register: revit24_info
   changed_when: false
-  when: ansible_os_family == 'Windows'
+  when: ansible_os_name == 'Microsoft Windows 10 Pro'
 
 - name: Remove o Revit 2021 - Windows
   ansible.windows.win_package:
@@ -59,7 +59,7 @@
     - '{7357F4C2-BA44-4FD9-88E4-96A55D0BBA59}'
   loop_control:
     loop_var: productIDs
-  when: ansible_os_family == 'Windows' and revit21_info.stat.exists
+  when: ansible_os_name == 'Microsoft Windows 10 Pro' and revit21_info.stat.exists
 
 - name: Baixar zip do revit 24
   ansible.windows.win_get_url:
@@ -67,13 +67,13 @@
     dest: 'C:\instaladores\Revit_2024.zip'
     force: false
     timeout: 300 # 5 minutos
-  when: ansible_os_family == 'Windows' and not revit24_info.stat.exists
+  when: ansible_os_name == 'Microsoft Windows 10 Pro' and not revit24_info.stat.exists
 
 - name: Extrai o Revit 24
   community.windows.win_unzip:
     src: C:\instaladores\Revit_2024.zip
     dest: C:\instaladores
-  when: ansible_os_family == 'Windows' and not revit24_info.stat.exists
+  when: ansible_os_name == 'Microsoft Windows 10 Pro' and not revit24_info.stat.exists
 
 - name: Instalar o Revit 2024 - Windows
   ansible.windows.win_package:
@@ -85,7 +85,7 @@
       - basic
     product_id: '{2427809E-E557-47DF-813D-22A52BC0E646}'
     state: present
-  when: ansible_os_family == 'Windows' and not revit24_info.stat.exists
+  when: ansible_os_name == 'Microsoft Windows 10 Pro' and not revit24_info.stat.exists
 
 - name: Remove arquivos antigos
   ansible.windows.win_file:
