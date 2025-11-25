@@ -1,0 +1,222 @@
+---
+# ============================================================
+# 1. Validar existência do usuário modelo
+# ============================================================
+- name: Validar existência do usuário modelo
+  ansible.windows.win_shell: |
+    if (-not (Get-LocalUser -Name "{{ template_user }}" -ErrorAction SilentlyContinue)) { exit 1 }
+  register: modelo_validacao
+  failed_when: modelo_validacao.rc != 0
+  changed_when: false
+
+
+# ============================================================
+# 2. Validar existência do usuário alvo
+# ============================================================
+- name: Validar existência do usuário alvo
+  ansible.windows.win_shell: |
+    if (-not (Get-LocalUser -Name "{{ target_user }}" -ErrorAction SilentlyContinue)) { exit 1 }
+  register: alvo_validacao
+  failed_when: alvo_validacao.rc != 0
+  changed_when: false
+
+
+# ============================================================
+# 3. Obter caminho do perfil do usuário modelo
+# ============================================================
+- name: Obter caminho do perfil do usuário modelo
+  ansible.windows.win_shell: |
+    $sid = (Get-LocalUser -Name "{{ template_user }}").SID
+    if (-not $sid) { exit 2 }
+
+    $path = (Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList\$sid").ProfileImagePath
+    if (-not $path) { exit 3 }
+
+    Write-Output $path
+  register: template_profile_path_raw
+  failed_when: template_profile_path_raw.rc != 0
+  changed_when: false
+
+- name: Limpar caminho retornado
+  set_fact:
+    template_profile_path: "{{ template_profile_path_raw.stdout | trim }}"
+
+
+# ============================================================
+# 4. Validar existência do perfil modelo no disco
+# ============================================================
+- name: Validar se o perfil modelo existe no disco
+  ansible.windows.win_stat:
+    path: "{{ template_profile_path }}"
+  register: modelo_perfil_stat
+
+- name: Falhar se o diretório do perfil modelo não existir
+  ansible.builtin.fail:
+    msg: "O diretório do perfil modelo '{{ template_profile_path }}' não existe!"
+  when: not modelo_perfil_stat.stat.exists
+
+
+# ============================================================
+# 5. Verificar se o NTUSER.DAT está desbloqueado (fundamental)
+# ============================================================
+- name: Validar se NTUSER.DAT está desbloqueado
+  ansible.windows.win_shell: |
+    $file = "{{ template_profile_path }}\\NTUSER.DAT"
+    try {
+      $stream = [System.IO.File]::Open($file,'Open','Read','None')
+      $stream.Close()
+      exit 0
+    } catch {
+      exit 4
+    }
+  register: ntuser_lock
+  failed_when: ntuser_lock.rc != 0
+  changed_when: false
+
+
+# ============================================================
+# 6. Criar diretório do perfil mandatório
+# ============================================================
+- name: Criar pasta do perfil mandatório
+  ansible.windows.win_file:
+    path: "{{ mandatory_profile_path }}"
+    state: directory
+
+- name: Validar criação do diretório mandatório
+  ansible.windows.win_stat:
+    path: "{{ mandatory_profile_path }}"
+  register: mandatory_stat
+
+- name: Falhar se diretório obrigatório não existir após criação
+  ansible.builtin.fail:
+    msg: "O diretório '{{ mandatory_profile_path }}' não pôde ser criado!"
+  when: not mandatory_stat.stat.exists
+
+
+# ============================================================
+# 7. COPIAR PERFIL MODELO (ROBOCOPY COM FILTROS SEGUROS)
+# ============================================================
+- name: Forçar download do perfil (unload) do usuário modelo
+  ansible.windows.win_shell: |
+    $sid = (Get-LocalUser -Name "{{ template_user }}").SID
+    $profileKey = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList\$sid"
+    Stop-Process -Name explorer -ErrorAction SilentlyContinue
+    reg unload "HKU\$sid" 2>$null
+  ignore_errors: true
+
+- name: Verificar se o NTUSER.DAT está desbloqueado
+  ansible.windows.win_shell: |
+    $file = "C:\\Users\\{{ template_user }}\\NTUSER.DAT"
+    try {
+        $stream = [System.IO.File]::Open($file,'Open','Read','None')
+        $stream.Close()
+        exit 0
+    } catch {
+        exit 1
+    }
+  register: ntuser_check
+  failed_when: ntuser_check.rc != 0
+  changed_when: false
+
+- name: Copiar perfil modelo para MandatoryProfile
+  ansible.windows.win_command: >
+    robocopy "{{ template_profile_path }}" "{{ mandatory_profile_path }}"
+    /E /COPYALL /R:1 /W:1 /NFL /NDL /XJ
+    /XD
+    "{{ template_profile_path }}\AppData\Local\Microsoft\WindowsApps"
+    "{{ template_profile_path }}\AppData\Local\Microsoft\Windows\SFAP"
+    "{{ template_profile_path }}\AppData\Local\Packages"
+    "{{ template_profile_path }}\AppData\Local\Temp"
+    "{{ template_profile_path }}\OneDrive"
+    "{{ template_profile_path }}\AppData\Local\Microsoft\Edge"
+  register: rc_result
+  failed_when: rc_result.rc >= 8
+
+# ============================================================
+# 8. Remover pastas proibidas do perfil obrigatório
+# ============================================================
+- name: Remover pastas proibidas do perfil obrigatório
+  ansible.windows.win_file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - "{{ mandatory_profile_path }}\\AppData\\Local\\Microsoft\\WindowsApps"
+    - "{{ mandatory_profile_path }}\\AppData\\Local\\Packages"
+    - "{{ mandatory_profile_path }}\\AppData\\Local\\Microsoft\\Windows\\SFAP"
+    - "{{ mandatory_profile_path }}\\AppData\\Local\\Temp"
+    - "{{ mandatory_profile_path }}\\OneDrive"
+
+
+# ============================================================
+# 9. Validar NTUSER.DAT após cópia
+# ============================================================
+- name: Validar se NTUSER.DAT existe após cópia
+  ansible.windows.win_stat:
+    path: "{{ mandatory_profile_path }}\\NTUSER.DAT"
+  register: ntuser_stat
+
+- name: Falhar se NTUSER.DAT não estiver presente
+  ansible.builtin.fail:
+    msg: "Erro: NTUSER.DAT não foi copiado corretamente para {{ mandatory_profile_path }}!"
+  when: not ntuser_stat.stat.exists
+
+
+# ============================================================
+# 10. Criar NTUSER.MAN (perfil mandatório)
+# ============================================================
+- name: Criar arquivo NTUSER.MAN
+  ansible.windows.win_shell: |
+    Copy-Item "{{ mandatory_profile_path }}\\NTUSER.DAT" "{{ mandatory_profile_path }}\\NTUSER.MAN" -Force
+  register: man_copy
+
+- name: Validar criação de NTUSER.MAN
+  ansible.windows.win_stat:
+    path: "{{ mandatory_profile_path }}\\NTUSER.MAN"
+  register: ntuserman_stat
+
+- name: Falhar caso NTUSER.MAN não exista
+  ansible.builtin.fail:
+    msg: "Falha ao criar NTUSER.MAN!"
+  when: not ntuserman_stat.stat.exists
+
+
+# ============================================================
+# 11. Configurar o perfil obrigatório no registro
+# ============================================================
+# 1. Obter o SID do usuário alvo (ex.: "aluno")
+- name: Obter SID do usuário alvo
+  ansible.windows.win_shell: |
+    $user = Get-LocalUser -Name "{{ target_user }}" -ErrorAction Stop
+    $user.SID.Value
+  register: target_sid_raw
+  failed_when: target_sid_raw.rc != 0 or target_sid_raw.stdout | trim == ""
+  changed_when: false
+
+# 2. Limpar SID removendo quebras de linha e espaços
+- name: Limpar SID do usuário alvo
+  set_fact:
+    target_sid: "{{ target_sid_raw.stdout | trim }}"
+
+# 3. Garantir que o SID tem formato correto (proteção extra)
+- name: Validar formato do SID
+  assert:
+    that:
+      - target_sid is match("S-1-.*")
+    fail_msg: "SID inválido detectado: {{ target_sid }}"
+    success_msg: "SID válido: {{ target_sid }}"
+
+# 4. Configurar o caminho do Mandatory Profile
+- name: Configurar caminho do Mandatory Profile
+  ansible.windows.win_regedit:
+    path: "HKLM:\\Software\\Microsoft\\Windows NT\\CurrentVersion\\ProfileList\\{{ target_sid }}"
+    name: ProfileImagePath
+    type: string
+    data: "{{ mandatory_profile_path }}"
+
+# 5. Definir RefCount = 0 para ativar o Mandatory Profile
+- name: Ativar Mandatory Profile (RefCount = 0)
+  ansible.windows.win_regedit:
+    path: "HKLM:\\Software\\Microsoft\\Windows NT\\CurrentVersion\\ProfileList\\{{ target_sid }}"
+    name: RefCount
+    type: dword
+    data: 0
