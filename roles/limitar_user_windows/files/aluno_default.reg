@@ -1,0 +1,54 @@
+Windows Registry Editor Version 5.00
+
+; ============================
+; Impedir alterações visuais e Explorer
+; ============================
+
+; Impedir alteração do papel de parede
+[HKEY_USERS\AlunoTmp\Software\Microsoft\Windows\CurrentVersion\Policies\ActiveDesktop]
+"NoChangingWallPaper"=dword:00000001
+
+; Impedir alteração de temas e opções do painel
+[HKEY_USERS\AlunoTmp\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer]
+"NoThemesTab"=dword:00000001
+"NoDispBackgroundPage"=dword:00000001
+"NoDispCPL"=dword:00000001
+"NoDispSettingsPage"=dword:00000001
+"NoSetTaskbar"=dword:00000001
+"NoTrayContextMenu"=dword:00000001
+
+; ============================
+; Bloquear acesso a Painel de Controle e Configurações
+; ============================
+
+[HKEY_USERS\AlunoTmp\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer]
+"NoControlPanel"=dword:00000001
+"NoSettingsPage"=dword:00000001
+
+; ============================
+; Bloquear acesso a ferramentas administrativas
+; ============================
+
+[HKEY_USERS\AlunoTmp\Software\Microsoft\Windows\CurrentVersion\Policies\System]
+"DisableRegistryTools"=dword:00000001
+"NoGpedit"=dword:00000001
+
+; ============================
+; Restrições de aplicativos e sistema
+; ============================
+
+; Bloquear acesso à Microsoft Store
+[HKEY_USERS\AlunoTmp\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer]
+"NoStoreOpenWith"=dword:00000001
+
+; Bloquear jogos
+[HKEY_USERS\AlunoTmp\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer]
+"NoGames"=dword:00000001
+
+; Impedir instalação de programas (antigo HKLM)
+[HKEY_USERS\AlunoTmp\Software\Microsoft\Windows\CurrentVersion\Policies\Uninstall]
+"NoAddRemovePrograms"=dword:00000001
+
+; Impedir instalação via Windows Installer (somente aluno)
+[HKEY_USERS\AlunoTmp\Software\Policies\Microsoft\Windows\Installer]
+"DisableMSI"=dword:00000002

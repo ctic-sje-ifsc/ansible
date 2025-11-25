@@ -1,0 +1,49 @@
+- name: Garantir pasta temporária de trabalho
+  ansible.windows.win_file:
+    path: "{{ temp_path }}"
+    state: directory
+
+- name: Copiar arquivo .reg com configurações padrão
+  ansible.windows.win_copy:
+    src: "aluno_default.reg"
+    dest: "{{ temp_path }}\\aluno_default.reg"
+
+- name: Aplicar configurações padrão via reg import
+  ansible.windows.win_shell: |
+    $userHive = "C:\Users\{{ aluno_user }}\NTUSER.DAT"
+    reg load HKU\AlunoTmp $userHive
+    reg import "{{ temp_path }}\\aluno_default.reg"
+    reg unload HKU\AlunoTmp
+  args:
+    executable: powershell
+
+- name: Criar tarefa agendada para resetar configurações no logon
+  community.windows.win_scheduled_task:
+    name: "ResetAlunoConfig"
+    description: "Restaura configurações padrão da conta aluno no logon"
+    actions:
+      - path: "reg.exe"
+        arguments: "import {{ temp_path }}\\aluno_default.reg"
+    triggers:
+      - type: logon
+        user: "{{ aluno_user }}"
+    username: SYSTEM
+    state: present
+
+# - name: Copiar LGPO.exe para o destino
+#   ansible.windows.win_copy:
+#     src: lgpo.exe
+#     dest: C:\Windows\System32\lgpo.exe
+
+- name: Copiar Script
+  ansible.windows.win_copy:
+    src: ZerarPastaWin.ps1
+    dest: "{{ temp_path }}"
+
+- name: Copiar Script para inicialização e desligamento
+  ansible.windows.win_copy:
+    src: ZerarPastaWin.ps1
+    dest: "{{ item }}"
+  loop:
+    - C:\Windows\System32\GroupPolicy\Machine\Scripts\Shutdown
+    - C:\Windows\System32\GroupPolicy\Machine\Scripts\Startup
