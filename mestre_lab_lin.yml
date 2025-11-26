@@ -10,18 +10,13 @@
     - docker
     - flatpak
     - gnome-calculator
-    - gradle_8.14.3
     - google_chrome
-    - imunes
     - insomnia
     - java21-oracle
-    - jetbrains
-    - matlab
     - mysql_workbench
     - npm
     - papel_de_parede_e_icones
     - postman
-    - quartus20
     - sources_list
     - unattendedUpgrades_labs
     - virtualbox
@@ -418,6 +413,35 @@
     - sqlitestudio
     - tiled
     - qucsstudio
+    - jetbrains
+    - matlab
+    - imunes
+    - gradle_8.14.3
+    - quartus20
+
+- name: Laboratório de SiDi
+  hosts: sidi_lin
+  roles:
+    - role: grub
+      tipo: grub_lin
+    - android-studio
+    - jetbrains
+    - matlab
+    - imunes
+    - gradle_8.14.3
+    - quartus20
+
+- name: Laboratório de Redes
+  hosts: sidi_lin
+  roles:
+    - role: grub
+      tipo: grub_soh_lin
+    - android-studio
+    - jetbrains
+    - matlab
+    - imunes
+    - gradle_8.14.3
+    - quartus20
 
 - name: Laboratório de comunicação sem fio
   hosts: csfio_lin
@@ -457,10 +481,3 @@
         marker: "# {mark} ANSIBLE MANAGED BLOCK GLPI#24493"
       tags: instala
       when: ansible_os_family == 'Debian'
-
-- name: Configurações computadores SiDi
-  hosts: sidi_lin
-  roles:
-    - role: grub
-      tipo: grub_lin
-    - android-studio
