@@ -1,7 +1,16 @@
-- name: Garantir pasta temporária de trabalho
+# - name: Garantir pasta temporária de trabalho
+#   ansible.windows.win_file:
+#     path: "{{ temp_path }}"
+#     state: directory
+
+- name: Garantir pastas
   ansible.windows.win_file:
-    path: "{{ temp_path }}"
+    path: "{{ item }}"
     state: directory
+  loop:
+    - "{{ temp_path }}"
+    - C:\Windows\System32\GroupPolicy\Machine\Scripts\Shutdown
+    - C:\Windows\System32\GroupPolicy\Machine\Scripts\Startup
 
 - name: Copiar arquivo .reg com configurações padrão
   ansible.windows.win_copy:
@@ -17,33 +26,34 @@
   args:
     executable: powershell
 
-- name: Criar tarefa agendada para resetar configurações no logon
-  community.windows.win_scheduled_task:
-    name: "ResetAlunoConfig"
-    description: "Restaura configurações padrão da conta aluno no logon"
-    actions:
-      - path: "reg.exe"
-        arguments: "import {{ temp_path }}\\aluno_default.reg"
-    triggers:
-      - type: logon
-        user: "{{ aluno_user }}"
-    username: SYSTEM
-    state: present
+# - name: Criar tarefa agendada para resetar configurações no logon
+#   community.windows.win_scheduled_task:
+#     name: "ResetAlunoConfig"
+#     description: "Restaura configurações padrão da conta aluno no logon"
+#     actions:
+#       - path: "reg.exe"
+#         arguments: "import {{ temp_path }}\\aluno_default.reg"
+#     triggers:
+#       - type: logon
+#         user: "{{ aluno_user }}"
+#     username: SYSTEM
+#     state: present
 
 # - name: Copiar LGPO.exe para o destino
 #   ansible.windows.win_copy:
 #     src: lgpo.exe
 #     dest: C:\Windows\System32\lgpo.exe
 
-- name: Copiar Script
-  ansible.windows.win_copy:
-    src: ZerarPastaWin.ps1
-    dest: "{{ temp_path }}"
+# - name: Copiar Script
+#   ansible.windows.win_copy:
+#     src: ZerarPastaWin.ps1
+#     dest: "{{ temp_path }}"
 
-- name: Copiar Script para inicialização e desligamento
+- name: Copiar Script
   ansible.windows.win_copy:
     src: ZerarPastaWin.ps1
     dest: "{{ item }}"
   loop:
+    - "{{ temp_path }}"
     - C:\Windows\System32\GroupPolicy\Machine\Scripts\Shutdown
     - C:\Windows\System32\GroupPolicy\Machine\Scripts\Startup

@@ -52,3 +52,17 @@ Windows Registry Editor Version 5.00
 ; Impedir instalação via Windows Installer (somente aluno)
 [HKEY_USERS\AlunoTmp\Software\Policies\Microsoft\Windows\Installer]
 "DisableMSI"=dword:00000002
+
+; ============================
+; Execução de Script
+; ============================
+
+; Executar script na inicialização
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Startup\0]
+"Script"="ZerarPastaWin.ps1"
+"Parameters"=""
+
+; Executar script no desligamento
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Shutdown\0]
+"Script"="ZerarPastaWin.ps1"
+"Parameters"=""
