@@ -1,12 +1,16 @@
-# - name: Garantir pasta temporária de trabalho
-#   ansible.windows.win_file:
-#     path: "{{ temp_path }}"
-#     state: directory
-
 - name: Garantir pastas
   ansible.windows.win_file:
     path: "{{ item }}"
     state: directory
+  loop:
+    - "{{ temp_path }}"
+    - C:\Windows\System32\GroupPolicy\Machine\Scripts\Shutdown
+    - C:\Windows\System32\GroupPolicy\Machine\Scripts\Startup
+
+- name: Copiar Script
+  ansible.windows.win_copy:
+    src: ZerarPastaWin.ps1
+    dest: "{{ item }}"
   loop:
     - "{{ temp_path }}"
     - C:\Windows\System32\GroupPolicy\Machine\Scripts\Shutdown
@@ -38,22 +42,3 @@
 #         user: "{{ aluno_user }}"
 #     username: SYSTEM
 #     state: present
-
-# - name: Copiar LGPO.exe para o destino
-#   ansible.windows.win_copy:
-#     src: lgpo.exe
-#     dest: C:\Windows\System32\lgpo.exe
-
-# - name: Copiar Script
-#   ansible.windows.win_copy:
-#     src: ZerarPastaWin.ps1
-#     dest: "{{ temp_path }}"
-
-- name: Copiar Script
-  ansible.windows.win_copy:
-    src: ZerarPastaWin.ps1
-    dest: "{{ item }}"
-  loop:
-    - "{{ temp_path }}"
-    - C:\Windows\System32\GroupPolicy\Machine\Scripts\Shutdown
-    - C:\Windows\System32\GroupPolicy\Machine\Scripts\Startup
