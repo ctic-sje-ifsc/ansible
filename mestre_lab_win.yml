@@ -6,17 +6,190 @@
     - geogebra
     - glpi_agent
     - microsip
-    - papel_de_parede_e_icones
     - revit
     - zoiper
   tasks:
+    - name: Garantir pastas necessarias para scripts
+      ansible.windows.win_file:
+        path: "{{ item }}"
+        state: directory
+      loop:
+        - C:\\ModeloGPO
+        - C:\Windows\System32\GroupPolicy\Machine\Scripts\Shutdown
+        - C:\Windows\System32\GroupPolicy\Machine\Scripts\Startup
+
+    - name: Copiar Script
+      ansible.windows.win_copy:
+        content: |
+          ########### LIMPEZA DA PASTA ALUNO
+          $basePath = "C:\Users"
+
+          # Localiza a pasta do usuário que é exatamente "aluno"
+          $userFolder = Get-ChildItem -Path $basePath -Directory |
+              Where-Object { $_.Name -eq "aluno" } |
+              Select-Object -First 1
+
+          if ($userFolder) {
+              $userProfile = $userFolder.FullName
+
+              # Lista de caminhos a serem limpos
+              $pathsToDelete = @(
+                  # Pastas de navegadores
+                  Join-Path $userProfile "AppData\Local\Google\Chrome"
+                  Join-Path $userProfile "AppData\Roaming\Mozilla"
+                  Join-Path $userProfile "AppData\Local\Microsoft\Edge\"
+
+                  # Nuvens (Drive / OneDrive)
+                  Join-Path $userProfile "AppData\Local\Google\DriveFS\"
+                  Join-Path $userProfile "AppData\Local\Microsoft\OneDrive\"
+
+                  # Temp do usuário
+                  Join-Path $userProfile "AppData\Local\Temp"
+                  Join-Path $userProfile "AppData\Roaming\Microsoft\Windows\Recent"
+
+                  # Pastas do usuário
+                  Join-Path $userProfile "Desktop"
+                  Join-Path $userProfile "Music"
+                  Join-Path $userProfile "Downloads"
+                  Join-Path $userProfile "OneDrive"
+                  Join-Path $userProfile "Pictures"
+                  Join-Path $userProfile "Videos"
+                  Join-Path $userProfile "AppData\Local\Programs"
+              )
+
+              # Remove o conteúdo de todas as pastas sem verificar
+              foreach ($path in $pathsToDelete) {
+                  try {
+                      Remove-Item -Path "$path\*" -Recurse -Force -ErrorAction SilentlyContinue
+                  } catch {
+                      # Se necessário, pode logar os erros aqui
+                  }
+              }
+
+          } else {
+              Write-Warning "Usuário 'aluno' não encontrado em C:\Users"
+          }
+
+          Clear-RecycleBin -Force
+        dest: "{{ item }}"
+      loop:
+        - C:\Windows\System32\GroupPolicy\Machine\Scripts\Shutdown\ZerarPastaWin.ps1
+        - C:\Windows\System32\GroupPolicy\Machine\Scripts\Startup\ZerarPastaWin.ps1
+
+    - name: Copiar arquivo .reg com configurações padrão
+      ansible.windows.win_copy:
+        content: |
+          Windows Registry Editor Version 5.00
+
+          ; ============================
+          ; Impedir alterações visuais e Explorer
+          ; ============================
+
+          ; Impedir alteração do papel de parede
+          [HKEY_USERS\AlunoTmp\Software\Microsoft\Windows\CurrentVersion\Policies\ActiveDesktop]
+          "NoChangingWallPaper"=dword:00000001
+
+          ; Impedir alteração do icone de login
+          [HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer]
+          "UseDefaultTile"=dword:00000001
+
+          ; Impedir alteração de temas e opções do painel
+          [HKEY_USERS\AlunoTmp\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer]
+          "NoThemesTab"=dword:00000001
+          "NoDispBackgroundPage"=dword:00000001
+          "NoDispCPL"=dword:00000001
+          "NoDispSettingsPage"=dword:00000001
+          "NoSetTaskbar"=dword:00000001
+          "NoTrayContextMenu"=dword:00000001
+
+          ; ============================
+          ; Bloquear acesso a Painel de Controle e Configurações
+          ; ============================
+
+          [HKEY_USERS\AlunoTmp\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer]
+          "NoControlPanel"=dword:00000001
+          "NoSettingsPage"=dword:00000001
+
+          ; ============================
+          ; Bloquear acesso a ferramentas administrativas
+          ; ============================
+
+          [HKEY_USERS\AlunoTmp\Software\Microsoft\Windows\CurrentVersion\Policies\System]
+          "DisableRegistryTools"=dword:00000001
+          "NoGpedit"=dword:00000001
+
+          ; ============================
+          ; Restrições de aplicativos e sistema
+          ; ============================
+
+          ; Bloquear acesso à Microsoft Store
+          [HKEY_USERS\AlunoTmp\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer]
+          "NoStoreOpenWith"=dword:00000001
+
+          ; Bloquear jogos
+          [HKEY_USERS\AlunoTmp\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer]
+          "NoGames"=dword:00000001
+
+          ; Impedir instalação de programas (antigo HKLM)
+          [HKEY_USERS\AlunoTmp\Software\Microsoft\Windows\CurrentVersion\Policies\Uninstall]
+          "NoAddRemovePrograms"=dword:00000001
+
+          ; Impedir instalação via Windows Installer (somente aluno)
+          [HKEY_USERS\AlunoTmp\Software\Policies\Microsoft\Windows\Installer]
+          "DisableMSI"=dword:00000002
+
+          ; ============================
+          ; Execução de Script
+          ; ============================
+
+          ; Executar script na inicialização
+          [HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Startup\0]
+          "Script"="ZerarPastaWin.ps1"
+          "Parameters"=""
+
+          ; Executar script no desligamento
+          [HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Shutdown\0]
+          "Script"="ZerarPastaWin.ps1"
+          "Parameters"=""
+        dest: "C:\\ModeloGPO\\aluno_default.reg"
+
+    - name: Copiando arquivos do wallpaper e icones - Windows
+      ansible.windows.win_get_url:
+        url: 'http://ansiblefiles.sj.ifsc.edu.br/{{ item.url }}'
+        dest: '{{ item.dest }}'
+      loop:
+        - { url: 'wallpaper_ifsc.jpg', dest: 'C:\Users\' }
+        - { url: 'icone_ifsc.bmp', dest: 'C:\ProgramData\Microsoft\User Account Pictures\icone_ifsc.bmp' }
+        - { url: 'user.bmp', dest: 'C:\ProgramData\Microsoft\User Account Pictures\user.bmp' }
+
+    - name: Forçando wallpaper específico - Windows
+      ansible.windows.win_regedit:
+        path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP
+        name: "{{ item.name }}"
+        data: "{{ item.data }}"
+      loop:
+        - { name: 'LockScreenImagePath', data: 'C:\Users\wallpaper_ifsc.jpg' }
+        - { name: 'LockScreenImageUrl', data: 'C:\Users\wallpaper_ifsc.jpg' }
+        - { name: 'DesktopImageUrl', data: 'C:\Users\wallpaper_ifsc.jpg' }
+        - { name: 'DesktopImagePath', data: 'C:\Users\wallpaper_ifsc.jpg' }
+        - { name: 'LockScreenImageStatus', data: 1 }
+        - { name: 'PersonalizationCSP', data: 1 }
+        - { name: 'DesktopImageStatus', data: 1 }
+
+    - name: Aplicar configurações padrão via reg import
+      ansible.windows.win_shell: |
+        $userHive = "C:\Users\aluno\NTUSER.DAT"
+        reg load HKU\AlunoTmp $userHive
+        reg import "C:\\ModeloGPO\\aluno_default.reg"
+        reg unload HKU\AlunoTmp
+      args:
+        executable: powershell
+
     - name: Ativa servidor NTP para o Windows
       ansible.windows.win_regedit:
         path: HKLM:\SYSTEM\Microsoft\CurrentControlSet\Services\W32Time\Parameters
         name: "Type"
         data: NTP
-      tags: w32
-      when: ansible_os_family == 'Windows'
 
     - name: Ativa atualização automática servidor NTP para o Windows
       ansible.windows.win_regedit:
@@ -25,7 +198,6 @@
         data: "3"
         type: dword
       tags: w32
-      when: ansible_os_family == 'Windows'
 
     - name: Configura servidor NTP para o Windows
       ansible.windows.win_regedit:
@@ -33,7 +205,6 @@
         name: NtpServer
         data: a.st1.ntp.br
       tags: w32
-      when: ansible_os_family == 'Windows'
 
     - name: Configuracao para UTC
       ansible.windows.win_regedit:
@@ -41,7 +212,6 @@
         name: RealTimeIsUniversal
         data: "1"
         type: dword
-      when: ansible_os_family == 'Windows'
       tags: config_hora
 
     - name: Set timezime to Pacific Standard time and disable Daylight Saving time adjustments
@@ -61,7 +231,6 @@
           - vlc
           - 7zip
           - glpi-agent
-      when: ansible_os_family == 'Windows'
 
 - name: Configurações aplicadas somente para as maquinas dos professores
   hosts: lab_profs_win,meios_cult_win
