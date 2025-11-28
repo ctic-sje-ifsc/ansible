@@ -1,9 +1,0 @@
----
-# Usuário que servirá como modelo para gerar o perfil mandatório
-template_user: "modelo"
-
-# Usuário que receberá o perfil mandatório
-target_user: "aluno"
-
-# Caminho onde o perfil mandatório será criado
-mandatory_profile_path: "C:\\MandatoryProfile"
