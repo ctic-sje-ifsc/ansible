@@ -198,3 +198,8 @@
   hosts: sje-lin-des2-703872.maquinas.sj.ifsc.edu.br
   roles:
     - code
+
+- name: Programas para o Marcelo do contratos
+  hosts: sje-lin-contra-38845.maquinas.sj.ifsc.edu.br
+  roles:
+    - zoom

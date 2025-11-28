@@ -1,0 +1,16 @@
+# Linux
+
+- name: Instalar dependências para o Zoom
+  ansible.builtin.apt:
+    name:
+      - libegl1-mesa
+      - libxcb-cursor0
+      - libxcb-xtest0
+    state: present
+    update_cache: true
+  when: ansible_os_family == 'Debian'
+
+- name: Baixar e instalar última versão do Zoom - Linux
+  ansible.builtin.apt:
+    deb: https://zoom.us/client/latest/zoom_amd64.deb
+  when: ansible_os_family == 'Debian'
