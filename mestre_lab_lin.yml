@@ -15,7 +15,6 @@
     - java21-oracle
     - mysql_workbench
     - npm
-    - papel_de_parede_e_icones
     - postman
     - sources_list
     - unattendedUpgrades_labs
@@ -192,6 +191,28 @@
     - name: Run the equivalent of "apt-get clean" as a separate step
       ansible.builtin.apt:
         clean: true
+      when: ansible_os_family == 'Debian'
+
+    - name: Baixar papel de parede IFSC SJ
+      ansible.builtin.get_url:
+        url: http://ansiblefiles.sj.ifsc.edu.br/wallpaper_ifsc.jpg
+        dest: /home/fundo_ifsc_sj.jpg
+        owner: root
+        group: root
+        mode: '0755'
+      when: ansible_os_family == 'Debian'
+
+    - name: Cria o script que modifica o papel de parede - Linux
+      ansible.builtin.copy:
+        content: |
+          #!/bin/sh
+          dconf write /org/mate/desktop/background/picture-filename "'/home/fundo_ifsc_sj.jpg'"
+          gsettings set org.gnome.desktop.background picture-uri /home/fundo_ifsc_sj.jpg
+          gsettings set org.cinnamon.desktop.background picture-uri  "file:///home/fundo_ifsc_sj.jpg"
+        dest: /etc/profile.d/trocaplanodefundo.sh
+        owner: root
+        group: root
+        mode: '0755'
       when: ansible_os_family == 'Debian'
 
     - name: Instalar pacotes
