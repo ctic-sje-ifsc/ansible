@@ -21,6 +21,39 @@
     src: "aluno_default.reg"
     dest: "{{ temp_path }}\\aluno_default.reg"
 
+
+
+
+- name: Copiando arquivos do wallpaper e icones - Windows
+  ansible.windows.win_copy:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+  loop:
+    - { src: 'fundo_ifsc_sj_novo.jpg', dest: 'C:\Users\' }
+    - { src: 'Icone_ifsc.bmp', dest: 'C:\ProgramData\Microsoft\User Account Pictures\Icone_ifsc.bmp' }
+    - { src: 'user.bmp', dest: 'C:\ProgramData\Microsoft\User Account Pictures\user.bmp' }
+  when: ansible_os_family == 'Windows'
+
+- name: Forçando wallpaper específico - Windows
+  ansible.windows.win_regedit:
+    path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP
+    name: "{{ item.name }}"
+    data: "{{ item.data }}"
+  loop:
+    - { name: 'LockScreenImagePath', data: 'C:\Users\fundo_ifsc_sj_novo.jpg' }
+    - { name: 'LockScreenImageUrl', data: 'C:\Users\fundo_ifsc_sj_novo.jpg' }
+    - { name: 'DesktopImageUrl', data: 'C:\Users\fundo_ifsc_sj_novo.jpg' }
+    - { name: 'DesktopImagePath', data: 'C:\Users\fundo_ifsc_sj_novo.jpg' }
+    - { name: 'LockScreenImageStatus', data: 1 }
+    - { name: 'PersonalizationCSP', data: 1 }
+    - { name: 'DesktopImageStatus', data: 1 }
+  when: ansible_os_family == 'Windows'
+
+
+
+
+
+
 - name: Aplicar configurações padrão via reg import
   ansible.windows.win_shell: |
     $userHive = "C:\Users\{{ aluno_user }}\NTUSER.DAT"

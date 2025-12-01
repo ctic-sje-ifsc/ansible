@@ -8,6 +8,10 @@ Windows Registry Editor Version 5.00
 [HKEY_USERS\AlunoTmp\Software\Microsoft\Windows\CurrentVersion\Policies\ActiveDesktop]
 "NoChangingWallPaper"=dword:00000001
 
+; Impedir alteração do icone de login
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer]
+"UseDefaultTile"=dword:00000001
+
 ; Impedir alteração de temas e opções do painel
 [HKEY_USERS\AlunoTmp\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer]
 "NoThemesTab"=dword:00000001
