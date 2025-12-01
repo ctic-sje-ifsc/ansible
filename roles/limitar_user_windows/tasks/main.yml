@@ -21,9 +21,6 @@
     src: "aluno_default.reg"
     dest: "{{ temp_path }}\\aluno_default.reg"
 
-
-
-
 - name: Copiando arquivos do wallpaper e icones - Windows
   ansible.windows.win_copy:
     src: '{{ item.src }}'
@@ -49,11 +46,6 @@
     - { name: 'DesktopImageStatus', data: 1 }
   when: ansible_os_family == 'Windows'
 
-
-
-
-
-
 - name: Aplicar configurações padrão via reg import
   ansible.windows.win_shell: |
     $userHive = "C:\Users\{{ aluno_user }}\NTUSER.DAT"
@@ -62,16 +54,3 @@
     reg unload HKU\AlunoTmp
   args:
     executable: powershell
-
-# - name: Criar tarefa agendada para resetar configurações no logon
-#   community.windows.win_scheduled_task:
-#     name: "ResetAlunoConfig"
-#     description: "Restaura configurações padrão da conta aluno no logon"
-#     actions:
-#       - path: "reg.exe"
-#         arguments: "import {{ temp_path }}\\aluno_default.reg"
-#     triggers:
-#       - type: logon
-#         user: "{{ aluno_user }}"
-#     username: SYSTEM
-#     state: present
