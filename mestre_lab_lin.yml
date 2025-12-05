@@ -431,7 +431,7 @@
     - quartus20
 
 - name: Laboratório de Redes
-  hosts: sidi_lin
+  hosts: redes_lin
   roles:
     - role: grub
       tipo: grub_soh_lin
@@ -441,6 +441,14 @@
     - imunes
     - gradle_8.14.3
     - quartus20
+  tasks:
+    - name: Instala pacotes
+      ansible.builtin.apt:
+        pkg:
+          - bison
+          - flex
+      tags: eraldo
+      when: ansible_os_family == 'Debian'
 
 - name: Laboratório de comunicação sem fio
   hosts: csfio_lin
