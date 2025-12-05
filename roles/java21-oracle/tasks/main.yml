@@ -12,10 +12,17 @@
     deb: https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb
   when: (ansible_os_family == 'Debian')
 
+- name: Verificando versão do java 21 - Linux Debian
+  ansible.builtin.shell: ls -d /usr/lib/jvm/jdk-21*
+  register: java_version
+  changed_when: false
+  failed_when: false
+  when: ansible_os_family == 'Debian'
+
 - name: Correct java version selected
   community.general.alternatives:
     name: java
-    path: /usr/lib/jvm/jdk-21.0.8-oracle-x64/bin/java
+    path: "{{ java_version.stdout }}"
   when: (ansible_os_family == 'Debian')
 
 - name: Define JAVA_HOME
