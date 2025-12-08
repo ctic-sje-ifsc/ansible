@@ -13,7 +13,7 @@
   when: (ansible_os_family == 'Debian')
 
 - name: Verificando versão do java 21 - Linux Debian
-  ansible.builtin.shell: ls -d /usr/lib/jvm/jdk-21*
+  ansible.builtin.shell: ls -d /usr/lib/jvm/jdk-21* | head -n 1
   register: java_version
   changed_when: false
   failed_when: false
@@ -36,7 +36,7 @@
     content: |
       [Desktop Entry]
       Name=Java Console
-      Exec=/usr/lib/jvm/jdk-21.0.8-oracle-x64/bin/jconsole
+      Exec={{ java_version.stdout }}/bin/jconsole
       GenericName=Java Control Console
       Type=Application
       StartupNotify=true
