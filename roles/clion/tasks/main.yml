@@ -1,0 +1,31 @@
+- name: Baixa e instala clion
+  ansible.builtin.unarchive:
+    src: http://ansiblefiles.sj.ifsc.edu.br/CLion-2025.3.1.tar.gz
+    dest: /opt/
+    remote_src: true
+    creates: /opt/clion/bin/clion
+    owner: root
+    group: root
+    mode: '0755'
+    extra_opts:
+      - --transform
+      - 's:^[^/]*:clion:'
+  when: ansible_os_family == 'Debian'
+
+- name: Cria atalho do clion na lista de aplicativos
+  ansible.builtin.copy:
+    content: |
+      [Desktop Entry]
+      Version=1.0
+      Type=Application
+      Name=CLion
+      Icon=/opt/clion/bin/clion.png
+      Exec="/opt/clion/bin/clion" %f
+      Comment=Capable and Ergonomic IDE for C and C++ Development
+      Categories=Development;IDE;
+      Terminal=false
+    dest: /usr/share/applications/clion.desktop
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'

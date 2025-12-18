@@ -1,0 +1,31 @@
+- name: Baixa e instala intellij-idea-ultimate
+  ansible.builtin.unarchive:
+    src: http://ansiblefiles.sj.ifsc.edu.br/idea-2025.3.1.tar.gz
+    dest: /opt/
+    remote_src: true
+    creates: /opt/ideaIU/bin/idea
+    owner: root
+    group: root
+    mode: '0755'
+    extra_opts:
+      - --transform
+      - 's:^[^/]*:ideaIU:'
+  when: ansible_os_family == 'Debian'
+
+- name: Cria atalho do intellij na lista de aplicativos
+  ansible.builtin.copy:
+    content: |
+      [Desktop Entry]
+      Version=1.0
+      Type=Application
+      Name=Intellij IDEA
+      Icon=/opt/ideaIU/bin/idea.png
+      Exec="/opt/ideaIU/bin/idea" %f
+      Comment=Capable and Ergonomic IDE for the Java Virtual Machine
+      Categories=Development;IDE;
+      Terminal=false
+    dest: /usr/share/applications/intellij-IDEA.desktop
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'

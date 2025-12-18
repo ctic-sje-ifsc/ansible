@@ -1,0 +1,31 @@
+- name: Baixa e instala pycharm
+  ansible.builtin.unarchive:
+    src: http://ansiblefiles.sj.ifsc.edu.br/pycharm-2025.3.1.tar.gz
+    dest: /opt/
+    remote_src: true
+    creates: /opt/pycharm/bin/pycharm
+    owner: root
+    group: root
+    mode: '0755'
+    extra_opts:
+      - --transform
+      - 's:^[^/]*:pycharm:'
+  when: ansible_os_family == 'Debian'
+
+- name: Cria atalho do pycharm na lista de aplicativos
+  ansible.builtin.copy:
+    content: |
+      [Desktop Entry]
+      Version=1.0
+      Type=Application
+      Name=PyCharm
+      Icon=/opt/pycharm/bin/pycharm.png
+      Exec="/opt/pycharm/bin/pycharm" %f
+      Comment=Capable and Ergonomic IDE for Python Development
+      Categories=Development;IDE;
+      Terminal=false
+    dest: /usr/share/applications/pycharm.desktop
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
