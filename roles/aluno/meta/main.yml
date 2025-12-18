@@ -1,3 +1,4 @@
 dependencies:
   - role: google_chrome
   - role: virtualbox
+  - role: docker
