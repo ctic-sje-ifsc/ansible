@@ -1,0 +1,56 @@
+- name: Cria diretório /usr/lib/jvm
+  ansible.builtin.file:
+    path: /usr/lib/jvm
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  when: (ansible_os_family == 'Debian')
+
+- name: Instala JDK-25 da Oracle
+  ansible.builtin.apt:
+    deb: http://ansiblefiles.sj.ifsc.edu.br/jdk-25_linux-x64_bin.deb
+  when: (ansible_os_family == 'Debian')
+
+- name: Correct java version selected
+  community.general.alternatives:
+    name: java
+    path: /usr/lib/jvm/jdk-25.0.1-oracle-x64/bin/java
+  when: (ansible_os_family == 'Debian')
+
+- name: Define JAVA_HOME
+  ansible.builtin.lineinfile:
+    line: 'export JAVA_HOME=/usr/lib/jvm/jdk-25.0.1-oracle-x64'
+    dest: /home/aluno/.bashrc
+  when: ansible_os_family == 'Debian'
+
+- name: Cria atalho do Java ControlPanel na lista de aplicativos
+  ansible.builtin.copy:
+    content: |
+      [Desktop Entry]
+      Name=Java Console
+      Exec=/usr/lib/jvm/jdk-25.0.1-oracle-x64/bin/jconsole
+      GenericName=Java Control Console
+      Type=Application
+      StartupNotify=true
+      Categories=Settings;
+      Icon=/usr/share/icons/mate/48x48/mimetypes/application-x-java.png
+      Comment=Oracle Java Console
+      Terminal=false
+    dest: /usr/share/applications/jcontrol.desktop
+    owner: root
+    group: root
+    mode: '0644'
+  when: (ansible_os_family == 'Debian')
+
+- name: Remove outras versões de java e icedtea
+  ansible.builtin.apt:
+    state: absent
+    purge: true
+    pkg:
+      - openjdk-17-jre-headless
+      - openjdk-17-jre
+      - icedtea-netx
+      - jdk-17
+      - jdk-21
+  when: ansible_os_family == 'Debian'
