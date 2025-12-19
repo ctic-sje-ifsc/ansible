@@ -23,6 +23,29 @@
     update_cache: true
   when: ansible_os_family == 'Debian'
 
+- name: Script para instalar extensões do vscode
+  ansible.builtin.copy:
+    content: |
+      #!/bin/bash
+      code --install-extension  "wokwi.wokwi-vscode"
+      code --install-extension  "vscode-arduino.vscode-arduino-community"
+      code --install-extension  "espressif.esp-idf-extension"
+      code --install-extension  "platformio.platformio-ide"
+      code --install-extension  "ms-vscode.cpptools"
+      code --install-extension  "ms-vscode.cmake-tools"
+      code --install-extension  "ms-python.vscode-python-envs"
+      code --install-extension  "ms-python.debugpy"
+      code --install-extension  "ms-python.python"
+      code --install-extension  "ms-vscode.cpptools-extension-pack"
+      code --install-extension  "MUmarShahbaz.als"
+      code --install-extension  "pioarduino.pioarduino-ide"
+      code --install-extension  "ms-vscode.vscode-serial-monitor"
+    dest: /usr/local/bin/install_extensions_vscode.sh
+    owner: root
+    group: root
+    mode: '0755'
+  when: ansible_os_family == 'Debian'
+
 # Windows
 - name: Instalar o Visual Studio Code - Windows
   chocolatey.chocolatey.win_chocolatey:
