@@ -45,3 +45,15 @@
     group: root
     mode: '0644'
   when: ansible_os_family == 'Debian'
+
+- name: Adiciona variável de ambiente ANDROID_HOME para aluno
+  ansible.builtin.lineinfile:
+    path: /home/aluno/.bashrc
+    line: 'export ANDROID_HOME=/home/aluno/Android/Sdk'
+  when: ansible_os_family == 'Debian'
+
+- name: Adiciona variável de ambiente PATH para aluno
+  ansible.builtin.lineinfile:
+    path: /home/aluno/.bashrc
+    line: 'export PATH=$PATH:$ANDROID_HOME/platform-tools'
+  when: ansible_os_family == 'Debian'
