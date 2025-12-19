@@ -1,10 +1,3 @@
-- name: Remove AndroidStudio softwares from flathub
-  community.general.flatpak:
-    name:
-      - com.google.AndroidStudio
-    state: absent
-  when: ansible_os_family == 'Debian'
-
 - name: Instala pacotes performance Android
   ansible.builtin.apt:
     name:
@@ -24,7 +17,7 @@
 
 - name: Baixando e extraindo AndroidStudio - Linux Debian
   ansible.builtin.unarchive:
-    src: http://ansiblefiles.sj.ifsc.edu.br/android-studio-2025.1.1.14-linux.tar.gz
+    src: http://ansiblefiles.sj.ifsc.edu.br/android-studio-2025.2.2.7-linux.tar.gz
     dest: /opt/
     creates: /opt/android-studio/bin/studio
     remote_src: true
