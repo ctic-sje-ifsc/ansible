@@ -9,18 +9,25 @@
 
 - name: Instala JDK-25 da Oracle
   ansible.builtin.apt:
-    deb: http://ansiblefiles.sj.ifsc.edu.br/jdk-25_linux-x64_bin.deb
+    deb: https://download.oracle.com/java/25/latest/jdk-25_linux-x64_bin.deb
   when: (ansible_os_family == 'Debian')
+
+- name: Verificando versão instalada do java - Linux Debian
+  ansible.builtin.shell: dpkg -L jdk-25 | grep -E '^/usr/lib/jvm/jdk-[^/]+$'
+  register: java_version
+  changed_when: false
+  failed_when: false
+  when: ansible_os_family == 'Debian'
 
 - name: Correct java version selected
   community.general.alternatives:
     name: java
-    path: /usr/lib/jvm/jdk-25.0.1-oracle-x64/bin/java
+    path: "{{ java_version.stdout }}/bin/java"
   when: (ansible_os_family == 'Debian')
 
 - name: Define JAVA_HOME
   ansible.builtin.lineinfile:
-    line: 'export JAVA_HOME=/usr/lib/jvm/jdk-25.0.1-oracle-x64'
+    line: 'export JAVA_HOME={{ java_version.stdout }}'
     dest: /home/aluno/.bashrc
   when: ansible_os_family == 'Debian'
 
@@ -29,7 +36,7 @@
     content: |
       [Desktop Entry]
       Name=Java Console
-      Exec=/usr/lib/jvm/jdk-25.0.1-oracle-x64/bin/jconsole
+      Exec={{ java_version.stdout }}/bin/jconsole
       GenericName=Java Control Console
       Type=Application
       StartupNotify=true
