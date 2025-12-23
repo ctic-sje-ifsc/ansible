@@ -408,14 +408,17 @@
 - name: Laboratório de Programação
   hosts: programacao_lin
   roles:
+    - android-studio
     - dbeaver
     - sqlitestudio
     - tiled
     - qucsstudio
-    - jetbrains
+    - clion
+    - idea
+    - pycharm
     - matlab
     - imunes
-    - gradle_8.14.3
+    - gradle_9.2.1
     - quartus20
 
 - name: Laboratório de SiDi
@@ -424,10 +427,12 @@
     - role: grub
       tipo: grub_lin
     - android-studio
-    - jetbrains
+    - clion
+    - idea
+    - pycharm
     - matlab
     - imunes
-    - gradle_8.14.3
+    - gradle_9.2.1
     - quartus20
 
 - name: Laboratório de Redes
@@ -436,10 +441,12 @@
     - role: grub
       tipo: grub_soh_lin
     - android-studio
-    - jetbrains
+    - clion
+    - idea
+    - pycharm
     - matlab
     - imunes
-    - gradle_8.14.3
+    - gradle_9.2.1
     - quartus20
   tasks:
     - name: Instala pacotes
@@ -477,6 +484,9 @@
     - android-studio
     - code
     - scidavis
+    - clion
+    - idea
+    - pycharm
   tasks:
     - name: Adiciona linha solicitada no chamado GLPI#24493
       ansible.builtin.blockinfile:
