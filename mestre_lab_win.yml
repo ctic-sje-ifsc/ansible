@@ -8,6 +8,7 @@
     - microsip
     - revit
     - zoiper
+    - auto_desligamento
   tasks:
     - name: Garantir pastas necessarias para scripts
       ansible.windows.win_file:
