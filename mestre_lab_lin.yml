@@ -408,6 +408,8 @@
 - name: Laboratório de Programação
   hosts: programacao_lin
   roles:
+    - role: grub
+      tipo: grub_lin
     - android-studio
     - dbeaver
     - sqlitestudio
