@@ -365,6 +365,7 @@
 - name: Configurações aplicadas somente para as maquinas dos professores
   hosts: lab_profs_lin
   roles:
+    - ingressa_ldap
     - configura_monitores
     - iptables_prof
 
