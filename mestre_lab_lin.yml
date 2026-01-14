@@ -361,10 +361,12 @@
   hosts: laboratorios_lin:!lab_profs_lin
   roles:
     - lightdm-autologin
+    - epoptes_client
 
 - name: Configurações aplicadas somente para as maquinas dos professores
   hosts: lab_profs_lin
   roles:
+    - epoptes_server
     - ingressa_ldap
     - configura_monitores
     - iptables_prof
