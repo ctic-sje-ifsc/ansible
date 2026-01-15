@@ -41,7 +41,7 @@
     owner: root
     group: root
     mode: '0644'
-  when: (ansible_distribution == 'Debian' and ansible_hostname == 'sje-lin-prog-744523')
+  when: (ansible_distribution == 'Debian' and ansible_hostname == 'sje-lin-prog-pe0ezwyz')
   tags: epoptes_groups
 
 - name: Copia arquivo prog.json para máquina do professor

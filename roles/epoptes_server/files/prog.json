@@ -1,99 +1,99 @@
 {
     "clients": {
       "0": {
-        "mac": "FC:AA:14:FC:B4:B8",
+        "mac": "60:C7:27:3D:D2:61",
         "alias": "C4"
       },
       "1": {
-        "mac": "3C:52:82:99:F3:6B",
+        "mac": "60:C7:27:3E:28:2B",
         "alias": "C5"
       },
       "2": {
-        "mac": "FC:AA:14:FC:AE:DC",
+        "mac": "60:C7:27:3D:DB:E4",
         "alias": "C6"
       },
       "3": {
-        "mac": "FC:AA:14:FC:B7:85",
+        "mac": "60:C7:27:3E:0E:54",
         "alias": "D1"
       },
       "4": {
-        "mac": "74:D4:35:F0:33:22",
+        "mac": "60:C7:27:3E:28:61",
         "alias": "D2"
       },
       "5": {
-        "mac": "FC:AA:14:FC:B4:B2",
+        "mac": "60:C7:27:3E:0D:30",
         "alias": "D3"
       },
       "6": {
-        "mac": "48:BA:4E:BC:CB:B3",
+        "mac": "60:C7:27:3D:C0:48",
         "alias": "A1"
       },
       "7": {
-        "mac": "48:BA:4E:BC:CB:A6",
+        "mac": "60:C7:27:3D:C1:76",
         "alias": "A3"
       },
       "8": {
-        "mac": "48:BA:4E:BC:37:20",
+        "mac": "60:C7:27:3D:C0:E3",
         "alias": "A4"
       },
       "9": {
-        "mac": "48:BA:4E:BC:CB:D4",
+        "mac": "60:C7:27:3E:0E:1B",
         "alias": "A5"
       },
       "10": {
-        "mac": "FC:AA:14:FC:B3:1C",
+        "mac": "60:C7:27:3D:C0:E6",
         "alias": "D5"
       },
       "11": {
-        "mac": "48:BA:4E:BC:47:CD",
+        "mac": "60:C7:27:3D:DC:84",
         "alias": "A6"
       },
       "12": {
-        "mac": "1C:1B:0D:F0:30:C7",
+        "mac": "60:C7:27:3D:CF:70",
         "alias": "B1"
       },
       "13": {
-        "mac": "FC:AA:14:FC:AD:B5",
+        "mac": "60:C7:27:3E:0F:4F",
         "alias": "B2"
       },
       "14": {
-        "mac": "94:DE:80:F6:B2:CE",
+        "mac": "60:C7:27:3D:C0:C8",
         "alias": "B4"
       },
       "15": {
-        "mac": "48:BA:4E:BC:47:29",
+        "mac": "60:C7:27:3E:0D:C8",
         "alias": "B5"
       },
       "16": {
-        "mac": "48:BA:4E:BC:CB:EC",
+        "mac": "60:C7:27:3E:0E:32",
         "alias": "B6"
       },
       "17": {
-        "mac": "FC:AA:14:FC:B2:BB",
+        "mac": "60:C7:27:3E:0D:34",
         "alias": "C1"
       },
       "18": {
-        "mac": "FC:AA:14:FC:b6:68",
+        "mac": "60:C7:27:3D:C0:C9",
         "alias": "C2"
       },
       "19": {
-        "mac": "FC:AA:14:FC:a0:62",
+        "mac": "60:C7:27:3D:C0:E7",
         "alias": "C3"
       },
       "20": {
-        "mac": "FC:AA:14:FC:B4:B7",
+        "mac": "60:C7:27:3D:C0:F8",
         "alias": "D6"
       },
       "21": {
-        "mac": "48:BA:4E:BC:47:A0",
+        "mac": "60:C7:27:3D:C1:06",
         "alias": "A2"
       },
       "22": {
-        "mac": "FC:AA:14:FC:AD:C2",
+        "mac": "60:C7:27:3D:D3:26",
         "alias": "B3"
       },
       "23": {
-        "mac": "FC:AA:14:FC:B4:46",
+        "mac": "60:C7:27:3D:C1:6C",
         "alias": "D4"
       }
     },

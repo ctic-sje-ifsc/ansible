@@ -71,7 +71,7 @@
           {%- elif ansible_hostname.startswith("sje-lin-redes") -%}
             sje-lin-redes-906284.maquinas.sj.ifsc.edu.br
           {%- elif ansible_hostname.startswith("sje-lin-prog") -%}
-            sje-lin-prog-744523.maquinas.sj.ifsc.edu.br
+            sje-lin-prog-pe0ezwyz.maquinas.sj.ifsc.edu.br
           {%- elif ansible_hostname.startswith("sje-lin-cad1") -%}
             sje-lin-cad1-916082.maquinas.sj.ifsc.edu.br
           {%- elif ansible_hostname.startswith("sje-lin-cad2") -%}
