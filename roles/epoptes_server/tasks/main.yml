@@ -9,6 +9,8 @@
   ansible.builtin.group:
     name: epoptes
     state: absent
+    force: true
+  ignore_errors: true
   when: ansible_distribution == 'Debian'
   tags: epoptes
 
