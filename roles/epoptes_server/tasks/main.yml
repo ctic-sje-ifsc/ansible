@@ -5,6 +5,13 @@
   when: ansible_distribution == 'Debian'
   tags: epoptes
 
+- name: Ensure group "epoptes" non exists
+  ansible.builtin.group:
+    name: epoptes
+    state: absent
+  when: ansible_distribution == 'Debian'
+  tags: epoptes
+
 - name: Remove epoptes-client
   ansible.builtin.apt:
     pkg:
