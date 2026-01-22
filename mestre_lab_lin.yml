@@ -375,7 +375,7 @@
       ansible.builtin.lineinfile:
         path: /etc/lightdm/lightdm.conf
         state: absent
-        regexp: '^%autologin-user=aluno'
+        regexp: '^%autologin-user=alunos'
 
 
 ########### INDIVIDUALIDADE DOS LABORATÓRIOS ###########
