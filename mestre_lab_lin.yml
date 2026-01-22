@@ -370,6 +370,12 @@
     - ingressa_ldap
     - configura_monitores
     - iptables_prof
+  tasks:
+    - name: Make sure group wheel is not in the sudoers configuration
+      ansible.builtin.lineinfile:
+        path: /etc/lightdm/lightdm.conf
+        state: absent
+        regexp: '^%autologin-user=aluno'
 
 
 ########### INDIVIDUALIDADE DOS LABORATÓRIOS ###########
