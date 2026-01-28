@@ -486,12 +486,12 @@
     - role: grub
       tipo: grub_lin
 
-- name: Configurações computadores sala 14
-  hosts: sala14_lin
+- name: Configurações computadores informatica 3
+  hosts: info3_lin
   roles:
     - role: grub
       tipo: grub_soh_lin
-    - wpa_supplicant_sala14
+    - wpa_supplicant_info3
     - android-studio
     - code
     - scidavis
