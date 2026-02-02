@@ -491,7 +491,7 @@
   roles:
     - role: grub
       tipo: grub_soh_lin
-    - wpa_supplicant_info3
+    - wpa_supplicant_sala14
     - android-studio
     - code
     - scidavis
