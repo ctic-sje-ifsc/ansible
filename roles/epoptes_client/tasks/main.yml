@@ -67,7 +67,16 @@
     line: 'SERVER=sje-lin-info-895203.maquinas.sj.ifsc.edu.br'
     create: true
     mode: '0644'
-  when: ansible_hostname is search("^sje-lin-info")
+  when: ansible_hostname is search("^sje-lin-info-")
+
+- name: Adicionar entrada no /etc/default/epoptes-client sobre quem é o server do informatica 3 - Linux
+  ansible.builtin.lineinfile:
+    regexp: '^SERVER'
+    path: /etc/default/epoptes-client
+    line: 'SERVER=sje-lin-info3-pe0f09g3.maquinas.sj.ifsc.edu.br'
+    create: true
+    mode: '0644'
+  when: ansible_hostname is search("^sje-lin-info3")
 
 - name: Adicionar entrada no /etc/default/epoptes-client sobre quem é o server do meios de transmissao - Linux
   ansible.builtin.lineinfile:
