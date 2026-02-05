@@ -200,6 +200,7 @@
           - abntex
           - android-tools-adb
           - apt-transport-https
+          - arandr
           - as31
           - audacity
           - avahi-daemon
@@ -368,6 +369,7 @@
   roles:
     - epoptes_server
     - ingressa_ldap
+    - insync
     - configura_monitores
     - iptables_prof
   tasks:
@@ -440,9 +442,10 @@
     - android-studio
     - clion
     - idea
+    - imunes
+    - jetbrains
     - pycharm
     - matlab
-    - imunes
     - gradle_9.2.1
     - quartus20
 
