@@ -422,17 +422,18 @@
     - role: grub
       tipo: grub_lin
     - android-studio
+    - clion
     - dbeaver
+    - gradle_9.2.1
+    - idea
+    - imunes
+    - jetbrains
+    - matlab
+    - pycharm
+    - quartus20
+    - qucsstudio
     - sqlitestudio
     - tiled
-    - qucsstudio
-    - clion
-    - idea
-    - pycharm
-    - matlab
-    - imunes
-    - gradle_9.2.1
-    - quartus20
 
 - name: Laboratório de SiDi
   hosts: sidi_lin
@@ -443,10 +444,10 @@
     - clion
     - idea
     - imunes
+    - gradle_9.2.1
     - jetbrains
     - pycharm
     - matlab
-    - gradle_9.2.1
     - quartus20
 
 - name: Laboratório de Redes
@@ -457,10 +458,11 @@
     - android-studio
     - clion
     - idea
-    - pycharm
-    - matlab
     - imunes
     - gradle_9.2.1
+    - jetbrains
+    - pycharm
+    - matlab
     - quartus20
   tasks:
     - name: Instala pacotes
