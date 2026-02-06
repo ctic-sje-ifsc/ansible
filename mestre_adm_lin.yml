@@ -21,11 +21,7 @@
     - auto_desligamento
     - warsaw
     - foxit
-<<<<<<< HEAD
     # - java8-oracle
-=======
-    - java8-oracle
->>>>>>> f95036a (playbook adm lin atualizado, sem role papel_de_parede_e_icones)
     - flatpak
     - google_chrome
     - role: grub
