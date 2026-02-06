@@ -381,28 +381,6 @@
 
 
 ########### INDIVIDUALIDADE DOS LABORATÓRIOS ###########
-- name: Laboratório de Informática
-  hosts: info_lin
-  roles:
-    - google_earth
-    - tracker
-    - scidavis
-    - qgis
-    - tiled
-    - role: grub
-      tipo: grub_soh_lin
-  tasks:
-    - name: Cria o arquivo tcp_rmem chamado IFSC#2023050410000449
-      ansible.builtin.copy:
-        content: |
-          10000 10000 10000
-        dest: /proc/sys/net/ipv4/tcp_rmem
-        owner: root
-        group: root
-        mode: '0644'
-        unsafe_writes: true
-      when: ansible_os_family == 'Debian'
-
 - name: Laboratório de Meios de Transmissão
   hosts: meios_lin
   roles:
@@ -491,7 +469,54 @@
     - role: grub
       tipo: grub_lin
 
-- name: Configurações computadores informatica 3
+- name: Laboratório de Informática 1
+  hosts: info_lin
+  roles:
+    - google_earth
+    - tracker
+    - scidavis
+    - qgis
+    - tiled
+    - role: grub
+      tipo: grub_soh_lin
+  tasks:
+    - name: Cria o arquivo tcp_rmem chamado IFSC#2023050410000449
+      ansible.builtin.copy:
+        content: |
+          10000 10000 10000
+        dest: /proc/sys/net/ipv4/tcp_rmem
+        owner: root
+        group: root
+        mode: '0644'
+        unsafe_writes: true
+      when: ansible_os_family == 'Debian'
+
+
+- name: Laboratório de Informática 2
+  hosts: info2_lin
+  roles:
+    - role: grub
+      tipo: grub_soh_lin
+    - wpa_supplicant_sala13
+    - android-studio
+    - code
+    - scidavis
+    - clion
+    - idea
+    - pycharm
+  tasks:
+    - name: Adiciona linha solicitada no chamado GLPI#24493
+      ansible.builtin.blockinfile:
+        path: /etc/bash.bashrc
+        block: |
+          export ANDROID_HOME=$HOME/Android/Sdk
+          export PATH=$PATH:$ANDROID_HOME/emulator
+          export PATH=$PATH:$ANDROID_HOME/platform-tools
+        marker: "# {mark} ANSIBLE MANAGED BLOCK GLPI#24493"
+      tags: instala
+      when: ansible_os_family == 'Debian'
+
+- name: Laboratório de Informática 3
   hosts: info3_lin
   roles:
     - role: grub
