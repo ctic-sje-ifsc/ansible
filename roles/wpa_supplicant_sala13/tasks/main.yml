@@ -1,0 +1,23 @@
+- name: Instala wpasupplicant
+  ansible.builtin.apt:
+    pkg:
+      - wpasupplicant
+  when: ansible_os_family == 'Debian'
+
+- name: Copiando arquivo interfaces
+  ansible.builtin.copy:
+    src: wlan.conf
+    dest: /etc/network/interfaces.d/wlan.conf
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+
+- name: Copiando arquivo wpa_supplicant
+  ansible.builtin.copy:
+    src: wpa_supplicant.conf
+    dest: /etc/wpa_supplicant/wpa_supplicant.conf
+    owner: root
+    group: root
+    mode: '0600'
+  when: ansible_os_family == 'Debian'
