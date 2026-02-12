@@ -6,13 +6,22 @@
       - printer-driver-cups-pdf
   when: ( ansible_os_family == 'Debian' and install == 1)
 
-- name: Copia o arquivo cups-browsed.conf com a pesquisa de impressoras desativada- Linux Debian
+- name: Para o serviço cups
+  ansible.builtin.service:
+    name: cups
+    state: stopped
+  when: ( ansible_os_family == 'Debian' and install == 1)
+
+- name: Copia o arquivos de configuração
   ansible.builtin.copy:
-    src: cups-browsed.conf
-    dest: /etc/cups/cups-browsed.conf
+    src: "{{ item }}"
+    dest: '/etc/cups/{{ item }}'
     owner: root
     group: root
     mode: '0644'
+  loop:
+    - cups-browsed.conf
+    - cupsd.conf
   when: ( ansible_os_family == 'Debian' and  install == 1 )
   notify: Restart_cups-browsed
 
@@ -124,11 +133,12 @@
       UUID urn:uuid:aa0cf28d-3e7b-3723-70bf-da3cc8a1df02
       Info Kyocera Taskalfa 5003i
       Location Reprografia
+      MakeModel Kyocera TASKalfa 5501i (KPDL)
       DeviceURI ipp://cups/printers/reprografia_reserva
       State Idle
-      StateTime 1678293831
-      ConfigTime 1661540411
-      Type 6
+      StateTime 1770919541
+      ConfigTime 1740410834
+      Type 8433876
       Accepting Yes
       Shared No
       JobSheets none none
@@ -137,6 +147,12 @@
       KLimit 0
       OpPolicy default
       ErrorPolicy abort-job
+      Option print-color-mode monochrome
+      Attribute marker-colors \#000000,none
+      Attribute marker-levels 78,-1
+      Attribute marker-names TK-6327,Waste Toner Box
+      Attribute marker-types toner,waste-toner
+      Attribute marker-change-time 1770919541
       </Printer>
   when: ( ansible_os_family == 'Debian' and  install == 1 and reprografia_reserva == 1 )
 
@@ -145,16 +161,14 @@
     path: /etc/cups/printers.conf
     marker: "# {mark} ANSIBLE MANAGED BLOCK reprografia_principal"
     content: |
-      <Printer reprografia_principal>
+      <DefaultPrinter reprografia_principal>
       UUID urn:uuid:d0430e96-df34-3b84-7ac2-e69ad2abb9f6
-      Info Kyocera Taskalfa 5501i
+      Info Lexmark MX911de
       Location Reprografia
-      MakeModel TASKalfa 5501i KPDL
+      MakeModel Lexmark MX910 Series
       DeviceURI ipp://cups/printers/reprografia_principal
       State Idle
-      StateTime 1473939314
-      ConfigTime 1496336591
-      Type 6
+      Type 8433876
       Accepting Yes
       Shared No
       JobSheets none none
@@ -163,12 +177,13 @@
       KLimit 0
       OpPolicy default
       ErrorPolicy abort-job
+      Option print-color-mode monochrome
       Attribute marker-colors \#000000,none
-      Attribute marker-levels 36,-1
+      Attribute marker-levels -1,-1
       Attribute marker-names TK-6307,Waste Toner Box
       Attribute marker-types toner,waste-toner
-      Attribute marker-change-time 1473939312
-      </Printer>
+      Attribute marker-change-time 1753094192
+      </DefaultPrinter>
   when: ( ansible_os_family == 'Debian' and  install == 1 and reprografia_principal == 1 )
 
 - name: Instala a impressora ImpCGP - Linux
