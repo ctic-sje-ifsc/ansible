@@ -185,6 +185,7 @@
         reg unload HKU\AlunoTmp
       args:
         executable: powershell
+      ignore_errors: true
 
     - name: Ativa servidor NTP para o Windows
       ansible.windows.win_regedit:
