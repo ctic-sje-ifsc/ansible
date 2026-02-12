@@ -1,0 +1,14 @@
+cups_server_install: 0
+cups_server_argox: 0
+cups_server_reprografia_reserva: 1
+cups_server_reprografia_principal: 1
+cups_server_cgp: 0
+cups_server_biblioteca: 0
+cups_server_biblioteca_usb: 0
+cups_server_direcao: 0
+cups_server_financeiro: 0
+cups_server_secretaria: 0
+cups_server_almoxarifado_6940: 0
+cups_server_almoxarifado_3920: 0
+cups_server_zebra: 0
+cups_server_pdf: 1
