@@ -197,6 +197,12 @@
   hosts: sje-lin-des2-703872.maquinas.sj.ifsc.edu.br
   roles:
     - code
+- name: Programas para a Ana Scharf
+  hosts: sje-lin-des2-744928.maquinas.sj.ifsc.edu.br
+  roles:
+    - docker
+    - matlab
+    - mysql_workbench
 
 - name: Programas para o Marcelo do contratos
   hosts: sje-lin-contra-38845.maquinas.sj.ifsc.edu.br
