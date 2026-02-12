@@ -147,10 +147,10 @@
   hosts: financeiro
   roles:
     - savpdf
-    - role: instala_impressora_cups
-      install: 0
-      financeiro: 1
-      cgp: 1
+    - role: cups_server
+      cups_server_install: 0
+      cups_server_financeiro: 1
+      cups_server_cgp: 1
 
 - name: Computadores meios de RAC
   hosts: mrac_lin
@@ -186,12 +186,9 @@
   hosts: sje-lin-almox-933436.maquinas.sj.ifsc.edu.br
   roles:
     - savpdf
-    - role: instala_impressora_cups
-      install: 0
-      reprografia_reserva: 1
-      reprografia_principal: 1
-      almoxarifado_3920: 1
-      pdf: 1
+    - role: cups_server
+      cups_server_install: 0
+      cups_server_almoxarifado_3920: 1
 
 - name: Programas do Jorge Casagrande
   hosts: sje-lin-des2-703872.maquinas.sj.ifsc.edu.br
