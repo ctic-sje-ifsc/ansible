@@ -1,0 +1,19 @@
+- name: adicionar chave do repositório do Unity Hub
+  ansible.builtin.shell: curl -fsSL https://hub.unity3d.com/linux/keys/public | sudo gpg --dearmor -o /etc/apt/keyrings/unityhub.gpg
+  when: ansible_os_family == 'Debian'
+
+- name: Adicionar repositório Unity
+  ansible.builtin.copy:
+    content: "deb [arch=amd64 signed-by=/etc/apt/keyrings/unityhub.gpg] https://hub.unity3d.com/linux/repos/deb stable main"
+    dest: /etc/apt/sources.list.d/unityhub.list
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+
+- name: Instala Unity Hub
+  ansible.builtin.apt:
+    pkg:
+      - unityhub
+    update_cache: true
+  when: ansible_os_family == 'Debian'
