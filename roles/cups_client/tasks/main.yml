@@ -1,0 +1,41 @@
+- name: Instala cups-client
+  ansible.builtin.apt:
+    pkg:
+      - cups-client
+  when: ansible_distribution == 'Debian'
+
+- name: Cria diretório /etc/cups
+  ansible.builtin.file:
+    path: /etc/cups
+    state: directory
+    owner: root
+    group: lp
+    mode: '0755'
+  when: ansible_os_family == 'Debian'
+
+- name: Copia arquivo client.conf para configurar o cups client
+  ansible.builtin.copy:
+    content: |
+      ServerName cups
+    dest: /etc/cups/client.conf
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+
+- name: Desinstala o cups
+  ansible.builtin.apt:
+    state: absent
+    pkg:
+      - cups
+      - bc
+      - cups-browsed
+      - cups-core-drivers
+      - cups-daemon
+      - cups-filters
+      - cups-filters-core-drivers
+      - cups-ipp-utils
+      - cups-ppdc
+      - cups-server-common
+      - libcupsfilters1
+  when: ansible_distribution == 'Debian'
