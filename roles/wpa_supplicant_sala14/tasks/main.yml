@@ -13,6 +13,15 @@
     mode: '0644'
   when: ansible_os_family == 'Debian'
 
+- name: Copiando arquivo do network manager
+  ansible.builtin.copy:
+    src: unmanaged.conf
+    dest: /etc/NetworkManager/conf.d/unmanaged.conf
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+
 - name: Copiando arquivo wpa_supplicant
   ansible.builtin.copy:
     src: wpa_supplicant.conf
@@ -20,4 +29,11 @@
     owner: root
     group: root
     mode: '0600'
+  when: ansible_os_family == 'Debian'
+
+- name: Adicionando linha para apontar para o wlan.conf
+  ansible.builtin.lineinfile:
+    path: /etc/network/interfaces
+    line: "source /etc/network/interfaces.d/*"
+    state: present
   when: ansible_os_family == 'Debian'
