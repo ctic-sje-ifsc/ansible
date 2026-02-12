@@ -1,0 +1,26 @@
+- name: Setar sufixo DNS - Windows
+  ansible.windows.win_regedit:
+    path: HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters
+    name: SearchList
+    data: "cefetsc.edu.br,sj.ifsc.edu.br"
+  when: ansible_os_family == 'Windows'
+
+- name: Criar/Modificar chaves no Registro para configuração do DHCP
+  ansible.windows.win_regedit:
+    path: HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters
+    name: "{{ item.name }}"
+    type: dword
+    data: "{{ item.data }}"
+  loop:
+    - { name: 'DisableDynamicUpdate', data: 1 }
+    - { name: 'QualifyDestinationHost', data: 0 }
+  when: ansible_os_family == 'Windows'
+
+- name: Ingressa no dominio - Windows
+  microsoft.ad.membership:
+    dns_domain_name: cefetsc.edu.br
+    domain_admin_user: "{{ domain_admin_user }}"
+    domain_admin_password: "{{ domain_admin_password }}"
+    state: domain
+    reboot: true
+  when: ansible_os_family == 'Windows'
