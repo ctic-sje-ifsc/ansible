@@ -521,13 +521,15 @@
   roles:
     - role: grub
       tipo: grub_soh_lin
-    - wpa_supplicant_sala14
+    
     - android-studio
-    - code
-    - scidavis
     - clion
+    - code
     - idea
     - pycharm
+    - scidavis
+    - unity_hub
+    - wpa_supplicant_sala14
   tasks:
     - name: Adiciona linha solicitada no chamado GLPI#24493
       ansible.builtin.blockinfile:
