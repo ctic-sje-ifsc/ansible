@@ -1,0 +1,200 @@
+# Linux
+- name: Instalar pacotes necessarios para autenticação LDAP
+  ansible.builtin.apt:
+    pkg:
+      - libnss-ldap
+      - libpam-ldap
+      - ldap-utils
+      - libpam-mount
+      - cifs-utils
+  when: (ansible_distribution == 'Debian' and ansible_distribution_release == 'bullseye')
+  tags: ldap
+
+- name: Instalar pacotes necessarios para autenticação LDAP
+  ansible.builtin.apt:
+    pkg:
+      - libnss-ldapd
+      - libpam-ldapd
+      - libpam-mount
+      - ldap-utils
+      - cifs-utils
+      - nslcd
+      - nslcd-utils
+      - nss-updatedb
+      - systemd-cron
+  when: (ansible_distribution == 'Debian' and (ansible_distribution_release == 'bookworm' or ansible_distribution_release == 'trixie'))
+  tags: ldap
+
+- name: Remove nscd
+  ansible.builtin.apt:
+    name: nscd
+    state: absent
+  when: ansible_os_family == 'Debian'
+
+- name: Cria diretório /etc/ldap
+  ansible.builtin.file:
+    state: directory
+    path: /etc/ldap
+    owner: root
+    group: root
+    mode: '0755'
+  when: ansible_os_family == 'Debian'
+  tags: ldap
+
+- name: Cria arquivo /etc/ldap/ldap.conf
+  ansible.builtin.copy:
+    content: |
+      base dc=cefetsc,dc=edu,dc=br
+      uri ldap://ldap.sj.ifsc.edu.br
+      ldap_version 3
+      referrals no
+      bind_policy soft
+    dest: "{{ item }}"
+    owner: root
+    group: root
+    mode: '0644'
+  loop:
+    - /etc/ldap/ldap.conf
+  when: ansible_os_family == 'Debian'
+  tags: ldap
+
+- name: Copiando arquivo /etc/nsswitch.conf
+  ansible.builtin.copy:
+    content: |
+      passwd:         compat systemd ldap [NOTFOUND=return] db
+      group:          compat systemd ldap [NOTFOUND=return] db
+      shadow:         files ldap
+      gshadow:        files ldap
+      hosts:          files myhostname dns
+      networks:       files
+      protocols:      db files
+      services:       db files
+      ethers:         db files
+      rpc:            db files
+      netgroup:       nis
+    dest: /etc/nsswitch.conf
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+  tags: ldap
+
+- name: Copiando arquivo /etc/nslcd.conf
+  ansible.builtin.copy:
+    content: |
+      uid nslcd
+      gid nslcd
+      uri ldap://ldap.sj.ifsc.edu.br
+      base dc=cefetsc,dc=edu,dc=br
+      ssl off
+      tls_reqcert never
+      pagesize 500
+      validnames /^.*$/
+      referrals no
+      nss_initgroups_ignoreusers root, daemon, bin, sys, sync, games, man, lp, mail, news, uucp, proxy, www-data, backup, list, irc, nobody, _apt, systemd-timesync, systemd-network, systemd-resolve, tss, messagebus, usbmux, rtkit, sshd, avahi, pulse, saned, aluno, nslcd, colord
+      # Faz o mapeamento do shell para usuários LDAP
+      # map passwd loginShell  uidNumber >= 1000 /bin/bash
+      # Permite login do usuário aluno depois de criado localmente
+      # filter passwd (objectClass=inetOrgPerson)
+    dest: /etc/nslcd.conf
+    owner: root
+    group: root
+    mode: '0644'
+  when: (ansible_distribution == 'Debian' and (ansible_distribution_release == 'bookworm' or ansible_distribution_release == 'trixie'))
+  tags: ldap, nslcd
+
+- name: Copiando arquivo /etc/pam.d/common-account
+  ansible.builtin.copy:
+    content: |
+      account [success=1 new_authtok_reqd=done default=ignore]        pam_unix.so
+      account requisite                                               pam_deny.so
+      account required                                                pam_permit.so
+      account [success=ok new_authtok_reqd=done ignore=ignore user_unknown=ignore authinfo_unavail=ignore default=bad]        pam_ldap.so minimum_uid=1000
+    dest: /etc/pam.d/common-account
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+  tags: ldap
+
+- name: Copiando arquivo /etc/pam.d/common-auth
+  ansible.builtin.copy:
+    content: |
+      auth    [success=2 default=ignore]      pam_unix.so nullok
+      auth    [success=1 default=ignore]      pam_ldap.so minimum_uid=1000 use_first_pass
+      auth    requisite                       pam_deny.so
+      auth    required                        pam_permit.so
+      auth    optional                        pam_mount.so
+    dest: /etc/pam.d/common-auth
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+  tags: ldap
+
+- name: Copiando arquivo /etc/pam.d/common-password
+  ansible.builtin.copy:
+    content: |
+      password  [success=2 default=ignore]  pam_unix.so obscure yescrypt
+      password  [success=1 default=ignore]  pam_ldap.so minimum_uid=1000 try_first_pass
+      password  requisite                   pam_deny.so
+      password  required                    pam_permit.so
+      password  optional                    pam_mount.so disable_interactive
+    dest: /etc/pam.d/common-password
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+  tags: ldap
+
+- name: Copiando arquivo /etc/pam.d/common-session
+  ansible.builtin.copy:
+    content: |
+      session [default=1]   pam_permit.so
+      session requisite     pam_deny.so
+      session required      pam_permit.so
+      session required      pam_unix.so
+      session [success=ok default=ignore] pam_ldap.so minimum_uid=1000
+      session optional      pam_mkhomedir.so skel=/etc/skel umask=077
+      session optional      pam_mount.so
+      session optional      pam_systemd.so
+    dest: /etc/pam.d/common-session
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+  tags: ldap
+
+- name: Copiando arquivo /etc/pam.d/common-session-noninteractive
+  ansible.builtin.copy:
+    content: |
+      session [default=1]     pam_permit.so
+      session requisite       pam_deny.so
+      session required        pam_permit.so
+      session required        pam_unix.so
+      session [success=ok default=ignore] pam_ldap.so minimum_uid=1000
+    dest: /etc/pam.d/common-session-noninteractive
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+  tags: ldap
+
+- name: Atualizar o cache do nss a cada 30 minutos
+  ansible.builtin.cron:
+    name: "Atualizar o cache do nss a cada 30 minutos"
+    minute: "*/30"
+    job: "/usr/sbin/nss_updatedb ldap"
+    user: root
+  when: ansible_os_family == 'Debian'
+  tags: nss_updatedb, ldap
+
+- name: Copiando arquivo /etc/security/pam_mount.conf.xml
+  ansible.builtin.copy:
+    src: pam_mount.conf.xml
+    dest: /etc/security/pam_mount.conf.xml
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+  tags: pam_mount.conf, ldap
