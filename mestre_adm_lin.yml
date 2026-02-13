@@ -1,7 +1,7 @@
 - name: Administrativo Linux -salas
   hosts: administrativos_lin,!sala,!note
   roles:
-    - ingressa_ldap
+    - autenticacao_ldap
     - acesso_remoto
     - cadeia_certificados
     - token_gd_starsign
@@ -194,6 +194,7 @@
   hosts: sje-lin-des2-703872.maquinas.sj.ifsc.edu.br
   roles:
     - code
+
 - name: Programas para a Ana Scharf
   hosts: sje-lin-des2-744928.maquinas.sj.ifsc.edu.br
   roles:
@@ -205,3 +206,13 @@
   hosts: sje-lin-contra-38845.maquinas.sj.ifsc.edu.br
   roles:
     - zoom
+
+- name: Computador francine.danguy
+  hosts: sje-lin-patrim-38847.maquinas.sj.ifsc.edu.br
+  roles:
+    - role: cups_server
+      cups_server_install: 0
+      cups_server_argox: 1
+      cups_server_pdf: 1
+      cups_server_financeiro: 1
+      cups_server_cgp: 1
