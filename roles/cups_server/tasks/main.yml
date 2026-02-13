@@ -4,13 +4,13 @@
     pkg:
       - cups
       - printer-driver-cups-pdf
-  when: ( ansible_os_family == 'Debian' and install == 1)
+  when: ( ansible_os_family == 'Debian' and cups_server_install == 1)
 
 - name: Para o serviço cups
   ansible.builtin.service:
     name: cups
     state: stopped
-  when: ( ansible_os_family == 'Debian' and install == 1)
+  when: ( ansible_os_family == 'Debian' and cups_server_install == 1)
 
 - name: Copia o arquivos de configuração
   ansible.builtin.copy:
@@ -22,7 +22,7 @@
   loop:
     - cups-browsed.conf
     - cupsd.conf
-  when: ( ansible_os_family == 'Debian' and  install == 1 )
+  when: ( ansible_os_family == 'Debian' and  cups_server_install == 1 )
   notify: Restart_cups-browsed
 
 - name: Cria diretório /usr/share/cups/model/argox/ - Linux
@@ -32,7 +32,7 @@
     owner: root
     group: root
     mode: '0755'
-  when: ( ansible_os_family == 'Debian' and  install == 1 and argox == 1 )
+  when: ( ansible_os_family == 'Debian' and  cups_server_install == 1 and cups_server_argox == 1 )
 
 - name: Copia os arquivos ppd Argox - Linux Debian
   ansible.builtin.copy:
@@ -41,7 +41,7 @@
     owner: root
     group: root
     mode: '0644'
-  when: ( ansible_os_family == 'Debian' and  install == 1 and argox == 1 )
+  when: ( ansible_os_family == 'Debian' and  cups_server_install == 1 and cups_server_argox == 1 )
 
 - name: Copia os arquivos ppd Argox para /etc/cups/ppd/  - Linux Debian
   ansible.builtin.copy:
@@ -50,7 +50,7 @@
     owner: root
     group: lp
     mode: '0640'
-  when: ( ansible_os_family == 'Debian' and  install == 1 and argox == 1 )
+  when: ( ansible_os_family == 'Debian' and  cups_server_install == 1 and cups_server_argox == 1 )
 
 - name: Copia o arquivo rastertoargox - Linux Debian
   ansible.builtin.copy:
@@ -59,7 +59,7 @@
     owner: root
     group: root
     mode: '0755'
-  when: ( ansible_os_family == 'Debian' and  install == 1 and argox == 1 )
+  when: ( ansible_os_family == 'Debian' and  cups_server_install == 1 and cups_server_argox == 1 )
 
 - name: Cria diretório /usr/share/cups/model/zebra/ - Linux
   ansible.builtin.file:
@@ -68,7 +68,7 @@
     owner: root
     group: root
     mode: '0755'
-  when: ( ansible_os_family == 'Debian' and  install == 1 and zebra == 1 )
+  when: ( ansible_os_family == 'Debian' and  cups_server_install == 1 and cups_server_zebra == 1 )
 
 - name: Copia os arquivos ppd Zebra - Linux Debian
   ansible.builtin.copy:
@@ -77,7 +77,7 @@
     owner: root
     group: root
     mode: '0644'
-  when: ( ansible_os_family == 'Debian' and  install == 1 and zebra == 1 )
+  when: ( ansible_os_family == 'Debian' and  cups_server_install == 1 and cups_server_zebra == 1 )
 
 - name: Copia os arquivos ppd zebra para /etc/cups/ppd/  - Linux Debian
   ansible.builtin.copy:
@@ -86,7 +86,7 @@
     owner: root
     group: lp
     mode: '0640'
-  when: ( ansible_os_family == 'Debian' and  install == 1 and zebra == 1 )
+  when: ( ansible_os_family == 'Debian' and  cups_server_install == 1 and cups_server_zebra == 1 )
 
 - name: Cria arquivo /etc/cups/printers.conf
   ansible.builtin.copy:
@@ -95,7 +95,7 @@
     owner: root
     group: lp
     mode: '0600'
-  when: ( ansible_os_family == 'Debian' and  install == 1)
+  when: ( ansible_os_family == 'Debian' and  cups_server_install == 1)
   notify: Restart_cups
 
 - name: Instala a impressora Argox - Linux
@@ -122,7 +122,7 @@
       OpPolicy default
       ErrorPolicy retry-job
       </Printer>
-  when: ( ansible_os_family == 'Debian' and  install == 1 and argox == 1 )
+  when: ( ansible_os_family == 'Debian' and  cups_server_install == 1 and cups_server_argox == 1 )
 
 - name: Instala a impressora reprografia_reserva - Linux
   ansible.builtin.blockinfile:
@@ -154,7 +154,7 @@
       Attribute marker-types toner,waste-toner
       Attribute marker-change-time 1770919541
       </Printer>
-  when: ( ansible_os_family == 'Debian' and  install == 1 and reprografia_reserva == 1 )
+  when: ( ansible_os_family == 'Debian' and  cups_server_install == 1 and cups_server_reprografia_reserva == 1 )
 
 - name: Instala a impressora reprografia_principal - Linux
   ansible.builtin.blockinfile:
@@ -184,7 +184,7 @@
       Attribute marker-types toner,waste-toner
       Attribute marker-change-time 1753094192
       </DefaultPrinter>
-  when: ( ansible_os_family == 'Debian' and  install == 1 and reprografia_principal == 1 )
+  when: ( ansible_os_family == 'Debian' and  cups_server_install == 1 and cups_server_reprografia_principal == 1 )
 
 - name: Instala a impressora ImpCGP - Linux
   ansible.builtin.blockinfile:
@@ -210,7 +210,7 @@
       OpPolicy default
       ErrorPolicy abort-job
       </Printer>
-  when: ( ansible_os_family == 'Debian' and  install == 1 and cgp == 1 )
+  when: ( ansible_os_family == 'Debian' and  cups_server_install == 1 and cups_server_cgp == 1 )
 
 - name: Instala a impressora ImpBiblioteca_USB - Linux
   ansible.builtin.blockinfile:
@@ -239,7 +239,7 @@
       AllowUser ctic
       ErrorPolicy retry-job
       </Printer>
-  when: ( ansible_os_family == 'Debian' and  install == 1 and biblioteca_usb == 1 )
+  when: ( ansible_os_family == 'Debian' and  cups_server_install == 1 and cups_server_biblioteca_usb == 1 )
 
 - name: Instala a impressora ImpDirecao - Linux
   ansible.builtin.blockinfile:
@@ -265,7 +265,7 @@
       OpPolicy default
       ErrorPolicy abort-job
       </Printer>
-  when: ( ansible_os_family == 'Debian' and  install == 1 and direcao == 1 )
+  when: ( ansible_os_family == 'Debian' and  cups_server_install == 1 and cups_server_direcao == 1 )
 
 - name: Instala a impressora ImpFinanceiro - Linux
   ansible.builtin.blockinfile:
@@ -291,7 +291,7 @@
       OpPolicy default
       ErrorPolicy abort-job
       </Printer>
-  when: ( ansible_os_family == 'Debian' and  install == 1 and financeiro == 1 )
+  when: ( ansible_os_family == 'Debian' and  cups_server_install == 1 and cups_server_financeiro == 1 )
 
 - name: Instala a impressora ImpSecretaria - Linux
   ansible.builtin.blockinfile:
@@ -317,7 +317,7 @@
       OpPolicy default
       ErrorPolicy abort-job
       </Printer>
-  when: ( ansible_os_family == 'Debian' and  install == 1 and secretaria == 1 )
+  when: ( ansible_os_family == 'Debian' and  cups_server_install == 1 and cups_server_secretaria == 1 )
 
 - name: Instala a impressora Almoxarifado Deskjet 6940- Linux
   ansible.builtin.blockinfile:
@@ -343,7 +343,7 @@
       OpPolicy default
       ErrorPolicy retry-job
       </Printer>
-  when: ( ansible_os_family == 'Debian' and  install == 1 and almoxarifado_6940 == 1 )
+  when: ( ansible_os_family == 'Debian' and  cups_server_install == 1 and cups_server_almoxarifado_6940 == 1 )
 
 - name: Instala o hplip
   ansible.builtin.apt:
@@ -351,7 +351,7 @@
       - hplip
       - hplip-gui
       - printer-driver-hpcups
-  when: ( ansible_os_family == 'Debian' and  install == 1 and almoxarifado_6940 == 1 )
+  when: ( ansible_os_family == 'Debian' and  cups_server_install == 1 and cups_server_almoxarifado_6940 == 1 )
 
 - name: Instala a impressora Almoxarifado Deskjet 3920- Linux
   ansible.builtin.blockinfile:
@@ -377,7 +377,7 @@
       OpPolicy default
       ErrorPolicy retry-job
       </Printer>
-  when: ( ansible_os_family == 'Debian' and  install == 1 and almoxarifado_3920 == 1 )
+  when: ( ansible_os_family == 'Debian' and  cups_server_install == 1 and cups_server_almoxarifado_3920 == 1 )
 
 - name: Instala o hplip
   ansible.builtin.apt:
@@ -385,7 +385,7 @@
       - hplip
       - hplip-gui
       - printer-driver-hpcups
-  when: ( ansible_os_family == 'Debian' and  install == 1 and almoxarifado_3920 == 1 )
+  when: ( ansible_os_family == 'Debian' and  cups_server_install == 1 and cups_server_almoxarifado_3920 == 1 )
 
 - name: Copia os arquivos ppd Almoxarifado Deskjet 6940 - Linux Debian
   ansible.builtin.copy:
@@ -394,7 +394,7 @@
     owner: root
     group: root
     mode: '0644'
-  when: ( ansible_os_family == 'Debian' and  install == 1 and almoxarifado_6940 == 1 )
+  when: ( ansible_os_family == 'Debian' and  cups_server_install == 1 and cups_server_almoxarifado_6940 == 1 )
 
 - name: Copia os arquivos ppd Almoxarifado Deskjet 3920 - Linux Debian
   ansible.builtin.copy:
@@ -403,7 +403,7 @@
     owner: root
     group: root
     mode: '0644'
-  when: ( ansible_os_family == 'Debian' and  install == 1 and almoxarifado_3920 == 1 )
+  when: ( ansible_os_family == 'Debian' and  cups_server_install == 1 and cups_server_almoxarifado_3920 == 1 )
 
 - name: Instala a impressora ImpBiblio - Linux
   ansible.builtin.blockinfile:
@@ -430,12 +430,12 @@
       OpPolicy default
       ErrorPolicy abort-job
       </Printer>
-  when: ( ansible_os_family == 'Debian' and  install == 1 and biblioteca == 1 )
+  when: ( ansible_os_family == 'Debian' and  cups_server_install == 1 and cups_server_biblioteca == 1 )
 
 - name: Instalar o cups-pdf - Debian buster
   ansible.builtin.apt:
     name: printer-driver-cups-pdf
-  when: ( ansible_os_family == 'Debian' and install == 1 and pdf == 1 )
+  when: ( ansible_os_family == 'Debian' and cups_server_install == 1 and cups_server_pdf == 1 )
 
 - name: Instala a impressora PDF - Linux
   ansible.builtin.blockinfile:
@@ -461,11 +461,11 @@
       ErrorPolicy retry-job
       Option pdftops-renderer pdftocairo
       </DefaultPrinter>
-  when: ( ansible_os_family == 'Debian' and  install == 1 and pdf == 1 )
+  when: ( ansible_os_family == 'Debian' and  cups_server_install == 1 and cups_server_pdf == 1 )
 
 - name: Apaga arquivo cups-client
   ansible.builtin.file:
     path: /etc/cups/client.conf
     state: absent
-  when: ( ansible_os_family == 'Debian' and  install == 1 )
+  when: ( ansible_os_family == 'Debian' and  cups_server_install == 1 )
   notify: Restart_cups
