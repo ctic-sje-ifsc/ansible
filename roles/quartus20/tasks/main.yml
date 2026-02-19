@@ -73,6 +73,21 @@
     loop_var: altera_desktop
   when: ansible_os_family == 'Debian'
 
+- name: Adicionar atalho quartus20.1.sh no /usr/local/bin
+  ansible.builtin.copy:
+    content: |
+      #!/bin/bash
+      export QSYS_ROOTDIR="/opt/altera/intelFPGA/20.1/quartus/sopc_builder/bin"
+      export LM_LICENSE_FILE="1800@license-server.sj.ifsc.edu.br"
+      export PWD="/opt/altera/intelFPGA/20.1/quartus/bin"
+      /opt/altera/intelFPGA/20.1/quartus/bin/quartus --64bit &
+    dest: /usr/local/bin/quartus20.1.sh
+    owner: root
+    group: root
+    mode: '0755'
+  when: ansible_os_family == 'Debian'
+  tags: atalho_terminal
+
 # Configuração das variáveis de licença
 - name: Adicionar entrada MGLS_LICENSE_FILE export no /etc/security/pam_env.conf - Linux
   ansible.builtin.lineinfile:
