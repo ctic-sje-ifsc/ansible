@@ -78,8 +78,12 @@
             sje-lin-cad2-905476.maquinas.sj.ifsc.edu.br
           {%- elif ansible_hostname.startswith("sje-lin-cad3") -%}
             sje-lin-cad3-744517.maquinas.sj.ifsc.edu.br
-          {%- elif ansible_hostname.startswith("sje-lin-info") -%}
+          {%- elif ansible_hostname.startswith("sje-lin-info-") -%}
             sje-lin-info-895203.maquinas.sj.ifsc.edu.br
+          {%- elif ansible_hostname.startswith("sje-lin-info2") -%}
+            sje-lin-info2-pe0f042e.maquinas.sj.ifsc.edu.br
+          {%- elif ansible_hostname.startswith("sje-lin-info3") -%}
+            sje-lin-info3-pe0f09g3.maquinas.sj.ifsc.edu.br
           {%- elif ansible_hostname.startswith("sje-lin-mtrans") -%}
             sje-lin-mtrans-926158.maquinas.sj.ifsc.edu.br
           {%- else -%}

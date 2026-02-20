@@ -103,6 +103,24 @@
 
 - name: Define arquivo hosts
   ansible.builtin.copy:
+    src: hosts.info2
+    dest: /etc/ansible/hosts
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-info2-pe0f042e")
+
+- name: Define arquivo hosts
+  ansible.builtin.copy:
+    src: hosts.info3
+    dest: /etc/ansible/hosts
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-info3-pe0f09g3")
+
+- name: Define arquivo hosts
+  ansible.builtin.copy:
     src: hosts.meiostrans
     dest: /etc/ansible/hosts
     owner: root
