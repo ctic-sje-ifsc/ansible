@@ -106,7 +106,7 @@
     user: root
     state: present
     key: "{{ lookup('file', 'info.id_rsa.pub') }}"
-  when: ansible_os_family == 'Debian' and (ansible_hostname is search("^sje-lin-info"))
+  when: ansible_os_family == 'Debian' and (ansible_hostname is search("^sje-lin-info-"))
 
 - name: Modifica o arquivo /root/.ssh/id_rsa do Informática - lINUX
   ansible.builtin.copy:
@@ -116,6 +116,33 @@
     group: root
     mode: '0400'
   when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-info-895203")
+
+## Informática 3
+- name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys do Informática 3 - Linux
+  ansible.posix.authorized_key:
+    user: root
+    state: present
+    key: "{{ lookup('file', 'info3.pub') }}"
+  when: ansible_os_family == 'Debian' and (ansible_hostname is search("^sje-lin-info3"))
+
+- name: Modifica o arquivo /root/.ssh/id_rsa do Informática 3 - lINUX
+  ansible.builtin.copy:
+    src: info3
+    dest: /root/.ssh/id_ed25519
+    owner: root
+    group: root
+    mode: '0400'
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-info3-pe0f09g3")
+
+- name: Faz link simbólico do /root/.ssh/id_ed25519 para /root/.ssh/id_rsa do Informática 3 - lINUX
+  ansible.builtin.file:
+    src: /root/.ssh/id_ed25519
+    dest: /root/.ssh/id_rsa
+    state: link
+    owner: root
+    group: root
+    mode: '0400'
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-info3-pe0f09g3")
 
 ## Meios de transmissão
 - name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys Meios de transmissão - Linux
