@@ -541,3 +541,10 @@
         marker: "# {mark} ANSIBLE MANAGED BLOCK GLPI#24493"
       tags: instala
       when: ansible_os_family == 'Debian'
+
+- name: Sala de monitoria
+  hosts: sje-lin-monitoria-744602.maquinas.sj.ifsc.edu.br
+  roles:
+    - ingressa_ldap
+    - role: grub
+      tipo: grub_soh_lin
