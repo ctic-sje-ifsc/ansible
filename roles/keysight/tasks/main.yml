@@ -1,0 +1,42 @@
+### Comando em powershell para mostrar product_id
+### get-wmiobject Win32_Product | Format-Table IdentifyingNumber, Name, LocalPackage -AutoSize
+### Localizacao do productid 32 bits: HKLM:Software\Microsoft\Windows\CurrentVersion\Uninstall
+### Localizacao do productid 64 bits: HKLM:Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall
+
+
+## Windows
+
+- name: Verifica se o Keysight está instalado
+  ansible.windows.win_stat:
+    path: C:\Program Files\Keysight
+  register: key_info
+  changed_when: false
+  when: ansible_os_family == 'Windows'
+
+- name: Baixar zip do Keysight IC - Windows
+  ansible.windows.win_get_url:
+    url: http://ansiblefiles.sj.ifsc.edu.br/Keysight_IC.zip
+    dest: 'C:\instaladores\Keysight_IC.zip'
+    force: false
+    timeout: 300 # 5 minutos
+  when: ansible_os_family == 'Windows' and not key_info.stat.exists
+
+- name: Extrai o Keysight IC - Windows
+  community.windows.win_unzip:
+    src: C:\instaladores\Keysight_IC.zip
+    dest: C:\instaladores
+  when: ansible_os_family == 'Windows' and not key_info.stat.exists
+
+# - name: Instalar o Command Expert - Windows
+#   ansible.windows.win_package:
+#     path: C:\instaladores\CommandExpert_WEB_MSI_1_11_045.exe
+#     arguments: '/S /v/qn'
+#     # product_id: '{2427809E-E557-47DF-813D-22A52BC0E646}'
+#     state: present
+#   when: ansible_os_family == 'Windows' # and not key_info.stat.exists
+
+- name: Remove arquivos antigos
+  ansible.windows.win_file:
+    path: C:\instaladores\Keysight_IC.zip
+    state: absent
+  when: ansible_os_family == 'Windows'
