@@ -231,9 +231,8 @@
       tags: moodle
       loop:
         - moodle.ifsc.edu.br
-        - use.fontawesome.com
-        - fonts.googleapis.com
-        - fonts.gstatic.com
+        - cdn.jsdelivr.net
+        - vlibras.gov.br
       when: ansible_os_family == 'Debian'
 
     - name: Libera moodle.ifsc.edu.br IPv6
@@ -247,9 +246,7 @@
         ip_version: ipv6
       tags: moodle
       loop:
-        - use.fontawesome.com
-        - fonts.googleapis.com
-        - fonts.gstatic.com
+        - cdn.jsdelivr.net
       when: ansible_os_family == 'Debian'
 
     - name: Libera para a faixa ip do campus SJE
