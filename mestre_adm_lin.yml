@@ -211,7 +211,7 @@
   hosts: sje-lin-patrim-933450.maquinas.sj.ifsc.edu.br
   roles:
     - role: cups_server
-      cups_server_install: 0
+      cups_server_install: 1
       cups_server_argox: 1
       cups_server_pdf: 1
       cups_server_financeiro: 1
