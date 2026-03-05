@@ -208,7 +208,7 @@
     - zoom
 
 - name: Computador francine.danguy
-  hosts: sje-lin-patrim-933450.maquinas.sj.ifsc.edu.br
+  hosts: sje-lin-patrim-38853.maquinas.sj.ifsc.edu.br
   roles:
     - role: cups_server
       cups_server_install: 1
