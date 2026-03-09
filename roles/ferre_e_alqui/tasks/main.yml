@@ -1,0 +1,25 @@
+## Windows
+
+- name: Baixa zip
+  ansible.windows.win_get_url:
+    url: http://ansiblefiles.sj.ifsc.edu.br/ferreiros_e_alquimistas.zip
+    dest: 'C:\instaladores\fa.zip'
+    force: false
+    timeout: 300 # 5 minutos
+  when: ansible_os_family == 'Windows'
+
+- name: Extrai
+  community.windows.win_unzip:
+    src: C:\instaladores\fa.zip
+    dest: C:\Program Files\ferreiros_e_alquimistas
+  when: ansible_os_family == 'Windows'
+
+
+- name: atalho
+  ansible.windows.win_copy:
+    description: atalho F e A
+    state: "present" 
+    remote_src: true
+    src: C:\Program Files\ferreiros_e_alquimistas\Ferreiros e Alquimistas.lnk
+    dest: 'C:\Users\aluno\Desktop\Ferreiros_e_Alquimistas.lnk'
+
