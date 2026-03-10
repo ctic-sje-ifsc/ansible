@@ -14,12 +14,10 @@
     dest: C:\Program Files\ferreiros_e_alquimistas
   when: ansible_os_family == 'Windows'
 
-
-- name: atalho
+- name: Cria atalho do programa na área de trabalho
   ansible.windows.win_copy:
     description: atalho F e A
-    state: "present" 
+    state: present
     remote_src: true
     src: C:\Program Files\ferreiros_e_alquimistas\Ferreiros e Alquimistas.lnk
     dest: 'C:\Users\aluno\Desktop\Ferreiros_e_Alquimistas.lnk'
-
