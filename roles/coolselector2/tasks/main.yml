@@ -53,7 +53,7 @@
 - name: Baixa atalho do programa na área de trabalho
   ansible.windows.win_get_url:
     url: http://ansiblefiles.sj.ifsc.edu.br/Coolselector2.lnk
-    dest: 'C:\Users\aluno\Desktop\Coolselector2.lnk'
+    dest: 'C:\Users\Public\Desktop\Coolselector2.lnk'
     force: false
     timeout: 300 # 5 minutos
   when: ansible_os_family == 'Windows'

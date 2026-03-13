@@ -20,4 +20,4 @@
     state: present
     remote_src: true
     src: C:\Program Files\ferreiros_e_alquimistas\Ferreiros e Alquimistas.lnk
-    dest: 'C:\Users\aluno\Desktop\Ferreiros_e_Alquimistas.lnk'
+    dest: 'C:\Users\Public\Desktop\Ferreiros_e_Alquimistas.lnk'
