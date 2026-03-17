@@ -1,0 +1,23 @@
+## Windows
+
+# - name: Baixa zip
+#   ansible.windows.win_get_url:
+#     url: https://download.tek.com/secure/software/SignalVu-PC_v5.7.0161_066143453.exe?sv=2018-03-28&sr=b&sig=bm%2F9f%2B3Y%2BYDC8QYvnJDYrZZGsjwy%2BpTnOSkpJlW0D%2FM%3D&se=2026-03-16T17%3A13%3A04Z&sp=r
+#     dest: 'C:\instaladores\SignalVU.zip'
+#     force: false
+#     timeout: 300 # 5 minutos
+#   when: ansible_os_family == 'Windows'
+
+# - name: Extrai
+#   community.windows.win_unzip:
+#     src: C:\instaladores\SignalVu.zip
+#     dest: C:\Program Files\
+#   when: ansible_os_family == 'Windows'
+
+- name: Instalar o Revit 2
+  ansible.windows.win_package:
+    path: C:\instaladores\SignalVu-PC_v5.7.0161_066143453\Win64\Setup.exe
+    arguments: "--mode unattended --ui_mode basic"
+    state: present
+  when: ansible_os_family == 'Windows'
+
