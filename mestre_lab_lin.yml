@@ -426,6 +426,7 @@
     - jetbrains
     - pycharm
     - matlab
+    - mplab
     - quartus20
 
 - name: Laboratório de Redes
@@ -521,7 +522,7 @@
   roles:
     - role: grub
       tipo: grub_soh_lin
-    
+
     - android-studio
     - clion
     - code
