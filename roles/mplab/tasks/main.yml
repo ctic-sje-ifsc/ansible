@@ -106,15 +106,13 @@
     loop_var: rules_mplab
   when: ansible_os_family == 'Debian'
 
-# - name: Adicionar PATH  - Linux Debian
-#   lineinfile:
-#     regexp: "^export OLDPATH="
-#     state: present
-#     path: /etc/bash.bashrc
-#     line: 'export OLDPATH=/home/aluno'
+# - name: Apaga /opt/microchip/xc8
+#   ansible.builtin.file:
+#     state: absent
+#     path: /opt/microchip/xc8
 #   when: ansible_os_family == 'Debian'
 
-- name: Baixa e extrai xc8 v.2.05 - Debian 11
+- name: Baixa e extrai xc8 v.2.05
   ansible.builtin.unarchive:
     src: http://ansiblefiles.sj.ifsc.edu.br/xc8.bz
     dest: /opt/microchip
@@ -123,7 +121,7 @@
     owner: root
     group: root
     mode: '0755'
-  when: (ansible_os_family == 'Debian' and ansible_distribution_release == 'bullseye')
+  when: ansible_os_family == 'Debian'
 
 - name: Copiando arquivo m328pdef.inc - Linux Debian
   ansible.builtin.copy:
