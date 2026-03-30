@@ -9,7 +9,7 @@
   ansible.builtin.file:
     state: absent
     path: /opt/microchip/
-  when: (ansible_os_family == 'Debian' and result_mplab.stdout.find('6.10') == -1)
+  when: (ansible_os_family == 'Debian' and result_mplab.stdout.find('6.15') == -1)
 
 - name: Apagando links mplab - Linux
   ansible.builtin.file:
@@ -21,13 +21,13 @@
     - mdb
   loop_control:
     loop_var: old_mplab_link
-  when: (ansible_os_family == 'Debian' and result_mplab.stdout.find('6.10') == -1)
+  when: (ansible_os_family == 'Debian' and result_mplab.stdout.find('6.15') == -1)
 
-- name: Baixa e extrai mplab 6.10 - Debian
+- name: Baixa e extrai mplab 6.15 - Debian
   ansible.builtin.unarchive:
-    src: http://ansiblefiles.sj.ifsc.edu.br/mplab.bz
+    src: http://ansiblefiles.sj.ifsc.edu.br/mplab215.bz
     dest: /opt
-    creates: /opt/microchip/mplabx/v6.10
+    creates: /opt/microchip/mplabx/v6.15
     remote_src: true
     owner: root
     group: root
@@ -64,7 +64,7 @@
 
 - name: Criando links simbolicos - Linux Debian
   ansible.builtin.file:
-    src: /opt/microchip/mplabx/v6.10/mplab_platform/bin/{{ mplab_link }}
+    src: /opt/microchip/mplabx/v6.15/mplab_platform/bin/{{ mplab_link }}
     dest: /usr/bin/{{ mplab_link }}
     state: link
   loop:
@@ -76,7 +76,7 @@
 
 - name: Criando link simbolico com nome diferente - Linux Debian
   ansible.builtin.file:
-    src: /opt/microchip/mplabx/v6.10/mplab_platform/bin/mdb.sh
+    src: /opt/microchip/mplabx/v6.15/mplab_platform/bin/mdb.sh
     dest: /usr/bin/mdb
     state: link
   when: ansible_os_family == 'Debian'
