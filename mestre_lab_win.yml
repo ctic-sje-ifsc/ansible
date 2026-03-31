@@ -251,8 +251,13 @@
 
 
 ######################## ORDEM ALFABÉTICA ########################
-- name: Laboratório de Comunicação sem fio
-  hosts: csfio_win
+# - name: Laboratório de Comunicação sem fio
+#   hosts: csfio_win
+#   roles:
+#     - hfss
+#     - nec
+
+- name: Laboratório de CAD1, CAD2 e CAD3
+  hosts: cad1_win,cad2_win,cad3_win
   roles:
-    - hfss
-    - nec
+    - ipu_softwares
