@@ -6,6 +6,7 @@
     - arduino
     - auto_desligamento
     - chaves_ssh
+    - code
     - dconf
     - docker
     - flatpak
@@ -500,7 +501,6 @@
       tipo: grub_soh_lin
     - wpa_supplicant_sala13
     - android-studio
-    - code
     - scidavis
     - clion
     - idea
@@ -525,7 +525,6 @@
 
     - android-studio
     - clion
-    - code
     - idea
     - pycharm
     - scidavis
