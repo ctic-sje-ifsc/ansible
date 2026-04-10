@@ -1,5 +1,3 @@
-#### Linux
-
 - name: Cria diretório /opt/OVA
   ansible.builtin.file:
     path: /opt/OVA
@@ -9,19 +7,28 @@
     mode: '0755'
   when: ansible_os_family == 'Debian'
 
-- name: Baixa imagens OVA - Linux Debian
-  ansible.builtin.unarchive:
-    src: http://ansiblefiles.sj.ifsc.edu.br/{{ item }}
-    dest: /opt/OVA/
-    creates: /opt/OVA/Grafico.ova
-    remote_src: true
+- name: Download ubuntu-server.ova
+  ansible.builtin.get_url:
+    url: http://ansiblefiles.sj.ifsc.edu.br/ubuntu-server.ova
+    dest: /opt/OVA/ubuntu-server.ova
     owner: root
     group: root
-    mode: '0755'
-  loop:
-    - server.bz
-    - grafico.bz
+    mode: '0744'
+    checksum: sha256:7b4977be2a954e71e315baf9c896172a236fd14a5e6073ef6640307613fccb49
   when: ansible_os_family == 'Debian'
+  tags: ubuntu-server
+
+
+- name: Download ubuntu-grafico.ova
+  ansible.builtin.get_url:
+    url: http://ansiblefiles.sj.ifsc.edu.br/ubuntu-grafico.ova
+    dest: /opt/OVA/ubuntu-grafico.ova
+    owner: root
+    group: root
+    mode: '0744'
+    checksum: sha256:5a6e1a41d50e2c5c12eba769295cb53b53df13e742c078e9ec6a5db86b6c88a0
+  when: ansible_os_family == 'Debian'
+  tags: ubuntu-grafico
 
 - name: Garante que tem as pastas do VirtualBox
   ansible.builtin.file:
@@ -35,12 +42,14 @@
     - /opt/vms/VirtualBox VMs/
     - /opt/vms/.config/VirtualBox/
   when: ansible_os_family == 'Debian'
+
 ##### É possível alterar certas configurações na criação da VM, como memória, CPU, etc.
 - name: Criando maquina virtual com base no arquivo OVA - Linux
   ansible.builtin.command: "sudo -u {{ item.usuario }} vboxmanage import {{ item.imagem }} --vsys 0 --vmname {{ item.vm }} --vsys 0 --cpus {{ item.cpu }} --vsys 0 --memory {{ item.memoria }} --vsys 0 --unit 14 --disk /opt/vms/'VirtualBox VMs'/{{ item.vm }}/{{ item.vm }}-disk1.vmdk --vsys 0 --unit 15 --disk /opt/vms/'VirtualBox VMs'/{{ item.vm }}/{{ item.vm }}-disk2.vmdk"
   loop: ######## SUGESTÃO DE NOME PARA AS MÁQUINAS VIRTUAIS MATERIA-PROF, ex.: RCO-Marcelo
-    - { imagem: '/opt/OVA/Ubuntu.ova', vm: 'Servidor-livre', usuario: 'aluno', cpu: 2, memoria: 2048 } # Máquina servidor
-    # - { imagem: '/opt/OVA/Grafico.ova', vm: 'Grafico-livre', usuario: 'aluno', cpu: 2, memoria: 2048 } # Máquina grafica
+    - { imagem: '/opt/OVA/ubuntu-server.ova', vm: 'Servidor-livre', usuario: 'aluno', cpu: 2, memoria: 2048 } # Máquina servidor
+    # - { imagem: '/opt/OVA/ubuntu-grafico.ova', vm: 'Grafico-livre', usuario: 'aluno', cpu: 2, memoria: 2048 } # Máquina grafica
   args: ######## SUGESTÃO DE NOME PARA AS MÁQUINAS VIRTUAIS MATERIA-PROF, ex.: RCO-Marcelo
     creates: /opt/vms/VirtualBox VMs/{{ item.vm }}
   when: ansible_os_family == 'Debian'
+  tags: cria-vm
