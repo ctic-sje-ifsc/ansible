@@ -1,0 +1,19 @@
+# Linux
+
+- name: Remover versão antiga do nodejs do repositorio  - Linux
+  ansible.builtin.apt:
+    state: absent
+    pkg:
+      - nodejs
+  when: ansible_os_family == 'Debian'
+
+- name: Baixa a versão especificada do nodejs
+  ansible.builtin.shell: "{{ item }}"
+  loop:
+    - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
+    - mv /root/.nvm /opt/.nvm
+    - mv /root/.npm /opt/.npm
+    # - . "/opt/.nvm/nvm.sh"
+    - . "/opt/.nvm/nvm.sh" && nvm install 24
+    - ln -s /opt/.nvm/versions/node/v24.15.0/bin/node /usr/bin/node
+  when: ansible_os_family == 'Debian'
