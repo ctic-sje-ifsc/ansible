@@ -4,16 +4,30 @@
   ansible.builtin.apt:
     state: absent
     pkg:
-      - nodejs
+      - nodejs=18.20.4+dfsg-1~deb12u1
   when: ansible_os_family == 'Debian'
 
-- name: Baixa a versão especificada do nodejs
-  ansible.builtin.shell: "{{ item }}"
-  loop:
-    - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
-    - mv /root/.nvm /opt/.nvm
-    - mv /root/.npm /opt/.npm
-    # - . "/opt/.nvm/nvm.sh"
-    - . "/opt/.nvm/nvm.sh" && nvm install 24
-    - ln -s /opt/.nvm/versions/node/v24.15.0/bin/node /usr/bin/node
+- name: Adiciona repositório do node para o 'Debian'
+  ansible.builtin.copy:
+    src: nodesource.gpg
+    dest: /etc/apt/keyrings/nodesource.gpg
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+
+- name: Adiciona repositório do node para o 'Debian'
+  ansible.builtin.copy:
+    content: |
+      deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_24.x nodistro main
+    dest: /etc/apt/sources.list.d/nodejs.list
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+
+- name: Instala o nodejs do repositorio
+  ansible.builtin.apt:
+    name: nodejs=24.15.0-1nodesource1
+    update_cache: true
   when: ansible_os_family == 'Debian'
