@@ -16,6 +16,9 @@
     mode: '0644'
   when: ansible_os_family == 'Debian'
 
+#####curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+
+
 - name: Adiciona repositório do node para o 'Debian'
   ansible.builtin.copy:
     content: |
