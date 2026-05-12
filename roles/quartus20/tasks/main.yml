@@ -12,6 +12,7 @@
       - libstdc++6:i386
       - libfreetype6:i386
       - libsm6:i386
+      - libudev0
       - libxrender1:i386
       - libfontconfig1:i386
       - libxext6:i386
@@ -44,7 +45,7 @@
     mode: '0755'
   when: ansible_os_family == 'Debian'
 
-- name: Copiando o icone do modelsim - Debian 11
+- name: Copiando o icone do modelsim
   ansible.builtin.copy:
     src: modelsim.png
     dest: /opt/altera/intelFPGA/20.1/modelsim_ae/modelsim.png
@@ -59,7 +60,7 @@
     state: present
   when: ansible_os_family == 'Debian'
 
-- name: Define o /usr/share/applications/{{ altera_desktop }}
+- name: Define os atalhos do Quartus e ModelSim
   ansible.builtin.copy:
     src: "{{ altera_desktop }}"
     dest: /usr/share/applications/
@@ -129,6 +130,9 @@
 
 - name: Remove biblioteca libfreetype.so.6 que conflita com o eclipse
   ansible.builtin.file:
-    path: /opt/altera/intelFPGA/20.1/quartus/linux64/jre64/lib/amd64/libfreetype.so.6
+    path: "{{ item }}"
     state: absent
+  loop:
+    - /etc/systemd/system/basic.target.wants/jtagd.service
+    - /opt/altera/intelFPGA/20.1/quartus/linux64/jre64/lib/amd64/libfreetype.so.6
   when: ansible_os_family == 'Debian'
