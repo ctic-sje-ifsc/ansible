@@ -154,3 +154,12 @@
     group: root
     mode: '0644'
   when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-sidi-918545")
+
+- name: Copia firewall_libera_dominio.py
+  ansible.builtin.copy:
+    src: firewall_libera_dominio.py
+    dest: /usr/local/bin/firewall_libera_dominio.py
+    owner: root
+    group: root
+    mode: '0755'
+  when: "'lab_profs_lin' in group_names"
