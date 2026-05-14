@@ -1,39 +1,35 @@
-- name: Remove clion softwares from flathub
-  community.general.flatpak:
-    name:
-      - com.jetbrains.CLion
-    state: absent
-  when: ansible_os_family == 'Debian'
-  tags: jetbrains
+#role para colocar o KVM em uma blacklist por conta do virtualbox. VirtualBox trazia o seguinte erro: Please disable KVM kernel extension...
 
-- name: Baixa e instala clion
-  ansible.builtin.unarchive:
-    src: http://ansiblefiles.sj.ifsc.edu.br/CLion-2025.3.1.tar.gz
-    dest: /opt/
-    remote_src: true
-    creates: /opt/clion/bin/clion
-    owner: root
-    group: root
-    mode: '0755'
-    extra_opts:
-      - --transform
-      - 's:^[^/]*:clion:'
-  when: ansible_os_family == 'Debian'
-
-- name: Cria atalho do clion na lista de aplicativos
-  ansible.builtin.copy:
-    content: |
-      [Desktop Entry]
-      Version=1.0
-      Type=Application
-      Name=CLion
-      Icon=/opt/clion/bin/clion.png
-      Exec="/opt/clion/bin/clion" %f
-      Comment=Capable and Ergonomic IDE for C and C++ Development
-      Categories=Development;IDE;
-      Terminal=false
-    dest: /usr/share/applications/clion.desktop
+- name: Garantir que o arquivo de blacklist exista
+  ansible.builtin.file:
+    path: /etc/modprobe.d/blacklist-kvm.conf
+    state: touch
     owner: root
     group: root
     mode: '0644'
-  when: ansible_os_family == 'Debian'
+
+- name: Adicionar blacklist do módulo kvm
+  ansible.builtin.lineinfile:
+    path: /etc/modprobe.d/blacklist-kvm.conf
+    line: "blacklist kvm"
+    state: present
+
+- name: Adicionar blacklist do módulo kvm_amd
+  ansible.builtin.lineinfile:
+    path: /etc/modprobe.d/blacklist-kvm.conf
+    line: "blacklist kvm_amd"
+    state: present
+
+- name: Remover módulos KVM carregados atualmente
+  community.general.modprobe:
+    name: "{{ item }}"
+    state: absent
+  loop:
+    - kvm_amd
+    - kvm
+  ignore_errors: true
+
+- name: Atualizar initramfs (Debian/Ubuntu)
+  ansible.builtin.command: update-initramfs -u
+  when: ansible_os_family == "Debian"
+  changed_when: true
