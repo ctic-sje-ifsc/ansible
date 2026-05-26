@@ -261,3 +261,4 @@
   hosts: cad1_win,cad2_win,cad3_win
   roles:
     - ipu_softwares
+    - obs
