@@ -9,7 +9,7 @@
   chocolatey.chocolatey.win_chocolatey:
     name: "{{ item }}"
     state: present
-    loop:
-      - obs-studio
-      - openshot
+  loop:
+    - obs-studio
+    - openshot
   when: ansible_os_family == 'Windows'
