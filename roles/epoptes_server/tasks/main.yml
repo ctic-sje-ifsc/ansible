@@ -29,7 +29,7 @@
     dest: /etc/epoptes/groups.json
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
   when: (ansible_distribution == 'Debian' and ansible_hostname == 'sje-lin-sidi-918545')
   tags: epoptes_groups
 
@@ -39,7 +39,7 @@
     dest: /etc/epoptes/groups.json
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
   when: (ansible_distribution == 'Debian' and ansible_hostname == 'sje-lin-redes-906284')
   tags: epoptes_groups
 
@@ -49,8 +49,8 @@
     dest: /etc/epoptes/groups.json
     owner: root
     group: root
-    mode: '0644'
-  when: (ansible_distribution == 'Debian' and ansible_hostname == 'sje-lin-prog-pe0ezwyz')
+    mode: "0644"
+  when: (ansible_distribution == 'Debian' and ansible_hostname == 'sje-lin-prog-944693')
   tags: epoptes_groups
 
 - name: Copia arquivo prog.json para máquina do professor
@@ -59,7 +59,7 @@
     dest: /etc/epoptes/groups.json
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
   when: (ansible_distribution == 'Debian' and ansible_hostname == 'sje-lin-mtrans-926158')
   tags: epoptes_groups
 
@@ -69,7 +69,7 @@
     dest: /etc/epoptes/groups.json
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
   when: (ansible_distribution == 'Debian' and ansible_hostname == 'sje-lin-info-895203')
   tags: epoptes_groups
 
@@ -79,7 +79,7 @@
     dest: /etc/epoptes/groups.json
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
   when: (ansible_distribution == 'Debian' and ansible_hostname == 'sje-lin-info2-pe0f042e')
   tags: epoptes_groups
 
@@ -89,6 +89,6 @@
     dest: /etc/epoptes/groups.json
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
   when: (ansible_distribution == 'Debian' and ansible_hostname == 'sje-lin-info3-pe0f09g3')
   tags: epoptes_groups

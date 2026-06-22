@@ -10,7 +10,7 @@
     path: /etc/ansible
     owner: root
     group: root
-    mode: '0755'
+    mode: "0755"
   when: "'lab_profs_lin' in group_names"
 
 - name: Cria firewall.yml
@@ -19,7 +19,7 @@
     dest: /etc/ansible/firewall.yml
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
   when: "'lab_profs_lin' in group_names"
 
 - name: Desativa StrictHostKeyChecking
@@ -29,7 +29,7 @@
     dest: /etc/ssh/ssh_config.d/ansible.conf
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
   when: "'lab_profs_lin' in group_names"
 
 - name: Adiciona aliases no /etc/bash.bashrc
@@ -53,7 +53,7 @@
     remote_src: true
     owner: root
     group: epoptes
-    mode: '0440'
+    mode: "0440"
   when: "'lab_profs_lin' in group_names"
 
 - name: Define arquivo hosts
@@ -62,7 +62,7 @@
     dest: /etc/ansible/hosts
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
   when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-cad1-916082")
 
 - name: Define arquivo hosts
@@ -71,7 +71,7 @@
     dest: /etc/ansible/hosts
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
   when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-cad2-905476")
 
 - name: Define arquivo hosts
@@ -80,7 +80,7 @@
     dest: /etc/ansible/hosts
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
   when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-cad3-pe0ebngx")
 
 - name: Define arquivo hosts
@@ -89,7 +89,7 @@
     dest: /etc/ansible/hosts
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
   when: ansible_os_family == 'Debian' and ansible_hostname is search("sj-lin-csfio-744536")
 
 - name: Define arquivo hosts
@@ -98,7 +98,7 @@
     dest: /etc/ansible/hosts
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
   when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-info-895203")
 
 - name: Define arquivo hosts
@@ -107,7 +107,7 @@
     dest: /etc/ansible/hosts
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
   when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-info2-pe0f042e")
 
 - name: Define arquivo hosts
@@ -116,7 +116,7 @@
     dest: /etc/ansible/hosts
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
   when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-info3-pe0f09g3")
 
 - name: Define arquivo hosts
@@ -125,7 +125,7 @@
     dest: /etc/ansible/hosts
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
   when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-mtrans-926158")
 
 - name: Define arquivo hosts
@@ -134,8 +134,8 @@
     dest: /etc/ansible/hosts
     owner: root
     group: root
-    mode: '0644'
-  when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-prog-pe0ezwyz")
+    mode: "0644"
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-prog-944693")
 
 - name: Define arquivo hosts
   ansible.builtin.copy:
@@ -143,7 +143,7 @@
     dest: /etc/ansible/hosts
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
   when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-redes-906284")
 
 - name: Define arquivo hosts
@@ -152,7 +152,7 @@
     dest: /etc/ansible/hosts
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
   when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-sidi-918545")
 
 - name: Copia firewall_libera_dominio.py
@@ -161,5 +161,5 @@
     dest: /usr/local/bin/firewall_libera_dominio.py
     owner: root
     group: root
-    mode: '0755'
+    mode: "0755"
   when: "'lab_profs_lin' in group_names"
