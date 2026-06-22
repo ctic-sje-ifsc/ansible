@@ -8,99 +8,99 @@
 
 - name: Adicionar entrada no /etc/default/epoptes-client sobre quem é o server do sidi - Linux
   ansible.builtin.lineinfile:
-    regexp: '^SERVER'
+    regexp: "^SERVER"
     path: /etc/default/epoptes-client
-    line: 'SERVER=sje-lin-sidi-918545.maquinas.sj.ifsc.edu.br'
+    line: "SERVER=sje-lin-sidi-918545.maquinas.sj.ifsc.edu.br"
     create: true
-    mode: '0644'
+    mode: "0644"
   when: ansible_hostname is search("^sje-lin-sidi")
 
 - name: Adicionar entrada no /etc/default/epoptes-client sobre quem é o server do redes - Linux
   ansible.builtin.lineinfile:
-    regexp: '^SERVER'
+    regexp: "^SERVER"
     path: /etc/default/epoptes-client
-    line: 'SERVER=sje-lin-redes-906284.maquinas.sj.ifsc.edu.br'
+    line: "SERVER=sje-lin-redes-906284.maquinas.sj.ifsc.edu.br"
     create: true
-    mode: '0644'
+    mode: "0644"
   when: ansible_hostname is search("^sje-lin-redes")
 
 - name: Adicionar entrada no /etc/default/epoptes-client sobre quem é o server do programacao - Linux
   ansible.builtin.lineinfile:
-    regexp: '^SERVER'
+    regexp: "^SERVER"
     path: /etc/default/epoptes-client
-    line: 'SERVER=sje-lin-prog-pe0ezwyz.maquinas.sj.ifsc.edu.br'
+    line: "SERVER=sje-lin-prog-944693.maquinas.sj.ifsc.edu.br"
     create: true
-    mode: '0644'
+    mode: "0644"
   when: ansible_hostname is search("^sje-lin-prog")
 
 - name: Adicionar entrada no /etc/default/epoptes-client sobre quem é o server do cad1 - Linux
   ansible.builtin.lineinfile:
-    regexp: '^SERVER'
+    regexp: "^SERVER"
     path: /etc/default/epoptes-client
-    line: 'SERVER=sje-lin-cad1-916082.maquinas.sj.ifsc.edu.br'
+    line: "SERVER=sje-lin-cad1-916082.maquinas.sj.ifsc.edu.br"
     create: true
-    mode: '0644'
+    mode: "0644"
   when: ansible_hostname is search("^sje-lin-cad1")
 
 - name: Adicionar entrada no /etc/default/epoptes-client sobre quem é o server do cad2 - Linux
   ansible.builtin.lineinfile:
-    regexp: '^SERVER'
+    regexp: "^SERVER"
     path: /etc/default/epoptes-client
-    line: 'SERVER=sje-lin-cad2-905476.maquinas.sj.ifsc.edu.br'
+    line: "SERVER=sje-lin-cad2-905476.maquinas.sj.ifsc.edu.br"
     create: true
-    mode: '0644'
+    mode: "0644"
   when: ansible_hostname is search("^sje-lin-cad2")
 
 - name: Adicionar entrada no /etc/default/epoptes-client sobre quem é o server do cad3 - Linux
   ansible.builtin.lineinfile:
-    regexp: '^SERVER'
+    regexp: "^SERVER"
     path: /etc/default/epoptes-client
-    line: 'SERVER=sje-lin-cad3-pe0ebngx.maquinas.sj.ifsc.edu.br'
+    line: "SERVER=sje-lin-cad3-pe0ebngx.maquinas.sj.ifsc.edu.br"
     create: true
-    mode: '0644'
+    mode: "0644"
   when: ansible_hostname is search("^sje-lin-cad3")
 
 - name: Adicionar entrada no /etc/default/epoptes-client sobre quem é o server do informatica - Linux
   ansible.builtin.lineinfile:
-    regexp: '^SERVER'
+    regexp: "^SERVER"
     path: /etc/default/epoptes-client
-    line: 'SERVER=sje-lin-info-895203.maquinas.sj.ifsc.edu.br'
+    line: "SERVER=sje-lin-info-895203.maquinas.sj.ifsc.edu.br"
     create: true
-    mode: '0644'
+    mode: "0644"
   when: ansible_hostname is search("^sje-lin-info-")
 
 - name: Adicionar entrada no /etc/default/epoptes-client sobre quem é o server do informatica 2 - Linux
   ansible.builtin.lineinfile:
-    regexp: '^SERVER'
+    regexp: "^SERVER"
     path: /etc/default/epoptes-client
-    line: 'SERVER=sje-lin-info2-pe0f042e.maquinas.sj.ifsc.edu.br'
+    line: "SERVER=sje-lin-info2-pe0f042e.maquinas.sj.ifsc.edu.br"
     create: true
-    mode: '0644'
+    mode: "0644"
   when: ansible_hostname is search("^sje-lin-info2")
 
 - name: Adicionar entrada no /etc/default/epoptes-client sobre quem é o server do informatica 3 - Linux
   ansible.builtin.lineinfile:
-    regexp: '^SERVER'
+    regexp: "^SERVER"
     path: /etc/default/epoptes-client
-    line: 'SERVER=sje-lin-info3-pe0f09g3.maquinas.sj.ifsc.edu.br'
+    line: "SERVER=sje-lin-info3-pe0f09g3.maquinas.sj.ifsc.edu.br"
     create: true
-    mode: '0644'
+    mode: "0644"
   when: ansible_hostname is search("^sje-lin-info3")
 
 - name: Adicionar entrada no /etc/default/epoptes-client sobre quem é o server do meios de transmissao - Linux
   ansible.builtin.lineinfile:
-    regexp: '^SERVER'
+    regexp: "^SERVER"
     path: /etc/default/epoptes-client
-    line: 'SERVER=sje-lin-mtrans-926158.maquinas.sj.ifsc.edu.br'
+    line: "SERVER=sje-lin-mtrans-926158.maquinas.sj.ifsc.edu.br"
     create: true
-    mode: '0644'
+    mode: "0644"
   when: ansible_hostname is search("^sje-lin-mtrans")
 
 - name: Adicionar entrada no /etc/default/epoptes-client sobre quem é o server da sala14 - Linux
   ansible.builtin.lineinfile:
-    regexp: '^SERVER'
+    regexp: "^SERVER"
     path: /etc/default/epoptes-client
-    line: 'SERVER=sje-lin-sala14-PE0EBNGF.maquinas.sj.ifsc.edu.br'
+    line: "SERVER=sje-lin-sala14-PE0EBNGF.maquinas.sj.ifsc.edu.br"
     create: true
-    mode: '0644'
+    mode: "0644"
   when: ansible_hostname is search("^sje-lin-sala14")

@@ -71,7 +71,7 @@
           {%- elif ansible_hostname.startswith("sje-lin-redes") -%}
             sje-lin-redes-906284.maquinas.sj.ifsc.edu.br
           {%- elif ansible_hostname.startswith("sje-lin-prog") -%}
-            sje-lin-prog-pe0ezwyz.maquinas.sj.ifsc.edu.br
+            sje-lin-prog-944693.maquinas.sj.ifsc.edu.br
           {%- elif ansible_hostname.startswith("sje-lin-cad1") -%}
             sje-lin-cad1-916082.maquinas.sj.ifsc.edu.br
           {%- elif ansible_hostname.startswith("sje-lin-cad2") -%}
@@ -259,10 +259,8 @@
         jump: ACCEPT
         action: insert
       loop:
-        - { ip_version: ipv4,
-            destination: 191.36.8.0/21, }
-        - { ip_version: ipv6,
-            destination: 2804:1454:1004::/48, }
+        - { ip_version: ipv4, destination: 191.36.8.0/21 }
+        - { ip_version: ipv6, destination: 2804:1454:1004::/48 }
       tags: ifsc-sje
       when: ansible_os_family == 'Debian'
 
@@ -276,12 +274,9 @@
         jump: ACCEPT
         action: insert
       loop:
-        - { ip_version: ipv4,
-            destination: 191.36.0.0/17, }
-        - { ip_version: ipv4,
-            destination: 200.135.190.0/24, }
-        - { ip_version: ipv6,
-            destination: 2804:1454::/32, }
+        - { ip_version: ipv4, destination: 191.36.0.0/17 }
+        - { ip_version: ipv4, destination: 200.135.190.0/24 }
+        - { ip_version: ipv6, destination: 2804:1454::/32 }
       tags: ifsc
       when: ansible_os_family == 'Debian'
 
