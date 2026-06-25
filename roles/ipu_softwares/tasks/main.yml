@@ -2,7 +2,7 @@
 
 - name: Baixar e instalar o Pack Calculation PRO - Windows
   ansible.windows.win_package:
-    path: https://www.ipu.dk/wp-content/uploads/2025/03/packcalculationpro-5630.exe
+    path: https://cdn.sanity.io/files/26xjzxr8/production/0af27094e17364d9754f19126e472f852c9598fa.exe
     arguments:
       - /VERYSILENT
       - /SUPRESSMSGBOXES
@@ -14,7 +14,7 @@
 
 - name: Baixar e instalar o CoolPack - Windows
   ansible.windows.win_package:
-    path: https://www.ipu.dk/wp-content/uploads/2018/10/coolpack-v150.exe
+    path: http://ansiblefiles.sj.ifsc.edu.br/coolpack-v150.exe
     arguments:
       - /VERYSILENT
       - /SUPRESSMSGBOXES
@@ -26,7 +26,7 @@
 
 - name: Baixar e instalar o SecCool - Windows
   ansible.windows.win_package:
-    path: https://www.ipu.dk/wp-content/uploads/2024/06/seccool-x64-2020.exe
+    path: http://ansiblefiles.sj.ifsc.edu.br/seccool-x64-2020.exe
     arguments:
       - /VERYSILENT
       - /SUPRESSMSGBOXES
@@ -38,7 +38,7 @@
 
 - name: Baixar e instalar o Simple one-stage CO2  (Transcritical CO2 cycles)- Windows
   ansible.windows.win_package:
-    path: https://www.ipu.dk/wp-content/uploads/2024/09/simpleonestage-302.exe
+    path: http://ansiblefiles.sj.ifsc.edu.br/simpleonestage-302.exe
     arguments:
       - /VERYSILENT
       - /SUPRESSMSGBOXES
