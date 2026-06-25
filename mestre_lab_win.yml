@@ -186,6 +186,7 @@
       args:
         executable: powershell
       ignore_errors: true
+      changed_when: false
 
     - name: Ativa servidor NTP para o Windows
       ansible.windows.win_regedit:
