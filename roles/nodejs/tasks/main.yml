@@ -1,28 +1,16 @@
-# Linux
-
-- name: Remover versão antiga do nodejs do repositorio  - Linux
-  ansible.builtin.apt:
-    state: absent
-    pkg:
-      - nodejs=18.20.4+dfsg-1~deb12u1
-  when: ansible_os_family == 'Debian'
-
 - name: Adiciona repositório do node para o 'Debian'
-  ansible.builtin.copy:
-    src: nodesource.gpg
-    dest: /etc/apt/keyrings/nodesource.gpg
+  ansible.builtin.get_url:
+    url: https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key
+    dest: /etc/apt/trusted.gpg.d/nodesource.asc
+    mode: '0644'
     owner: root
     group: root
-    mode: '0644'
   when: ansible_os_family == 'Debian'
-
-#####curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
-
 
 - name: Adiciona repositório do node para o 'Debian'
   ansible.builtin.copy:
     content: |
-      deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_24.x nodistro main
+      deb [signed-by=/etc/apt/trusted.gpg.d/nodesource.asc] https://deb.nodesource.com/node_24.x nodistro main
     dest: /etc/apt/sources.list.d/nodejs.list
     owner: root
     group: root
@@ -31,6 +19,7 @@
 
 - name: Instala o nodejs do repositorio
   ansible.builtin.apt:
-    name: nodejs=24.15.0-1nodesource1
+    name: nodejs
+    state: latest
     update_cache: true
   when: ansible_os_family == 'Debian'
