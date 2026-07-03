@@ -498,7 +498,7 @@
   hosts: info2_lin
   roles:
     - role: grub
-      tipo: grub_soh_lin
+      tipo: grub_lin
     - wpa_supplicant_sala13
     - android-studio
     - scidavis
@@ -521,7 +521,7 @@
   hosts: info3_lin
   roles:
     - role: grub
-      tipo: grub_soh_lin
+      tipo: grub_lin
 
     - android-studio
     - clion
