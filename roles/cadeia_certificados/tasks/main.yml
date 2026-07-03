@@ -3,32 +3,43 @@
 # https://www.gov.br/iti/pt-br/assuntos/repositorio/repositorio-ac-raiz
 
 - name: Cria o diretório /home/certificados
-  file:
+  ansible.builtin.file:
     path: /home/certificados
     state: directory
+    mode: "0755"
   when: ansible_os_family == 'Debian'
 
 - name: Extrai certificados da Cadeia ICP Brasil
-  unarchive:
+  ansible.builtin.unarchive:
     src: ACcompactado.zip
-    dest: /home/certificados
+    dest: "{{ item }}"
+    creates: "{{ item }}/ICP-Brasilv12.crt"
+  loop:
+    - /home/certificados
+    - /usr/local/share/ca-certificates
+  when: ansible_os_family == 'Debian'
+
+- name: Executa update-ca-certificates
+  ansible.builtin.command:
+    cmd: update-ca-certificates
   when: ansible_os_family == 'Debian'
 
 - name: Instala libnss3-tools
-  apt:
+  ansible.builtin.apt:
     pkg:
-    - libnss3-tools
+      - libnss3-tools
   when: ansible_os_family == 'Debian'
 
 - name: Copia script para importar certificados
-  copy:
+  ansible.builtin.copy:
     src: importa_cadeia.sh
     dest: /usr/local/bin
-    mode: 0755
+    mode: "0755"
   when: ansible_os_family == 'Debian'
+  tags: importa_cadeia
 
 - name: Cria lançador do script para importar certificados
-  copy:
+  ansible.builtin.copy:
     content: |
       [Desktop Entry]
       Version=1.0
@@ -36,8 +47,9 @@
       Comment=Importa cadeia de certificados da ICP Brasil para os navegadores do usuário
       Exec=bash -c '/usr/local/bin/importa_cadeia.sh && exit'
       Icon=utilities-terminal
-      Terminal=true 
+      Terminal=true
       Type=Application
       Categories=Application;
     dest: /usr/share/applications/importa_cadeia.desktop
+    mode: "0644"
   when: ansible_os_family == 'Debian'
