@@ -1,0 +1,29 @@
+- name: Cria pasta para instaladores
+  ansible.windows.win_file:
+    path: C:\instaladores
+    state: directory
+  when: ansible_os_family == 'Windows'
+
+- name: Baixa o Sketchup 2017 e plugin Euclid
+  ansible.windows.win_get_url:
+    url: "{{ item }}"
+    dest: C:\instaladores
+  loop:
+    - http://ansiblefiles.sj.ifsc.edu.br/euclid-0.9.4.4.rbz
+    - http://ansiblefiles.sj.ifsc.edu.br/sketchupmake-2017-pt-br-x64.exe
+    # - https://aka.ms/vc14/vc_redist.x64.exe
+  when: ansible_os_family == 'Windows'
+
+# - name: Instalar o Visual C++ Redistributable 2015-2019 silenciosamente - Windows
+#   ansible.windows.win_package:
+#     path: C:\instaladores\vc_redist.x64.exe
+#     arguments:
+#       - /S
+#   when: ansible_os_family == 'Windows'
+
+- name: Instalar o Sketchup 2017 silenciosamente - Windows
+  ansible.windows.win_package:
+    path: C:\instaladores\sketchupmake-2017-pt-br-x64.exe
+    arguments: 
+      - /S
+  when: ansible_os_family == 'Windows'
