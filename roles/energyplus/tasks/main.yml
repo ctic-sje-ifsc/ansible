@@ -35,22 +35,26 @@
     - item.item.path != 'C:\EnergyPlusV26-1-0'
 
 - name: Baixa o EnergyPlus 26.1.0
-  win_get_url:
+  ansible.windows.win_get_url:
     url: https://github.com/NatLabRockies/EnergyPlus/releases/download/v26.1.0/EnergyPlus-26.1.0-6f2e40d102-Windows-x86_64.exe
     dest: C:\instaladores\EnergyPlus-26.1.0-6f2e40d102-Windows-x86_64.exe
   when:
     - ansible_os_family == 'Windows'
-    - not energyplus_installed.stat.exists
+    # - not energyplus_installed.stat.exists
 
 - name: Instala o EnergyPlus 26.1.0
-  win_package:
+  ansible.windows.win_package:
     path: C:\instaladores\EnergyPlus-26.1.0-6f2e40d102-Windows-x86_64.exe
-    arguments: /S
-    product_id: 'EnergyPlusV 26.1.0-6f2e40d102'
-    state: present
+    arguments:
+      - in
+      - --da
+      - --al
+      - -c
+    product_id: EnergyPlusV26-1-0
+  tags: install_energyplus
   when:
     - ansible_os_family == 'Windows'
-    - not energyplus_installed.stat.exists
+    # - not energyplus_installed.stat.exists
 
 # - name: Verifica se Energy Plus foi instalado
 #   win_stat:
