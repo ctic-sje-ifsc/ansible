@@ -1,3 +1,8 @@
+### Comando em powershell para mostrar product_id
+### get-wmiobject Win32_Product | Format-Table IdentifyingNumber, Name, LocalPackage -AutoSize
+### Localizacao do productid 32 bits: HKLM:Software\Microsoft\Windows\CurrentVersion\Uninstall
+### Localizacao do productid 64 bits: HKLM:Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall
+
 - name: Cria pasta para instaladores
   ansible.windows.win_file:
     path: C:\instaladores
@@ -10,20 +15,21 @@
     dest: C:\instaladores
   loop:
     - http://ansiblefiles.sj.ifsc.edu.br/euclid-0.9.4.4.rbz
-    - http://ansiblefiles.sj.ifsc.edu.br/sketchupmake-2017-pt-br-x64.exe
-    # - https://aka.ms/vc14/vc_redist.x64.exe
+    - http://ansiblefiles.sj.ifsc.edu.br/SketchUp2017-x64.msi
+    - http://ansiblefiles.sj.ifsc.edu.br/vcredist_x64.exe
   when: ansible_os_family == 'Windows'
 
-# - name: Instalar o Visual C++ Redistributable 2015-2019 silenciosamente - Windows
-#   ansible.windows.win_package:
-#     path: C:\instaladores\vc_redist.x64.exe
-#     arguments:
-#       - /S
-#   when: ansible_os_family == 'Windows'
+- name: Instalar o Visual C++ Redistributable 2015-2019 silenciosamente - Windows
+  ansible.windows.win_package:
+    path: C:\instaladores\vcredist_x64.exe
+    arguments:
+      - /quiet
+  when: ansible_os_family == 'Windows'
 
 - name: Instalar o Sketchup 2017 silenciosamente - Windows
   ansible.windows.win_package:
-    path: C:\instaladores\sketchupmake-2017-pt-br-x64.exe
+    path: C:\instaladores\SketchUp2017-x64.msi
     arguments: 
-      - /S
+      - /quiet
+    product_id: {5BF32B95-4930-40AC-A756-C2837997EAA2}
   when: ansible_os_family == 'Windows'
