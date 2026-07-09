@@ -11,19 +11,29 @@
 
 - name: Baixa o Sketchup 2017 e plugin Euclid
   ansible.windows.win_get_url:
-    url: "{{ item }}"
+    url: "{{ item.url }}"
     dest: C:\instaladores
+    checksum: "{{ item.checksum }}"
   loop:
-    - http://ansiblefiles.sj.ifsc.edu.br/euclid-0.9.4.4.rbz
-    - http://ansiblefiles.sj.ifsc.edu.br/SketchUp2017-x64.msi
-    - http://ansiblefiles.sj.ifsc.edu.br/vcredist_x64.exe
+    - url: http://ansiblefiles.sj.ifsc.edu.br/euclid-0.9.4.4.rbz
+      checksum: 414ab860d8ca194d48a388ab38744d031edc0219
+    - url: http://ansiblefiles.sj.ifsc.edu.br/SketchUp2017-x64.msi
+      checksum: d2e022879ea84cd67690e1435b92ddee1551725e
+    - url: http://ansiblefiles.sj.ifsc.edu.br/vcredist_x64.exe
+      checksum: 10b1683ea3ff5f36f225769244bf7e7813d54ad0
+  tags:
+    - download
   when: ansible_os_family == 'Windows'
 
 - name: Instalar o Visual C++ Redistributable 2015-2019 silenciosamente - Windows
   ansible.windows.win_package:
     path: C:\instaladores\vcredist_x64.exe
+    product_id: 'Microsoft Visual C++ 2015 x64 Minimum Runtime - 14.0.24215'
     arguments:
       - /quiet
+  tags:
+    - vcredist
+    - install_sketchup
   when: ansible_os_family == 'Windows'
 
 - name: Instalar o Sketchup 2017 silenciosamente - Windows
@@ -32,4 +42,6 @@
     arguments: 
       - /quiet
     product_id: {5BF32B95-4930-40AC-A756-C2837997EAA2}
+  tags:
+    - install_sketchup
   when: ansible_os_family == 'Windows'
