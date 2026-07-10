@@ -1,46 +1,26 @@
-#Windows
-## Codigo nao testado
+- name: Cria pasta para instaladores
+  ansible.windows.win_file:
+    path: C:\instaladores
+    state: directory
+  when: ansible_os_family == 'Windows'
 
-- name: Verifica se EnergyPlus 26.1.0 já está instalado
-  win_stat:
-    path: C:\EnergyPlusV26-1-0
-  register: energyplus_installed
-
-- name: Procura versões instaladas do EnergyPlus
-  win_find:
-    paths: C:\
-    patterns: EnergyPlusV*
-    file_type: directory
-  register: energyplus_dirs
+- name: Desinstala EnergyPlus 9.1.0
+  ansible.windows.win_file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - C:\EnergyPlusV9-1-0
+    - C:\ProgramData\Microsoft\Windows\Start Menu\Programs\EnergyPlusV9-1-0 Programs
+    - '%Public%\Desktop\EP-Compare.lnk'
   when:
     - ansible_os_family == 'Windows'
-    - not energyplus_installed.stat.exists
-
-- name: Verifica se existe desinstalador nas versões encontradas
-  win_stat:
-    path: "{{ item.path }}\\Uninstall.exe"
-  loop: "{{ energyplus_dirs.files }}"
-  register: uninstallers
-  when:
-    - ansible_os_family == 'Windows'
-    - not energyplus_installed.stat.exists
-
-- name: Desinstala versões antigas do EnergyPlus
-  win_command: '"{{ item.item.path }}\Uninstall.exe" /S'
-  loop: "{{ uninstallers.results }}"
-  when:
-    - ansible_os_family == 'Windows'
-    - not energyplus_installed.stat.exists
-    - item.stat.exists
-    - item.item.path != 'C:\EnergyPlusV26-1-0'
-
+  
 - name: Baixa o EnergyPlus 26.1.0
   ansible.windows.win_get_url:
     url: https://github.com/NatLabRockies/EnergyPlus/releases/download/v26.1.0/EnergyPlus-26.1.0-6f2e40d102-Windows-x86_64.exe
-    dest: C:\instaladores\EnergyPlus-26.1.0-6f2e40d102-Windows-x86_64.exe
+    dest: C:\instaladores\EnergyPlus-26.1.0-6f2e40d102-Windows-x86_64.exe  
   when:
     - ansible_os_family == 'Windows'
-    # - not energyplus_installed.stat.exists
 
 - name: Instala o EnergyPlus 26.1.0
   ansible.windows.win_package:
@@ -50,39 +30,6 @@
       - --da
       - --al
       - -c
-    product_id: EnergyPlusV26-1-0
-  tags: install_energyplus
+    creates_path: C:\EnergyPlusV26-1-0\windows_gui_launcher.exe  
   when:
     - ansible_os_family == 'Windows'
-    # - not energyplus_installed.stat.exists
-
-# - name: Verifica se Energy Plus foi instalado
-#   win_stat:
-#     path: C:\EnergyPlusV9-1-0
-#   register: file_result
-
-# - name: Baixa o Energy Plus
-#   win_get_url:
-#     url: https://github.com/NREL/EnergyPlus/releases/download/v9.1.0/EnergyPlus-9.1.0-08d2e308bb-Windows-x86_64.exe
-#     dest: C:\instaladores
-#   when: ansible_os_family == 'Windows' and file_result.stat.exists == False
-
-# - name: Instalar o Energy Plus - Windows
-#   win_package:
-#     path: C:/instaladores/EnergyPlus-9.1.0-08d2e308bb-Windows-x86_64.exe
-#     arguments: /S
-#     product_id: 'EnergyPlusV 9.1.0-08d2e308bb'
-#     state: present
-#   when: ansible_os_family == 'Windows' and file_result.stat.exists == False
-
-### Comando em powershell para mostrar product_id
-### get-wmiobject Win32_Product | Format-Table IdentifyingNumber, Name, LocalPackage -AutoSize
-
-# - name: Atalho para o Energy Plus
-#   win_shortcut:
-#     description: Atalho para o Energy Plus
-#     src: 'C:\EnergyPlusV9-1-0\PostProcess\EP-Compare\EP-Compare.exe'
-#     dest: '%Public%\Desktop\EP-Compare.lnk'
-#     icon: 'C:\EnergyPlusV9-1-0\PostProcess\EP-Compare\EP-Compare.exe,0'
-#     state: present
-#   when: ansible_os_family == 'Windows'
