@@ -15,7 +15,7 @@
     - insomnia
     - java25-oracle
     - mysql_workbench
-    - npm
+    - nodejs
     - postman
     - sources_list
     - unattendedUpgrades_labs
@@ -297,7 +297,6 @@
           - mosquitto-clients
           - net-tools
           - nmap
-          - nodejs
           - ntfs-3g
           - okular
           - pcaputils
