@@ -10,7 +10,7 @@
 - name: Adiciona repositório do node para o 'Debian'
   ansible.builtin.copy:
     content: |
-      deb [signed-by=/etc/apt/trusted.gpg.d/nodesource.asc] https://deb.nodesource.com/node_24.x nodistro main
+      deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/nodesource.asc] https://deb.nodesource.com/node_24.x nodistro main
     dest: /etc/apt/sources.list.d/nodejs.list
     owner: root
     group: root
@@ -22,4 +22,10 @@
     name: nodejs
     state: latest
     update_cache: true
+  when: ansible_os_family == 'Debian'
+
+- name: Apaga pasta antiga do npm
+  ansible.builtin.file:
+    path: /npm    
+    state: absent
   when: ansible_os_family == 'Debian'
