@@ -2,7 +2,7 @@
 
 - name: Baixar e instalar o Pack Calculation PRO - Windows
   ansible.windows.win_package:
-    path: https://cdn.sanity.io/files/26xjzxr8/production/0af27094e17364d9754f19126e472f852c9598fa.exe
+    path: http://ansiblefiles.sj.ifsc.edu.br/packcalculationpro-v5650.exe
     arguments:
       - /VERYSILENT
       - /SUPRESSMSGBOXES
