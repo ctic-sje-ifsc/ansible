@@ -258,7 +258,7 @@
     - nec
 
 - name: Laboratório de CAD1, CAD2 e CAD3
-  hosts: cad1_win,cad2_win,cad3_win
+  hosts: cad1_win,cad2_win,cad3_win,programacao_win
   roles:
     - ipu_softwares
     - obs
