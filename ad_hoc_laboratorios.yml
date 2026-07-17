@@ -208,17 +208,6 @@
 #       debug:
 #         var: logoff_result.stdout_lines
 
-# - name: Executar Windows Update (baixar e instalar todas as atualizações)
-#   win_updates:
-#     category_names:
-#       - SecurityUpdates
-#       - CriticalUpdates
-#       - UpdateRollups
-#       - DefinitionUpdates
-#       - Updates
-#     reboot: yes
-#
-#
 # - name: Modificar /etc/default/grub para ativar OS Prober ( Dual bot grub / Windows Boot Manager )
 #   hosts: programacao_lin
 #   become: yes
