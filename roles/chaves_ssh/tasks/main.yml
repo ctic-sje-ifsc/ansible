@@ -47,7 +47,7 @@
     owner: root
     group: root
     mode: '0400'
-  when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-cad3-744517")
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-cad3-pe0ebngx")
 
 ## SIDI
 - name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys do SIDI - Linux
