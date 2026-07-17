@@ -452,6 +452,44 @@
       tags: eraldo
       when: ansible_os_family == 'Debian'
 
+- name: Laboratório de Alunos sem windows
+  hosts: lab_alunos_lin,!sje-lin-alunos-744935.maquinas.sj.ifsc.edu.br
+  roles:
+    - role: grub
+      tipo: grub_soh_lin
+    - android-studio
+    - clion
+    - dbeaver
+    - gradle_9.2.1
+    - idea
+    - imunes
+    - jetbrains
+    - matlab
+    - pycharm
+    - quartus20
+    - qucsstudio
+    - sqlitestudio
+    - tiled
+
+- name: Laboratório de Alunos com windows
+  hosts: sje-lin-alunos-744935.maquinas.sj.ifsc.edu.br,sje-lin-alunos-933441.maquinas.sj.ifsc.edu.br
+  roles:
+    - role: grub
+      tipo: grub_lin
+    - android-studio
+    - clion
+    - dbeaver
+    - gradle_9.2.1
+    - idea
+    - imunes
+    - jetbrains
+    - matlab
+    - pycharm
+    - quartus20
+    - qucsstudio
+    - sqlitestudio
+    - tiled
+
 - name: Laboratório de comunicação sem fio
   hosts: csfio_lin
   roles:
@@ -491,7 +529,6 @@
         mode: '0644'
         unsafe_writes: true
       when: ansible_os_family == 'Debian'
-
 
 - name: Laboratório de Informática 2
   hosts: info2_lin
