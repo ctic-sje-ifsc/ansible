@@ -453,7 +453,7 @@
       when: ansible_os_family == 'Debian'
 
 - name: Laboratório de Alunos sem windows
-  hosts: lab_alunos_lin,!sje-lin-alunos-744935.maquinas.sj.ifsc.edu.br
+  hosts: lab_alunos_lin,!sje-lin-alunos-744935.maquinas.sj.ifsc.edu.br,!sje-lin-alunos-933441.maquinas.sj.ifsc.edu.br
   roles:
     - role: grub
       tipo: grub_soh_lin
