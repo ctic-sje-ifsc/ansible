@@ -12,7 +12,7 @@
     - C:\EnergyPlusV9-1-0
     - C:\ProgramData\Microsoft\Windows\Start Menu\Programs\EnergyPlusV9-1-0 Programs
     - '%Public%\Desktop\EP-Compare.lnk'
-    - C:\instaladores\EnergyPlus-9-1-0-08d2e308bb-Windows-x86_64.exe
+    - C:\instaladores\EnergyPlus-9.1.0-08d2e308bb-Windows-x86_64.exe
   when:
     - ansible_os_family == 'Windows'
 
