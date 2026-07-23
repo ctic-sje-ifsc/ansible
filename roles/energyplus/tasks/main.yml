@@ -12,13 +12,14 @@
     - C:\EnergyPlusV9-1-0
     - C:\ProgramData\Microsoft\Windows\Start Menu\Programs\EnergyPlusV9-1-0 Programs
     - '%Public%\Desktop\EP-Compare.lnk'
+    - C:\instaladores\EnergyPlus-9-1-0-08d2e308bb-Windows-x86_64.exe
   when:
     - ansible_os_family == 'Windows'
-  
+
 - name: Baixa o EnergyPlus 26.1.0
   ansible.windows.win_get_url:
     url: https://github.com/NatLabRockies/EnergyPlus/releases/download/v26.1.0/EnergyPlus-26.1.0-6f2e40d102-Windows-x86_64.exe
-    dest: C:\instaladores\EnergyPlus-26.1.0-6f2e40d102-Windows-x86_64.exe  
+    dest: C:\instaladores\EnergyPlus-26.1.0-6f2e40d102-Windows-x86_64.exe
   when:
     - ansible_os_family == 'Windows'
 
@@ -30,6 +31,6 @@
       - --da
       - --al
       - -c
-    creates_path: C:\EnergyPlusV26-1-0\windows_gui_launcher.exe  
+    creates_path: C:\EnergyPlusV26-1-0\windows_gui_launcher.exe
   when:
     - ansible_os_family == 'Windows'
