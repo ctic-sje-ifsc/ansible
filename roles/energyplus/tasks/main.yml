@@ -34,3 +34,12 @@
     creates_path: C:\EnergyPlusV26-1-0\windows_gui_launcher.exe
   when:
     - ansible_os_family == 'Windows'
+
+- name: Cria atalho na área de trabalho para o Ep-Launch
+  community.windows.win_shortcut:
+    src: C:\EnergyPlusV26-1-0\EP-Launch.exe
+    dest: C:\Users\Public\Desktop\EP-Launch.lnk
+  tags:
+    - atalho_EP
+  when:
+    - ansible_os_family == 'Windows'
