@@ -119,7 +119,7 @@
   hosts: sala
   roles:
     - configura_monitores
-    - remove_ldap
+    - autenticacao_ldap
     - geogebra
     - aluno
     - scrcpy
