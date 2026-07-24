@@ -216,3 +216,8 @@
       cups_server_pdf: 1
       cups_server_financeiro: 1
       cups_server_cgp: 1
+
+- name: Programas para o chefe DEPE - Marcos
+  hosts: sje-lin-depe-38134.maquinas.sj.ifsc.edu.br
+  roles:
+    - token_assinador_serpro
