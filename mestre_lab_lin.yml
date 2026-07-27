@@ -91,7 +91,7 @@
         dest: /etc/sudoers
         owner: root
         group: root
-        mode: '0440'
+        mode: "0440"
       when: ansible_os_family == 'Debian'
 
     - name: Adiciona programas para serem executados pelo sudo sem senha
@@ -106,7 +106,7 @@
         dest: /etc/sudoers.d/packages
         owner: root
         group: root
-        mode: '0440'
+        mode: "0440"
       when: ansible_os_family == 'Debian'
 
     - name: Permite dar um cat em todos os arquivos do /proc
@@ -116,7 +116,7 @@
         dest: /etc/sudoers.d/cat
         owner: root
         group: root
-        mode: '0440'
+        mode: "0440"
       when: ansible_os_family == 'Debian'
 
     - name: Mantem o estado do arquivo /etc/init.d/apagaAluno.sh - Debian
@@ -129,7 +129,7 @@
         dest: /etc/init.d/apagaAluno.sh
         owner: root
         group: root
-        mode: '0755'
+        mode: "0755"
       when: ansible_os_family == 'Debian'
 
     - name: Mantem o estado do arquivo /lib/systemd/system/apagaAluno.service - Linux
@@ -149,7 +149,7 @@
         dest: /lib/systemd/system/apagaAluno.service
         owner: root
         group: root
-        mode: '0644'
+        mode: "0644"
       when: ansible_os_family == 'Debian'
 
     - name: Aplica o daemon-reload e o enable no servico apagaAluno - Linux
@@ -174,7 +174,7 @@
         dest: /lib/systemd/system/wol.service
         owner: root
         group: root
-        mode: '0644'
+        mode: "0644"
       when: ansible_os_family == 'Debian'
 
     - name: Ativa o servico WoL
@@ -368,7 +368,7 @@
   hosts: lab_profs_lin
   roles:
     - epoptes_server
-    - ingressa_ldap
+    - autenticacao_ldap
     - insync
     - configura_monitores
     - iptables_prof
@@ -377,8 +377,7 @@
       ansible.builtin.lineinfile:
         path: /etc/lightdm/lightdm.conf
         state: absent
-        regexp: '^%autologin-user=alunos'
-
+        regexp: "^%autologin-user=alunos"
 
 ########### INDIVIDUALIDADE DOS LABORATÓRIOS ###########
 - name: Laboratório de Meios de Transmissão
@@ -392,7 +391,7 @@
 - name: Laboratório de Meios da cultura geral
   hosts: meios_cult_lin
   roles:
-    - ingressa_ldap
+    - autenticacao_ldap
 
 - name: Laboratório de Programação
   hosts: programacao_lin
@@ -526,7 +525,7 @@
         dest: /proc/sys/net/ipv4/tcp_rmem
         owner: root
         group: root
-        mode: '0644'
+        mode: "0644"
         unsafe_writes: true
       when: ansible_os_family == 'Debian'
 
@@ -581,6 +580,6 @@
 - name: Sala de monitoria
   hosts: sje-lin-monitoria-744602.maquinas.sj.ifsc.edu.br
   roles:
-    - ingressa_ldap
+    - autenticacao_ldap
     - role: grub
       tipo: grub_soh_lin
