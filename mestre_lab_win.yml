@@ -155,12 +155,18 @@
 
     - name: Copiando arquivos do wallpaper e icones - Windows
       ansible.windows.win_get_url:
-        url: 'http://ansiblefiles.sj.ifsc.edu.br/{{ item.url }}'
-        dest: '{{ item.dest }}'
+        url: "http://ansiblefiles.sj.ifsc.edu.br/{{ item.url }}"
+        dest: "{{ item.dest }}"
       loop:
-        - { url: 'wallpaper_ifsc.jpg', dest: 'C:\Users\' }
-        - { url: 'icone_ifsc.bmp', dest: 'C:\ProgramData\Microsoft\User Account Pictures\icone_ifsc.bmp' }
-        - { url: 'user.bmp', dest: 'C:\ProgramData\Microsoft\User Account Pictures\user.bmp' }
+        - { url: "wallpaper_ifsc.jpg", dest: 'C:\Users\' }
+        - {
+            url: "icone_ifsc.bmp",
+            dest: 'C:\ProgramData\Microsoft\User Account Pictures\icone_ifsc.bmp',
+          }
+        - {
+            url: "user.bmp",
+            dest: 'C:\ProgramData\Microsoft\User Account Pictures\user.bmp',
+          }
 
     - name: Forçando wallpaper específico - Windows
       ansible.windows.win_regedit:
@@ -168,13 +174,13 @@
         name: "{{ item.name }}"
         data: "{{ item.data }}"
       loop:
-        - { name: 'LockScreenImagePath', data: 'C:\Users\wallpaper_ifsc.jpg' }
-        - { name: 'LockScreenImageUrl', data: 'C:\Users\wallpaper_ifsc.jpg' }
-        - { name: 'DesktopImageUrl', data: 'C:\Users\wallpaper_ifsc.jpg' }
-        - { name: 'DesktopImagePath', data: 'C:\Users\wallpaper_ifsc.jpg' }
-        - { name: 'LockScreenImageStatus', data: 1 }
-        - { name: 'PersonalizationCSP', data: 1 }
-        - { name: 'DesktopImageStatus', data: 1 }
+        - { name: "LockScreenImagePath", data: 'C:\Users\wallpaper_ifsc.jpg' }
+        - { name: "LockScreenImageUrl", data: 'C:\Users\wallpaper_ifsc.jpg' }
+        - { name: "DesktopImageUrl", data: 'C:\Users\wallpaper_ifsc.jpg' }
+        - { name: "DesktopImagePath", data: 'C:\Users\wallpaper_ifsc.jpg' }
+        - { name: "LockScreenImageStatus", data: 1 }
+        - { name: "PersonalizationCSP", data: 1 }
+        - { name: "DesktopImageStatus", data: 1 }
 
     - name: Aplicar configurações padrão via reg import
       ansible.windows.win_shell: |
@@ -237,7 +243,7 @@
 - name: Configurações aplicadas somente para as maquinas dos professores
   hosts: lab_profs_win,meios_cult_win
   roles:
-    - ingressa_ldap
+    - autenticacao_ldap
 
 # - name: Atualizar computadores Windows do grupo laboratorios_win
 #   hosts: laboratorios_win
@@ -248,7 +254,6 @@
 #           - CriticalUpdates
 #           - SecurityUpdates
 #         reboot: true
-
 
 ######################## ORDEM ALFABÉTICA ########################
 - name: Laboratório de Comunicação sem fio

@@ -10,11 +10,11 @@
     # - teamviewer
     # - virtualbox
     # - rambox
-    # - ingressa_ldap
+    # - autenticacao_ldap
     # - rke
   tasks:
-  # - name: Instalar os pacotes para o Ansible #do buster-backports - Linux Debian
-  #   apt: name=ansible state=latest #default_release=buster-backports
+    # - name: Instalar os pacotes para o Ansible #do buster-backports - Linux Debian
+    #   apt: name=ansible state=latest #default_release=buster-backports
     - name: Pacotes padroes da CTIC
       ansible.builtin.apt:
         pkg:
@@ -57,7 +57,7 @@
     - teams_microsoft
     # - softwares_remotos # ruim no buster
     - role: geerlingguy.nfs
-      nfs_exports: [ "/dados *(rw,sync,no_root_squash)" ]
+      nfs_exports: ["/dados *(rw,sync,no_root_squash)"]
     # - role: bertvv.samba
     #   samba_shares:
     #     - name: ctic
@@ -74,62 +74,68 @@
     #     - name: USERNAME
     #       password: PASSWORD
   tasks:
-  - name: Pacotes do Ricardo
-    ansible.builtin.apt:
-      state: latest
-      pkg:
-      - k3b
-      - keychain
-      - dcfldd
-      - lm-sensors
-      - unzip
-      - vlan
-      - python3-tk
-      - python3-setuptools
-      - vinagre
-      - virtualenv
-      - konsole
-      - nfs-common
-      - curl
-      - ethtool
-      - samba
-      - usbutils
-      - sshfs
-      - net-tools
-  - name: Instala o Gwakeonlan
-    ansible.builtin.apt:
-      deb: https://objects.githubusercontent.com/github-production-release-asset-2e65be/12944310/eb57ce9f-857e-4d61-92e1-53a02546d727?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=releaseassetproduction%2F20250502%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250502T145529Z&X-Amz-Expires=300&X-Amz-Signature=312414d7772af809f1bb67213bebca79b0649d1c67bb8a292ffe827efd6719f5&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3Dgwakeonlan_0.8.5-1_all.deb&response-content-type=application%2Foctet-stream
-    tags: wake
+    - name: Pacotes do Ricardo
+      ansible.builtin.apt:
+        state: latest
+        pkg:
+          - k3b
+          - keychain
+          - dcfldd
+          - lm-sensors
+          - unzip
+          - vlan
+          - python3-tk
+          - python3-setuptools
+          - vinagre
+          - virtualenv
+          - konsole
+          - nfs-common
+          - curl
+          - ethtool
+          - samba
+          - usbutils
+          - sshfs
+          - net-tools
+    - name: Instala o Gwakeonlan
+      ansible.builtin.apt:
+        deb: https://objects.githubusercontent.com/github-production-release-asset-2e65be/12944310/eb57ce9f-857e-4d61-92e1-53a02546d727?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=releaseassetproduction%2F20250502%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250502T145529Z&X-Amz-Expires=300&X-Amz-Signature=312414d7772af809f1bb67213bebca79b0649d1c67bb8a292ffe827efd6719f5&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3Dgwakeonlan_0.8.5-1_all.deb&response-content-type=application%2Foctet-stream
+      tags: wake
 
-  - name: Configuração do Ansible
-    ansible.builtin.copy:
-      content: |
-        [defaults]
-        forks          = 50
-        gathering = implicit
-        host_key_checking = False
-        remote_user = root
-        vault_password_file = /home/rmartins/.ssh/v
+    - name: Configuração do Ansible
+      ansible.builtin.copy:
+        content: |
+          [defaults]
+          forks          = 50
+          gathering = implicit
+          host_key_checking = False
+          remote_user = root
+          vault_password_file = /home/rmartins/.ssh/v
 
-      owner: rmartins
-      group: rmartins
-      mode: '0644'
-      dest: /home/rmartins/.ansible.cfg
+        owner: rmartins
+        group: rmartins
+        mode: "0644"
+        dest: /home/rmartins/.ansible.cfg
 
-  - name: Configuração do ssh
-    ansible.builtin.lineinfile:
-      path: /etc/ssh/ssh_config
-      insertafter: "^#   StrictHostKeyChecking ask"
-      firstmatch: true
-      regexp: "{{ item.regexp }}"
-      line: "{{ item.line }}"
-    loop:
-      - { regexp: "StrictHostKeyChecking ask", line: "StrictHostKeyChecking no"}
-      - { regexp: "#   UserKnownHostsFile ~/.ssh/known_hosts.d/%k", line: "UserKnownHostsFile=/dev/null"}
+    - name: Configuração do ssh
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/ssh_config
+        insertafter: "^#   StrictHostKeyChecking ask"
+        firstmatch: true
+        regexp: "{{ item.regexp }}"
+        line: "{{ item.line }}"
+      loop:
+        - {
+            regexp: "StrictHostKeyChecking ask",
+            line: "StrictHostKeyChecking no",
+          }
+        - {
+            regexp: "#   UserKnownHostsFile ~/.ssh/known_hosts.d/%k",
+            line: "UserKnownHostsFile=/dev/null",
+          }
 ##########################################################
 
 # Windows Ricardo
 
 - hosts: sj-ctic-38319.maquinas.sj.ifsc.edu.br
   roles:
-    - ingressa_ldap
+    - autenticacao_ldap

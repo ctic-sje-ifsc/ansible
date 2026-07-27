@@ -1,7 +1,7 @@
 - name: Adiciona computadores no domínio
   hosts: administrativos_win:!sj-almoxtele-38298.maquinas.sj.ifsc.edu.br
   roles:
-    - ingressa_ldap
+    - autenticacao_ldap
 
 - name: Configuração padrão Windows ADM
   hosts: administrativos_win:!sj-almoxtele-38298.maquinas.sj.ifsc.edu.br
