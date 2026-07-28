@@ -295,6 +295,7 @@
           - mcu8051ide
           - minicom
           - mosquitto-clients
+          - mtr       # Solicitação do chamado GLPI#36577 - Sobral
           - net-tools
           - nmap
           - ntfs-3g
