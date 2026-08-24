@@ -428,6 +428,7 @@
     - matlab
     - mplab
     - quartus20
+    - digital
 
 - name: Laboratório de Redes
   hosts: redes_lin
