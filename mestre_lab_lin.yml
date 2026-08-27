@@ -405,7 +405,6 @@
     - gradle_9.2.1
     - idea
     - imunes
-    - jetbrains
     - matlab
     - pycharm
     - quartus20
@@ -423,7 +422,6 @@
     - idea
     - imunes
     - gradle_9.2.1
-    - jetbrains
     - pycharm
     - matlab
     - mplab
@@ -440,7 +438,6 @@
     - idea
     - imunes
     - gradle_9.2.1
-    - jetbrains
     - pycharm
     - matlab
     - quartus20
@@ -464,7 +461,6 @@
     - gradle_9.2.1
     - idea
     - imunes
-    - jetbrains
     - matlab
     - pycharm
     - quartus20
@@ -483,7 +479,6 @@
     - gradle_9.2.1
     - idea
     - imunes
-    - jetbrains
     - matlab
     - pycharm
     - quartus20
