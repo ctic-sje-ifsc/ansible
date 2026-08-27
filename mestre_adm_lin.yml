@@ -221,3 +221,21 @@
   hosts: sje-lin-depe-38134.maquinas.sj.ifsc.edu.br
   roles:
     - token_assinador_serpro
+
+- name: Programas Meios de TELE
+  hosts: mtele_lin
+  roles:
+    - auto_desligamento
+    - chaves_ssh
+    - code
+    - dconf
+    - docker
+    - java25-oracle
+    - sources_list
+    - virtualbox
+    - wireshark
+
+- name: Computador Pedro Camara
+  hosts: sje-lin-mtele-756047.maquinas.sj.ifsc.edu.br
+  roles:
+    - clion
