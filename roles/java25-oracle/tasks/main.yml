@@ -25,11 +25,20 @@
     path: "{{ java_version.stdout }}/bin/java"
   when: (ansible_os_family == 'Debian')
 
+- name: Verificar se /home/aluno existe
+  ansible.builtin.stat:
+    path: /home/aluno
+  register: aluno_home
+
 - name: Define JAVA_HOME
   ansible.builtin.lineinfile:
+    path: /home/aluno/.bashrc
     line: 'export JAVA_HOME={{ java_version.stdout }}'
-    dest: /home/aluno/.bashrc
-  when: ansible_os_family == 'Debian'
+    create: true
+  when:
+    - ansible_os_family == 'Debian'
+    - aluno_home.stat.exists
+    - aluno_home.stat.isdir
 
 - name: Cria atalho do Java ControlPanel na lista de aplicativos
   ansible.builtin.copy:
