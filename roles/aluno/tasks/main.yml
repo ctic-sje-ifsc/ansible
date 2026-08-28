@@ -39,6 +39,7 @@
     group: root
     mode: '0644'
   when: ansible_distribution == 'Debian'
+  tags: aluno.tgz
 
 - name: Cria usuário aluno com a senha aluno
   ansible.builtin.user:
@@ -46,8 +47,9 @@
     shell: /bin/bash
     password: $6$B5dpvoG43l67q0sx$r0LDKV2TgNItf/kYx/76l89ZN4LhP/ksYIxp.SSVGttHoSZXLSoB6Hkg2A6y7M7aFJ8zEuauf5kS/yA/P61kN1
     local: true
-    password_lock: true
+    password_lock: false
   when: ansible_os_family == 'Debian'
+  tags: unlock
 
 - name: Cria diretórios
   ansible.builtin.file:
