@@ -3,9 +3,7 @@
     state: absent
     path: '{{ item }}'
   loop:
-    - /opt/gradle/gradle-8.2.1
-    - /opt/gradle/gradle-8.5
-    - /opt/gradle/gradle-8.10
+    - /opt/gradle/gradle-7.5.1
     - /opt/gradle/gradle-8.14.3
   when: (ansible_os_family == 'Debian')
 
