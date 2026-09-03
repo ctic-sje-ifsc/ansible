@@ -1,0 +1,37 @@
+- name: Instalar o Sitrad Pro - Windows
+  ansible.windows.win_package:
+    path: http://ansiblefiles.sj.ifsc.edu.br/SitradProInstaller_1.8.35_x86_x64.exe
+    arguments:
+      - /quiet
+    # product_id: '{2427809E-E557-47DF-813D-22A52BC0E646}'
+    state: present
+  when: ansible_os_family == 'Windows'
+
+- name: Cria pasta c:\instaladores - Windows
+  ansible.windows.win_file:
+    path: 'C:\instaladores'
+    state: directory
+  when: ansible_os_family == 'Windows'
+  tags: runastool
+
+- name: Baixa runastool - Windows
+  ansible.windows.win_get_url:
+    url: http://ansiblefiles.sj.ifsc.edu.br/RunAsTool.zip
+    dest: 'C:\instaladores\RunAsTool.zip'
+  when: ansible_os_family == 'Windows'
+  tags: runastool
+
+- name: Extrai runastool - Windows
+  community.windows.win_unzip:
+    src: 'C:\instaladores\RunAsTool.zip'
+    dest: 'C:\Program Files\'
+    creates: 'C:\Program Files\RunAsTool'
+  when: ansible_os_family == 'Windows'
+  tags: runastool
+
+- name: Cria atalho do runastool no desktop - Windows
+  community.windows.win_shortcut:
+    src: 'C:\Program Files\RunAsTool\RunAsTool_x64.exe'
+    dest: 'C:\Users\Public\Desktop\RunAsTool.lnk'
+  when: ansible_os_family == 'Windows'
+  tags: runastool
