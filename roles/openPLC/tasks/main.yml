@@ -1,43 +1,65 @@
 #Windows
 
-- name: Baixar e instalar o openPLC - Windows
-  ansible.windows.win_package:
-    path: http://ansiblefiles.sj.ifsc.edu.br/OpenPLC.exe
-    arguments:
-      - /S
-    product_id: 'OpenPLC_Editor'
-    state: present
-  when: ansible_os_family == 'Windows'
-
-- name: Baixar e instalar o Elipse E3 - Windows
-  ansible.windows.win_package:
-    path: http://ansiblefiles.sj.ifsc.edu.br/ElipseE3.exe
-    arguments:
-      - /S
-    product_id: 'E3DataAccess'
-    state: present
-  when: ansible_os_family == 'Windows'
-
-- name: Cria pasta para RMMS - Simulador modbus Master
-  ansible.windows.win_file:
-    path: 'C:\Program Files\rmms'
-    state: directory
-  when: ansible_os_family == 'Windows'
-
-- name: Copiando arquivo RMMS - Windows
-  ansible.windows.win_get_url:
-    url: "http://ansiblefiles.sj.ifsc.edu.br/rmms.exe"
-    dest: 'C:\Program Files\rmms\rmms.exe'
-  when: ansible_os_family == 'Windows'
-
-# - name: Instalar o Sitrad Pro - Windows
+# - name: Baixar e instalar o openPLC - Windows
 #   ansible.windows.win_package:
-#     path: http://ansiblefiles.sj.ifsc.edu.br/SitradPro.exe
+#     path: http://ansiblefiles.sj.ifsc.edu.br/OpenPLC.exe
 #     arguments:
-#       - /SILENT
-#       - /SUPRESSMSGBOXES
-#       - /NORESTART
-#       - /SP
-#     # product_id: '{2427809E-E557-47DF-813D-22A52BC0E646}'
+#       - /S
+#     product_id: 'OpenPLC_Editor'
 #     state: present
 #   when: ansible_os_family == 'Windows'
+
+# - name: Baixar e instalar o Elipse E3 - Windows
+#   ansible.windows.win_package:
+#     path: http://ansiblefiles.sj.ifsc.edu.br/ElipseE3.exe
+#     arguments:
+#       - /S
+#     product_id: 'E3DataAccess'
+#     state: present
+#   when: ansible_os_family == 'Windows'
+
+# - name: Cria pasta para RMMS
+#   ansible.windows.win_file:
+#     path: 'C:\Program Files\rmms'
+#     state: directory
+#   when: ansible_os_family == 'Windows'
+
+# - name: Copiando arquivo RMMS - Simulador modbus Master
+#   ansible.windows.win_get_url:
+#     url: "http://ansiblefiles.sj.ifsc.edu.br/rmms.exe"
+#     dest: 'C:\Program Files\rmms\rmms.exe'
+#   when: ansible_os_family == 'Windows'
+
+# - name: Criando atalho para o RMMS
+#   community.windows.win_shortcut:
+#     src: C:\Program Files\rmms\rmms.exe
+#     dest: C:\Users\Public\Desktop\RMMS.lnk
+#     icon: C:\Program Files\rmms\rmms.exe,0
+#   when: ansible_os_family == 'Windows'
+
+# - name: Copiando arquivo modsim - Simulador modbus Master
+#   ansible.windows.win_get_url:
+#     url: "http://ansiblefiles.sj.ifsc.edu.br/modsim.exe"
+#     dest: 'C:\Program Files\rmms\modsim.exe'
+#   when: ansible_os_family == 'Windows'
+
+# - name: Instalar o modsim demo - Windows
+#   ansible.windows.win_package:
+#     path: http://ansiblefiles.sj.ifsc.edu.br/modsim.exe
+#     arguments:
+#       - /S
+#     product_id: 'Elipse ModSim'
+#     state: present
+#   when: ansible_os_family == 'Windows'
+
+- name: Instalar o Sitrad Pro - Windows
+  ansible.windows.win_package:
+    path: http://ansiblefiles.sj.ifsc.edu.br/SitradPro.exe
+    arguments:
+      - /exenoui
+      # - /SUPRESSMSGBOXES
+      # - /NORESTART
+      # - /S
+#     # product_id: '{2427809E-E557-47DF-813D-22A52BC0E646}'
+    state: present
+  when: ansible_os_family == 'Windows'
