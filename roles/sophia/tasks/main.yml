@@ -1,0 +1,62 @@
+- name: Habilita arquitetura de i386
+  ansible.builtin.command:
+    cmd: dpkg --add-architecture i386
+  when: ansible_os_family == 'Debian'
+
+- name: Instala pacotes necessários
+  ansible.builtin.apt:
+    update_cache: true
+    pkg:
+      - cabextract
+      - libcups2t64:amd64
+      - libcups2t64:i386
+      - printer-driver-cups-pdf
+      - unzip
+      - wget
+      - winbind
+      - wine
+      - wine64
+      - winetricks
+      - zenity
+  when: ansible_os_family == 'Debian'
+
+- name: Copia sophia-main.tar.gz para /opt
+  ansible.builtin.get_url:
+    url: http://ansiblefiles.sj.ifsc.edu.br/sophia-main.tar.gz
+    dest: /opt/sophia-main.tar.gz
+    mode: '0644'
+    owner: root
+    group: root
+  when: ansible_os_family == 'Debian'
+
+- name: Cria instalador
+  ansible.builtin.copy:
+    content: |
+      #!/bin/bash
+      mkdir -p $HOME/.local/share/applications
+      tar xf /opt/sophia-main.tar.gz -C $HOME
+      cd $HOME/sophia-main
+      bash -E sophia.sh
+      cinnamon --replace &
+    dest: /usr/local/bin/sophia.sh
+    mode: '0755'
+    owner: root
+    group: root
+  when: ansible_os_family == 'Debian'
+
+- name: Cria lançador
+  ansible.builtin.copy:
+    content: |
+      [Desktop Entry]
+      Type=Application
+      Name=Instalador do Sophia
+      Comment=Instalador do Sophia
+      Exec=/usr/local/bin/sophia.sh
+      Path=/usr/local/bin
+      Terminal=false
+      Categories=Utility;
+    dest: /usr/share/applications/instalador-sophia.desktop
+    mode: '0644'
+    owner: root
+    group: root
+  when: ansible_os_family == 'Debian'
