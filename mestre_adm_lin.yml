@@ -21,7 +21,7 @@
     - auto_desligamento
     - warsaw
     - foxit
-    # - java8-oracle
+    - java8-oracle
     - flatpak
     - google_chrome
     - role: grub
@@ -166,9 +166,7 @@
 - name: Computadores da biblioteca
   hosts: biblio
   roles:
-    - role: softwares_remotos
-      apps:
-        - sophiaslade
+    - sophia
 
 - name: Computadores da secretaria
   hosts: secret
