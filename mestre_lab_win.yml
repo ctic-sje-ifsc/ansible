@@ -159,14 +159,8 @@
         dest: "{{ item.dest }}"
       loop:
         - { url: "wallpaper_ifsc.jpg", dest: 'C:\Users\' }
-        - {
-            url: "icone_ifsc.bmp",
-            dest: 'C:\ProgramData\Microsoft\User Account Pictures\icone_ifsc.bmp',
-          }
-        - {
-            url: "user.bmp",
-            dest: 'C:\ProgramData\Microsoft\User Account Pictures\user.bmp',
-          }
+        - { url: "icone_ifsc.bmp", dest: 'C:\ProgramData\Microsoft\User Account Pictures\icone_ifsc.bmp' }
+        - { url: "user.bmp", dest: 'C:\ProgramData\Microsoft\User Account Pictures\user.bmp' }
 
     - name: Forçando wallpaper específico - Windows
       ansible.windows.win_regedit:
@@ -274,3 +268,15 @@
     - obs
     - revit
     - sketchup2017
+
+- name: Laboratório de CAD2
+  hosts: cad2_win
+  roles:
+    - cade-simu
+    - curso_automacao
+    - sitradpro
+  tasks:
+    - name: Install multiple packages sequentially
+      chocolatey.chocolatey.win_chocolatey:
+        name:
+          - arduino
