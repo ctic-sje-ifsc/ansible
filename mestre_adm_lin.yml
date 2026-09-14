@@ -20,7 +20,7 @@
     - glpi_agent
     - auto_desligamento
     - warsaw
-    - foxit
+    #- foxit
     - java8-oracle
     - flatpak
     - google_chrome
