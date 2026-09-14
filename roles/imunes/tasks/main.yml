@@ -50,7 +50,7 @@
         Encoding=UTF-8
         Name=IMUNES
         Comment=Integrated Multiprotocol Network Emulator/Simulator
-        Exec=sudo -E /usr/local/bin/imunes
+        Exec=sudo /usr/local/bin/imunes
         Icon=/opt/imunes/icons/imunes_logo128.png
         Terminal=false
         Type=Application
@@ -122,7 +122,7 @@
     mode: '0644'
   when: ansible_os_family == 'Debian'
 
-- name: Criar arquivo /etc/xdg/autostart/xrdb-autostart.desktop para caregar automaticamente a personalizalização do Xterm
+- name: Criar arquivo /etc/xdg/autostart/xrdb-autostart.desktop para carregar automaticamente a personalizalização do Xterm
   ansible.builtin.copy:
     content: |
         [Desktop Entry]
@@ -139,7 +139,7 @@
     mode: '0644'
   when: ansible_os_family == 'Debian'
 
-- name: Adiciona porgramas para serem executados pelo sudo sem senha
+- name: Adiciona programas para serem executados pelo sudo sem senha
   ansible.builtin.copy:
     content: |
       ALL   ALL=(ALL) NOPASSWD: SETENV: /usr/local/bin/imunes,/usr/local/bin/hcp,/usr/local/bin/himage,\
