@@ -275,8 +275,11 @@
     - cade-simu
     - curso_automacao
     - sitradpro
+    - qgis
   tasks:
     - name: Install multiple packages sequentially
       chocolatey.chocolatey.win_chocolatey:
         name:
           - arduino
+          - inkscape
+          - bambustudio
