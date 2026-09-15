@@ -4,6 +4,7 @@
     - autenticacao_ldap
     - acesso_remoto
     - cadeia_certificados
+    - token_assinador_serpro
     - token_gd_starsign
     - token_safenet
     - hodprint
