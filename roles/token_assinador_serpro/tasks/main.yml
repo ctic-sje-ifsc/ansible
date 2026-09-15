@@ -1,25 +1,4 @@
-- name: Adicionar a chave do repositório do assinador serpro - Linux
-  ansible.builtin.get_url:
-    url: https://assinadorserpro.estaleiro.serpro.gov.br/repository/AssinadorSERPROpublic.asc
-    dest: /etc/apt/trusted.gpg.d/AssinadorSERPROpublic.asc
-    owner: root
-    group: root
-    mode: '0644'
-  when: ansible_os_family == 'Debian'
-
-- name: Adicionar repositório para instalar assinador Serpro
-  ansible.builtin.copy:
-    content: |
-      deb https://assinadorserpro.estaleiro.serpro.gov.br/repository/ universal stable
-    dest: /etc/apt/sources.list.d/assinador-serpro.list
-    owner: root
-    group: root
-    mode: '0644'
-  when: (ansible_os_family == 'Debian')
-
-- name: Instalar pacotes assinador-serpro
+- name: Instala assinador SERPRO
   ansible.builtin.apt:
-    pkg:
-      - assinador-serpro
-    update_cache: true
-  when: (ansible_os_family == 'Debian')
+    deb: https://artefatos-assinador.serpro.gov.br/downloads/4.5.7/assinador-serpro_4.5.7_amd64.deb
+  when: ansible_os_family == 'Debian'
