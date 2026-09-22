@@ -32,7 +32,7 @@
   ansible.builtin.git:
     repo: 'https://github.com/imunes/imunes.git'
     dest: /opt/imunes
-    version: v2.5.0
+    version: master
   when: ansible_os_family == 'Debian'
 
 - name: Executa o make install
