@@ -1,36 +1,42 @@
 ###### Windows
 
+- name: Cria diretório para instaladores - Windows
+  ansible.windows.win_file:
+    path: 'C:\instaladores'
+    state: directory
+  when: ansible_os_family == 'Windows'
+
 - name: Baixar zip do openPLC - Windows
   ansible.windows.win_get_url:
-    url: http://ansiblefiles.sj.ifsc.edu.br/OpenPLC.zip
-    dest: 'C:\instaladores\openplc.zip'
+    url: http://ansiblefiles.sj.ifsc.edu.br/OpenPLC.Editor_4.3.1.zip
+    dest: 'C:\instaladores\OpenPLC.Editor_4.3.1.zip'
     force: false
     # timeout: 300 # 5 minutos
   when: ansible_os_family == 'Windows'
 
 - name: Extrai o OpenPLC - Windows
   community.windows.win_unzip:
-    src: C:\instaladores\openplc.zip
+    src: C:\instaladores\OpenPLC.Editor_4.3.1.zip
     dest: C:\Program Files\
     creates: C:\Program Files\OpenPLC_Editor\
   when: ansible_os_family == 'Windows'
 
 - name: Criando atalho para o OpenPLC
   community.windows.win_shortcut:
-    src: C:\Program Files\OpenPLC_Editor\OpenPLC Editor.bat
+    src: 'C:\Program Files\OpenPLC.Editor_4.3.1\OpenPLC Editor.exe'
     dest: C:\Users\Public\Desktop\OpenPLC.lnk
-    icon: C:\Program Files\OpenPLC_Editor\brz.ico
+    icon: 'C:\Program Files\OpenPLC.Editor_4.3.1\OpenPLC Editor.exe,0'
   when: ansible_os_family == 'Windows'
 
-################ PRECISA PERMISSAO DE ADMINISTRADOR
-# - name: Baixar e instalar o Elipse E3 - Windows
-#   ansible.windows.win_package:
-#     path: http://ansiblefiles.sj.ifsc.edu.br/ElipseE3.exe
-#     arguments:
-#       - /S
-#     product_id: 'E3DataAccess'
-#     state: present
-#   when: ansible_os_family == 'Windows'
+
+- name: Baixar e instalar o Elipse E3 - Windows
+  ansible.windows.win_package:
+    path: http://ansiblefiles.sj.ifsc.edu.br/ElipseE3.exe
+    arguments:
+      - /S
+    product_id: 'E3DataAccess'
+    state: present
+  when: ansible_os_family == 'Windows'
 
 - name: Cria pasta para RMMS
   ansible.windows.win_file:
@@ -51,23 +57,9 @@
     icon: C:\Program Files\rmms\rmms.exe,0
   when: ansible_os_family == 'Windows'
 
-################ PRECISA PERMISSAO DE ADMINISTRADOR
-# - name: Copiando arquivo modsim - Simulador modbus Master
-#   ansible.windows.win_get_url:
-#     url: "http://ansiblefiles.sj.ifsc.edu.br/modsim.exe"
-#     dest: 'C:\Program Files\rmms\modsim.exe'
-#   when: ansible_os_family == 'Windows'
-
-# - name: Criando atalho para o modsim
-#   community.windows.win_shortcut:
-#     src: C:\Program Files\rmms\modsim.exe
-#     dest: C:\Users\Public\Desktop\modsim.lnk
-#     icon: C:\Program Files\rmms\modsim.exe,0
-#   when: ansible_os_family == 'Windows'
-
 - name: Instalar o modsim demo slave - Windows
   ansible.windows.win_package:
-    path: http://ansiblefiles.sj.ifsc.edu.br/modsim.exe
+    path: http://ansiblefiles.sj.ifsc.edu.br/ElipseModSimDemo-enu.exe
     arguments:
       - /S
     product_id: 'Elipse ModSim'
