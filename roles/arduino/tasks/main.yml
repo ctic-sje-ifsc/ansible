@@ -78,20 +78,27 @@
     mode: '0664'
   when: ansible_os_family == 'Debian'
 
-#Windows
+# Windows
+
+- name: Cria diretório para instaladores - Windows
+  ansible.windows.win_file:
+    path: 'C:\instaladores'
+    state: directory
+  when: ansible_os_family == 'Windows'
+
 - name: Baixar zip do arduino - Windows
   ansible.windows.win_get_url:
-    url: http://ansiblefiles.sj.ifsc.edu.br/arduino.zip
-    dest: 'C:\instaladores\arduino.zip'
+    url: http://ansiblefiles.sj.ifsc.edu.br/arduino-ide_2.3.10_Windows_64bit.zip
+    dest: 'C:\instaladores\arduino-ide_2.3.10_Windows_64bit.zip'
     force: false
     timeout: 300 # 5 minutos
   when: ansible_os_family == 'Windows'
 
 - name: Extrai o arduino - Windows
   community.windows.win_unzip:
-    src: C:\instaladores\arduino.zip
-    dest: C:\Program Files\
-    creates: C:\Program Files\arduino-ide\
+    src: C:\instaladores\arduino-ide_2.3.10_Windows_64bit.zip
+    dest: C:\Program Files\arduino-ide
+    creates: C:\Program Files\arduino-ide\arduino IDE.exe
   when: ansible_os_family == 'Windows'
 
 - name: Criando atalho para o Arduino IDE
