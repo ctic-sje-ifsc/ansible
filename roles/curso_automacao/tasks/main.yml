@@ -5,7 +5,7 @@
     url: http://ansiblefiles.sj.ifsc.edu.br/OpenPLC.zip
     dest: 'C:\instaladores\openplc.zip'
     force: false
-    timeout: 300 # 5 minutos
+    # timeout: 300 # 5 minutos
   when: ansible_os_family == 'Windows'
 
 - name: Extrai o OpenPLC - Windows
@@ -22,14 +22,15 @@
     icon: C:\Program Files\OpenPLC_Editor\brz.ico
   when: ansible_os_family == 'Windows'
 
-- name: Baixar e instalar o Elipse E3 - Windows
-  ansible.windows.win_package:
-    path: http://ansiblefiles.sj.ifsc.edu.br/ElipseE3.exe
-    arguments:
-      - /S
-    product_id: 'E3DataAccess'
-    state: present
-  when: ansible_os_family == 'Windows'
+################ PRECISA PERMISSAO DE ADMINISTRADOR
+# - name: Baixar e instalar o Elipse E3 - Windows
+#   ansible.windows.win_package:
+#     path: http://ansiblefiles.sj.ifsc.edu.br/ElipseE3.exe
+#     arguments:
+#       - /S
+#     product_id: 'E3DataAccess'
+#     state: present
+#   when: ansible_os_family == 'Windows'
 
 - name: Cria pasta para RMMS
   ansible.windows.win_file:
@@ -50,11 +51,19 @@
     icon: C:\Program Files\rmms\rmms.exe,0
   when: ansible_os_family == 'Windows'
 
-- name: Copiando arquivo modsim - Simulador modbus Master
-  ansible.windows.win_get_url:
-    url: "http://ansiblefiles.sj.ifsc.edu.br/modsim.exe"
-    dest: 'C:\Program Files\rmms\modsim.exe'
-  when: ansible_os_family == 'Windows'
+################ PRECISA PERMISSAO DE ADMINISTRADOR
+# - name: Copiando arquivo modsim - Simulador modbus Master
+#   ansible.windows.win_get_url:
+#     url: "http://ansiblefiles.sj.ifsc.edu.br/modsim.exe"
+#     dest: 'C:\Program Files\rmms\modsim.exe'
+#   when: ansible_os_family == 'Windows'
+
+# - name: Criando atalho para o modsim
+#   community.windows.win_shortcut:
+#     src: C:\Program Files\rmms\modsim.exe
+#     dest: C:\Users\Public\Desktop\modsim.lnk
+#     icon: C:\Program Files\rmms\modsim.exe,0
+#   when: ansible_os_family == 'Windows'
 
 - name: Instalar o modsim demo - Windows
   ansible.windows.win_package:
@@ -88,14 +97,4 @@
   ansible.windows.win_get_url:
     url: "http://ansiblefiles.sj.ifsc.edu.br/pl2303prolific.exe"
     dest: 'C:\instaladores\pl2303prolific.exe'
-  when: ansible_os_family == 'Windows'
-
-- name: Baixar e instalar o teste - Windows
-  ansible.windows.win_package:
-    path: http://ansiblefiles.sj.ifsc.edu.br/pl2303prolific.exe
-    arguments:
-      - /S
-      - /qn
-    product_id: '{ECC3713C-08A4-40E3-95F1-7D0704F1CE5E}'
-    state: present
   when: ansible_os_family == 'Windows'
