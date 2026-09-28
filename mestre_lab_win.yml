@@ -272,6 +272,7 @@
 - name: Laboratório de CAD2
   hosts: cad2_win
   roles:
+    - arduino
     - cade-simu
     - curso_automacao
     - sitradpro
