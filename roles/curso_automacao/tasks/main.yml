@@ -1,12 +1,25 @@
 #Windows
 
-- name: Baixar e instalar o openPLC - Windows
-  ansible.windows.win_package:
-    path: http://ansiblefiles.sj.ifsc.edu.br/OpenPLC.exe
-    arguments:
-      - /S
-    product_id: 'OpenPLC_Editor'
-    state: present
+- name: Baixar zip do openPLC - Windows
+  ansible.windows.win_get_url:
+    url: http://ansiblefiles.sj.ifsc.edu.br/OpenPLC.zip
+    dest: 'C:\instaladores\openplc.zip'
+    force: false
+    timeout: 300 # 5 minutos
+  when: ansible_os_family == 'Windows'
+
+- name: Extrai o OpenPLC - Windows
+  community.windows.win_unzip:
+    src: C:\instaladores\openplc.zip
+    dest: C:\Program Files\
+    creates: C:\Program Files\OpenPLC_Editor\
+  when: ansible_os_family == 'Windows'
+
+- name: Criando atalho para o OpenPLC
+  community.windows.win_shortcut:
+    src: C:\Program Files\OpenPLC_Editor\OpenPLC Editor.bat
+    dest: C:\Users\Public\Desktop\OpenPLC.lnk
+    icon: C:\Program Files\OpenPLC_Editor\brz.ico
   when: ansible_os_family == 'Windows'
 
 - name: Baixar e instalar o Elipse E3 - Windows
@@ -62,6 +75,13 @@
       - /SP-
     product_id: 'SG2 Client_is1'
     state: present
+  when: ansible_os_family == 'Windows'
+
+- name: Criando atalho para o sg2client
+  community.windows.win_shortcut:
+    src: C:\Program Files (x86)\TECO\SG2 Client\SG2 Client.exe
+    dest: C:\Users\Public\Desktop\SG2Client.lnk
+    icon: C:\Program Files (x86)\TECO\SG2 Client\SG2 Client.exe,0
   when: ansible_os_family == 'Windows'
 
 - name: Baixar o PL2303 Prolific - Windows
