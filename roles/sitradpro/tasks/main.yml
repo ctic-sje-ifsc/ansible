@@ -3,7 +3,7 @@
     path: http://ansiblefiles.sj.ifsc.edu.br/SitradProInstaller_1.8.35_x86_x64.exe
     arguments:
       - /quiet
-    # product_id: '{2427809E-E557-47DF-813D-22A52BC0E646}'
+    product_id: '{12E06935-2CBB-4015-A14E-648EB26F7279}'
     state: present
   when: ansible_os_family == 'Windows'
 
