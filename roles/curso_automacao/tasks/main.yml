@@ -1,4 +1,4 @@
-#Windows
+###### Windows
 
 - name: Baixar zip do openPLC - Windows
   ansible.windows.win_get_url:
@@ -65,13 +65,20 @@
 #     icon: C:\Program Files\rmms\modsim.exe,0
 #   when: ansible_os_family == 'Windows'
 
-- name: Instalar o modsim demo - Windows
+- name: Instalar o modsim demo slave - Windows
   ansible.windows.win_package:
     path: http://ansiblefiles.sj.ifsc.edu.br/modsim.exe
     arguments:
       - /S
     product_id: 'Elipse ModSim'
     state: present
+  when: ansible_os_family == 'Windows'
+
+- name: Criando atalho para o modsim slave
+  community.windows.win_shortcut:
+    src: C:\Program Files\Elipse Software\Elipse Modbus Simulator\ElipseModSim.exe
+    dest: C:\Users\Public\Desktop\modsimslave.lnk
+    icon: C:\Program Files\Elipse Software\Elipse Modbus Simulator\ElipseModSim.exe,0
   when: ansible_os_family == 'Windows'
 
 - name: Baixar e instalar o SG2Client - Windows
