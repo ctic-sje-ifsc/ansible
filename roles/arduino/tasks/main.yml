@@ -94,7 +94,7 @@
     creates: C:\Program Files\arduino-ide\
   when: ansible_os_family == 'Windows'
 
-- name: Criando atalho para o OpenPLC
+- name: Criando atalho para o Arduino IDE
   community.windows.win_shortcut:
     src: C:\Program Files\arduino-ide\arduino IDE.exe
     dest: C:\Users\Public\Desktop\arduino IDE.lnk
