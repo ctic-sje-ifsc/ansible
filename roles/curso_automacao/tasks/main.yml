@@ -8,25 +8,31 @@
 
 - name: Baixar zip do openPLC - Windows
   ansible.windows.win_get_url:
-    url: http://ansiblefiles.sj.ifsc.edu.br/OpenPLC.Editor_4.3.1.zip
-    dest: 'C:\instaladores\OpenPLC.Editor_4.3.1.zip'
+    url: http://ansiblefiles.sj.ifsc.edu.br/OpenPLC.Editor_4.2.10.zip
+    dest: 'C:\instaladores\OpenPLC.Editor_4.2.10.zip'
     force: false
     # timeout: 300 # 5 minutos
   when: ansible_os_family == 'Windows'
+  tags:
+    - openplc
 
 - name: Extrai o OpenPLC - Windows
   community.windows.win_unzip:
-    src: C:\instaladores\OpenPLC.Editor_4.3.1.zip
+    src: C:\instaladores\OpenPLC.Editor_4.2.10.zip
     dest: C:\Program Files\
-    creates: C:\Program Files\OpenPLC_Editor\
+    creates: C:\Program Files\OpenPLC.Editor_4.2.10
   when: ansible_os_family == 'Windows'
+  tags:
+    - openplc
 
 - name: Criando atalho para o OpenPLC
   community.windows.win_shortcut:
-    src: 'C:\Program Files\OpenPLC.Editor_4.3.1\OpenPLC Editor.exe'
+    src: 'C:\Program Files\OpenPLC.Editor_4.2.10\OpenPLC Editor.exe'
     dest: C:\Users\Public\Desktop\OpenPLC.lnk
-    icon: 'C:\Program Files\OpenPLC.Editor_4.3.1\OpenPLC Editor.exe,0'
+    icon: 'C:\Program Files\OpenPLC.Editor_4.2.10\OpenPLC Editor.exe,0'
   when: ansible_os_family == 'Windows'
+  tags:
+    - openplc
 
 
 - name: Baixar e instalar o Elipse E3 - Windows
