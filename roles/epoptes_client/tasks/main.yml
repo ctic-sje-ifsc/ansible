@@ -73,7 +73,7 @@
   ansible.builtin.lineinfile:
     regexp: "^SERVER"
     path: /etc/default/epoptes-client
-    line: "SERVER=sje-lin-info2-pe0f042e.maquinas.sj.ifsc.edu.br"
+    line: "SERVER=sje-lin-info2-944748.maquinas.sj.ifsc.edu.br"
     create: true
     mode: "0644"
   when: ansible_hostname is search("^sje-lin-info2")
@@ -82,7 +82,7 @@
   ansible.builtin.lineinfile:
     regexp: "^SERVER"
     path: /etc/default/epoptes-client
-    line: "SERVER=sje-lin-info3-pe0f09g3.maquinas.sj.ifsc.edu.br"
+    line: "SERVER=sje-lin-info3-944789.maquinas.sj.ifsc.edu.br"
     create: true
     mode: "0644"
   when: ansible_hostname is search("^sje-lin-info3")

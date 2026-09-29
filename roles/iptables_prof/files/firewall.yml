@@ -81,9 +81,9 @@
           {%- elif ansible_hostname.startswith("sje-lin-info-") -%}
             sje-lin-info-895203.maquinas.sj.ifsc.edu.br
           {%- elif ansible_hostname.startswith("sje-lin-info2") -%}
-            sje-lin-info2-pe0f042e.maquinas.sj.ifsc.edu.br
+            sje-lin-info2-944748.maquinas.sj.ifsc.edu.br
           {%- elif ansible_hostname.startswith("sje-lin-info3") -%}
-            sje-lin-info3-pe0f09g3.maquinas.sj.ifsc.edu.br
+            sje-lin-info3-944789.maquinas.sj.ifsc.edu.br
           {%- elif ansible_hostname.startswith("sje-lin-mtrans") -%}
             sje-lin-mtrans-926158.maquinas.sj.ifsc.edu.br
           {%- else -%}

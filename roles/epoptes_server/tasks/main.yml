@@ -80,7 +80,7 @@
     owner: root
     group: root
     mode: "0644"
-  when: (ansible_distribution == 'Debian' and ansible_hostname == 'sje-lin-info2-pe0f042e')
+  when: (ansible_distribution == 'Debian' and ansible_hostname == 'sje-lin-info2-944748')
   tags: epoptes_groups
 
 - name: Copia arquivo info3.json para máquina do professor
@@ -90,5 +90,5 @@
     owner: root
     group: root
     mode: "0644"
-  when: (ansible_distribution == 'Debian' and ansible_hostname == 'sje-lin-info3-pe0f09g3')
+  when: (ansible_distribution == 'Debian' and ansible_hostname == 'sje-lin-info3-944789')
   tags: epoptes_groups
