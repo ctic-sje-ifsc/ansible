@@ -12,7 +12,7 @@
     dest: /root/.ssh/id_rsa
     owner: root
     group: root
-    mode: '0400'
+    mode: "0400"
   when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-cad1-916082")
 
 ## CAD2
@@ -29,7 +29,7 @@
     dest: /root/.ssh/id_rsa
     owner: root
     group: root
-    mode: '0400'
+    mode: "0400"
   when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-cad2-905476")
 
 ## CAD3
@@ -46,7 +46,7 @@
     dest: /root/.ssh/id_rsa
     owner: root
     group: root
-    mode: '0400'
+    mode: "0400"
   when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-cad3-pe0ebngx")
 
 ## SIDI
@@ -63,7 +63,7 @@
     dest: /root/.ssh/id_rsa
     owner: root
     group: root
-    mode: '0400'
+    mode: "0400"
   when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-sidi-918545")
 
 ## REDES
@@ -80,7 +80,7 @@
     dest: /root/.ssh/id_rsa
     owner: root
     group: root
-    mode: '0400'
+    mode: "0400"
   when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-redes-906284")
 
 ## PROG
@@ -97,7 +97,7 @@
     dest: /root/.ssh/id_rsa
     owner: root
     group: root
-    mode: '0400'
+    mode: "0400"
   when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-prog-744523")
 
 ## Informática 1
@@ -114,7 +114,7 @@
     dest: /root/.ssh/id_rsa
     owner: root
     group: root
-    mode: '0400'
+    mode: "0400"
   when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-info-895203")
 
 ## Informática 2
@@ -131,8 +131,8 @@
     dest: /root/.ssh/id_ed25519
     owner: root
     group: root
-    mode: '0400'
-  when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-info2-pe0f042e")
+    mode: "0400"
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-info2-944748")
 
 - name: Faz link simbólico do /root/.ssh/id_ed25519 para /root/.ssh/id_rsa do Informática 2 - lINUX
   ansible.builtin.file:
@@ -141,8 +141,8 @@
     state: link
     owner: root
     group: root
-    mode: '0400'
-  when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-info2-pe0f042e")
+    mode: "0400"
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-info2-944748")
 
 ## Informática 3
 - name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys do Informática 3 - Linux
@@ -158,8 +158,8 @@
     dest: /root/.ssh/id_ed25519
     owner: root
     group: root
-    mode: '0400'
-  when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-info3-pe0f09g3")
+    mode: "0400"
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-info3-944789")
 
 - name: Faz link simbólico do /root/.ssh/id_ed25519 para /root/.ssh/id_rsa do Informática 3 - lINUX
   ansible.builtin.file:
@@ -168,8 +168,8 @@
     state: link
     owner: root
     group: root
-    mode: '0400'
-  when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-info3-pe0f09g3")
+    mode: "0400"
+  when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-info3-944789")
 
 ## Meios de transmissão
 - name: Adicionar entrada da chave pública no /root/.ssh/authorized_keys Meios de transmissão - Linux
@@ -185,7 +185,7 @@
     dest: /root/.ssh/id_rsa
     owner: root
     group: root
-    mode: '0400'
+    mode: "0400"
   when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-mtrans-926158")
 
 ## Comunicação sem fio
@@ -202,5 +202,5 @@
     dest: /root/.ssh/id_rsa
     owner: root
     group: root
-    mode: '0400'
+    mode: "0400"
   when: ansible_os_family == 'Debian' and ansible_hostname is search("sje-lin-csfio-744536")
