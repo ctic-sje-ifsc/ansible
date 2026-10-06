@@ -1,14 +1,12 @@
-- name: Remove idea softwares from flathub
-  community.general.flatpak:
-    name:
-      - com.jetbrains.IntelliJ-IDEA-Ultimate
+- name: Apaga /opt/ideaIU
+  ansible.builtin.file:
+    path: /opt/ideaIU
     state: absent
   when: ansible_os_family == 'Debian'
-  tags: jetbrains
 
 - name: Baixa e instala intellij-idea-ultimate
   ansible.builtin.unarchive:
-    src: http://ansiblefiles.sj.ifsc.edu.br/idea-2025.3.1.tar.gz
+    src: http://ansiblefiles.sj.ifsc.edu.br/idea-2026.2.3.tar.gz
     dest: /opt/
     remote_src: true
     creates: /opt/ideaIU/bin/idea
