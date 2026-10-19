@@ -490,6 +490,24 @@
   roles:
     - role: grub
       tipo: grub_lin
+  tasks:
+    - name: Instala pacotes para SNCT
+      ansible.builtin.apt:
+        update_cache: true
+        pkg:
+          - build-essential
+          - cmake
+          - pkg-config
+          - git
+          - libopencv-dev
+          - libsodium-dev
+          - expect
+          - python3-numpy
+          - python3-pandas
+          - python3-scipy
+          - python3-matplotlib
+      tags: snct
+      when: ansible_os_family == 'Debian'
 
 - name: Laboratório de CAD1, CAD2 e CAD3
   hosts: cad1_lin,cad2_lin,cad3_lin
