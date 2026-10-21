@@ -1,4 +1,5 @@
 dependencies:
+  - role: dconf
+  - role: docker
   - role: google_chrome
   - role: virtualbox
-  - role: docker
