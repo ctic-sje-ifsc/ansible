@@ -23,6 +23,28 @@
     - wireshark
 
   tasks:
+
+    - name: Cria /root/.ssh
+      ansible.builtin.file:
+        path: /root/.ssh
+        state: directory
+        mode: '0700'
+      when: ansible_os_family == 'Debian'
+      tags: authorized_keys
+
+    - name: Define autorized_keys para root
+      ansible.builtin.copy:
+        content: |
+          ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP2NXVaxGbofNfrmJfNUeYtWOajXEd04dCm+a9BhF4D1 85humberto@gmail.com
+          ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFGOHeVjiHPooD6mr1eeIIPJOcfa4L34UVIUw+AEX0V4 ricardo.ifsc@gmail.com
+          ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJIGR4KKnFauGNZ0+3K6xUnZTzd1+awtUCy/PatKQ/l2 davi.iahn@ifsc.edu.br
+          ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGI4CcgcLD3Tu4y0ikgtbO3MCT/cN4luR4rXy9SdQcis root@CTIC-monitoramento
+          ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJPxq9b43Z8J61wbyrT1yeYmrw3VDbw5OFYhukzXNslK root@CTIC-SemaphoreUI
+        dest: /root/.ssh/authorized_keys
+        mode: '0600'
+      when: ansible_os_family == 'Debian'
+      tags: authorized_keys
+
     - name: Instala utilitários para o bash
       ansible.builtin.apt:
         pkg:

@@ -22,7 +22,6 @@
     - glpi_agent
     - auto_desligamento
     - warsaw
-    #- foxit
     - java8-oracle
     - flatpak
     - google_chrome
@@ -30,8 +29,32 @@
       tipo: grub_soh_lin
 
   tasks:
+
+    - name: Cria /root/.ssh
+      ansible.builtin.file:
+        path: /root/.ssh
+        state: directory
+        mode: '0700'
+      when: ansible_os_family == 'Debian'
+      tags: authorized_keys
+
+    - name: Define autorized_keys para root
+      ansible.builtin.copy:
+        content: |
+          ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP2NXVaxGbofNfrmJfNUeYtWOajXEd04dCm+a9BhF4D1 85humberto@gmail.com
+          ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFGOHeVjiHPooD6mr1eeIIPJOcfa4L34UVIUw+AEX0V4 ricardo.ifsc@gmail.com
+          ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJIGR4KKnFauGNZ0+3K6xUnZTzd1+awtUCy/PatKQ/l2 davi.iahn@ifsc.edu.br
+          ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGI4CcgcLD3Tu4y0ikgtbO3MCT/cN4luR4rXy9SdQcis root@CTIC-monitoramento
+          ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJPxq9b43Z8J61wbyrT1yeYmrw3VDbw5OFYhukzXNslK root@CTIC-SemaphoreUI
+        dest: /root/.ssh/authorized_keys
+        mode: '0600'
+      when: ansible_os_family == 'Debian'
+      tags: authorized_keys
+
     - name: Upgrade the packages (apt full-upgrade)
       ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
         upgrade: full
       when: ansible_os_family == 'Debian'
 
@@ -43,6 +66,7 @@
     - name: Instala pacotes básicos - Linux
       ansible.builtin.apt:
         update_cache: true
+        cache_valid_time: 3600
         pkg:
           - apt-transport-https
           - aptitude
@@ -87,9 +111,6 @@
         pkg:
           - transmission
           - transmission-common
-          - linux-image-6.5.0-0.deb12.4-amd64
-          - linux-headers-6.5.0-0.deb12.4-amd64
-          - linux-headers-6.5.0-0.deb12.4-common
       when: ansible_os_family == 'Debian'
       tags: remove
 
