@@ -1,9 +1,10 @@
 - name: Administrativo Linux -salas
-  hosts: administrativos_lin,!sala,!note
+  hosts: administrativos_lin,!sala,!note,!financeiro,!sje-lin-patrim-38853.maquinas.sj.ifsc.edu.br,!sje-lin-almox-933436.maquinas.sj.ifsc.edu.br
   roles:
     - autenticacao_ldap
     - acesso_remoto
     - cadeia_certificados
+    - cups_client
     - token_assinador_serpro
     - token_gd_starsign
     - token_safenet
