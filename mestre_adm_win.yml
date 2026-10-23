@@ -74,3 +74,12 @@
   hosts: sje-des1-744935.maquinas.sj.ifsc.edu.br
   roles:
     - hfss
+
+- name: Máquina do professor Jesue
+  hosts: sje-mrac-703884.maquinas.sj.ifsc.edu.br
+  tasks:
+    - name: Instala o Pacotes para o professor Jesue
+      chocolatey.chocolatey.win_chocolatey:
+        name:
+          - obs
+      when: ansible_os_family == 'Windows'
