@@ -1,0 +1,4 @@
+- name: Playbook para rodar roles em computadores específicos.
+  hosts: note_depe
+  roles:
+    - aluno
