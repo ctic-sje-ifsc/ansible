@@ -13,7 +13,7 @@
 #     - name: Cria usuários para o IFSC-Terceirizados
 #       ansible.builtin.shell: "samba-tool user create {{ item.user }} {{ item.password }} --userou=OU=terceirizados && samba-tool user setexpiry --days=365 {{ item.user }}"
 #       loop:
-#         - { user: 12345678910, password: 87654321 }
+#         - { user: "12345678910", password: "87654321" }
 
 ######### Correção das máquinas virtuais ############
 # - hosts: laboratorios_lin
