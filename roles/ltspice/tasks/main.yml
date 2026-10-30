@@ -1,7 +1,7 @@
 ########## Linux ##########
 - name: Baixando e extraindo LTspice
   ansible.builtin.unarchive:
-    src: LTC.zip
+    src: http://ansiblefiles.sj.ifsc.edu.br/LTC.zip
     dest: /opt/
     creates: /opt/LTC/update
     owner: root
@@ -28,8 +28,8 @@
 
 ########## Windows ##########
 - name: Copia o arquivo de configuracao do LTSpice - Windows
-  ansible.windows.win_copy:
-    src: LTC.zip
+  ansible.windows.win_get_url:
+    url: http://ansiblefiles.sj.ifsc.edu.br/LTC.zip
     dest: C:\instaladores\LTC.zip
   when: ansible_os_family == 'Windows'
 
