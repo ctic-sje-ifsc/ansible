@@ -1,0 +1,22 @@
+- name: Cria pasta temporária
+  ansible.builtin.file:
+    path: /tmp/absolute
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  when: ansible_os_family == 'Debian'
+
+- name: Baixa absolute e extrai
+  ansible.builtin.unarchive:
+    src: http://ansiblefiles.sj.ifsc.edu.br/AbsoluteUbuntuX64CoreAgent-8004-187656.zip
+    dest: /tmp/absolute
+    remote_src: true
+    creates: /tmp/absolute/install.sh
+  when: ansible_os_family == 'Debian'
+
+- name: Instala absolute
+  ansible.builtin.shell: chmod +x /tmp/absolute/install.sh; /tmp/absolute/install.sh
+  args:
+    creates: /opt/absolute
+  when: ansible_os_family == 'Debian'
